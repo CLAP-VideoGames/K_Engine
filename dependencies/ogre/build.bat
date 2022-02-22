@@ -1,21 +1,21 @@
 @echo on
 
 :: Directory variables
-set SRC_DIR=".\src\"
-set BUILD_DIR=".\build\"
-set BUILD_SOL=".\build\OGRE.sln"
-set CMAKE_EXEC="..\cmake\bin\cmake.exe"
+set SRC_DIR=.\src\
+set BUILD_DIR=.\build\
+set BUILD_SOL=.\build\OGRE.sln
+set CMAKE_EXEC=..\cmake\bin\cmake.exe
 
 :: Make the build directory
-if exist %BUILD_DIR% goto done
+@REM if exist %BUILD_DIR% goto done
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 
 :: Generate the build
-%CMAKE_EXEC% -S src\ -B %BUILD_DIR%
+%CMAKE_EXEC% -S %SRC_DIR% -B %BUILD_DIR%
 
 :: Build library
-msbuild %BUILD_SOL% /p:configuration="Debug"
-msbuild %BUILD_SOL% /p:configuration="Release"
+msbuild %BUILD_SOL% /p:platform="x64" /p:configuration="Debug"
+msbuild %BUILD_SOL% /p:platform="x64" /p:configuration="Release" 
 goto end
 
 :: Confirmation message
