@@ -1,6 +1,6 @@
 @echo on
 
-:: Directory variables
+:: Batch variables
 set SRC_DIR=.\src\
 set BUILD_DIR=.\build\
 
@@ -40,6 +40,8 @@ echo "SDL2 compilado"
 goto end
 
 :done
+
+:: Confirmation message
 echo "OGRE y SDL2 ya compilado"
 
 :end
