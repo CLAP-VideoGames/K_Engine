@@ -3,4 +3,4 @@
 :: Directory variables
 set BUILD_DIR=.\build\
 
-if exist %BUILD_DIR% rmdir /S /Q %BUILD_DIR%
+if exist %BUILD_DIR% rmdir /s /q %BUILD_DIR%

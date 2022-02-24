@@ -14,13 +14,13 @@ set CMAKE_EXEC=..\cmake\bin\cmake.exe
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 
 :: Generate the build
-%CMAKE_EXEC% -DCMAKE_CONFIGURATION_TYPES:STRING="Debug;Release" ^
-             -DOGRE_BUILD_COMPONENT_BITES:BOOL="0" ^
-             -DOGRE_BUILD_SAMPLES:BOOL="0" ^
-             -DOGRE_INSTALL_SAMPLES:BOOL="0" ^
-             -DOGRE_BUILD_RTSHADERSYSTEM_SHADERS:BOOL="1" ^
-             -DOGRE_BUILD_COMPONENT_RTSHADERSYSTEM:BOOL="1" ^
-             -DOGRE_BUILD_PLUGIN_DOT_SCENE:BOOL="0" ^
+%CMAKE_EXEC% -D CMAKE_CONFIGURATION_TYPES:STRING="Debug;Release" ^
+             -D OGRE_BUILD_COMPONENT_BITES:BOOL="0" ^
+             -D OGRE_BUILD_SAMPLES:BOOL="0" ^
+             -D OGRE_INSTALL_SAMPLES:BOOL="0" ^
+             -D OGRE_BUILD_RTSHADERSYSTEM_SHADERS:BOOL="1" ^
+             -D OGRE_BUILD_COMPONENT_RTSHADERSYSTEM:BOOL="1" ^
+             -D OGRE_BUILD_PLUGIN_DOT_SCENE:BOOL="0" ^
              -S %SRC_DIR% -B %BUILD_DIR%
 
 :: Build OGRE library
