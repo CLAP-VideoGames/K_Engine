@@ -4,26 +4,30 @@ title Engine_Build_Reset
 
 :: Directory variables
 set CURRENT_DIR=%cd%
-set EXE_DIR=.\exe\
 
-set OGRE_BUILD_DIR=.\dependencies\ogre\
-set BULLET_BUILD_DIR=.\dependencies\bullet\
-set CEGUI_BUILD_DIR=.\dependencies\cegui\
+set OGRE_BUILD_DIR=.\dependencies\ogre\build\
+set BULLET_BUILD_DIR=.\dependencies\bullet\build\
+set CEGUI_BUILD_DIR=.\dependencies\cegui\build\
+set SDL_MIXER_BUILD_DIR=.\dependencies\cegui\build\
 
-:: Remove build OGRE and SDL2 library
-cd %OGRE_BUILD_DIR%
-call build_reset.bat
-cd %CURRENT_DIR%
+:: Remove all dependencies' builds
+echo Removing OGRE & SDL2 build...
+if exist %OGRE_BUILD_DIR% rmdir /s /q %OGRE_BUILD_DIR%
+echo OGRE & SDL2 build succesfully removed
 
-:: Remove OGRE dlls
-del .\exe\OgreMain_d.dll 1>NUL
-del .\exe\OgreMain.dll 1>NUL
-del .\exe\zlib.dll 1>NUL
-del .\exe\RenderSystem_GL_d.dll 1>NUL
-del .\exe\RenderSystem_GL.dll 1>NUL
-del .\exe\Codec_STBI.dll 1>NUL
-del .\exe\Codec_STBI_d.dll 1>NUL
+echo Removing Bullet build...
+if exist %BULLET_BUILD_DIR% rmdir /s /q %BULLET_BUILD_DIR%
+echo Bullet build succesfully removed
 
-:: Remove OGRE dlls
-del .\exe\SDL2d.dll 1>NUL
-del .\exe\SDL2.dll 1>NUL
+echo Removing CEGUI build...
+if exist %CEGUI_BUILD_DIR% rmdir /s /q %CEGUI_BUILD_DIR%
+echo CEGUI build succesfully removed
+
+echo Removing SDL_mixer build...
+if exist %SDL_MIXER_BUILD_DIR% rmdir /s /q %SDL_MIXER_BUILD_DIR%
+echo SDL_mixer build succesfully removed
+
+:: Remove all dynamic libraries
+echo Removing all dynamic libraries...
+del /s *.dll 1>nul
+echo Dynamic libraries build succesfully removed
