@@ -357,4 +357,3 @@ MigrationBackup/
 # New ignored files required for the project
 *.exe
 *.dll
-!./dependencies/cmake/bin/*.exe
