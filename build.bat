@@ -16,6 +16,10 @@ cd %OGRE_BUILD_DIR%
 call build.bat
 cd %CURRENT_DIR%
 
+cd %BULLET_BUILD_DIR%
+call build.bat
+cd %CURRENT_DIR%
+
 cd %SDL_MIXER_BUILD_DIR%
 call build.bat
 cd %CURRENT_DIR%
@@ -39,8 +43,8 @@ echo Copying SDL2 .dlls...
 copy .\dependencies\ogre\build\SDL2-build\Debug\SDL2d.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\SDL2-build\Release\SDL2.dll %EXE_DIR% 1>nul
 
-:: Move SDL_Mixer dlls
-copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer.dll %EXE_DIR% 1>nul
+echo SDL2 .dlls succesfully copied to engine
+
 :: Move SDL_Mixer .dlls
 echo Copying SDL_Mixer .dlls...
 
@@ -48,3 +52,9 @@ copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer.dll %EXE_DIR% 1>nul
 
 echo SDL_Mixer .dlls succesfully copied to engine
 
+:: Move FMOD .dlls
+echo Copying FMOD .dlls...
+
+copy .\dependencies\fmod\build\bin\fmod.dll %EXE_DIR% 1>nul
+
+echo FMOD .dlls succesfully copied to engine
