@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.0)
+cmake_minimum_required(VERSION 2.8.12)
 
 project(libmodplug)
 
@@ -8,7 +8,7 @@ option(BUILD_SHARED_LIBS "Build Shared Library (DLL)" OFF)
 option(EXPORT_CXX "Export C++ interface from library" ON)
 option(MIDIFMT_SUPPORT "Enable midi formats support" OFF)
 option(WAV_SUPPORT "Enable wav formats support" OFF)
-option(MMCMP_SUPPORT "Enable mmcmp and pp20 decompression support" OFF)
+option(MMCMP_SUPPORT "Enable mmcmp and pp20 decompression support" ON)
 
 add_definitions(-DMODPLUG_BUILD)
 if(MIDIFMT_SUPPORT)
@@ -112,6 +112,7 @@ add_library(modplug ${LIB_TYPE}
   src/load_dmf.cpp
   src/load_dsm.cpp
   src/load_far.cpp
+  src/load_gdm.cpp
   src/load_it.cpp
   src/load_mdl.cpp
   src/load_med.cpp
@@ -159,7 +160,12 @@ if (BUILD_SHARED_LIBS)
 endif()
 
 # install the library:
-install(TARGETS modplug DESTINATION lib)
+include (GNUInstallDirs)
+install(TARGETS modplug
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 # install the headers:
 install(FILES
@@ -167,18 +173,26 @@ install(FILES
   ${HEADERS_CXX}
 
   DESTINATION
-  include/libmodplug
+  ${CMAKE_INSTALL_INCLUDEDIR}/libmodplug
 )
 
-if (NOT WIN32)
-  set(prefix "${CMAKE_INSTALL_PREFIX}")
-  set(exec_prefix "${CMAKE_INSTALL_PREFIX}")
-  set(libdir "${CMAKE_INSTALL_PREFIX}/lib")
-  set(includedir "${CMAKE_INSTALL_PREFIX}/include")
+if (NOT MSVC)
+  if(MINGW OR CYGWIN)
+    set(LIBS_PRIVATE "-luser32 -lstdc++")
+  else()
+    set(LIBS_PRIVATE "-lstdc++")
+    if(MATH_LIB)
+      set(LIBS_PRIVATE "${LIBS_PRIVATE} -lm")
+    endif()
+  endif()
+  set(prefix ${CMAKE_INSTALL_PREFIX})
+  set(exec_prefix ${CMAKE_INSTALL_PREFIX})
+  set(libdir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+  set(includedir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR})
   configure_file(libmodplug.pc.in libmodplug.pc)
 
   # install pkg-config file:
   install(FILES "${PROJECT_BINARY_DIR}/libmodplug.pc"
-    DESTINATION lib/pkgconfig
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
   )
-endif (NOT WIN32)
+endif ()

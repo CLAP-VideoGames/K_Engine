@@ -1,6 +1,6 @@
 /*
   SDL_mixer:  An audio mixer library based on the SDL library
-  Copyright (C) 1997-2021 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2022 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -219,6 +219,17 @@ const char *Mix_GetMusicDecoder(int index)
         return NULL;
     }
     return(music_decoders[index]);
+}
+
+SDL_bool Mix_HasMusicDecoder(const char *name)
+{
+    int index;
+    for (index = 0; index < num_decoders; ++index) {
+        if (SDL_strcasecmp(name, music_decoders[index]) == 0) {
+                return SDL_TRUE;
+        }
+    }
+    return SDL_FALSE;
 }
 
 static void add_music_decoder(const char *decoder)
@@ -566,7 +577,7 @@ Mix_Music *Mix_LoadMUS(const char *file)
             /* Allocate memory for the music structure */
             Mix_Music *music = (Mix_Music *)SDL_calloc(1, sizeof(Mix_Music));
             if (music == NULL) {
-                Mix_SetError("Out of memory");
+                Mix_OutOfMemory();
                 return NULL;
             }
             music->interface = interface;
@@ -611,6 +622,7 @@ Mix_Music *Mix_LoadMUS(const char *file)
                     SDL_strcasecmp(ext, "DBM") == 0 ||
                     SDL_strcasecmp(ext, "DSM") == 0 ||
                     SDL_strcasecmp(ext, "FAR") == 0 ||
+                    SDL_strcasecmp(ext, "GDM") == 0 ||
                     SDL_strcasecmp(ext, "IT") == 0 ||
                     SDL_strcasecmp(ext, "MED") == 0 ||
                     SDL_strcasecmp(ext, "MDL") == 0 ||
@@ -676,7 +688,7 @@ Mix_Music *Mix_LoadMUSType_RW(SDL_RWops *src, Mix_MusicType type, int freesrc)
                 Mix_Music *music = (Mix_Music *)SDL_calloc(1, sizeof(Mix_Music));
                 if (music == NULL) {
                     interface->Delete(context);
-                    Mix_SetError("Out of memory");
+                    Mix_OutOfMemory();
                     return NULL;
                 }
                 music->interface = interface;
@@ -854,7 +866,7 @@ int Mix_FadeInMusicPos(Mix_Music *music, int loops, int ms, double position)
     int retval;
 
     if (ms_per_step == 0) {
-        SDL_SetError("Audio device hasn't been opened");
+        Mix_SetError("Audio device hasn't been opened");
         return(-1);
     }
 
@@ -1162,7 +1174,7 @@ int Mix_FadeOutMusic(int ms)
     int retval = 0;
 
     if (ms_per_step == 0) {
-        SDL_SetError("Audio device hasn't been opened");
+        Mix_SetError("Audio device hasn't been opened");
         return 0;
     }
 

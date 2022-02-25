@@ -1067,17 +1067,12 @@ _LT_EOF
       _lt_dar_allow_undefined='$wl-undefined ${wl}suppress' ;;
     darwin1.*)
       _lt_dar_allow_undefined='$wl-flat_namespace $wl-undefined ${wl}suppress' ;;
-    darwin*) # darwin 5.x on
-      # if running on 10.5 or later, the deployment target defaults
-      # to the OS version, if on x86, and 10.4, the deployment
-      # target defaults to 10.4. Don't you love it?
-      case ${MACOSX_DEPLOYMENT_TARGET-10.0},$host in
-	10.0,*86*-darwin8*|10.0,*-darwin[[91]]*)
-	  _lt_dar_allow_undefined='$wl-undefined ${wl}dynamic_lookup' ;;
-	10.[[012]][[,.]]*)
-	  _lt_dar_allow_undefined='$wl-flat_namespace $wl-undefined ${wl}suppress' ;;
-	10.*)
-	  _lt_dar_allow_undefined='$wl-undefined ${wl}dynamic_lookup' ;;
+    darwin*)
+      case ${MACOSX_DEPLOYMENT_TARGET},$host in
+        10.[[012]],*|,*powerpc*-darwin[[5-8]]*)
+          _lt_dar_allow_undefined='$wl-flat_namespace $wl-undefined ${wl}suppress' ;;
+        *)
+          _lt_dar_allow_undefined='$wl-undefined ${wl}dynamic_lookup' ;;
       esac
     ;;
   esac
@@ -1417,10 +1412,10 @@ s390*-*linux*|s390*-*tpf*|sparc*-*linux*)
 	  x86_64-*linux*)
 	    LD="${LD-ld} -m elf_x86_64"
 	    ;;
-	  powerpcle-*linux*)
+	  powerpcle-*linux*|powerpc64le-*linux*)
 	    LD="${LD-ld} -m elf64lppc"
 	    ;;
-	  powerpc-*linux*)
+	  powerpc-*linux*|powerpc64-*linux*)
 	    LD="${LD-ld} -m elf64ppc"
 	    ;;
 	  s390*-*linux*|s390*-*tpf*)
@@ -1714,7 +1709,7 @@ AC_CACHE_VAL([lt_cv_sys_max_cmd_len], [dnl
     lt_cv_sys_max_cmd_len=8192;
     ;;
 
-  bitrig* | darwin* | dragonfly* | freebsd* | netbsd* | openbsd*)
+  bitrig* | darwin* | dragonfly* | freebsd* | midnightbsd* | netbsd* | openbsd*)
     # This has been around since 386BSD, at least.  Likely further.
     if test -x /sbin/sysctl; then
       lt_cv_sys_max_cmd_len=`/sbin/sysctl -n kern.argmax`
@@ -2207,26 +2202,35 @@ m4_defun([_LT_CMD_STRIPLIB],
 striplib=
 old_striplib=
 AC_MSG_CHECKING([whether stripping libraries is possible])
-if test -n "$STRIP" && $STRIP -V 2>&1 | $GREP "GNU strip" >/dev/null; then
-  test -z "$old_striplib" && old_striplib="$STRIP --strip-debug"
-  test -z "$striplib" && striplib="$STRIP --strip-unneeded"
-  AC_MSG_RESULT([yes])
+if test -z "$STRIP"; then
+  AC_MSG_RESULT([no])
 else
-# FIXME - insert some real tests, host_os isn't really good enough
-  case $host_os in
-  darwin*)
-    if test -n "$STRIP"; then
+  if $STRIP -V 2>&1 | $GREP "GNU strip" >/dev/null; then
+    old_striplib="$STRIP --strip-debug"
+    striplib="$STRIP --strip-unneeded"
+    AC_MSG_RESULT([yes])
+  else
+    case $host_os in
+    darwin*)
+      # FIXME - insert some real tests, host_os isn't really good enough
       striplib="$STRIP -x"
       old_striplib="$STRIP -S"
       AC_MSG_RESULT([yes])
-    else
+      ;;
+    freebsd*)
+      if $STRIP -V 2>&1 | $GREP "elftoolchain" >/dev/null; then
+        old_striplib="$STRIP --strip-debug"
+        striplib="$STRIP --strip-unneeded"
+        AC_MSG_RESULT([yes])
+      else
+        AC_MSG_RESULT([no])
+      fi
+      ;;
+    *)
       AC_MSG_RESULT([no])
-    fi
-    ;;
-  *)
-    AC_MSG_RESULT([no])
-    ;;
-  esac
+      ;;
+    esac
+  fi
 fi
 _LT_DECL([], [old_striplib], [1], [Commands to strip libraries])
 _LT_DECL([], [striplib], [1])
@@ -2655,7 +2659,7 @@ dgux*)
   shlibpath_var=LD_LIBRARY_PATH
   ;;
 
-freebsd* | dragonfly*)
+freebsd* | dragonfly* | midnightbsd*)
   # DragonFly does not have aout.  When/if they implement a new
   # versioning mechanism, adjust this.
   if test -x /usr/bin/objformat; then
@@ -3491,7 +3495,7 @@ darwin* | rhapsody*)
   lt_cv_deplibs_check_method=pass_all
   ;;
 
-freebsd* | dragonfly*)
+freebsd* | dragonfly* | midnightbsd*)
   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
     case $host_cpu in
     i*86 )
@@ -3844,7 +3848,7 @@ AC_DEFUN([LT_LIB_M],
 [AC_REQUIRE([AC_CANONICAL_HOST])dnl
 LIBM=
 case $host in
-*-*-beos* | *-*-cegcc* | *-*-cygwin* | *-*-haiku* | *-*-pw32* | *-*-darwin*)
+*-*-beos* | *-*-cegcc* | *-*-cygwin* | *-*-haiku* | *-*-mingw* | *-*-pw32* | *-*-darwin*)
   # These system don't have libm, or don't need it
   ;;
 *-ncr-sysv4.3*)
@@ -3934,7 +3938,7 @@ osf*)
   symcode='[[BCDEGQRST]]'
   ;;
 solaris*)
-  symcode='[[BDRT]]'
+  symcode='[[BCDRT]]'
   ;;
 sco3.2v5*)
   symcode='[[DT]]'
@@ -4320,7 +4324,7 @@ m4_if([$1], [CXX], [
 	    ;;
 	esac
 	;;
-      freebsd* | dragonfly*)
+      freebsd* | dragonfly* | midnightbsd*)
 	# FreeBSD uses GNU C++
 	;;
       hpux9* | hpux10* | hpux11*)
@@ -4922,7 +4926,7 @@ m4_if([$1], [CXX], [
     if $NM -V 2>&1 | $GREP 'GNU' > /dev/null; then
       _LT_TAGVAR(export_symbols_cmds, $1)='$NM -Bpg $libobjs $convenience | awk '\''{ if (((\$ 2 == "T") || (\$ 2 == "D") || (\$ 2 == "B") || (\$ 2 == "W")) && ([substr](\$ 3,1,1) != ".")) { if (\$ 2 == "W") { print \$ 3 " weak" } else { print \$ 3 } } }'\'' | sort -u > $export_symbols'
     else
-      _LT_TAGVAR(export_symbols_cmds, $1)='`func_echo_all $NM | $SED -e '\''s/B\([[^B]]*\)$/P\1/'\''` -PCpgl $libobjs $convenience | awk '\''{ if (((\$ 2 == "T") || (\$ 2 == "D") || (\$ 2 == "B") || (\$ 2 == "W") || (\$ 2 == "V") || (\$ 2 == "Z")) && ([substr](\$ 1,1,1) != ".")) { if ((\$ 2 == "W") || (\$ 2 == "V") || (\$ 2 == "Z")) { print \$ 1 " weak" } else { print \$ 1 } } }'\'' | sort -u > $export_symbols'
+      _LT_TAGVAR(export_symbols_cmds, $1)='`func_echo_all $NM | $SED -e '\''s/B\([[^B]]*\)$/P\1/'\''` -PCpgl $libobjs $convenience | awk '\''{ if (((\$ 2 == "T") || (\$ 2 == "D") || (\$ 2 == "B") || (\$ 2 == "L") || (\$ 2 == "W") || (\$ 2 == "V") || (\$ 2 == "Z")) && ([substr](\$ 1,1,1) != ".")) { if ((\$ 2 == "W") || (\$ 2 == "V") || (\$ 2 == "Z")) { print \$ 1 " weak" } else { print \$ 1 } } }'\'' | sort -u > $export_symbols'
     fi
     ;;
   pw32*)
@@ -5047,7 +5051,7 @@ dnl Note also adjust exclude_expsyms for C++ above.
       _LT_TAGVAR(whole_archive_flag_spec, $1)=
     fi
     supports_anon_versioning=no
-    case `$LD -v | $SED -e 's/([^)]\+)\s\+//' 2>&1` in
+    case `$LD -v | $SED -e 's/([[^)]]\+)\s\+//' 2>&1` in
       *GNU\ gold*) supports_anon_versioning=yes ;;
       *\ [[01]].* | *\ 2.[[0-9]].* | *\ 2.10.*) ;; # catch versions < 2.11
       *\ 2.11.93.0.2\ *) supports_anon_versioning=yes ;; # RH7.3 ...
@@ -5157,8 +5161,9 @@ _LT_EOF
 	cat $export_symbols | $prefix_cmds >> $output_objdir/$libname.def~
 	$CC -Zdll -Zcrtdll -o $output_objdir/$soname $libobjs $deplibs $compiler_flags $output_objdir/$libname.def~
 	emximp -o $lib $output_objdir/$libname.def'
-      _LT_TAGVAR(old_archive_From_new_cmds, $1)='emximp -o $output_objdir/${libname}_dll.a $output_objdir/$libname.def'
+      _LT_TAGVAR(old_archive_from_new_cmds, $1)='emximp -o $output_objdir/${libname}_dll.a $output_objdir/$libname.def'
       _LT_TAGVAR(enable_shared_with_static_runtimes, $1)=yes
+      _LT_TAGVAR(file_list_spec, $1)='@'
       ;;
 
     interix[[3-9]]*)
@@ -5376,7 +5381,7 @@ _LT_EOF
 	if $NM -V 2>&1 | $GREP 'GNU' > /dev/null; then
 	  _LT_TAGVAR(export_symbols_cmds, $1)='$NM -Bpg $libobjs $convenience | awk '\''{ if (((\$ 2 == "T") || (\$ 2 == "D") || (\$ 2 == "B") || (\$ 2 == "W")) && ([substr](\$ 3,1,1) != ".")) { if (\$ 2 == "W") { print \$ 3 " weak" } else { print \$ 3 } } }'\'' | sort -u > $export_symbols'
 	else
-	  _LT_TAGVAR(export_symbols_cmds, $1)='`func_echo_all $NM | $SED -e '\''s/B\([[^B]]*\)$/P\1/'\''` -PCpgl $libobjs $convenience | awk '\''{ if (((\$ 2 == "T") || (\$ 2 == "D") || (\$ 2 == "B") || (\$ 2 == "W") || (\$ 2 == "V") || (\$ 2 == "Z")) && ([substr](\$ 1,1,1) != ".")) { if ((\$ 2 == "W") || (\$ 2 == "V") || (\$ 2 == "Z")) { print \$ 1 " weak" } else { print \$ 1 } } }'\'' | sort -u > $export_symbols'
+	  _LT_TAGVAR(export_symbols_cmds, $1)='`func_echo_all $NM | $SED -e '\''s/B\([[^B]]*\)$/P\1/'\''` -PCpgl $libobjs $convenience | awk '\''{ if (((\$ 2 == "T") || (\$ 2 == "D") || (\$ 2 == "B") || (\$ 2 == "L") || (\$ 2 == "W") || (\$ 2 == "V") || (\$ 2 == "Z")) && ([substr](\$ 1,1,1) != ".")) { if ((\$ 2 == "W") || (\$ 2 == "V") || (\$ 2 == "Z")) { print \$ 1 " weak" } else { print \$ 1 } } }'\'' | sort -u > $export_symbols'
 	fi
 	aix_use_runtimelinking=no
 
@@ -5653,7 +5658,7 @@ _LT_EOF
       ;;
 
     # FreeBSD 3 and greater uses gcc -shared to do shared libraries.
-    freebsd* | dragonfly*)
+    freebsd* | dragonfly* | midnightbsd*)
       _LT_TAGVAR(archive_cmds, $1)='$CC -shared $pic_flag -o $lib $libobjs $deplibs $compiler_flags'
       _LT_TAGVAR(hardcode_libdir_flag_spec, $1)='-R$libdir'
       _LT_TAGVAR(hardcode_direct, $1)=yes
@@ -5862,8 +5867,9 @@ _LT_EOF
 	cat $export_symbols | $prefix_cmds >> $output_objdir/$libname.def~
 	$CC -Zdll -Zcrtdll -o $output_objdir/$soname $libobjs $deplibs $compiler_flags $output_objdir/$libname.def~
 	emximp -o $lib $output_objdir/$libname.def'
-      _LT_TAGVAR(old_archive_From_new_cmds, $1)='emximp -o $output_objdir/${libname}_dll.a $output_objdir/$libname.def'
+      _LT_TAGVAR(old_archive_from_new_cmds, $1)='emximp -o $output_objdir/${libname}_dll.a $output_objdir/$libname.def'
       _LT_TAGVAR(enable_shared_with_static_runtimes, $1)=yes
+      _LT_TAGVAR(file_list_spec, $1)='@'
       ;;
 
     osf3*)
@@ -6731,8 +6737,9 @@ if test yes != "$_lt_caught_CXX_error"; then
 	  cat $export_symbols | $prefix_cmds >> $output_objdir/$libname.def~
 	  $CC -Zdll -Zcrtdll -o $output_objdir/$soname $libobjs $deplibs $compiler_flags $output_objdir/$libname.def~
 	  emximp -o $lib $output_objdir/$libname.def'
-	_LT_TAGVAR(old_archive_From_new_cmds, $1)='emximp -o $output_objdir/${libname}_dll.a $output_objdir/$libname.def'
+	_LT_TAGVAR(old_archive_from_new_cmds, $1)='emximp -o $output_objdir/${libname}_dll.a $output_objdir/$libname.def'
 	_LT_TAGVAR(enable_shared_with_static_runtimes, $1)=yes
+	_LT_TAGVAR(file_list_spec, $1)='@'
 	;;
 
       dgux*)
@@ -6763,7 +6770,7 @@ if test yes != "$_lt_caught_CXX_error"; then
         _LT_TAGVAR(archive_cmds_need_lc, $1)=no
         ;;
 
-      freebsd* | dragonfly*)
+      freebsd* | dragonfly* | midnightbsd*)
         # FreeBSD 3 and later use GNU C++ and GNU ld with standard ELF
         # conventions
         _LT_TAGVAR(ld_shlibs, $1)=yes
@@ -7537,8 +7544,9 @@ if AC_TRY_EVAL(ac_compile); then
     -L* | -R* | -l*)
        # Some compilers place space between "-{L,R}" and the path.
        # Remove the space.
-       if test x-L = "$p" ||
-          test x-R = "$p"; then
+       if test x-L = "x$p" ||
+          test x-R = "x$p" ||
+          test x-l = "x$p"; then
 	 prev=$p
 	 continue
        fi
