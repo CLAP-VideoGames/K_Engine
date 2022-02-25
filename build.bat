@@ -30,7 +30,8 @@ copy .\dependencies\ogre\build\bin\release\Codec_STBI.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\debug\Codec_STBI_d.dll %EXE_DIR% 1>nul
 
 :: Move SDL2 dlls
-copy .\dependencies\Ogre\build\SDL2-build\Debug\SDL2d.dll %EXE_DIR% 1>nul
-copy .\dependencies\Ogre\build\SDL2-build\Release\SDL2.dll %EXE_DIR% 1>nul
+copy .\dependencies\ogre\build\SDL2-build\Debug\SDL2d.dll %EXE_DIR% 1>nul
+copy .\dependencies\ogre\build\SDL2-build\Release\SDL2.dll %EXE_DIR% 1>nul
 
 :: Move SDL_Mixer dlls
+copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer.dll %EXE_DIR% 1>nul
