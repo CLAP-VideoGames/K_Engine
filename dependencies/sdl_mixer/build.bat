@@ -8,6 +8,7 @@ set SDL_MIXER_BUILD_SOL=.\build\SDL2_mixer.sln
 
 set CMAKE_EXEC=..\cmake\bin\cmake.exe
 
+:: why ;-;
 cd ..
 set ABSOLUTE_PATH=%cd%
 cd .\sdl_mixer\
@@ -32,6 +33,7 @@ echo SDL_mixer build succesfully generated
 :: Build OGRE library
 echo Compiling SDL_mixer library...
 
+:: same dll ???
 msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 @REM msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release :: same dll
 

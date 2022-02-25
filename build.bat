@@ -20,7 +20,9 @@ cd %SDL_MIXER_BUILD_DIR%
 call build.bat
 cd %CURRENT_DIR%
 
-:: Move OGRE dlls
+:: Move OGRE .dlls
+echo Copying OGRE .dlls...
+
 copy .\dependencies\ogre\build\bin\debug\OgreMain_d.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\OgreMain.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\zlib.dll %EXE_DIR% 1>nul
@@ -29,9 +31,20 @@ copy .\dependencies\ogre\build\bin\release\RenderSystem_GL.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\Codec_STBI.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\debug\Codec_STBI_d.dll %EXE_DIR% 1>nul
 
-:: Move SDL2 dlls
+echo OGRE .dlls succesfully copied to engine
+
+:: Move SDL2 .dlls
+echo Copying SDL2 .dlls...
+
 copy .\dependencies\ogre\build\SDL2-build\Debug\SDL2d.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\SDL2-build\Release\SDL2.dll %EXE_DIR% 1>nul
 
 :: Move SDL_Mixer dlls
 copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer.dll %EXE_DIR% 1>nul
+:: Move SDL_Mixer .dlls
+echo Copying SDL_Mixer .dlls...
+
+copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer.dll %EXE_DIR% 1>nul
+
+echo SDL_Mixer .dlls succesfully copied to engine
+

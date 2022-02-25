@@ -17,7 +17,6 @@ if exist %OGRE_BUILD_SOL% goto done
 echo Generating OGRE & SDL2 build...
 
 %CMAKE_EXEC% -D CMAKE_CONFIGURATION_TYPES:STRING=Debug;Release ^
-             -D DCMAKE_CONFIGURATION_TYPES:STRING=Debug;Release ^
              -D OGRE_BUILD_COMPONENT_BITES:BOOL=0 ^
              -D OGRE_BUILD_PLUGIN_DOT_SCENE:BOOL=0 ^
              -D OGRE_BUILD_RENDERSYSTEM_D3D11:BOOL=0 ^
@@ -43,8 +42,8 @@ echo OGRE library compiled
 :: Build SDL2 library
 echo Compiling SDL2 library...
 
-msbuild %SDL2_BUILD_SOL% /p:platform=x64 /p:configuration=Debug
-msbuild %SDL2_BUILD_SOL% /p:platform=x64 /p:configuration=Release 
+msbuild %SDL2_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
+msbuild %SDL2_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release 
 
 echo SDL2 library compiled
 
