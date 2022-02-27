@@ -36,43 +36,43 @@ cd %CURRENT_WORKING_DIR%
 :: Move OGRE .dlls
 echo Copying OGRE .dlls...
 
-copy .\dependencies\ogre\build\bin\debug\OgreMain_d.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\bin\release\OgreMain.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\bin\debug\RenderSystem_GL_d.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\bin\release\RenderSystem_GL.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\bin\release\Codec_STBI.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\bin\debug\Codec_STBI_d.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\bin\release\zlib.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\bin\debug\OgreMain_d.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\bin\release\OgreMain.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\bin\debug\RenderSystem_GL_d.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\bin\release\RenderSystem_GL.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\bin\release\Codec_STBI.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\bin\debug\Codec_STBI_d.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\bin\release\zlib.dll %EXE_DIR% 1>nul
 
 echo OGRE .dlls succesfully copied to engine
 
 :: Move SDL2 .dlls
 echo Copying SDL2 .dlls...
 
-copy .\dependencies\ogre\build\SDL2-build\Debug\SDL2d.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\SDL2-build\Release\SDL2.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\SDL2-build\Debug\SDL2d.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\ogre\build\SDL2-build\Release\SDL2.dll %EXE_DIR% 1>nul
 
 echo SDL2 .dlls succesfully copied to engine
 
 :: Move SDL_Mixer .dlls
 echo Copying SDL_Mixer .dlls...
 
-copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer.dll %EXE_DIR% 1>nul
 
 echo SDL_Mixer .dlls succesfully copied to engine
 
 :: Move FMOD .dlls
 echo Copying FMOD .dlls...
 
-copy .\dependencies\fmod\build\bin\fmod.dll %EXE_DIR% 1>nul
-copy .\dependencies\fmod\build\bin\fmodL.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\fmod\build\bin\fmod.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\fmod\build\bin\fmodL.dll %EXE_DIR% 1>nul
 
 echo FMOD .dlls succesfully copied to engine
 
 :: Move Lua .dlls
 echo Copying Lua .dlls...
 
-copy .\dependencies\lua\sol\bin\Debug\lua.dll %EXE_DIR% 1>nul
-@REM copy .\dependencies\lua\sol\bin\Release\lua.dll %EXE_DIR% 1>nul
+xcopy .\dependencies\lua\sol\bin\Debug\lua.dll %EXE_DIR% 1>nul
+@REM xcopy .\dependencies\lua\sol\bin\Release\lua.dll %EXE_DIR% 1>nul
 
 echo Lua .dlls succesfully copied to engine

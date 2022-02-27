@@ -12,9 +12,9 @@ set SDL_MIXER_BUILD_DIR=.\dependencies\cegui\build\
 set LUA_BUILD_DIR=.\dependencies\lua\sol\bin\
 
 :: Remove all dependencies' builds
-echo Removing OGRE & SDL2 build...
+echo Removing OGRE and SDL2 build...
 if exist %OGRE_BUILD_DIR% rmdir /s /q %OGRE_BUILD_DIR%
-echo OGRE & SDL2 build succesfully removed
+echo OGRE and SDL2 build succesfully removed
 
 echo Removing Bullet build...
 if exist %BULLET_BUILD_DIR% rmdir /s /q %BULLET_BUILD_DIR%
@@ -34,5 +34,5 @@ echo Lua build succesfully removed
 
 :: Remove all dynamic libraries
 echo Removing all dynamic libraries...
-del /s *.dll 1>nul
+del /s ./exe/*.dll 1>nul
 echo Dynamic libraries build succesfully removed
