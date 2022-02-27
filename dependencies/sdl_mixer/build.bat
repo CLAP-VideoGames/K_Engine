@@ -1,6 +1,10 @@
 @echo off
 
 :: Batch variables
+:: why ;-;
+cd ..
+set DEPENDENCY_ABSOLUTE_PATH=%cd%
+
 set SRC_DIR=.\src\
 set BUILD_DIR=.\build\
 
@@ -8,13 +12,10 @@ set SDL_MIXER_BUILD_SOL=.\build\SDL2_mixer.sln
 
 set CMAKE_EXEC=..\cmake\bin\cmake.exe
 
-:: why ;-;
-cd ..
-set ABSOLUTE_PATH=%cd%
-cd .\sdl_mixer\
-set SDL2_DEPENDENCY=%ABSOLUTE_PATH%\ogre\build\Dependencies\cmake\
+set SDL2_DEPENDENCY_PATH=%DEPENDENCY_ABSOLUTE_PATH%\ogre\build\Dependencies\cmake\
 
 :: Make the build directory
+cd .\sdl_mixer\
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 if exist %SDL_MIXER_BUILD_SOL% goto done
 

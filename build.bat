@@ -3,26 +3,35 @@
 title Engine_Build
 
 :: Directory variables
-set CURRENT_DIR=%cd%
+set CURRENT_WORKING_DIR=%cd%
 set EXE_DIR=.\exe\
 
 set OGRE_BUILD_DIR=.\dependencies\ogre\
 set BULLET_BUILD_DIR=.\dependencies\bullet\
 set CEGUI_BUILD_DIR=.\dependencies\cegui\
 set SDL_MIXER_BUILD_DIR=.\dependencies\sdl_mixer\
+set LUA_BUILD_DIR=.\dependencies\sdl_mixer\
 
 :: Build OGRE and SDL2 library
 cd %OGRE_BUILD_DIR%
 call build.bat
-cd %CURRENT_DIR%
+cd %CURRENT_WORKING_DIR%
 
 cd %BULLET_BUILD_DIR%
 call build.bat
-cd %CURRENT_DIR%
+cd %CURRENT_WORKING_DIR%
+
+cd %CEGUI_BUILD_DIR%
+call build.bat
+cd %CURRENT_WORKING_DIR%
 
 cd %SDL_MIXER_BUILD_DIR%
 call build.bat
-cd %CURRENT_DIR%
+cd %CURRENT_WORKING_DIR%
+
+cd %LUA_BUILD_DIR%
+call build.bat
+cd %CURRENT_WORKING_DIR%
 
 :: Move OGRE .dlls
 echo Copying OGRE .dlls...
