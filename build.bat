@@ -10,7 +10,7 @@ set OGRE_BUILD_DIR=.\dependencies\ogre\
 set BULLET_BUILD_DIR=.\dependencies\bullet\
 set CEGUI_BUILD_DIR=.\dependencies\cegui\
 set SDL_MIXER_BUILD_DIR=.\dependencies\sdl_mixer\
-set LUA_BUILD_DIR=.\dependencies\sdl_mixer\
+set LUA_BUILD_DIR=.\dependencies\lua\
 
 :: Build OGRE and SDL2 library
 cd %OGRE_BUILD_DIR%
@@ -68,3 +68,11 @@ copy .\dependencies\fmod\build\bin\fmod.dll %EXE_DIR% 1>nul
 copy .\dependencies\fmod\build\bin\fmodL.dll %EXE_DIR% 1>nul
 
 echo FMOD .dlls succesfully copied to engine
+
+:: Move Lua .dlls
+echo Copying Lua .dlls...
+
+copy .\dependencies\lua\sol\bin\Debug\lua.dll %EXE_DIR% 1>nul
+@REM copy .\dependencies\lua\sol\bin\Release\lua.dll %EXE_DIR% 1>nul
+
+echo Lua .dlls succesfully copied to engine
