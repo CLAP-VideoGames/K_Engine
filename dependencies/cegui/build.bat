@@ -30,7 +30,6 @@ if exist %CEGUI_BUILD_SOL% goto done
 
 :: Generate the build
 echo Generating CEGUI build...
-echo %cd%%CMAKE_EXE%
 
 %CMAKE_EXE% -S %SRC_DIR% -B %BUILD_DIR% ^
             -D CMAKE_CONFIGURATION_TYPES:STRING=Debug;Release ^
