@@ -15,6 +15,9 @@ set CEGUI_CONFIG_PATH=.\build\cegui\include\CEGUI\Config.h
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 if exist %CEGUI_DEPEN_BUILD_SOL% goto done
 
+:: Generate the build
+echo Generating CEGUI dependencies build...
+
 %CMAKE_EXEC% -D CMAKE_CONFIGURATION_TYPES:STRING=Debug;Release ^
              -D CEGUI_BUILD_DEVIL:BOOL="1" ^
              -D CEGUI_BUILD_EXPAT:BOOL="1" ^
@@ -25,7 +28,9 @@ if exist %CEGUI_DEPEN_BUILD_SOL% goto done
              -D CEGUI_BUILD_LUA:BOOL="0" ^
              -D CEGUI_BUILD_PCRE:BOOL="1" ^
              -D CEGUI_BUILD_SILLY:BOOL="1" ^
-             -S D:\Game_Dev\Projects\VS-VSC\C++\P3\Repositories\K_Engine\dependencies\cegui\src -B %BUILD_DIR%
+             -S %SRC_DIR% -B %BUILD_DIR%
+
+echo CEGUI dependencies build succesfully generated
 
 :: Build CEGUI dependencies
 echo Compiling CEGUI dependencies...
