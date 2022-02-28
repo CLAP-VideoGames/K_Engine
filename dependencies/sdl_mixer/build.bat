@@ -23,7 +23,7 @@ if exist %SDL_MIXER_BUILD_SOL% goto done
 echo Generating SDL_mixer build...
 
 %CMAKE_EXEC% -D CMAKE_CONFIGURATION_TYPES:STRING=Debug;Release ^
-             -D SDL2_DIR:STRING=%SDL2_DEPENDENCY% ^
+             -D SDL2_DIR:STRING=%SDL2_DEPENDENCY_PATH% ^
              -D SUPPORT_MP3_MPG123:BOOL="1" ^
              -D SUPPORT_OGG:BOOL="1" ^
              -D SUPPORT_WAV:BOOL="1" ^

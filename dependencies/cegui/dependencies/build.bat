@@ -25,7 +25,7 @@ if exist %CEGUI_DEPEN_BUILD_SOL% goto done
              -D CEGUI_BUILD_LUA:BOOL="0" ^
              -D CEGUI_BUILD_PCRE:BOOL="1" ^
              -D CEGUI_BUILD_SILLY:BOOL="1" ^
-             -S %SRC_DIR% -B %BUILD_DIR%
+             -S D:\Game_Dev\Projects\VS-VSC\C++\P3\Repositories\K_Engine\dependencies\cegui\src -B %BUILD_DIR%
 
 :: Build CEGUI dependencies
 echo Compiling CEGUI dependencies...
