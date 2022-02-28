@@ -353,7 +353,10 @@ MigrationBackup/
 # New ignored folders required for the project
 [Bb]uild/
 [Tt]emp/
+[Ll]ib/
+dependencies/cegui/src/dependencies/
 
 # New ignored files required for the project
 *.exe
 *.dll
+*.lib
