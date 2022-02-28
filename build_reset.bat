@@ -41,5 +41,5 @@ echo Lua build succesfully removed
 
 :: Remove all dynamic libraries
 echo Removing all dynamic libraries...
-del /s ./exe/*.dll 1>nul
+del /s .\exe\*.dll 1>nul
 echo Dynamic libraries build succesfully removed
