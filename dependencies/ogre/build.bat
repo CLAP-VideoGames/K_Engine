@@ -14,7 +14,7 @@ if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 if exist %OGRE_BUILD_SOL% goto done
 
 :: Generate the build
-echo Generating OGRE & SDL2 build...
+echo Generating OGRE and SDL2 build...
 
 %CMAKE_EXEC% -D CMAKE_CONFIGURATION_TYPES:STRING=Debug;Release ^
              -D OGRE_BUILD_COMPONENT_BITES:BOOL=0 ^
@@ -29,7 +29,7 @@ echo Generating OGRE & SDL2 build...
              -D OGRE_INSTALL_SAMPLES:BOOL=0 ^
              -S %SRC_DIR% -B %BUILD_DIR%
 
-echo OGRE & SDL2 build succesfully generated
+echo OGRE and SDL2 build succesfully generated
 
 :: Build OGRE library
 echo Compiling OGRE library...
@@ -52,6 +52,6 @@ goto end
 :done
 
 :: Confirmation message
-echo OGRE & SDL2 already built and compiled
+echo OGRE and SDL2 already built and compiled
 
 :end
