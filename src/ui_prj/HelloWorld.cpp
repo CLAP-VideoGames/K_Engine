@@ -25,7 +25,7 @@
  *   OTHER DEALINGS IN THE SOFTWARE.
  ***************************************************************************/
 #include "HelloWorld.h"
-#include "CEGUI/CEGUI.h"
+#include "CEGUI.h"
 
 #include <iostream>
 
