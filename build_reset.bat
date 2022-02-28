@@ -10,7 +10,7 @@ set BULLET_BUILD_DIR=.\dependencies\bullet\build\
 set CEGUI_BUILD_DIR=.\dependencies\cegui\build\
 set CEGUI_SRC_DEP_BUILD_DIR=.\dependencies\cegui\src\dependencies\
 set CEGUI_DEP_BUILD_DIR=.\dependencies\cegui\dependencies\build\
-set SDL_MIXER_BUILD_DIR=.\dependencies\cegui\build\
+set SDL_MIXER_BUILD_DIR=.\dependencies\sdl_mixer\build\
 set LUA_BUILD_DIR=.\dependencies\lua\sol\bin\
 
 :: Remove all dependencies' builds
