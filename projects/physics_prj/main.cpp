@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
 
 		btTransform groundTransform;
 		groundTransform.setIdentity();
-		groundTransform.setOrigin(btVector3(0, -56, 0));
+		groundTransform.setOrigin(btVector3(0, -10, 0));
 
 		btScalar mass(0.);
 
@@ -106,8 +106,9 @@ int main(int argc, char** argv) {
 		dynamicsWorld->addRigidBody(body);
 	}
 
-	/// Do some simulation
 
+	/// Do some simulation
+	
 	///-----stepsimulation_start-----
 	for (i = 0; i < 150; i++)
 	{
@@ -129,6 +130,8 @@ int main(int argc, char** argv) {
 			}
 			printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 		}
+
+		system("CLS");
 	}
 
 	///-----stepsimulation_end-----
