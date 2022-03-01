@@ -15,15 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsExample.cpp">
+    <ClCompile Include="..\..\src\physics_prj\PhysicsExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PhysicsExample.h">
+    <ClInclude Include="..\..\src\physics_prj\PhysicsExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
