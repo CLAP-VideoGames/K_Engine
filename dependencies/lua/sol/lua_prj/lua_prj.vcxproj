@@ -200,6 +200,7 @@
     <ClInclude Include="..\..\src\src\lstring.h" />
     <ClInclude Include="..\..\src\src\ltable.h" />
     <ClInclude Include="..\..\src\src\ltm.h" />
+    <ClInclude Include="..\..\src\src\lua.h" />
     <ClInclude Include="..\..\src\src\luaconf.h" />
     <ClInclude Include="..\..\src\src\lualib.h" />
     <ClInclude Include="..\..\src\src\lundump.h" />

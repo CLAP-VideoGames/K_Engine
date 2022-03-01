@@ -191,5 +191,8 @@
     <ClInclude Include="..\..\src\src\lzio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\src\lua.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
