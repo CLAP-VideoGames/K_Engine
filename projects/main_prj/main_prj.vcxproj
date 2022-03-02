@@ -72,15 +72,27 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)exe\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>engine_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)exe\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>engine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)exe\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>engine_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)exe\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>engine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -88,11 +100,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.20\include;$(SolutionDir)dependencies\ogre\build\SDL2-build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\physics_prj\Debug; $(SolutionDir)lib\render_prj\Debug; </AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics_d.lib;render_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -103,13 +117,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.20\include;$(SolutionDir)dependencies\ogre\build\SDL2-build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\physics_prj\Release; $(SolutionDir)lib\render_prj\Release; </AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics.lib;render.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,13 +134,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.20\include;$(SolutionDir)dependencies\ogre\build\SDL2-build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\physics_prj\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics_prj_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\physics_prj\Debug; $(SolutionDir)lib\render_prj\Debug; </AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics_d.lib;render_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,20 +151,23 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.20\include;$(SolutionDir)dependencies\ogre\build\SDL2-build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\physics_prj\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics_prj.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\physics_prj\Release; $(SolutionDir)lib\render_prj\Release; </AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics.lib;render.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\physics_prj\physics_prj.vcxproj">
       <Project>{2e4034b9-ad29-44c6-8f44-9b90c6e64e6c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\render_prj\render_prj.vcxproj">
+      <Project>{3cdee0e0-bdc9-49de-ba43-3ad704f5537b}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

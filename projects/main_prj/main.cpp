@@ -1,15 +1,24 @@
 
 
 #include <stdio.h>
+#include <iostream>
 #include <physics_prj/PhysicsExample.h>
+#include <render_prj/RenderExample.h>
 
 int main(int argc, char** argv) {
-	
-	PhysicsExample* example = new PhysicsExample({0, -9.8, 0});
+	try {
+		RenderExample* rExample = new RenderExample();
 
-	example->Update();
+		PhysicsExample* example = new PhysicsExample({ 0, -9.8, 0 });
 
-	delete example;
-	
+		example->Update();
+
+		delete example;
+		delete rExample;
+	}
+	catch (Exception e) {
+		std::cout << e.what();
+	}
+
 	return 0;
 }
