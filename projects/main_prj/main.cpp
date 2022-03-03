@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <iostream>
+
 #include <physics_prj/PhysicsExample.h>
 #include <render_prj/RenderExample.h>
 
@@ -16,8 +17,8 @@ int main(int argc, char** argv) {
 		delete example;
 		delete rExample;
 	}
-	catch (Exception e) {
-		std::cout << e.what();
+	catch (Ogre::Exception& e) {
+		Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
 	}
 
 	return 0;

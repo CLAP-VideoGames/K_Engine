@@ -5,30 +5,29 @@
 
 using namespace Ogre;
 
+class SDL_Window;
+
 class RenderExample
 {
 public:
 	RenderExample();
 	~RenderExample() {};
 
-	void initRoot();
 	bool update();
 	void exampleScene();
 
 private:
 	Ogre::Root* mRoot;
-	Ogre::String mResourcesCfgPath;
-	Ogre::String mPluginsCfgPath;
 
-	Ogre::RenderWindow* mWindow;
+	SDL_Window* mSDLWin;
+	Ogre::RenderWindow* mRenderWin;
+
 	Ogre::SceneManager* mSceneMgr;
 
 	Ogre::Camera* mCamera;
 	Ogre::SceneNode* mCameraNode;
 
-	//Ogre::RTShader::ShaderGenerator* mShaderGenerator;
-	//Ogre::MaterialManager::Listener* mMaterialMgrListener;
-
+	void initRender();
 	void loadResources();
 	void initRTShaderSystem();
 	void setupScenes();

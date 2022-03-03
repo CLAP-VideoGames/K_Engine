@@ -1,34 +1,72 @@
 #include "RenderExample.h"
 
+#include <iostream>
+
+#include <SDL.h>
+#include <SDL_syswm.h>
+#include <SDL_video.h>
+#include <SDL_config_windows.h>
+
 #include <OgreRoot.h>
+#include <OgreEntity.h>
+#include <OgreCamera.h>
+#include <OgreViewport.h>
 #include <OgreConfigFile.h>
 #include <OgreRenderWindow.h>
-#include <OgreTextureManager.h>
-#include <OgreCamera.h>
 #include <OgreSceneManager.h>
-#include <OgreViewport.h>
-#include <OgreEntity.h>
-//#include <OgreRTShaderSystem.h>
-//#include <OgreShaderGenerator.h>
-//#include <OgreWindowEventUtilities.h>
-//#include <OgreSGTechniqueResolverListener.h>
+#include <OgreTextureManager.h>
 
 RenderExample::RenderExample()
 {
-    initRoot();
-    //loadResources();
-    setupScenes();
-    //initRTShaderSystem();
+	initRender();
+	//loadResources();
+	setupScenes();
+	//initRTShaderSystem();
 }
 
 /// <summary>
 /// Inicializa la raiz
 /// </summary>
-void RenderExample::initRoot() {
-    mResourcesCfgPath = "resources.cfg";
-    mPluginsCfgPath = "plugins.cfg";
+void RenderExample::initRender() {
+	SDL_Init(SDL_INIT_EVERYTHING);
 
-    mRoot = new Ogre::Root(mPluginsCfgPath);
+	mRoot = new Ogre::Root("plugins.cfg", "ogre.cfg", "ogre.log");
+
+	if (!mRoot->restoreConfig())
+		mRoot->showConfigDialog(nullptr);
+
+	mRoot->initialise(false);
+
+	mSDLWin = SDL_CreateWindow("Engine", 325, 200, 1280, 720, SDL_WINDOW_RESIZABLE);
+
+	/**
+	* Get driver-specific information about a window.
+	*
+	* You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.
+	*
+	* The caller must initialize the `info` structure's version by using
+	* `SDL_VERSION(&info.version)`, and then this function will fill in the rest
+	* of the structure with information about the given window.
+	*
+	* \param window the window about which information is being requested
+	* \param info an SDL_SysWMinfo structure filled in with window information
+	* \returns SDL_TRUE if the function is implemented and the `version` member
+	*          of the `info` struct is valid, or SDL_FALSE if the information
+	*          could not be retrieved; call SDL_GetError() for more information.
+	*
+	* \since This function is available since SDL 2.0.0.
+	*/
+	SDL_SysWMinfo wmInfo;
+	SDL_GetVersion(&wmInfo.version);
+	SDL_GetWindowWMInfo(mSDLWin, &wmInfo);
+
+	Ogre::NameValuePairList miscData;
+	miscData["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
+
+	mRenderWin = mRoot->createRenderWindow("Anda", 1280, 720, false, &miscData);
+
+	mRenderWin->setActive(true);
+	mRenderWin->setVisible(true);
 }
 
 /// <summary>
@@ -59,17 +97,17 @@ void RenderExample::initRoot() {
 /// </summary>
 void RenderExample::initRTShaderSystem()
 {
-    //if (Ogre::RTShader::ShaderGenerator::initialize())
-    //{
-    //    mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+	//if (Ogre::RTShader::ShaderGenerator::initialize())
+	//{
+	//    mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
 
-    //    // Create and register the material manager listener if it doesn't exist yet.
-    //    if (!mMaterialMgrListener) {
-    //        mMaterialMgrListener = new OgreBites::SGTechniqueResolverListener(mShaderGenerator);
-    //        Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
-    //    }
-    //}
-    //mShaderGenerator->addSceneManager(mSceneMgr);
+	//    // Create and register the material manager listener if it doesn't exist yet.
+	//    if (!mMaterialMgrListener) {
+	//        mMaterialMgrListener = new OgreBites::SGTechniqueResolverListener(mShaderGenerator);
+	//        Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
+	//    }
+	//}
+	//mShaderGenerator->addSceneManager(mSceneMgr);
 }
 
 
@@ -78,28 +116,27 @@ void RenderExample::initRTShaderSystem()
 /// </summary>
 void RenderExample::setupScenes()
 {
-    mWindow = mRoot->initialise(true, "Juego");
-    mSceneMgr = mRoot->createSceneManager();
+	mSceneMgr = mRoot->createSceneManager();
 
-    mCameraNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    mCameraNode->setPosition(0, 0, 80);
-    mCameraNode->lookAt(Ogre::Vector3(0, 0, -300), Ogre::Node::TransformSpace::TS_WORLD);
+	mCameraNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	mCameraNode->setPosition(0, 0, 80);
+	mCameraNode->lookAt(Ogre::Vector3(0, 0, -300), Ogre::Node::TransformSpace::TS_WORLD);
 
-    mCamera = mSceneMgr->createCamera("MainCam");
-    mCamera->setNearClipDistance(5);
+	mCamera = mSceneMgr->createCamera("MainCam");
+	mCamera->setNearClipDistance(5);
 
-    mCameraNode->attachObject(mCamera);
+	mCameraNode->attachObject(mCamera);
 
-    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+	Ogre::Viewport* vp = mRenderWin->addViewport(mCamera);
 
-    vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+	vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
 
-    mCamera->setAspectRatio(
-        Ogre::Real(vp->getActualWidth()) /
-        Ogre::Real(vp->getActualHeight()));
+	mCamera->setAspectRatio(
+		Ogre::Real(vp->getActualWidth()) /
+		Ogre::Real(vp->getActualHeight()));
 
-    Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
-    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
 
@@ -108,26 +145,26 @@ void RenderExample::setupScenes()
 /// </summary>
 bool RenderExample::update()
 {
-    //Ogre::WindowEventUtilities::messagePump();
+	//Ogre::WindowEventUtilities::messagePump();
 
-    if (mWindow->isClosed()) return false;
+	if (mRenderWin->isClosed()) return false;
 
-    if (!mRoot->renderOneFrame()) return false;
+	if (!mRoot->renderOneFrame()) return false;
 
-    return true;
+	return true;
 }
 
 void RenderExample::exampleScene()
 {
-    Ogre::Entity* ogreEntity = mSceneMgr->createEntity("ogrehead.mesh");
+	Ogre::Entity* ogreEntity = mSceneMgr->createEntity("ogrehead.mesh");
 
-    Ogre::SceneNode* ogreNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    ogreNode->attachObject(ogreEntity);
+	Ogre::SceneNode* ogreNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	ogreNode->attachObject(ogreEntity);
 
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
+	mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 
-    Ogre::Light* light = mSceneMgr->createLight("MainLight");
-    Ogre::SceneNode* lightNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    lightNode->setPosition(20, 80, 50);
-    lightNode->attachObject(light);
+	Ogre::Light* light = mSceneMgr->createLight("MainLight");
+	Ogre::SceneNode* lightNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	lightNode->setPosition(20, 80, 50);
+	lightNode->attachObject(light);
 }
