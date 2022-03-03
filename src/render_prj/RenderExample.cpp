@@ -15,13 +15,44 @@
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
 #include <OgreTextureManager.h>
+#include <OgreFileSystemLayer.h>
+#include <OgreGpuProgramManager.h>
 
-RenderExample::RenderExample()
-{
+#include <string>
+
+using namespace Ogre;
+
+RenderExample::RenderExample() {
 	initRender();
-	//loadResources();
+
+	locateResources();
+	loadResources();
+
 	setupScenes();
+	exampleScene();
 	//initRTShaderSystem();
+}
+
+RenderExample::~RenderExample(){
+	mRoot->saveConfig();
+
+	shutdown();
+
+	delete mRoot;
+	mRoot = nullptr;
+}
+
+void RenderExample::shutdown() { 
+	if (mRenderWin != nullptr){
+		mRoot->destroyRenderTarget(mRenderWin);
+		mRenderWin = nullptr;
+	}
+
+	if (mSDLWin != nullptr) {
+		SDL_DestroyWindow(mSDLWin);
+		SDL_QuitSubSystem(SDL_INIT_VIDEO);
+		mSDLWin = nullptr;
+	}
 }
 
 /// <summary>
@@ -37,7 +68,11 @@ void RenderExample::initRender() {
 
 	mRoot->initialise(false);
 
-	mSDLWin = SDL_CreateWindow("Engine", 325, 200, 1280, 720, SDL_WINDOW_RESIZABLE);
+	int width = 1080;
+	int height = 720;
+	Uint32 flags = SDL_WINDOW_RESIZABLE;
+	std::string name = "K Engine";
+	mSDLWin = SDL_CreateWindow(name.c_str() , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 	/**
 	* Get driver-specific information about a window.
@@ -63,34 +98,115 @@ void RenderExample::initRender() {
 	Ogre::NameValuePairList miscData;
 	miscData["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
 
-	mRenderWin = mRoot->createRenderWindow("Anda", 1280, 720, false, &miscData);
+	mRenderWin = mRoot->createRenderWindow(name.c_str(), width, height, false, &miscData);
 
 	mRenderWin->setActive(true);
 	mRenderWin->setVisible(true);
+
+	SDL_SetWindowGrab(mSDLWin, SDL_bool(false));
+	SDL_ShowCursor(true);
+
+	mSM = mRoot->createSceneManager();
+	mFSLayer = new Ogre::FileSystemLayer(name);
+}
+
+void RenderExample::setCamNLight(){
+
 }
 
 /// <summary>
 /// Parsea el archivo resources.cfg para obtener las rutas de los recursos
 /// </summary>
-//void RenderExample::loadResources()
-//{
-//    Ogre::ConfigFile cf;
-//    cf.load(mResourcesCfgPath);
-//
-//    Ogre::String name, locType;
-//    Ogre::ConfigFile::SectionIterator secIt = cf.getSectionIterator();
-//    while (secIt.hasMoreElements())
-//    {
-//        Ogre::ConfigFile::SettingsMultiMap* settings = secIt.getNext();
-//        Ogre::ConfigFile::SettingsMultiMap::iterator it;
-//        for (it = settings->begin(); it != settings->end(); ++it)
-//        {
-//            locType = it->first;
-//            name = it->second;
-//            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, locType);
-//        }
-//    }
-//}
+void RenderExample::loadResources() {
+	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+}
+
+void RenderExample::locateResources(){
+	// load resource paths from config file
+	Ogre::ConfigFile cf;
+
+	Ogre::String resourcesPath = mFSLayer->getConfigFilePath("resources.cfg");
+	if (Ogre::FileSystemLayer::fileExists(resourcesPath))
+	{
+		cf.load(resourcesPath);
+	}
+	else
+	{
+		//Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+		//	Ogre::FileSystemLayer::resolveBundlePath(mSolutionPath + "\\media"),
+		//	"FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	}
+
+	Ogre::String sec, type, arch;
+	// go through all specified resource groups
+	Ogre::ConfigFile::SettingsBySection_::const_iterator seci;
+	for (seci = cf.getSettingsBySection().begin(); seci != cf.getSettingsBySection().end(); ++seci) {
+		sec = seci->first;
+		const Ogre::ConfigFile::SettingsMultiMap& settings = seci->second;
+		Ogre::ConfigFile::SettingsMultiMap::const_iterator i;
+
+		// go through all resource paths
+		for (i = settings.begin(); i != settings.end(); i++)
+		{
+			type = i->first;
+			arch = Ogre::FileSystemLayer::resolveBundlePath(i->second);
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
+		}
+	}
+
+	sec = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+	const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec);
+
+	//OgreAssert(!genLocs.empty(), ("Resource Group '" + sec + "' must contain at least one entry").c_str());
+
+	arch = genLocs.front().archive->getName();
+	type = genLocs.front().archive->getType();
+
+	// Add locations for supported shader languages
+	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSLES", type, sec);
+	}
+	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSL120", type, sec);
+
+		if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl150"))
+		{
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSL150", type, sec);
+		}
+		else
+		{
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSL", type, sec);
+		}
+
+		if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl400"))
+		{
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSL400", type, sec);
+		}
+	}
+	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL", type, sec);
+	}
+
+	/*mRTShaderLibPath = arch + "/RTShaderLib";
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type, sec);
+
+	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSLES", type, sec);
+	}
+	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
+	}
+	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/HLSL", type, sec);
+	}*/
+}
 
 /// <summary>
 /// Inicia el sistema de shaders. El método debe llamarse despues de setupScenes
@@ -110,30 +226,32 @@ void RenderExample::initRTShaderSystem()
 	//mShaderGenerator->addSceneManager(mSceneMgr);
 }
 
+void RenderExample::render() {
+	mRoot->startRendering();
+}
 
 /// <summary>
 /// Crea la ventana inicial (cámara y viewport) y el manejador de escenas
 /// </summary>
-void RenderExample::setupScenes()
-{
-	mSceneMgr = mRoot->createSceneManager();
-
-	mCameraNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	mCameraNode->setPosition(0, 0, 80);
-	mCameraNode->lookAt(Ogre::Vector3(0, 0, -300), Ogre::Node::TransformSpace::TS_WORLD);
-
-	mCamera = mSceneMgr->createCamera("MainCam");
+void RenderExample::setupScenes() {
+	mCamera = mSM->createCamera("MainCam");
 	mCamera->setNearClipDistance(5);
+	mCamera->setFarClipDistance(500);
+	mCamera->setAutoAspectRatio(true);
 
+	mCameraNode = mSM->getRootSceneNode()->createChildSceneNode();
+	mCameraNode->setPosition(50, 50, 50);
+	//mCameraNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
+	mCameraNode->setDirection(Ogre::Vector3(0, 1, -1));
 	mCameraNode->attachObject(mCamera);
 
 	Ogre::Viewport* vp = mRenderWin->addViewport(mCamera);
 
-	vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+	vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
 
-	mCamera->setAspectRatio(
-		Ogre::Real(vp->getActualWidth()) /
-		Ogre::Real(vp->getActualHeight()));
+	//mCamera->setAspectRatio(
+	//	Ogre::Real(vp->getActualWidth()) /
+	//	Ogre::Real(vp->getActualHeight()));
 
 	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
@@ -143,8 +261,7 @@ void RenderExample::setupScenes()
 /// <summary>
 /// Actualiza la escena. True si lo hace correctamente, False si se cierra
 /// </summary>
-bool RenderExample::update()
-{
+bool RenderExample::update() {
 	//Ogre::WindowEventUtilities::messagePump();
 
 	if (mRenderWin->isClosed()) return false;
@@ -154,17 +271,22 @@ bool RenderExample::update()
 	return true;
 }
 
-void RenderExample::exampleScene()
-{
-	Ogre::Entity* ogreEntity = mSceneMgr->createEntity("ogrehead.mesh");
+void RenderExample::exampleScene() {
+	Ogre::Entity* ogreEntity = mSM->createEntity("uv_sphere.mesh");
 
-	Ogre::SceneNode* ogreNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	Ogre::SceneNode* ogreNode = mSM->getRootSceneNode()->createChildSceneNode();
 	ogreNode->attachObject(ogreEntity);
 
-	mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
+	//ogreNode->setScale(3., 3., 3.);
 
-	Ogre::Light* light = mSceneMgr->createLight("MainLight");
-	Ogre::SceneNode* lightNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	mSM->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
+
+	Ogre::Light* light = mSM->createLight("MainLight");
+	Ogre::SceneNode* lightNode = mSM->getRootSceneNode()->createChildSceneNode();
 	lightNode->setPosition(20, 80, 50);
 	lightNode->attachObject(light);
+}
+
+Ogre::Root* RenderExample::getRoot(){
+	return mRoot;
 }
