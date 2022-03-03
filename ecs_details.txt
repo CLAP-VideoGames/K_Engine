@@ -1,0 +1,23 @@
+Mirar la estructura de Samir
+Vamos a simplificar la estructura de samir
+
+**Vamos a crear plantillas para los componentes y los sistemas, si hacemos sistemas**
+
+
+GameObject = entity
+
+Componentes por defecto de un entity =
+	-Transform
+
+	
+
+
+
+Componentes:
+	-Transform : 3 vector3(Rotation, Scale, Position), usaremos un template para poder usar ints, floats o doubles en funcion de la precisión que queramos en cada uno. 
+
+	-Mesh: Con una referencia a la malla de la entidad
+
+	-Rigidbody: para los objetos fíicos
+
+	-BoxCollider: para la detección de colisiones
