@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 
 		delete example;*/
 
-		//delete rExample;
+		delete rExample;
 	}
 	catch (Ogre::Exception& e) {
 
