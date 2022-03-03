@@ -9,6 +9,7 @@ set SRC_DIR=.\src\
 set BUILD_DIR=.\build\
 
 set SDL_MIXER_BUILD_SOL=.\build\SDL2_mixer.sln
+set SDL_MIXER_DBG_BIN_SOL=.\build\Debug\
 
 set CMAKE_EXEC=..\cmake\bin\cmake.exe
 
@@ -36,7 +37,12 @@ echo Compiling SDL_mixer library...
 
 :: same dll ???
 msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
-@REM msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release :: same dll
+msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release
+
+set CURR_DIR=%cd%
+cd %SDL_MIXER_DBG_BIN_SOL%
+ren SDL2_mixer.* SDL2_mixer_d.*
+cd %CURR_DIR%
 
 echo SDL_mixer library compiled
 

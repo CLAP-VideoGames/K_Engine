@@ -89,8 +89,9 @@ if (SUPPORT_MID_TIMIDITY)
 endif()
 
 if(WIN32 AND BUILD_SHARED_LIBS)
-  target_compile_definitions(SDL2_mixer PRIVATE -DDLL_EXPORT)
+    target_compile_definitions(SDL2_mixer PRIVATE -DDLL_EXPORT)
 endif()
 
 target_include_directories(SDL2_mixer PUBLIC include)
 target_link_libraries(SDL2_mixer PRIVATE SDL2::SDL2)
+set(CMAKE_DEBUG_POSTFIX "_d")
