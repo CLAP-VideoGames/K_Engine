@@ -1,12 +1,14 @@
 #include <stdio.h>
 
 #include "HelloWorld.h"
+#include "CEGUI/CEGUI.h"
+
+using namespace CEGUI;
 
 int main(int argc, char** argv) {
 	try {
 		HelloWorldSample* sample = new HelloWorldSample();
-
-		sample->initialise();
+		sample->initialise(&System::getSingleton().getDefaultGUIContext());
 
 		delete sample;
 	}

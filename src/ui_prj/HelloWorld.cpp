@@ -25,21 +25,21 @@
  *   OTHER DEALINGS IN THE SOFTWARE.
  ***************************************************************************/
 #include "HelloWorld.h"
-#include "CEGUI.h"
+#include "CEGUI/CEGUI.h"
 
 #include <iostream>
 
 HelloWorldSample::HelloWorldSample() :
     Sample()
 {
-    Sample::d_name = "HelloWorldSample";
+    /*Sample::d_name = "HelloWorldSample";
     Sample::d_credits = "CrazyEddie, Lukas \"Ident\" Meindl";
     Sample::d_description =
         "A very simple \"Hello World\" sample. It contains a single "
         "window which will write \"Hello-World\" to the console if clicked";
     Sample::d_summary =
         "The Sample uses the WindowManager to create the window from code. "
-        "An event handler is used to handle the mouse clicks on the window.";
+        "An event handler is used to handle the mouse clicks on the window.";*/
 }
 
 /*************************************************************************
@@ -62,6 +62,7 @@ bool HelloWorldSample::initialise(CEGUI::GUIContext* guiContext)
     // imagery and registers widgets for the TaharezLook skin.  This scheme also
     // loads in a font that gets used as the system default.
     SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+    
 
     // The next thing we do is to set a default cursor image.  This is
     // not strictly essential, although it is nice to always have a visible
@@ -69,7 +70,7 @@ bool HelloWorldSample::initialise(CEGUI::GUIContext* guiContext)
     //
     // The TaharezLook Imageset contains an Image named "MouseArrow" which is
     // the ideal thing to have as a defult cursor image.
-    guiContext->getCursor().setDefaultImage("TaharezLook/MouseArrow");
+    guiContext->getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
 
     // Now the system is initialised, we can actually create some UI elements, for
     // this first example, a full-screen 'root' window is set as the active GUI
@@ -133,7 +134,7 @@ bool HelloWorldSample::initialise(CEGUI::GUIContext* guiContext)
     // FrameWindow's titlebar.
     wnd->setText("Hello World!");
 
-    wnd->subscribeEvent(CEGUI::Window::EventCursorActivate,  Event::Subscriber(&HelloWorldSample::handleHelloWorldClicked, this));
+    wnd->subscribeEvent(CEGUI::Window::EventKeyDown,  Event::Subscriber(&HelloWorldSample::handleHelloWorldClicked, this));
 
     // return true so that the samples framework knows that initialisation was a
     // success, and that it should now run the sample.
