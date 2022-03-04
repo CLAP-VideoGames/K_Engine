@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\ui_prj\HelloWorld.cpp" />
+    <ClCompile Include="..\..\src\ui_prj\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ui_prj\HelloWorld.h" />
@@ -128,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\src\samples\common\include;$(SolutionDir)dependencies\cegui\src\cegui\include\CEGUI</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,7 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\src\samples\common\include;$(SolutionDir)dependencies\cegui\src\cegui\include\CEGUI</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
