@@ -94,7 +94,7 @@ echo FMOD .dlls succesfully copied to engine
 :: Move Lua .dlls
 echo Copying Lua .dlls...
 
-copy .\dependencies\lua\sol\bin\Debug\lua.dll %EXE_DIR% 1>nul
-@REM xcopy .\dependencies\lua\sol\bin\Release\lua.dll %EXE_DIR% 1>nul
+copy .\dependencies\lua\sol\bin\Debug\lua_d.dll %EXE_DIR% 1>nul
+copy .\dependencies\lua\sol\bin\Release\lua.dll %EXE_DIR% 1>nul
 
 echo Lua .dlls succesfully copied to engine
