@@ -16,8 +16,8 @@ Componentes por defecto de un entity =
 Componentes:
 	-Transform : 3 vector3(Rotation, Scale, Position), usaremos un template para poder usar ints, floats o doubles en funcion de la precisión que queramos en cada uno. 
 
-	-Mesh: Con una referencia a la malla de la entidad
-
-	-Rigidbody: para los objetos fíicos
+	-Rigidbody: para los objetos fíicos (lleva la capa de colision)
 
 	-BoxCollider: para la detección de colisiones
+
+	-Mesh renderer: lleva el bool isVisible
