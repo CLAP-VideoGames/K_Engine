@@ -227,34 +227,32 @@ void RenderExample::initRTShaderSystem()
 }
 
 void RenderExample::render() {
-	mRoot->startRendering();
+	mRoot->renderOneFrame();
 }
 
 /// <summary>
 /// Crea la ventana inicial (cámara y viewport) y el manejador de escenas
 /// </summary>
 void RenderExample::setupScenes() {
-	mCamera = mSM->createCamera("MainCam");
-	mCamera->setNearClipDistance(5);
-	mCamera->setFarClipDistance(500);
-	mCamera->setAutoAspectRatio(true);
+	//mCamera = mSM->createCamera("myCam");
+	//mCamera->setNearClipDistance(5);
+	//mCamera->setAutoAspectRatio(true);
 
-	mCameraNode = mSM->getRootSceneNode()->createChildSceneNode();
-	mCameraNode->setPosition(50, 50, 50);
-	//mCameraNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
-	mCameraNode->setDirection(Ogre::Vector3(0, 1, -1));
-	mCameraNode->attachObject(mCamera);
+	//mCameraNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//mCameraNode->attachObject(mCamera);
+	//mCameraNode->setPosition(0, 0, 140);
+	////mCameraNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
 
-	Ogre::Viewport* vp = mRenderWin->addViewport(mCamera);
+	//Ogre::Viewport* vp = mRenderWin->addViewport(mCamera);
 
-	vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
+	//vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
 
 	//mCamera->setAspectRatio(
 	//	Ogre::Real(vp->getActualWidth()) /
 	//	Ogre::Real(vp->getActualHeight()));
 
-	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
-	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+	//Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+	//Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
 
@@ -272,19 +270,35 @@ bool RenderExample::update() {
 }
 
 void RenderExample::exampleScene() {
-	Ogre::Entity* ogreEntity = mSM->createEntity("uv_sphere.mesh");
-
-	Ogre::SceneNode* ogreNode = mSM->getRootSceneNode()->createChildSceneNode();
-	ogreNode->attachObject(ogreEntity);
-
-	//ogreNode->setScale(3., 3., 3.);
-
 	mSM->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 
+	// without light we would just get a black screen    
 	Ogre::Light* light = mSM->createLight("MainLight");
 	Ogre::SceneNode* lightNode = mSM->getRootSceneNode()->createChildSceneNode();
-	lightNode->setPosition(20, 80, 50);
+	lightNode->setPosition(0, 10, 15);
 	lightNode->attachObject(light);
+
+	// also need to tell where we are
+	Ogre::SceneNode* camNode = mSM->getRootSceneNode()->createChildSceneNode();
+	camNode->setPosition(0, 0, 15);
+	camNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
+
+	// create the camera
+	Ogre::Camera* cam = mSM->createCamera("myCam");
+	cam->setNearClipDistance(5); // specific to this sample
+	cam->setAutoAspectRatio(true);
+	camNode->attachObject(cam);
+
+	// and tell it to render into the main window
+	mRenderWin->addViewport(cam);
+
+	// finally something to render
+	Ogre::Entity* ent = mSM->createEntity("ogrehead.mesh");
+	Ogre::SceneNode* node = mSM->getRootSceneNode()->createChildSceneNode();
+	float size = 0.1;
+	node->setScale(size, size, size);
+	node->attachObject(ent);
+
 }
 
 Ogre::Root* RenderExample::getRoot(){

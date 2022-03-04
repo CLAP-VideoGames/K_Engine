@@ -11,19 +11,21 @@
 int main(int argc, char** argv) {
 	try {
 		RenderExample* rExample = new RenderExample();
-
+		PhysicsExample* example = new PhysicsExample({ 0, -9.8, 0 });
 		SoundExample* sExample = new SoundExample();
 
 		//sExample->playWAV("./assets/sounds/clap.wav");
 		sExample->playMP3("./assets/sounds/snare.mp3");
 
-		rExample->render();
+		int i = 0;
+		int limit = 50;
+		while (i < limit) {
+			example->Update();
+			rExample->render();
+			i++;
+		}
 
-		/*PhysicsExample* example = new PhysicsExample({ 0, -9.8, 0 });
-		example->Update();
-
-		delete example;*/
-
+		delete example;
 		delete rExample;
 	}
 	catch (Ogre::Exception& e) {

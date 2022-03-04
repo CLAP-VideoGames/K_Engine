@@ -2,9 +2,9 @@
 // LuaCpp library
 #include <stdio.h>
 #include <lua.h>
-#include <LuaBridge.h>
 #include <lualib.h>
 #include <lauxlib.h>
+#include <LuaBridge.h>
 
 using namespace luabridge;
 

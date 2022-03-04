@@ -4,7 +4,7 @@ PhysicsExample::PhysicsExample(const btVector3& gravity){
 	///-----initialization_start-----
 		/// 
 		///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
-	numIterations_ = 300;
+	numIterations_ = 10;
 	collisionConfiguration = new btDefaultCollisionConfiguration();
 
 	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
