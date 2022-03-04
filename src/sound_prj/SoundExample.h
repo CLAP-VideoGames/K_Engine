@@ -1,7 +1,7 @@
 #ifndef SOUNDEXAMPLE_H
 #define SOUNDEXAMPLE_H
 
-class Mix_Music;
+typedef struct _Mix_Music Mix_Music;
 class Mix_Chunk;
 
 class SoundExample

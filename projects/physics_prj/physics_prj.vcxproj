@@ -114,7 +114,7 @@
     </Link>
     <Lib>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>Bullet2FileLoader_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;Bullet3OpenCL_clew_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletFileLoader_Debug.lib;BulletInverseDynamicsUtils_Debug.lib;BulletInverseDynamics_Debug.lib;BulletRoboticsGUI_Debug.lib;BulletRobotics_Debug.lib;BulletSoftBody_Debug.lib;BulletWorldImporter_Debug.lib;BulletXmlWorldImporter_Debug.lib;ConvexDecomposition_Debug.lib;GIMPACTUtils_Debug.lib;gtest_Debug.lib;HACD_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Bullet2FileLoader_d.lib;Bullet3Collision_d.lib;Bullet3Common_d.lib;Bullet3Dynamics_d.lib;Bullet3Geometry_d.lib;Bullet3OpenCL_clew_d.lib;BulletCollision_d.lib;BulletDynamics_d.lib;BulletFileLoader_d.lib;BulletInverseDynamicsUtils_d.lib;BulletInverseDynamics_d.lib;BulletRoboticsGUI_d.lib;BulletRobotics_d.lib;BulletSoftBody_d.lib;BulletWorldImporter_d.lib;BulletXmlWorldImporter_d.lib;ConvexDecomposition_d.lib;GIMPACTUtils_d.lib;gtest_d.lib;HACD_d.lib;LinearMath_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\bullet\build\lib\Debug;</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -155,7 +155,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\bullet\build\lib\Debug;$(SolutionDir)dependencies\bullet\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
-      <AdditionalDependencies>Bullet2FileLoader_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;Bullet3OpenCL_clew_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletFileLoader_Debug.lib;BulletInverseDynamicsUtils_Debug.lib;BulletInverseDynamics_Debug.lib;BulletRoboticsGUI_Debug.lib;BulletRobotics_Debug.lib;BulletSoftBody_Debug.lib;BulletWorldImporter_Debug.lib;BulletXmlWorldImporter_Debug.lib;ConvexDecomposition_Debug.lib;GIMPACTUtils_Debug.lib;gtest_Debug.lib;HACD_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Bullet2FileLoader_d.lib;Bullet3Collision_d.lib;Bullet3Common_d.lib;Bullet3Dynamics_d.lib;Bullet3Geometry_d.lib;Bullet3OpenCL_clew_d.lib;BulletCollision_d.lib;BulletDynamics_d.lib;BulletFileLoader_d.lib;BulletInverseDynamicsUtils_d.lib;BulletInverseDynamics_d.lib;BulletRoboticsGUI_d.lib;BulletRobotics_d.lib;BulletSoftBody_d.lib;BulletWorldImporter_d.lib;BulletXmlWorldImporter_d.lib;ConvexDecomposition_d.lib;GIMPACTUtils_d.lib;gtest_d.lib;HACD_d.lib;LinearMath_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\bullet\build\lib\Debug;</AdditionalLibraryDirectories>

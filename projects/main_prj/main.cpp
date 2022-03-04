@@ -3,12 +3,19 @@
 #include <stdio.h>
 #include <iostream>
 
+#include <OgreLogManager.h>
 #include <physics_prj/PhysicsExample.h>
 #include <render_prj/RenderExample.h>
-#include <OgreLogManager.h>
+#include <sound_prj/SoundExample.h>
+
 int main(int argc, char** argv) {
 	try {
 		RenderExample* rExample = new RenderExample();
+
+		SoundExample* sExample = new SoundExample();
+
+		//sExample->playWAV("./assets/sounds/clap.wav");
+		sExample->playMP3("./assets/sounds/snare.mp3");
 
 		rExample->render();
 
