@@ -78,8 +78,8 @@ echo CEGUI .dlls succesfully copied to engine
 :: Move SDL_Mixer .dlls
 echo Copying SDL_Mixer .dlls...
 
-copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer.dll %EXE_DIR% 1>nul
-copy .\dependencies\sdl_mixer\build\Release\SDL2_mixer_d.dll %EXE_DIR% 1>nul
+copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer_d.dll %EXE_DIR% 1>nul
+copy .\dependencies\sdl_mixer\build\Release\SDL2_mixer.dll %EXE_DIR% 1>nul
 
 echo SDL_Mixer .dlls succesfully copied to engine
 

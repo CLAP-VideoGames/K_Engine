@@ -14,8 +14,9 @@ int main(int argc, char** argv) {
 		PhysicsExample* example = new PhysicsExample({ 0, -9.8, 0 });
 		SoundExample* sExample = new SoundExample();
 
-		//sExample->playWAV("./assets/sounds/clap.wav");
-		sExample->playMP3("./assets/sounds/snare.mp3");
+		sExample->playWAV("./assets/sounds/clap.wav");
+		//sExample->playMP3("./assets/sounds/clapV2.ogg");
+		//sExample->playMP3("./assets/sounds/snare.mp3");
 
 		int i = 0;
 		int limit = 50;
