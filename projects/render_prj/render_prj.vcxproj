@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\render_prj\RenderExample.cpp" />
+    <ClCompile Include="..\..\src\render_prj\RenderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\render_prj\RenderExample.h" />
+    <ClInclude Include="..\..\src\render_prj\RenderManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
