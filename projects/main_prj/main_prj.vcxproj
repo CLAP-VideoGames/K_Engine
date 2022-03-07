@@ -105,8 +105,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\sound_prj\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics_d.lib;render_d.lib; sound_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\sound_prj\Debug;$(SolutionDir)lib\ui_prj\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics_d.lib;render_d.lib;sound_d.lib;ui_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -124,8 +124,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\sound_prj\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics.lib;render.lib;sound.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\sound_prj\Release;$(SolutionDir)lib\ui_prj\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics.lib;render.lib;sound.lib;ui.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,13 +134,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.20\include;$(SolutionDir)dependencies\ogre\build\SDL2-build\include;$(SolutionDir)dependencies\sdl_mixer\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.20\include;$(SolutionDir)dependencies\ogre\build\SDL2-build\include;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\sound_prj\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics_d.lib;render_d.lib; sound_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\sound_prj\Debug;$(SolutionDir)lib\ui_prj\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics_d.lib;render_d.lib;sound_d.lib;ui_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,8 +158,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\sound_prj\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics.lib;render.lib;sound.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\sound_prj\Release;$(SolutionDir)lib\ui_prj\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics.lib;render.lib;sound.lib;ui.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -171,6 +171,9 @@
     </ProjectReference>
     <ProjectReference Include="..\sound_prj\sound_prj.vcxproj">
       <Project>{06ce32e3-a5e2-4bbf-8d9a-f20b9e847284}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ui_prj\ui_prj.vcxproj">
+      <Project>{c822419e-fa7d-4d61-93e6-8600be86d638}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

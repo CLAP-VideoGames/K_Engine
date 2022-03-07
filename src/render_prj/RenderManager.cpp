@@ -222,7 +222,7 @@ void RenderManager::exampleScene() {
 	// finally something to render
 	Ogre::Entity* ent = mSM->createEntity("ogrehead.mesh");
 	Ogre::SceneNode* node = mSM->getRootSceneNode()->createChildSceneNode();
-	float size = 0.1;
+	float size = 0.2;
 	node->setScale(size, size, size);
 	node->attachObject(ent);
 }
@@ -231,7 +231,7 @@ Ogre::Root* RenderManager::getRoot() {
 	return mRoot;
 }
 
-Ogre::RenderWindow* RenderManager::getRenderWindow()
+Ogre::RenderTarget* RenderManager::getRenderWindow()
 {
 	return mRenderWin;
 }

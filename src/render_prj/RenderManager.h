@@ -14,6 +14,7 @@ namespace Ogre {
 	class RenderWindow;
 	class SceneManager;
 	class FileSystemLayer;
+	class RenderTarget;
 }
 
 class SDL_Window;
@@ -32,7 +33,7 @@ public:
 	void exampleScene();
 
 	Ogre::Root* getRoot();
-	Ogre::RenderWindow* getRenderWindow();
+	Ogre::RenderTarget* getRenderWindow();
 
 private:
 	static std::unique_ptr<RenderManager> instance;

@@ -10,6 +10,7 @@
 #include <physics_prj/PhysicsManager.h>
 #include <render_prj/RenderManager.h>
 #include <sound_prj/SoundExample.h>
+#include <ui_prj/UIManager.h>
 
 #define DELTA_TIME 33
 
@@ -17,6 +18,10 @@ int main(int argc, char** argv) {
 	try {
 		RenderManager* renderMan = RenderManager::getInstance();
 		renderMan->init("K_Engine");
+		//UI MUST BE AFTER RENDER
+		UIManager* uiMan = UIManager::getInstance();
+		uiMan->init();
+
 		renderMan->exampleScene();
 
 		PhysicsManager* physicsMan = PhysicsManager::getInstance();
@@ -25,15 +30,13 @@ int main(int argc, char** argv) {
 		
 		SoundExample* sExample = new SoundExample();
 
-
 		//sExample->playWAV("./assets/sounds/clap.wav");
 		//sExample->playMP3("./assets/sounds/clapV2.ogg");
-		//sExample->playMP3("./assets/sounds/snare.mp3");
 
 
 		bool run = true; // time --> miliseconds
 		unsigned int accFrameTime = 0, currTime = SDL_GetTicks();
-		int cycles = 100;
+		int cycles = 10000;
 		while (run) {
 			unsigned int frame = SDL_GetTicks() - currTime;
 			currTime += frame;
@@ -41,7 +44,7 @@ int main(int argc, char** argv) {
 			accFrameTime += frame;
 			while (accFrameTime >= DELTA_TIME) {
 				// get input here (clear and check same time)
-				physicsMan->update();
+				//physicsMan->Update();
 				accFrameTime -= DELTA_TIME;
 			}
 
@@ -55,6 +58,7 @@ int main(int argc, char** argv) {
 
 		renderMan->shutdown();
 		physicsMan->shutdown();
+		uiMan->shutdown();
 	}
 	catch (Ogre::Exception& e) {
 

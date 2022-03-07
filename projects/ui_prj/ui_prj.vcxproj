@@ -19,11 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\ui_prj\HelloWorld.cpp" />
-    <ClCompile Include="..\..\src\ui_prj\main.cpp" />
+    <ClCompile Include="..\..\src\ui_prj\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\ui_prj\HelloWorld.h" />
+    <ClInclude Include="..\..\src\ui_prj\UIManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\render_prj\render_prj.vcxproj">
+      <Project>{3cdee0e0-bdc9-49de-ba43-3ad704f5537b}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -107,11 +111,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)src\render_prj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>CEGUIBase-0_d.lib;CEGUICommonDialogs-0_d.lib;CEGUICoreWindowRendererSet_d.lib;CEGUIExpatParser_d.lib;CEGUIOgreRenderer-0_d.lib;CEGUIOpenGLRenderer-0_d.lib;CEGUISILLYImageCodec_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -121,6 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)src\render_prj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,6 +140,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CEGUIBase-0.lib;CEGUICommonDialogs-0.lib;CEGUICoreWindowRendererSet.lib;CEGUIExpatParser.lib;CEGUIOgreRenderer-0.lib;CEGUIOpenGLRenderer-0.lib;CEGUISILLYImageCodec.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -135,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)src\render_prj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +159,12 @@
       <AdditionalDependencies>CEGUIBase-0_d.lib;CEGUICommonDialogs-0_d.lib;CEGUICoreWindowRendererSet_d.lib;CEGUIExpatParser_d.lib;CEGUIOgreRenderer-0_d.lib;CEGUIOpenGLRenderer-0_d.lib;CEGUISILLYImageCodec_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalDependencies>CEGUIBase-0_d.lib;CEGUICommonDialogs-0_d.lib;CEGUICoreWindowRendererSet_d.lib;CEGUIExpatParser_d.lib;CEGUIOgreRenderer-0_d.lib;CEGUIOpenGLRenderer-0_d.lib;CEGUISILLYImageCodec_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -152,7 +174,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)src\render_prj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,8 +183,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>CEGUIBase-0.lib;CEGUICommonDialogs-0.lib;CEGUICoreWindowRendererSet.lib;CEGUIExpatParser.lib;CEGUIOgreRenderer-0.lib;CEGUIOpenGLRenderer-0.lib;CEGUISILLYImageCodec.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CEGUIBase-0.lib;CEGUICommonDialogs-0.lib;CEGUICoreWindowRendererSet.lib;CEGUIExpatParser.lib;CEGUIOgreRenderer-0.lib;CEGUIOpenGLRenderer-0.lib;CEGUISILLYImageCodec.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
