@@ -21,7 +21,7 @@ public:
 	void init(int numIterations, int step, const btVector3& gravity);
 	void update();
 	void exampleObjects();
-
+	void shutdown();
 	~PhysicsManager();
 
 private:

@@ -32,45 +32,7 @@ void PhysicsManager::init(int numIterations, int step, const btVector3& gravity 
 	collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
 }
 
-PhysicsManager::~PhysicsManager(){
-	//cleanup in the reverse order of creation/initialization
-	///-----cleanup_start-----
-	//remove the rigidbodies from the dynamics world and delete them
-	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--){
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-		btRigidBody* body = btRigidBody::upcast(obj);
-		if (body && body->getMotionState()){
-			delete body->getMotionState();
-		}
-		dynamicsWorld->removeCollisionObject(obj);
-		delete obj;
-	}
-
-	//delete collision shapes
-	for (int j = 0; j < collisionShapes->size(); j++){
-		btCollisionShape* shape = (*collisionShapes)[j];
-		(*collisionShapes)[j] = 0;
-		delete shape;
-	}
-
-	//delete dynamics world
-	delete dynamicsWorld;
-
-	//delete solver
-	delete solver;
-
-	//delete broadphase
-	delete overlappingPairCache;
-
-	//delete dispatcher
-	delete dispatcher;
-
-	delete collisionConfiguration;
-
-	//next line is optional: it will be cleared by the destructor when the array goes out of scope
-	collisionShapes->clear();
-	delete collisionShapes;
-}
+PhysicsManager::~PhysicsManager(){}
 
 void PhysicsManager::update(){
 	for (int i = 0; i < numIterations_; i++) {
@@ -155,4 +117,44 @@ void PhysicsManager::exampleObjects(){
 
 		dynamicsWorld->addRigidBody(body);
 	}
+}
+
+void PhysicsManager::shutdown(){
+	//cleanup in the reverse order of creation/initialization
+	///-----cleanup_start-----
+	//remove the rigidbodies from the dynamics world and delete them
+	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
+		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+		btRigidBody* body = btRigidBody::upcast(obj);
+		if (body && body->getMotionState()) {
+			delete body->getMotionState();
+		}
+		dynamicsWorld->removeCollisionObject(obj);
+		delete obj;
+	}
+
+	//delete collision shapes
+	for (int j = 0; j < collisionShapes->size(); j++) {
+		btCollisionShape* shape = (*collisionShapes)[j];
+		(*collisionShapes)[j] = 0;
+		delete shape;
+	}
+
+	//delete dynamics world
+	delete dynamicsWorld;
+
+	//delete solver
+	delete solver;
+
+	//delete broadphase
+	delete overlappingPairCache;
+
+	//delete dispatcher
+	delete dispatcher;
+
+	delete collisionConfiguration;
+
+	//next line is optional: it will be cleared by the destructor when the array goes out of scope
+	collisionShapes->clear();
+	delete collisionShapes;
 }

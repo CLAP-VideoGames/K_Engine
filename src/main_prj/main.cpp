@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 		}
 
 		renderMan->shutdown();
-		delete physicsMan;
+		physicsMan->shutdown();
 	}
 	catch (Ogre::Exception& e) {
 
