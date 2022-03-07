@@ -5,7 +5,7 @@
 #include <SDL_timer.h>
 #include <SDL.h>
 
-#include <physics_prj/PhysicsExample.h>
+#include <physics_prj/PhysicsManager.h>
 #include <render_prj/RenderManager.h>
 #include <sound_prj/SoundExample.h>
 
@@ -14,12 +14,14 @@
 int main(int argc, char** argv) {
 	try {
 		RenderManager* renderMan = RenderManager::getInstance();
-
-		PhysicsExample* pExample = new PhysicsExample({ 0, -9.8, 0 });
-		SoundExample* sExample = new SoundExample();
-
 		renderMan->init("K_Engine");
 		renderMan->exampleScene();
+
+		PhysicsManager* physicsMan = PhysicsManager::getInstance();
+		physicsMan->init(10, 20, { 0, -9.8, 0});
+		
+		SoundExample* sExample = new SoundExample();
+
 
 		//sExample->playWAV("./assets/sounds/clap.wav");
 		//sExample->playMP3("./assets/sounds/clapV2.ogg");
@@ -36,7 +38,7 @@ int main(int argc, char** argv) {
 			accFrameTime += frame;
 			while (accFrameTime >= DELTA_TIME) {
 				// get input here (clear and check same time)
-				pExample->Update();
+				physicsMan->Update();
 				accFrameTime -= DELTA_TIME;
 			}
 
@@ -49,7 +51,7 @@ int main(int argc, char** argv) {
 		}
 
 		renderMan->shutdown();
-		delete pExample;
+		delete physicsMan;
 	}
 	catch (Ogre::Exception& e) {
 

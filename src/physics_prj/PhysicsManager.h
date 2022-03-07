@@ -14,28 +14,31 @@ subject to the following restrictions:
 
 ///-----includes_start-----
 #include <btBulletDynamicsCommon.h>
-#include <stdio.h>
+#include <memory>
 
-class PhysicsExample{
+class PhysicsManager{
+
+public:
+	static PhysicsManager* getInstance();
+
+	void init(int numIterations, int step, const btVector3& gravity = btVector3(0, -9.8f, 0));
+
+	~PhysicsManager();
+
+	void Update();
 
 private:
-	int numIterations_;
+	static std::unique_ptr<PhysicsManager> instance;
 
 	btDiscreteDynamicsWorld* dynamicsWorld;
-
 	btDefaultCollisionConfiguration* collisionConfiguration;
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;
 	btCollisionDispatcher* dispatcher; 
 	btBroadphaseInterface* overlappingPairCache;
 	btSequentialImpulseConstraintSolver* solver;
-
 	btVector3 gravity;
 
-public:
-	PhysicsExample(const btVector3& gravity = btVector3(0, -10, 0));
-
-	~PhysicsExample();
-
-	void Update();
+	int numIterations_;
+	void exampleObjects();
 };
 

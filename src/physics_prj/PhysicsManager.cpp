@@ -1,10 +1,18 @@
-#include "PhysicsExample.h"
+#include "PhysicsManager.h"
 
-PhysicsExample::PhysicsExample(const btVector3& gravity){
+std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
+
+PhysicsManager* PhysicsManager::getInstance(){
+	if (instance.get() == nullptr)
+		instance.reset(new PhysicsManager());
+
+	return instance.get();
+}
+
+void PhysicsManager::init(int numIterations, int step, const btVector3& gravity){
 	///-----initialization_start-----
-		/// 
-		///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
-	numIterations_ = 10;
+	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
+	numIterations_ = numIterations;
 	collisionConfiguration = new btDefaultCollisionConfiguration();
 
 	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
@@ -19,16 +27,72 @@ PhysicsExample::PhysicsExample(const btVector3& gravity){
 	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
 
 	dynamicsWorld->setGravity(gravity);
+}
 
-	///-----initialization_end-----
+PhysicsManager::~PhysicsManager(){
+	//cleanup in the reverse order of creation/initialization
+	///-----cleanup_start-----
+	//remove the rigidbodies from the dynamics world and delete them
+	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--){
+		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+		btRigidBody* body = btRigidBody::upcast(obj);
+		if (body && body->getMotionState()){
+			delete body->getMotionState();
+		}
+		dynamicsWorld->removeCollisionObject(obj);
+		delete obj;
+	}
 
+	//delete collision shapes
+	for (int j = 0; j < collisionShapes.size(); j++){
+		btCollisionShape* shape = collisionShapes[j];
+		collisionShapes[j] = 0;
+		delete shape;
+	}
+
+	//delete dynamics world
+	delete dynamicsWorld;
+
+	//delete solver
+	delete solver;
+
+	//delete broadphase
+	delete overlappingPairCache;
+
+	//delete dispatcher
+	delete dispatcher;
+
+	delete collisionConfiguration;
+
+	//next line is optional: it will be cleared by the destructor when the array goes out of scope
+	collisionShapes.clear();
+}
+
+void PhysicsManager::Update(){
+	for (int i = 0; i < numIterations_; i++) {
+		dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+
+		//print positions of all objects
+		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
+			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
+			btRigidBody* body = btRigidBody::upcast(obj);
+			btTransform trans;
+			if (body && body->getMotionState()) {
+				body->getMotionState()->getWorldTransform(trans);
+			}
+			else {
+				trans = obj->getWorldTransform();
+			}
+			//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+		}
+
+		//system("CLS");
+	}
+}
+
+void PhysicsManager::exampleObjects(){
 	//keep track of the shapes, we release memory at exit.
 	//make sure to re-use collision shapes among rigid bodies whenever possible!
-
-	///create a few basic rigid bodies
-
-	//the ground is a cube of side 100 at position y = -56.
-	//the sphere will hit it at y = -6, with center at -5
 	{
 		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
 
@@ -56,6 +120,8 @@ PhysicsExample::PhysicsExample(const btVector3& gravity){
 		dynamicsWorld->addRigidBody(body);
 	}
 
+	//the ground is a cube of side 100 at position y = -56.
+	//the sphere will hit it at y = -6, with center at -5
 	{
 		//create a dynamic rigidbody
 
@@ -84,74 +150,5 @@ PhysicsExample::PhysicsExample(const btVector3& gravity){
 		btRigidBody* body = new btRigidBody(rbInfo);
 
 		dynamicsWorld->addRigidBody(body);
-	}
-}
-
-PhysicsExample::~PhysicsExample(){
-	//cleanup in the reverse order of creation/initialization
-
-	///-----cleanup_start-----
-
-	//remove the rigidbodies from the dynamics world and delete them
-	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--)
-	{
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-		btRigidBody* body = btRigidBody::upcast(obj);
-		if (body && body->getMotionState())
-		{
-			delete body->getMotionState();
-		}
-		dynamicsWorld->removeCollisionObject(obj);
-		delete obj;
-	}
-
-	//delete collision shapes
-	for (int j = 0; j < collisionShapes.size(); j++)
-	{
-		btCollisionShape* shape = collisionShapes[j];
-		collisionShapes[j] = 0;
-		delete shape;
-	}
-
-	//delete dynamics world
-	delete dynamicsWorld;
-
-	//delete solver
-	delete solver;
-
-	//delete broadphase
-	delete overlappingPairCache;
-
-	//delete dispatcher
-	delete dispatcher;
-
-	delete collisionConfiguration;
-
-	//next line is optional: it will be cleared by the destructor when the array goes out of scope
-	collisionShapes.clear();
-}
-
-void PhysicsExample::Update(){
-	for (int i = 0; i < numIterations_; i++)
-	{
-		dynamicsWorld->stepSimulation(1.f / 60.f, 10);
-
-		//print positions of all objects
-		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
-			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
-			btRigidBody* body = btRigidBody::upcast(obj);
-			btTransform trans;
-			if (body && body->getMotionState())
-			{
-				body->getMotionState()->getWorldTransform(trans);
-			}
-			else
-			{
-				trans = obj->getWorldTransform();
-			}
-			//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-		}
-
-		//system("CLS");
 	}
 }

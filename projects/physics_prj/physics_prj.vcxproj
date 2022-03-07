@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\physics_prj\PhysicsExample.cpp" />
+    <ClCompile Include="..\..\src\physics_prj\PhysicsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\physics_prj\PhysicsExample.h" />
+    <ClInclude Include="..\..\src\physics_prj\PhysicsManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
