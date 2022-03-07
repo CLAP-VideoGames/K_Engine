@@ -2,6 +2,8 @@
 #include <iostream>
 
 #include <OgreLogManager.h>
+#include <btBulletDynamicsCommon.h>
+
 #include <SDL_timer.h>
 #include <SDL.h>
 
@@ -19,6 +21,7 @@ int main(int argc, char** argv) {
 
 		PhysicsManager* physicsMan = PhysicsManager::getInstance();
 		physicsMan->init(10, 20, { 0, -9.8, 0});
+		physicsMan->exampleObjects();
 		
 		SoundExample* sExample = new SoundExample();
 

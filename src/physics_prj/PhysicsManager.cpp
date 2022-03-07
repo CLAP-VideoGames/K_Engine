@@ -1,4 +1,5 @@
 #include "PhysicsManager.h"
+#include <btBulletDynamicsCommon.h>
 
 std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
 
@@ -9,7 +10,7 @@ PhysicsManager* PhysicsManager::getInstance(){
 	return instance.get();
 }
 
-void PhysicsManager::init(int numIterations, int step, const btVector3& gravity){
+void PhysicsManager::init(int numIterations, int step, const btVector3& gravity = btVector3(0, -9.8f, 0)){
 	///-----initialization_start-----
 	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
 	numIterations_ = numIterations;
@@ -27,6 +28,8 @@ void PhysicsManager::init(int numIterations, int step, const btVector3& gravity)
 	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
 
 	dynamicsWorld->setGravity(gravity);
+
+	collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
 }
 
 PhysicsManager::~PhysicsManager(){
@@ -44,9 +47,9 @@ PhysicsManager::~PhysicsManager(){
 	}
 
 	//delete collision shapes
-	for (int j = 0; j < collisionShapes.size(); j++){
-		btCollisionShape* shape = collisionShapes[j];
-		collisionShapes[j] = 0;
+	for (int j = 0; j < collisionShapes->size(); j++){
+		btCollisionShape* shape = (*collisionShapes)[j];
+		(*collisionShapes)[j] = 0;
 		delete shape;
 	}
 
@@ -65,7 +68,8 @@ PhysicsManager::~PhysicsManager(){
 	delete collisionConfiguration;
 
 	//next line is optional: it will be cleared by the destructor when the array goes out of scope
-	collisionShapes.clear();
+	collisionShapes->clear();
+	delete collisionShapes;
 }
 
 void PhysicsManager::update(){
@@ -96,7 +100,7 @@ void PhysicsManager::exampleObjects(){
 	{
 		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
 
-		collisionShapes.push_back(groundShape);
+		collisionShapes->push_back(groundShape);
 
 		btTransform groundTransform;
 		groundTransform.setIdentity();
@@ -127,7 +131,7 @@ void PhysicsManager::exampleObjects(){
 
 		//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
 		btCollisionShape* colShape = new btSphereShape(btScalar(1.));
-		collisionShapes.push_back(colShape);
+		collisionShapes->push_back(colShape);
 
 		/// Create Dynamic Objects
 		btTransform startTransform;
