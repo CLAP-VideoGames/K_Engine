@@ -14,6 +14,24 @@
 
 #define DELTA_TIME 33
 
+bool pollEvents()
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			std::cout << "exit\n";
+			return false;
+			break;
+		default:
+			break;
+		}
+	}
+	return true;
+}
+
 int main(int argc, char** argv) {
 	try {
 		RenderManager* renderMan = RenderManager::getInstance();
@@ -44,16 +62,13 @@ int main(int argc, char** argv) {
 			accFrameTime += frame;
 			while (accFrameTime >= DELTA_TIME) {
 				// get input here (clear and check same time)
+				// TEMPORAL
+				run = pollEvents();
 				//physicsMan->Update();
 				accFrameTime -= DELTA_TIME;
 			}
 
 			renderMan->render();
-
-			// TEMPORAL SOLUTION
-			cycles--;
-			if (cycles < 0)
-				run = false;
 		}
 
 		renderMan->shutdown();
