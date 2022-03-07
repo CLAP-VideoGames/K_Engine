@@ -1,7 +1,7 @@
 #include "Component.h"
 #include <stdexcept>
 
-Component::Component(string id_)
+Component::Component(std::string id_)
 {
 	id = id_;
 
@@ -9,10 +9,18 @@ Component::Component(string id_)
 		throw std::invalid_argument("You must define the id of your component");
 	}
 
-	active = true;
+	enable = true;
 }
 
 Component::~Component()
 {
 
+}
+
+void Component::setActive(bool a)
+{
+	enable = a;
+
+	if (enable) onEnable();
+	else onDisable();
 }

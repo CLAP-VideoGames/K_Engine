@@ -1,8 +1,7 @@
-#pragma once
+#ifndef ENTITY_H
+#define ENTITY_H
 #include <unordered_map>
 #include "Component.h"
-
-using namespace std;
 
 class Entity
 {
@@ -10,7 +9,7 @@ public:
 	Entity();
 	~Entity();
 
-	Component* getComponent(string id_);
+	Component* getComponent(std::string id_);
 
 	void setActive(bool a) { active = false; }
 private:
@@ -19,7 +18,10 @@ private:
 	bool active;
 
 	//Map to find our components and erase them using the id of the component
-	unordered_map<string, Component>components;
+	std::unordered_map<std::string, Component>components;
+
+	//Map to find our components by number
+	std::unordered_map<int, Component>components;
 
 
 	//addComponent(Component c){
@@ -28,3 +30,4 @@ private:
 	//remove component(Component c){		
 	//}
 };
+#endif

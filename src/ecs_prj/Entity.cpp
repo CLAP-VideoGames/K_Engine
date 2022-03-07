@@ -10,6 +10,6 @@ Entity::~Entity()
 
 }
 
-Component* Entity:: getComponent(string id_) {
-	components.find(id_);
+Component* Entity:: getComponent(std::string id_) {
+	
 }

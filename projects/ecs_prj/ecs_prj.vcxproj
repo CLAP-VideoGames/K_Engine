@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\ecs_prj\Component.h" />
     <ClInclude Include="..\..\src\ecs_prj\Transform.h" />
-    <ClInclude Include="Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\ecs_prj\Component.cpp" />

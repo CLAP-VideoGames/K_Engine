@@ -1,16 +1,20 @@
-#pragma once
-#include <string>
+#ifndef COMPONENT_H
+#define COMPONENT_H
 
-using namespace std;
+#include <string>;
 /// <summary>
 /// You have to specify the id of the component with a string
 /// The engine will throw an exception otherwise
+/// 
+/// You have to specify your getId() Method
 /// </summary>
 class Component
 {
 public:
-	Component(string id);
+	Component(std::string id);
 	~Component();
+
+#pragma region VirtualMethods
 
 	//update is called every frame of the game
 	virtual void update(){};
@@ -19,16 +23,27 @@ public:
 	virtual void start(){};
 
 	//awake is called every time the component is activated
-	virtual void awake(int bobo){};
+	virtual void awake(){};
 
-	string getId() { return id; }
+	//onEnable is called every time the component is enabled
+	virtual void onEnable() {};
 
-	void setActive(bool a) { active = a; }
+	//onDisable is called every time the component is disabled
+	virtual void onDisable() {};
+
+	//physicsUpdate is called before update and it calls everyPhysic we need
+	virtual void physicsUpdate() {}
+#pragma endregion
+
+	//Active/Deactivate our component 
+	void setActive(bool a);
 
 protected:
+	//option 1: using an string to identify our components by name
 	std::string id = "unknown";
-	bool active;
 
+	bool enable;
 private:
 
 };
+#endif
