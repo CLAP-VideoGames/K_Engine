@@ -68,7 +68,7 @@ PhysicsManager::~PhysicsManager(){
 	collisionShapes.clear();
 }
 
-void PhysicsManager::Update(){
+void PhysicsManager::update(){
 	for (int i = 0; i < numIterations_; i++) {
 		dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 

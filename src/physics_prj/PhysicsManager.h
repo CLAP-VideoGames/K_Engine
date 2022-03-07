@@ -22,10 +22,9 @@ public:
 	static PhysicsManager* getInstance();
 
 	void init(int numIterations, int step, const btVector3& gravity = btVector3(0, -9.8f, 0));
+	void update();
 
 	~PhysicsManager();
-
-	void Update();
 
 private:
 	static std::unique_ptr<PhysicsManager> instance;

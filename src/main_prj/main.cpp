@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
 			accFrameTime += frame;
 			while (accFrameTime >= DELTA_TIME) {
 				// get input here (clear and check same time)
-				physicsMan->Update();
+				physicsMan->update();
 				accFrameTime -= DELTA_TIME;
 			}
 
