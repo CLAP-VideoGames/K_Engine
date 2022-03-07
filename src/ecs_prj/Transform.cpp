@@ -1,6 +1,8 @@
 #include "Transform.h"
+//Required
+std::string Transform::name = "Transform";
 
-Transform::Transform() : Component("transform")
+Transform::Transform() : Component("Transform")
 {
 	
 }

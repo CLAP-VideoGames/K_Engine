@@ -9,12 +9,18 @@ public:
 	Entity();
 	~Entity();
 
+	//In this three methods(getComponent, removeComponent and hasComponent) we try to execute T::getId() so we know if the user used a Component
+	//If it didnt we throw an exception saying that Component that does not exist 
+
+	//Template to get a Component
 	template<typename T>
 	Component* getComponent();
 
+	//Template to remove a Component
 	template<typename T>
 	void removeComponent();
 
+	//Templete to check if an Entity has an specific component
 	template <typename T>
 	void hasComponent();
 

@@ -8,15 +8,24 @@ public:
 	Transform();
 	~Transform();
 
-	static std::string getId() { return "Transform"; }
+	//Required method for the component name
+	static std::string getId() { return name; }
 
 protected:
 
 	
 private:
 
-	double position[3];
-	double scale[3];
-	double rotation[3];
+	//Required
+	static std::string name;
+
+	//Position, scale and rotation with their default initialization
+
+	//array with the x y z coordinates of the position
+	double position[3]{0,0,0};
+	//array with the x y z coordinates of the scale
+	double scale[3]{1,1,1};
+	//array with the x y z coordinates of the rotation
+	double rotation[3]{0,0,0};
 
 };

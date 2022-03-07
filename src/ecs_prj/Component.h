@@ -7,6 +7,8 @@
 /// The engine will throw an exception otherwise
 /// 
 /// You have to specify your getId() Method
+/// 
+/// Use Transform.h and Tranform.cpp as examples
 /// </summary>
 class Component
 {
@@ -46,4 +48,4 @@ protected:
 private:
 
 };
-#endif
+#endif	
