@@ -31,6 +31,9 @@ public:
 
 	void exampleScene();
 
+	Ogre::Root* getRoot();
+	Ogre::RenderWindow* getRenderWindow();
+
 private:
 	static std::unique_ptr<RenderManager> instance;
 
@@ -54,7 +57,5 @@ private:
 
 	void closeContext();
 	void closeWindow();
-
-	Ogre::Root* getRoot();
 };
 #endif // RENDEREXAMPLE_H

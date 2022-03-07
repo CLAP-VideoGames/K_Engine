@@ -230,3 +230,8 @@ void RenderManager::exampleScene() {
 Ogre::Root* RenderManager::getRoot() {
 	return mRoot;
 }
+
+Ogre::RenderWindow* RenderManager::getRenderWindow()
+{
+	return mRenderWin;
+}
