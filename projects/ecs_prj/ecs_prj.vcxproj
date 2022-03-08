@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\ecs_prj\Component.h" />
     <ClInclude Include="..\..\src\ecs_prj\Entity.h" />
+    <ClInclude Include="..\..\src\ecs_prj\RigidBody.h" />
     <ClInclude Include="..\..\src\ecs_prj\Transform.h" />
   </ItemGroup>
   <ItemGroup>
