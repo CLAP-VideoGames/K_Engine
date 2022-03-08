@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include <OgreLogManager.h>
-#include <btBulletDynamicsCommon.h>
+#include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
 
 #include <SDL_timer.h>
 #include <SDL.h>
@@ -42,15 +42,16 @@ int main(int argc, char** argv) {
 
 		renderMan->exampleScene();
 
-		PhysicsManager* physicsMan = PhysicsManager::getInstance();
-		physicsMan->init(10, 20, { 0, -9.8, 0});
+		//Initialize
+		PhysicsManager::Init(10, 20, { 0, -9.8, 0});
+		//Get Instance which is non nullptr
+		PhysicsManager* physicsMan = PhysicsManager::GetInstance();
 		physicsMan->exampleObjects();
 		
 		SoundExample* sExample = new SoundExample();
 
 		//sExample->playWAV("./assets/sounds/clap.wav");
 		//sExample->playMP3("./assets/sounds/clapV2.ogg");
-
 
 		bool run = true; // time --> miliseconds
 		unsigned int accFrameTime = 0, currTime = SDL_GetTicks();
@@ -73,7 +74,10 @@ int main(int argc, char** argv) {
 
 		uiMan->shutdown();
 		renderMan->shutdown();
-		physicsMan->shutdown();
+		PhysicsManager::Shutdown();
+		uiMan->shutdown();
+
+		physicsMan = PhysicsManager::GetInstance();
 	}
 	catch (Ogre::Exception& e) {
 

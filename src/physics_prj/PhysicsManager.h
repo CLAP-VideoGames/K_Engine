@@ -16,12 +16,14 @@ class btVector3;
 class PhysicsManager{
 
 public:
-	static PhysicsManager* getInstance();
+	static PhysicsManager* GetInstance();
 
-	void init(int numIterations, int step, const btVector3& gravity);
+	static bool Init(int numIterations, int step, const btVector3& gravity);
+	
+	static bool Shutdown();
+
 	void update();
 	void exampleObjects();
-	void shutdown();
 	~PhysicsManager();
 
 private:
@@ -34,7 +36,9 @@ private:
 	btBroadphaseInterface* overlappingPairCache;
 	btSequentialImpulseConstraintSolver* solver;
 	btVector3* gravity;
-
 	int numIterations_;
+
+	bool initWorld(int numIterations, int step, const btVector3& gravity);
+	bool releaseWorld();
 };
 

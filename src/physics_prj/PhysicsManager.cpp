@@ -3,36 +3,85 @@
 
 std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
 
-PhysicsManager* PhysicsManager::getInstance(){
-	if (instance.get() == nullptr)
-		instance.reset(new PhysicsManager());
-
+PhysicsManager* PhysicsManager::GetInstance(){
 	return instance.get();
 }
 
-void PhysicsManager::init(int numIterations, int step, const btVector3& gravity = btVector3(0, -9.8f, 0)){
-	///-----initialization_start-----
-	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
-	numIterations_ = numIterations;
-	collisionConfiguration = new btDefaultCollisionConfiguration();
-
-	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
-	dispatcher = new btCollisionDispatcher(collisionConfiguration);
-
-	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
-	overlappingPairCache = new btDbvtBroadphase();
-
-	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
-	solver = new btSequentialImpulseConstraintSolver;
-
-	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-
-	dynamicsWorld->setGravity(gravity);
-
-	collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
+bool PhysicsManager::Init(int numIterations, int step, const btVector3& gravity = btVector3(0, -9.8f, 0)){
+	instance.reset(new PhysicsManager());
+	return instance.get()->initWorld(numIterations, step, gravity);
 }
 
 PhysicsManager::~PhysicsManager(){}
+
+bool PhysicsManager::initWorld(int numIterations, int step, const btVector3& gravity){
+	bool succeed = true;
+	try{
+		///-----initialization_start-----
+		///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
+		numIterations_ = numIterations;
+		collisionConfiguration = new btDefaultCollisionConfiguration();
+
+		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+		dispatcher = new btCollisionDispatcher(collisionConfiguration);
+
+		///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
+		overlappingPairCache = new btDbvtBroadphase();
+
+		///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+		solver = new btSequentialImpulseConstraintSolver;
+
+		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+
+		dynamicsWorld->setGravity(gravity);
+
+		collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
+	}
+	catch (const std::exception&){
+		succeed = false;
+	}
+
+	return succeed;
+}
+
+bool PhysicsManager::releaseWorld(){
+	bool succeed = true;
+	
+	try{
+		//cleanup in the reverse order of creation/initialization
+		///-----cleanup_start-----
+		//remove the rigidbodies from the dynamics world and delete them
+		for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
+			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+			btRigidBody* body = btRigidBody::upcast(obj);
+			if (body && body->getMotionState())
+				delete body->getMotionState();
+			dynamicsWorld->removeCollisionObject(obj);
+			delete obj;
+		}
+
+		//delete collision shapes
+		for (int j = 0; j < collisionShapes->size(); j++) {
+			btCollisionShape* shape = (*collisionShapes)[j];
+			(*collisionShapes)[j] = 0;
+			delete shape;
+		}
+
+		//delete objects
+		delete dynamicsWorld; dynamicsWorld = nullptr;
+		delete solver; solver = nullptr;
+		delete overlappingPairCache; overlappingPairCache = nullptr;
+		delete dispatcher; dispatcher = nullptr;
+		delete collisionConfiguration; collisionConfiguration = nullptr;
+		collisionShapes->clear();
+		delete collisionShapes; collisionShapes = nullptr;
+	}
+	catch (const std::exception&){
+		succeed = false;
+	}
+	
+	return succeed;
+}
 
 void PhysicsManager::update(){
 	for (int i = 0; i < numIterations_; i++) {
@@ -119,42 +168,8 @@ void PhysicsManager::exampleObjects(){
 	}
 }
 
-void PhysicsManager::shutdown(){
-	//cleanup in the reverse order of creation/initialization
-	///-----cleanup_start-----
-	//remove the rigidbodies from the dynamics world and delete them
-	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-		btRigidBody* body = btRigidBody::upcast(obj);
-		if (body && body->getMotionState()) {
-			delete body->getMotionState();
-		}
-		dynamicsWorld->removeCollisionObject(obj);
-		delete obj;
-	}
-
-	//delete collision shapes
-	for (int j = 0; j < collisionShapes->size(); j++) {
-		btCollisionShape* shape = (*collisionShapes)[j];
-		(*collisionShapes)[j] = 0;
-		delete shape;
-	}
-
-	//delete dynamics world
-	delete dynamicsWorld;
-
-	//delete solver
-	delete solver;
-
-	//delete broadphase
-	delete overlappingPairCache;
-
-	//delete dispatcher
-	delete dispatcher;
-
-	delete collisionConfiguration;
-
-	//next line is optional: it will be cleared by the destructor when the array goes out of scope
-	collisionShapes->clear();
-	delete collisionShapes;
+bool PhysicsManager::Shutdown(){
+	bool exit = instance.get()->releaseWorld();
+	instance.reset(nullptr);
+	return exit;
 }
