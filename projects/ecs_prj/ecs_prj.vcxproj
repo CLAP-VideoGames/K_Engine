@@ -140,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ecs_prj\Component.h" />
+    <ClInclude Include="..\..\src\ecs_prj\ComponentFactory.h" />
     <ClInclude Include="..\..\src\ecs_prj\Entity.h" />
     <ClInclude Include="..\..\src\ecs_prj\RigidBody.h" />
     <ClInclude Include="..\..\src\ecs_prj\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\ecs_prj\Component.cpp" />
+    <ClCompile Include="..\..\src\ecs_prj\ComponentFactory.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\Entity.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\Transform.cpp" />
   </ItemGroup>

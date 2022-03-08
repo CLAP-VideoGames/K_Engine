@@ -9,7 +9,7 @@ public:
 	~Transform();
 
 	//Required method for the component name
-	static std::string getId() { return name; }
+	static std::string GetId() { return name; }
 
 protected:
 

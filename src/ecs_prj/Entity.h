@@ -3,14 +3,17 @@
 #include <unordered_map>
 #include "Component.h"
 
+/*
+*Our class Entity starts with only a Transform Component, which contains the rotation, position and scale of our entity
+*You can alterate you entitys with the following methods
+*/
+
 class Entity
 {
+
 public:
 	Entity();
 	~Entity();
-
-	//In this three methods(getComponent, removeComponent and hasComponent) we try to execute T::getId() so we know if the user used a Component
-	//If it didnt we throw an exception saying that Component that does not exist 
 
 	//Template to get a Component
 	template<typename T>
@@ -24,8 +27,20 @@ public:
 	template <typename T>
 	void hasComponent();
 
+	//Template to add any Component to our Entity
+	template <typename T>
+	Component* addComponent();
+
 	void setActive(bool a) { active = a; }
+
 private:
+
+	/*
+	*We use this method to check that it is a Component what the user is introucing in our methods,
+	*if it is not we throw an exception, if it is we return the componentName
+	*/
+	template<typename T>
+	std::string getComponentName();
 
 	//bool to determine if we update the entity or not
 	bool active;
@@ -39,10 +54,5 @@ private:
 	std::string tag;
 	std::string name;
 
-	//addComponent(Component c){
-	//}
-
-	//remove component(Component c){		
-	//}
 };
 #endif

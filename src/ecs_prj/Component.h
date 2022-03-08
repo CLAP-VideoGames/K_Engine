@@ -9,6 +9,17 @@
 /// You have to specify your getId() Method
 /// 
 /// Use Transform.h and Tranform.cpp as examples
+/// 
+/// Example:
+/// class MyComponent : public Component{
+/// public(necesary):
+///		static std::string getId() { return myVariable; } (This method MUST be named this way)
+/// 
+///  *All your virtual methods like update or awake*
+/// 
+///  private(preferibly private):
+///		static std::string myVariable; (You can name it whatever you want but name is pretty descriptive)
+/// }
 /// </summary>
 class Component
 {
@@ -41,7 +52,7 @@ public:
 	void setActive(bool a);
 
 protected:
-	//option 1: using an string to identify our components by name
+	//Default string to force the user to give it a diferent id 
 	std::string id = "unknown";
 
 	bool enable;
