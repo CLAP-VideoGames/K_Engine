@@ -134,8 +134,8 @@ void UIManager::init()
 *************************************************************************/
 void UIManager::shutdown()
 {
-    delete mRoot;
     delete guiContext;
+    delete mRoot;
 }
 
 

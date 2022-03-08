@@ -71,9 +71,9 @@ int main(int argc, char** argv) {
 			renderMan->render();
 		}
 
+		uiMan->shutdown();
 		renderMan->shutdown();
 		physicsMan->shutdown();
-		uiMan->shutdown();
 	}
 	catch (Ogre::Exception& e) {
 
