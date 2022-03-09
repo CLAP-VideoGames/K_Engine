@@ -1,6 +1,7 @@
 ﻿#include "UIManager.h"
 
 #include <iostream>
+#include <string>
 
 #include <RenderManager.h>
 #include <CEGUI/CEGUI.h>
@@ -8,6 +9,7 @@
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 using namespace CEGUI;
+using namespace std;
 
 std::unique_ptr<UIManager> UIManager::instance = nullptr;
 
@@ -15,29 +17,75 @@ UIManager::UIManager() = default;
 
 UIManager::~UIManager() = default;
 
-UIManager* UIManager::getInstance() {
-    if (instance.get() == nullptr)
-        instance.reset(new UIManager());
-
+UIManager* UIManager::GetInstance() {
     return instance.get();
 }
 
 /*************************************************************************
-    Sample specific initialisation goes here.
+    specific initialisation goes here.
 *************************************************************************/
-void UIManager::init()
+bool UIManager::Init(std::string n)
 {
-    //Init RenderTarget
+    try {
+        instance.reset(new UIManager());
+
+        instance.get()->name = n;
+
+        instance.get()->initContext();
+        instance.get()->initRoot();
+        instance.get()->initResources();
+    }
+    catch (const std::exception&) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+bool UIManager::handleHelloWorldClicked(const CEGUI::EventArgs& args)
+{
+    std::cout << "Hello World!" << std::endl;
+
+    return false;
+}
+
+void UIManager::initContext()
+{
 
     // CEGUI BOOTSTRAP
-    CEGUI::OgreRenderer* m_renderer = &CEGUI::OgreRenderer::bootstrapSystem(*RenderManager::GetInstance()->getRenderWindow());
+    m_renderer = &CEGUI::OgreRenderer::bootstrapSystem(*RenderManager::GetInstance()->getRenderWindow());
 
     // not sure if this is needed either but fixed a different issue I saw on the forum with no rendering
     //m_CEGUI.setDisplaySize( CEGUI::Size(800,600) );
 
     guiContext = &CEGUI::System::getSingleton().createGUIContext(m_renderer->getDefaultRenderTarget());
-     //d_usedFiles = CEGUI::String(__FILE__);
+}
 
+
+void UIManager::initRoot()
+{
+    // Now the system is initialised, we can actually create some UI elements, for
+    // this first example, a full-screen 'root' window is set as the active GUI
+    // sheet, and then a simple frame window will be created and attached to it.
+
+    // All windows and widgets are created via the WindowManager singleton.
+    winMgr = WindowManager::getSingletonPtr();
+
+    // Here we create a "DefaultWindow".  This is a native type, that is, it does
+    // not have to be loaded via a scheme, it is always available.  One common use
+    // for the DefaultWindow is as a generic container for other windows.  Its
+    // size defaults to 1.0f x 1.0f using the Relative metrics mode, which means
+    // when it is set as the root GUI sheet window, it will cover the entire display.
+    // The DefaultWindow does not perform any rendering of its own, so is invisible.
+    //
+    // Create a DefaultWindow called 'Root'.
+    mRoot = (DefaultWindow*)winMgr->createWindow("DefaultWindow", "Root");
+}
+
+void UIManager::initResources()
+{
     // CEGUI relies on various systems being set-up, so this is what we do
     // here first.
     //
@@ -48,8 +96,7 @@ void UIManager::init()
     // So, we use the SchemeManager singleton to load in a scheme that loads the
     // imagery and registers widgets for the TaharezLook skin.  This scheme also
     // loads in a font that gets used as the system default.
-    SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
-    
+    sch = &SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 
     // The next thing we do is to set a default cursor image.  This is
     // not strictly essential, although it is nice to always have a visible
@@ -58,23 +105,6 @@ void UIManager::init()
     // The TaharezLook Imageset contains an Image named "MouseArrow" which is
     // the ideal thing to have as a defult cursor image.
     guiContext->getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
-
-    // Now the system is initialised, we can actually create some UI elements, for
-    // this first example, a full-screen 'root' window is set as the active GUI
-    // sheet, and then a simple frame window will be created and attached to it.
-
-    // All windows and widgets are created via the WindowManager singleton.
-    WindowManager& winMgr = WindowManager::getSingleton();
-
-    // Here we create a "DefaultWindow".  This is a native type, that is, it does
-    // not have to be loaded via a scheme, it is always available.  One common use
-    // for the DefaultWindow is as a generic container for other windows.  Its
-    // size defaults to 1.0f x 1.0f using the Relative metrics mode, which means
-    // when it is set as the root GUI sheet window, it will cover the entire display.
-    // The DefaultWindow does not perform any rendering of its own, so is invisible.
-    //
-    // Create a DefaultWindow called 'Root'.
-    mRoot = (DefaultWindow*)winMgr.createWindow("DefaultWindow", "Root");
 
     // load font and setup default if not loaded via scheme
     Font& defaultFont = FontManager::getSingleton().createFromFile("DejaVuSans-12.font");
@@ -88,7 +118,7 @@ void UIManager::init()
     // and resized.
     //
     // Create a FrameWindow in the TaharezLook style, and name it 'Sample Window'
-    FrameWindow* wnd = (FrameWindow*)winMgr.createWindow("TaharezLook/FrameWindow", "Sample Window");
+    wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/FrameWindow", "Sample Window");
 
     // Here we attach the newly created FrameWindow to the previously created
     // DefaultWindow which we will be using as the root of the displayed gui.
@@ -103,8 +133,8 @@ void UIManager::init()
     //
     // Here we set the FrameWindow so that it is half the size of the display,
     // and centered within the display.
-    wnd->setPosition(UVector2(cegui_reldim(0.25f), cegui_reldim( 0.25f)));
-    wnd->setSize(USize(cegui_reldim(0.5f), cegui_reldim( 0.5f)));
+    wnd->setPosition(UVector2(cegui_reldim(0.25f), cegui_reldim(0.25f)));
+    wnd->setSize(USize(cegui_reldim(0.5f), cegui_reldim(0.5f)));
 
     // now we set the maximum and minum sizes for the new window.  These are
     // specified using relative co-ordinates, but the important thing to note
@@ -113,34 +143,37 @@ void UIManager::init()
     //
     // here we set a maximum size for the FrameWindow which is equal to the size
     // of the display, and a minimum size of one tenth of the display.
-    wnd->setMaxSize(USize(cegui_reldim(1.0f), cegui_reldim( 1.0f)));
-    wnd->setMinSize(USize(cegui_reldim(0.1f), cegui_reldim( 0.1f)));
+    wnd->setMaxSize(USize(cegui_reldim(1.0f), cegui_reldim(1.0f)));
+    wnd->setMinSize(USize(cegui_reldim(0.1f), cegui_reldim(0.1f)));
 
     // As a final step in the initialisation of our sample window, we set the window's
     // text to "Hello World!", so that this text will appear as the caption in the
     // FrameWindow's titlebar.
     wnd->setText("Hello World!");
 
-    wnd->subscribeEvent(CEGUI::Window::EventMouseClick,  Event::Subscriber(&UIManager::handleHelloWorldClicked, this));
-
-    // return true so that the samples framework knows that initialisation was a
-    // success, and that it should now run the sample.
+    wnd->subscribeEvent(CEGUI::Window::EventMouseClick, Event::Subscriber(&UIManager::handleHelloWorldClicked, this));
 }
-
 
 /*************************************************************************
     Cleans up resources allocated in the initialiseSample call.
 *************************************************************************/
-void UIManager::shutdown()
+bool UIManager::Shutdown()
 {
-    delete guiContext;
-    delete mRoot;
+    try {
+        instance.get()->closeContext();
+
+        instance.reset(nullptr);
+
+    }
+    catch (const std::exception&) {
+        return false;
+    }
+
+    return true;
 }
 
-
-bool UIManager::handleHelloWorldClicked(const CEGUI::EventArgs& args)
+void UIManager::closeContext()
 {
-    std::cout << "Hello World!" << std::endl;
-
-    return false;
+    winMgr->destroyAllWindows();
+    m_renderer->destroySystem();
 }
