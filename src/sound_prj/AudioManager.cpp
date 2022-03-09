@@ -1,15 +1,23 @@
 #include "AudioManager.h"
+
 #include <iostream>
 #include <string>
 
 #include <SDL.h> 
 #include <SDL_mixer.h>
 
-AudioManager* AudioManager::getInstance() {
+std::unique_ptr<AudioManager> AudioManager::instance = nullptr;
+
+AudioManager::AudioManager() = default;
+
+AudioManager::~AudioManager() = default;
+
+AudioManager* AudioManager::GetInstance() {
 	return instance.get();
 }
 
-void AudioManager::Init() {
+bool AudioManager::Init() {
+	instance.reset(new AudioManager());
 
 	// Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
@@ -18,19 +26,23 @@ void AudioManager::Init() {
 	//Initialize SDL2_mixer
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 		std::cout << "SDL2_mixer could not be initialized!\n";
+
+	return true;
 }
 
-void AudioManager::Shutdown()
+bool AudioManager::Shutdown()
 {
-	instance.reset(nullptr);
-	Mix_FreeChunk(wav);
-	Mix_FreeMusic(mus);
+	Mix_FreeChunk(instance->wav);
+	Mix_FreeMusic(instance->mus);
 
 	Mix_CloseAudio();
 
 	SDL_Quit();
-}
 
+	instance.reset(nullptr);
+
+	return true;
+}
 
 /// <summary>
 /// Load and Play audio sources

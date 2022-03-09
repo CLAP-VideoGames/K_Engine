@@ -1,5 +1,6 @@
-#ifndef SOUNDEXAMPLE_H
-#define SOUNDEXAMPLE_H
+#pragma once
+#ifndef AUDIOMANAGER_H
+#define AUDIOMANAGER_H
 
 typedef struct _Mix_Music Mix_Music;
 class Mix_Chunk;
@@ -9,13 +10,16 @@ class Mix_Chunk;
 class AudioManager
 {
 public:
-	static AudioManager* getInstance();
+	AudioManager();
+	~AudioManager();
 
-	void Init();
-	void Shutdown();
-	~AudioManager() {};
+	static AudioManager* GetInstance();
 
-	void update() {}
+	static bool Init();
+	static bool Shutdown();
+
+	void update() {};
+
 	void playWAV(const char* path);
 	void playMUS(const char* path);
 
@@ -28,4 +32,4 @@ private:
 	void loadWAV(const char* path);
 	void loadMUS(const char* path);
 };
-#endif // SOUNDEXAMPLE_H
+#endif // AUDIOMANAGER_H

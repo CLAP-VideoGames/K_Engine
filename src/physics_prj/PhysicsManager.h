@@ -1,3 +1,6 @@
+#pragma once
+#ifndef PHYSICSMANAGER_H
+#define PHYSICSMANAGER_H
 
 #include <memory>
 
@@ -42,4 +45,4 @@ private:
 	bool initWorld(int numIterations, int step, const btVector3& gravity);
 	bool releaseWorld();
 };
-
+#endif // PHYSICSMANAGER_H

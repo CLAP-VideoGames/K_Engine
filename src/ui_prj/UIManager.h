@@ -1,3 +1,4 @@
+#pragma once
 #ifndef UIMANAGER_H
 #define UIMANAGER_H
 
@@ -33,4 +34,4 @@ private:
     bool handleHelloWorldClicked(const CEGUI::EventArgs& args);
 
 };
-#endif // !UIMANAGER_H
+#endif // UIMANAGER_H

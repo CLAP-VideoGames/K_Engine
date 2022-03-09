@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\sound_prj\SoundExample.cpp" />
+    <ClCompile Include="..\..\src\sound_prj\AudioManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\sound_prj\SoundExample.h" />
+    <ClInclude Include="..\..\src\sound_prj\AudioManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

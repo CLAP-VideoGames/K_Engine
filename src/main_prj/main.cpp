@@ -15,7 +15,7 @@
 
 #include <physics_prj/PhysicsManager.h>
 #include <render_prj/RenderManager.h>
-#include <sound_prj/SoundExample.h>
+#include <sound_prj/AudioManager.h>
 #include <ui_prj/UIManager.h>
 
 #define DELTA_TIME 33
@@ -62,10 +62,10 @@ int main() {
 		uiMan->init();
 		
 		// Audio Manager initialisation
-		SoundExample* sExample = new SoundExample();
-
-		//sExample->playWAV("./assets/sounds/clap.wav");
-		//sExample->playMP3("./assets/sounds/clapV2.ogg");
+		AudioManager::Init();
+		AudioManager* audioMan = AudioManager::GetInstance();
+		//audioMan->playWAV("./assets/sounds/clap.wav");
+		audioMan->playMUS("./assets/sounds/clapV2.ogg");
 
 		bool run = true; // time --> miliseconds
 		unsigned int accFrameTime = 0, currTime = SDL_GetTicks();
@@ -86,6 +86,7 @@ int main() {
 			renderMan->render();
 		}
 
+		AudioManager::Shutdown();
 		uiMan->shutdown();
 		PhysicsManager::Shutdown();
 		RenderManager::Shutdown();

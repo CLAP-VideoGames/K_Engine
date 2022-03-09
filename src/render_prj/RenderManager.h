@@ -1,5 +1,6 @@
-#ifndef RENDEREXAMPLE_H
-#define RENDEREXAMPLE_H
+#pragma once
+#ifndef RENDERMANAGER_H
+#define RENDERMANAGER_H
 
 #include <string>
 #include <memory>
@@ -60,4 +61,4 @@ private:
 	void closeContext();
 	void closeWindow();
 };
-#endif // RENDEREXAMPLE_H
+#endif // RENDERMANAGER_H
