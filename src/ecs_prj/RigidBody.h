@@ -18,6 +18,11 @@ public:
 	//Required method for the component name
 	static std::string getId() { return name; }
 
+	void setTrigger(bool value);
+
+	void setRotConstraints(int i, bool value);
+	void setTrasConstraints(int i, bool value);
+
 protected:
 
 

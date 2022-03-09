@@ -149,6 +149,7 @@
     <ClInclude Include="..\..\src\ecs_prj\ComponentManager.h" />
     <ClInclude Include="..\..\src\ecs_prj\Entity.h" />
     <ClInclude Include="..\..\src\ecs_prj\EntityManager.h" />
+    <ClInclude Include="..\..\src\ecs_prj\MeshRenderer.h" />
     <ClInclude Include="..\..\src\ecs_prj\RigidBody.h" />
     <ClInclude Include="..\..\src\ecs_prj\Transform.h" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <ClCompile Include="..\..\src\ecs_prj\ComponentManager.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\Entity.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\EntityManager.cpp" />
+    <ClCompile Include="..\..\src\ecs_prj\MeshRenderer.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\RigidBody.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\Transform.cpp" />
   </ItemGroup>
