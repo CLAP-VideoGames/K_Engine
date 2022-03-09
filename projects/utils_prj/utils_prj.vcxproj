@@ -17,7 +17,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -28,75 +27,91 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared" >
+  <ImportGroup Label="Shared">
   </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)lib\$(ProjectName)\$(Configuration)\</OutDir>
+    <TargetName>utils_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)lib\$(ProjectName)\$(Configuration)\</OutDir>
+    <TargetName>utils</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)lib\$(ProjectName)\$(Configuration)\</OutDir>
+    <TargetName>utils_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)lib\$(ProjectName)\$(Configuration)\</OutDir>
+    <TargetName>utils</TargetName>
   </PropertyGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>Bullet2FileLoader_d.lib;Bullet3Collision_d.lib;Bullet3Common_d.lib;Bullet3Dynamics_d.lib;Bullet3Geometry_d.lib;Bullet3OpenCL_clew_d.lib;BulletCollision_d.lib;BulletDynamics_d.lib;BulletFileLoader_d.lib;BulletInverseDynamics_d.lib;BulletInverseDynamicsUtils_d.lib;BulletRobotics_d.lib;BulletRoboticsGUI_d.lib;BulletSoftBody_d.lib;BulletWorldImporter_d.lib;BulletXmlWorldImporter_d.lib;ConvexDecomposition_d.lib;GIMPACTUtils_d.lib;gtest_d.lib;HACD_d.lib;LinearMath_d.lib;Codec_Assimp_d.lib;Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL_d.lib;RenderSystem_GL3Plus_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\bullet\build\lib\Debug\;$(SolutionDir)\dependencies\ogre\build\lib\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -106,6 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,6 +129,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>Bullet2FileLoader.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletFileLoader.lib;BulletInverseDynamics.lib;BulletInverseDynamicsUtils.lib;BulletRobotics.lib;BulletRoboticsGUI.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;gtest.lib;HACD.lib;LinearMath.lib;Codec_Assimp.lib;Codec_STBI.lib;OgreGLSupport.lib;OgreMain.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;OgreTerrain.lib;OgreVolume.lib;Plugin_BSPSceneManager.lib;Plugin_OctreeSceneManager.lib;Plugin_OctreeZone.lib;Plugin_ParticleFX.lib;Plugin_PCZSceneManager.lib;RenderSystem_GL.lib;RenderSystem_GL3Plus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\bullet\build\lib\Release\;$(SolutionDir)\dependencies\ogre\build\lib\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -120,11 +142,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>Bullet2FileLoader_d.lib;Bullet3Collision_d.lib;Bullet3Common_d.lib;Bullet3Dynamics_d.lib;Bullet3Geometry_d.lib;Bullet3OpenCL_clew_d.lib;BulletCollision_d.lib;BulletDynamics_d.lib;BulletFileLoader_d.lib;BulletInverseDynamics_d.lib;BulletInverseDynamicsUtils_d.lib;BulletRobotics_d.lib;BulletRoboticsGUI_d.lib;BulletSoftBody_d.lib;BulletWorldImporter_d.lib;BulletXmlWorldImporter_d.lib;ConvexDecomposition_d.lib;GIMPACTUtils_d.lib;gtest_d.lib;HACD_d.lib;LinearMath_d.lib;Codec_Assimp_d.lib;Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL_d.lib;RenderSystem_GL3Plus_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\bullet\build\lib\Debug\;$(SolutionDir)\dependencies\ogre\build\lib\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -134,6 +163,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,9 +171,29 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>Bullet2FileLoader.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletFileLoader.lib;BulletInverseDynamics.lib;BulletInverseDynamicsUtils.lib;BulletRobotics.lib;BulletRoboticsGUI.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;gtest.lib;HACD.lib;LinearMath.lib;Codec_Assimp.lib;Codec_STBI.lib;OgreGLSupport.lib;OgreMain.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;OgreTerrain.lib;OgreVolume.lib;Plugin_BSPSceneManager.lib;Plugin_OctreeSceneManager.lib;Plugin_OctreeZone.lib;Plugin_ParticleFX.lib;Plugin_PCZSceneManager.lib;RenderSystem_GL.lib;RenderSystem_GL3Plus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\bullet\build\lib\Release\;$(SolutionDir)\dependencies\ogre\build\lib\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
-
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\utils_prj\BtOgreExtras.h" />
+    <ClInclude Include="..\..\src\utils_prj\BtOgreGP.h" />
+    <ClInclude Include="..\..\src\utils_prj\BtOgrePG.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\physics_prj\physics_prj.vcxproj">
+      <Project>{2e4034b9-ad29-44c6-8f44-9b90c6e64e6c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\render_prj\render_prj.vcxproj">
+      <Project>{3cdee0e0-bdc9-49de-ba43-3ad704f5537b}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\utils_prj\BtOgre.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

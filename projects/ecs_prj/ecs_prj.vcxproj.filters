@@ -27,6 +27,9 @@
     <ClInclude Include="..\..\src\ecs_prj\RigidBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\ecs_prj\ComponentFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\ecs_prj\Entity.cpp">
