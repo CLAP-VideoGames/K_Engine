@@ -58,9 +58,9 @@ int main() {
 		physicsMan->exampleObjects();
 		
 		// UI Manager initialisation
-		UIManager* uiMan = UIManager::getInstance();
-		uiMan->init();
-		
+		UIManager::Init("K_EngineUI");
+		UIManager* uiMan = UIManager::GetInstance();
+
 		// Audio Manager initialisation
 		AudioManager::Init();
 		AudioManager* audioMan = AudioManager::GetInstance();
@@ -87,7 +87,7 @@ int main() {
 		}
 
 		AudioManager::Shutdown();
-		uiMan->shutdown();
+		UIManager::Shutdown();
 		PhysicsManager::Shutdown();
 		RenderManager::Shutdown();
 	}

@@ -3,6 +3,7 @@
 #define UIMANAGER_H
 
 #include <memory>
+#include <string>
 
 namespace CEGUI
 {
@@ -10,6 +11,10 @@ namespace CEGUI
     class DefaultWindow;
     class EventArgs;
     class GUIContext;
+    class WindowManager;
+    class OgreRenderer;
+    class FrameWindow;
+    class Scheme;
 }
 
 class UIManager
@@ -18,20 +23,28 @@ public:
     UIManager();
     ~UIManager();
 
-    static UIManager* getInstance();
+    static UIManager* GetInstance();
 
-    void init();
-    void shutdown();
+    static bool Init(std::string n);
+    static bool Shutdown();
 
 private:
     static std::unique_ptr<UIManager> instance;
+    std::string name;
 
-    CEGUI::DefaultWindow* mRoot;
     CEGUI::GUIContext* guiContext;
+    CEGUI::DefaultWindow* mRoot;
+    CEGUI::WindowManager* winMgr;
+    CEGUI::OgreRenderer* m_renderer;
+    CEGUI::FrameWindow* wnd;
+    CEGUI::Scheme* sch;
 
+    void initContext();
+    void initRoot();
+    void initResources();
 
-    //Getters
     bool handleHelloWorldClicked(const CEGUI::EventArgs& args);
 
+    void closeContext();
 };
 #endif // UIMANAGER_H
