@@ -7,6 +7,8 @@
 #include <OgreLogManager.h>
 #include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
 
+// this should be on the render project, before the SDL.h,
+// but since it's here I put it there temporarily
 #define SDL_MAIN_HANDLED
 #include <SDL_timer.h>
 #include <SDL.h>
@@ -38,6 +40,7 @@ bool pollEvents()
 
 #ifdef _DEBUG
 int main() {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 #ifndef _DEBUG
 	int WINAPI WinMain(HINSTANCE zHInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -58,6 +61,7 @@ int main() {
 		UIManager* uiMan = UIManager::getInstance();
 		uiMan->init();
 		
+		// Audio Manager initialisation
 		SoundExample* sExample = new SoundExample();
 
 		//sExample->playWAV("./assets/sounds/clap.wav");

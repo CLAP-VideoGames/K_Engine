@@ -2,11 +2,10 @@
 
 #include <iostream>
 
+#include <RenderManager.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/Window.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
-
-#include <RenderManager.h>
 
 using namespace CEGUI;
 
