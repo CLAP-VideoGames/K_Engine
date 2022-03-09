@@ -1,0 +1,2 @@
+Relación Bullet con Ogre (btOgre)
+https://github.com/nikki93/btogre/blob/master/include/BtOgreGP.h
