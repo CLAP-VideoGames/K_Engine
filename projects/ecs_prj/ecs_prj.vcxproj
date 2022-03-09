@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\src\ecs_prj\ComponentManager.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\Entity.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\EntityManager.cpp" />
+    <ClCompile Include="..\..\src\ecs_prj\RigidBody.cpp" />
     <ClCompile Include="..\..\src\ecs_prj\Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
