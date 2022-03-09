@@ -29,30 +29,54 @@ RenderManager::RenderManager() = default;
 
 RenderManager::~RenderManager() = default;
 
-RenderManager* RenderManager::getInstance() {
-	if (instance.get() == nullptr)
-		instance.reset(new RenderManager());
-
+RenderManager* RenderManager::GetInstance() {
 	return instance.get();
 }
 
-void RenderManager::init(std::string n) {
-	name = n;
+bool RenderManager::Init(std::string n) {
+	try {
+		instance.reset(new RenderManager());
 
-	initRoot();
-	initWindow();
-	initResources();
-	initScene();
-	//initRTShaderSystem();
+		instance.get()->name = n;
+
+		instance.get()->initRoot();
+		instance.get()->initWindow();
+		instance.get()->initResources();
+		instance.get()->initScene();
+		//initRTShaderSystem();
+	}
+	catch (const std::exception&) {
+		return false;
+	}
+
+	return true;
+}
+
+bool RenderManager::Shutdown() {
+	try {
+		instance.get()->closeWindow();
+		instance.get()->closeContext();
+
+		instance.reset(nullptr);
+	}
+	catch (const std::exception&) {
+		return false;
+	}
+
+	return true;
 }
 
 void RenderManager::render() {
 	mRoot->renderOneFrame();
 }
 
-void RenderManager::shutdown() {
-	closeWindow();
-	closeContext();
+void RenderManager::exampleScene() {
+	// finally something to render
+	Ogre::Entity* ent = mSM->createEntity("ogrehead.mesh");
+	Ogre::SceneNode* node = mSM->getRootSceneNode()->createChildSceneNode();
+	float size = 0.2;
+	node->setScale(size, size, size);
+	node->attachObject(ent);
 }
 
 void RenderManager::initRoot()
@@ -216,15 +240,6 @@ void RenderManager::initRTShaderSystem()
 	//    }
 	//}
 	//mShaderGenerator->addSceneManager(mSceneMgr);
-}
-
-void RenderManager::exampleScene() {
-	// finally something to render
-	Ogre::Entity* ent = mSM->createEntity("ogrehead.mesh");
-	Ogre::SceneNode* node = mSM->getRootSceneNode()->createChildSceneNode();
-	float size = 0.2;
-	node->setScale(size, size, size);
-	node->attachObject(ent);
 }
 
 Ogre::Root* RenderManager::getRoot() {

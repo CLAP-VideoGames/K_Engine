@@ -24,11 +24,12 @@ public:
 	RenderManager();
 	~RenderManager();
 
-	static RenderManager* getInstance();
+	static RenderManager* GetInstance();
 
-	void init(std::string n);
+	static bool Init(std::string n);
+	static bool Shutdown();
+
 	void render();
-	void shutdown();
 
 	void exampleScene();
 

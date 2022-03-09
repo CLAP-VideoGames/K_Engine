@@ -3,6 +3,10 @@
 
 std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
 
+PhysicsManager::PhysicsManager() = default;
+
+PhysicsManager::~PhysicsManager() = default;
+
 PhysicsManager* PhysicsManager::GetInstance(){
 	return instance.get();
 }

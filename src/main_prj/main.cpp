@@ -34,19 +34,19 @@ bool pollEvents()
 
 int main(int argc, char** argv) {
 	try {
-		RenderManager* renderMan = RenderManager::getInstance();
-		renderMan->init("K_Engine");
+		// Render Manager initialisation
+		RenderManager::Init("K_Engine"); //GetInstance() returns nullptr if Init isnt called first
+		RenderManager* renderMan = RenderManager::GetInstance();
+		renderMan->exampleScene();
+
+		// Physics Manager initialisation
+		PhysicsManager::Init(10, 20, { 0, -9.8, 0}); //GetInstance() returns nullptr if Init isnt called first
+		PhysicsManager* physicsMan = PhysicsManager::GetInstance();
+		physicsMan->exampleObjects();
+		
 		//UI MUST BE AFTER RENDER
 		UIManager* uiMan = UIManager::getInstance();
 		uiMan->init();
-
-		renderMan->exampleScene();
-
-		//Initialize
-		PhysicsManager::Init(10, 20, { 0, -9.8, 0});
-		//Get Instance which is non nullptr
-		PhysicsManager* physicsMan = PhysicsManager::GetInstance();
-		physicsMan->exampleObjects();
 		
 		SoundExample* sExample = new SoundExample();
 
@@ -73,11 +73,8 @@ int main(int argc, char** argv) {
 		}
 
 		uiMan->shutdown();
-		renderMan->shutdown();
 		PhysicsManager::Shutdown();
-		uiMan->shutdown();
-
-		physicsMan = PhysicsManager::GetInstance();
+		RenderManager::Shutdown();
 	}
 	catch (Ogre::Exception& e) {
 

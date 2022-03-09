@@ -16,10 +16,12 @@ class btVector3;
 class PhysicsManager{
 
 public:
+	PhysicsManager();
+	~PhysicsManager();
+
 	static PhysicsManager* GetInstance();
 
 	static bool Init(int numIterations, int step, const btVector3& gravity);
-	
 	static bool Shutdown();
 
 	void update();
