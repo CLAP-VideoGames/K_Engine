@@ -33,7 +33,17 @@ public:
 	template <typename T>
 	Component* addComponent();
 
+	//This mehtos is used to set our Entity to active or unactive
 	void setActive(bool a) { active = a; }
+
+	//This methos updates our entity and is called once per frame
+	void update();
+
+	//To know when to destroy our entity
+	bool destroyed() { return toDestroy; }
+
+	//To know when to update our entity
+	bool isActive() { return active; }
 
 private:
 

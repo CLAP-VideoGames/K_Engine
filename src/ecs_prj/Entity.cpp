@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include <stdexcept>
+#include <Component.h>
 
 Entity::Entity()
 {
@@ -12,6 +13,13 @@ Entity::Entity()
 Entity::~Entity()
 {
 
+}
+
+void Entity::update()
+{
+	for (auto c : components) {
+		c.second->update();
+	}
 }
 
 template<typename T>
