@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <iostream>
+#ifndef _DEBUG
+#include <windows.h>
+#endif
 
 #include <OgreLogManager.h>
 #include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
 
+#define SDL_MAIN_HANDLED
 #include <SDL_timer.h>
 #include <SDL.h>
 
@@ -32,7 +36,13 @@ bool pollEvents()
 	return true;
 }
 
-int main(int argc, char** argv) {
+#ifdef _DEBUG
+int main() {
+#endif
+#ifndef _DEBUG
+	int WINAPI WinMain(HINSTANCE zHInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
+#endif
+
 	try {
 		// Render Manager initialisation
 		RenderManager::Init("K_Engine"); //GetInstance() returns nullptr if Init isnt called first

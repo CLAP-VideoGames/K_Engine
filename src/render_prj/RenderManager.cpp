@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <string>
+#ifndef _DEBUG
+#include <windows.h>
+#endif
 
 #include <SDL.h>
 #include <SDL_syswm.h>
