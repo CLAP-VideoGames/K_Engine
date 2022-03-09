@@ -1,7 +1,9 @@
+#pragma once
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <unordered_map>
-#include "Component.h"
+
+class Component;
 
 /*
 *Our class Entity starts with only a Transform Component, which contains the rotation, position and scale of our entity

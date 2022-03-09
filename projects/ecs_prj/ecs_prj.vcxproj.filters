@@ -27,7 +27,7 @@
     <ClInclude Include="..\..\src\ecs_prj\RigidBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ecs_prj\ComponentFactory.h">
+    <ClInclude Include="..\..\src\ecs_prj\ComponentManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClCompile Include="..\..\src\ecs_prj\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ecs_prj\ComponentFactory.cpp">
+    <ClCompile Include="..\..\src\ecs_prj\ComponentManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
