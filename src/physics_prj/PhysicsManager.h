@@ -26,7 +26,6 @@ public:
 
 	void update();
 	void exampleObjects();
-	~PhysicsManager();
 
 private:
 	static std::unique_ptr<PhysicsManager> instance;

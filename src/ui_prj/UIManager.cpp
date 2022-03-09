@@ -31,7 +31,7 @@ void UIManager::init()
     //Init RenderTarget
 
     // CEGUI BOOTSTRAP
-    CEGUI::OgreRenderer* m_renderer = &CEGUI::OgreRenderer::bootstrapSystem(*RenderManager::getInstance()->getRenderWindow());
+    CEGUI::OgreRenderer* m_renderer = &CEGUI::OgreRenderer::bootstrapSystem(*RenderManager::GetInstance()->getRenderWindow());
 
     // not sure if this is needed either but fixed a different issue I saw on the forum with no rendering
     //m_CEGUI.setDisplaySize( CEGUI::Size(800,600) );

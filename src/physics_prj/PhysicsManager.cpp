@@ -16,8 +16,6 @@ bool PhysicsManager::Init(int numIterations, int step, const btVector3& gravity 
 	return instance.get()->initWorld(numIterations, step, gravity);
 }
 
-PhysicsManager::~PhysicsManager(){}
-
 bool PhysicsManager::initWorld(int numIterations, int step, const btVector3& gravity){
 	bool succeed = true;
 	try{

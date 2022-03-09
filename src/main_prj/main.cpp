@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
 		PhysicsManager* physicsMan = PhysicsManager::GetInstance();
 		physicsMan->exampleObjects();
 		
-		//UI MUST BE AFTER RENDER
+		// UI Manager initialisation
 		UIManager* uiMan = UIManager::getInstance();
 		uiMan->init();
 		
@@ -77,7 +77,6 @@ int main(int argc, char** argv) {
 		RenderManager::Shutdown();
 	}
 	catch (Ogre::Exception& e) {
-
 		Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
 	}
 
