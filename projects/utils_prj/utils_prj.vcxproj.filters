@@ -24,6 +24,9 @@
     <ClInclude Include="..\..\src\utils_prj\BtOgrePG.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\utils_prj\CustomBtOgre.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\utils_prj\BtOgre.cpp">

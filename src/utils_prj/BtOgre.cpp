@@ -959,7 +959,7 @@ namespace BtOgre {
 	DynamicLines::DynamicLines(OperationType opType)
 	{
 	  initialize(opType,false);
-	  setMaterial("BaseWhiteNoLighting");
+	  //setMaterial("BaseWhiteNoLighting");
 	  mDirty = true;
 	}
 	//------------------------------------------------------------------------------------------------

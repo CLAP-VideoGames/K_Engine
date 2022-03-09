@@ -206,7 +206,7 @@ public:
                     mat->setSelfIllumination(1,1,1);
                 }
 
-		mLineDrawer->setMaterial("BtOgre/DebugLines");
+		//mLineDrawer->setMaterial("BtOgre/DebugLines");
 	}
 
 	~DebugDrawer()
