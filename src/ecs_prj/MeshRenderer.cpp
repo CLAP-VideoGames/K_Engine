@@ -4,7 +4,7 @@ std::string MeshRenderer::name = "MeshRenderer";
 
 MeshRenderer::MeshRenderer() : Component("MeshRenderer")
 {
-
+	name = id;
 }
 
 MeshRenderer::~MeshRenderer()

@@ -6,7 +6,7 @@
 std::string RigidBody::name = "RigidBody";
 
 RigidBody::RigidBody() : Component("RigidBody") {
-
+	name = id;
 }
 
 RigidBody::~RigidBody() {
