@@ -16,6 +16,7 @@
 #include <physics_prj/PhysicsManager.h>
 #include <render_prj/RenderManager.h>
 #include <sound_prj/AudioManager.h>
+#include <ecs_prj/EntityManager.h>
 #include <ui_prj/UIManager.h>
 
 #define DELTA_TIME 33

@@ -134,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.20\include;$(SolutionDir)dependencies\ogre\build\SDL2-build\include;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.20\include;$(SolutionDir)dependencies\ogre\build\SDL2-build\include;$(SolutionDir)dependencies\sdl_mixer\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +163,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ecs_prj\ecs_prj.vcxproj">
+      <Project>{a9c79538-c953-45eb-9232-435d0fbba7e2}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\physics_prj\physics_prj.vcxproj">
       <Project>{2e4034b9-ad29-44c6-8f44-9b90c6e64e6c}</Project>
     </ProjectReference>

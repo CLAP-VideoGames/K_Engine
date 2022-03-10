@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include <stdexcept>
-#include <Component.h>
+#include "Component.h"
 
 Entity::Entity()
 {

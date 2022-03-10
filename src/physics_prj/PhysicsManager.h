@@ -33,13 +33,14 @@ public:
 private:
 	static std::unique_ptr<PhysicsManager> instance;
 
-	btDiscreteDynamicsWorld* dynamicsWorld;
-	btDefaultCollisionConfiguration* collisionConfiguration;
-	btAlignedObjectArray<btCollisionShape*>* collisionShapes;
+	btVector3* gravity;
 	btCollisionDispatcher* dispatcher; 
 	btBroadphaseInterface* overlappingPairCache;
+	btDiscreteDynamicsWorld* dynamicsWorld;
+	btDefaultCollisionConfiguration* collisionConfiguration;
 	btSequentialImpulseConstraintSolver* solver;
-	btVector3* gravity;
+	btAlignedObjectArray<btCollisionShape*>* collisionShapes;
+
 	int numIterations_;
 
 	bool initWorld(int numIterations, int step, const btVector3& gravity);

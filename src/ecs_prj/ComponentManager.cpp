@@ -1,5 +1,5 @@
 #include "ComponentManager.h"
-#include <Transform.h>
+#include "Transform.h"
 #include <stdexcept>
 
 std::unique_ptr<ComponentManager> ComponentManager::instance = nullptr;
@@ -15,6 +15,8 @@ bool ComponentManager::Init()
 {
 	//Base components for our engine(Use this comand with every base component)
 	instance.get()->availableComponents.emplace(Transform::GetId(), new Transform());
+
+	return true;
 }
 
 
