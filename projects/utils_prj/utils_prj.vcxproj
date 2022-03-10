@@ -194,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\utils_prj\BtOgre.cpp" />
+    <ClCompile Include="..\..\src\utils_prj\CustomBtOgre.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

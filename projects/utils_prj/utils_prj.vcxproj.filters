@@ -32,5 +32,8 @@
     <ClCompile Include="..\..\src\utils_prj\BtOgre.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\utils_prj\CustomBtOgre.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
