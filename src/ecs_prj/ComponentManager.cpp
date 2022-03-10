@@ -14,7 +14,7 @@ ComponentManager* ComponentManager::GetInstance()
 bool ComponentManager::Init()
 {
 	//Base components for our engine(Use this comand with every base component)
-	instance.get()->availableComponents.emplace(Transform::GetId(), new Transform());
+	//instance.get()->availableComponents.emplace(Transform::GetId(), new Transform());
 
 	return true;
 }

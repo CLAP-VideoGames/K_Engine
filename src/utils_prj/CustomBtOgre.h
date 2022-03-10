@@ -21,6 +21,8 @@
 //	class MeshPtr;
 //	class LogManager;
 //}
+//
+//class CustomVector3;
 
 namespace BtOgre {
 	/// <summary>
