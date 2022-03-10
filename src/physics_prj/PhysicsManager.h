@@ -13,8 +13,12 @@ class btDefaultCollisionConfiguration;
 class btCollisionDispatcher;
 class btBroadphaseInterface;
 class btSequentialImpulseConstraintSolver;
-
+class CustomVector3;
 class btVector3;
+
+namespace BtOgre {
+	class DynamicsWorld;
+}
 
 class PhysicsManager{
 
@@ -24,10 +28,10 @@ public:
 
 	static PhysicsManager* GetInstance();
 
-	static bool Init(int numIterations, int step, const btVector3& gravity);
+	static bool Init(const CustomVector3& gravity);
 	static bool Shutdown();
 
-	void update();
+	void update(float const& delta);
 	void exampleObjects();
 
 private:
@@ -41,9 +45,11 @@ private:
 	btSequentialImpulseConstraintSolver* solver;
 	btAlignedObjectArray<btCollisionShape*>* collisionShapes;
 
+	BtOgre::DynamicsWorld* dynamicWorld;
+
 	int numIterations_;
 
-	bool initWorld(int numIterations, int step, const btVector3& gravity);
+	bool initWorld(const CustomVector3& gravity);
 	bool releaseWorld();
 };
 #endif // PHYSICSMANAGER_H

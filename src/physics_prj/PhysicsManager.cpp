@@ -1,5 +1,11 @@
-#include "PhysicsManager.h"
 #include <btBulletDynamicsCommon.h>
+#include "PhysicsManager.h"
+
+#include <CustomBtOgre.h>
+#pragma region MyRegion
+
+#pragma endregion
+
 
 std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
 
@@ -11,15 +17,18 @@ PhysicsManager* PhysicsManager::GetInstance(){
 	return instance.get();
 }
 
-bool PhysicsManager::Init(int numIterations, int step, const btVector3& gravity = btVector3(0, -9.8f, 0)){
+bool PhysicsManager::Init(const CustomVector3& gravity = CustomVector3(0, -9.8f, 0)){
 	instance.reset(new PhysicsManager());
-	return instance.get()->initWorld(numIterations, step, gravity);
+	return instance.get()->initWorld(gravity);
 }
 
-bool PhysicsManager::initWorld(int numIterations, int step, const btVector3& gravity){
+bool PhysicsManager::initWorld(const CustomVector3& gravity){
 	bool succeed = true;
 	try{
-		///-----initialization_start-----
+		//CustomVector3
+		dynamicWorld = new BtOgre::DynamicsWorld(gravity);
+
+		/*///-----initialization_start-----
 		///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
 		numIterations_ = numIterations;
 		collisionConfiguration = new btDefaultCollisionConfiguration();
@@ -37,13 +46,19 @@ bool PhysicsManager::initWorld(int numIterations, int step, const btVector3& gra
 
 		dynamicsWorld->setGravity(gravity);
 
-		collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
+		collisionShapes = new btAlignedObjectArray<btCollisionShape*>();*/
 	}
 	catch (const std::exception&){
 		succeed = false;
 	}
 
 	return succeed;
+}
+
+bool PhysicsManager::Shutdown() {
+	bool exit = instance.get()->releaseWorld();
+	instance.reset(nullptr);
+	return exit;
 }
 
 bool PhysicsManager::releaseWorld(){
@@ -85,26 +100,27 @@ bool PhysicsManager::releaseWorld(){
 	return succeed;
 }
 
-void PhysicsManager::update(){
-	for (int i = 0; i < numIterations_; i++) {
-		dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+void PhysicsManager::update(float const& delta){
+	dynamicWorld->getBtWorld()->stepSimulation(delta);
+	//for (int i = 0; i < numIterations_; i++) {
+	//	dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 
-		//print positions of all objects
-		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
-			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
-			btRigidBody* body = btRigidBody::upcast(obj);
-			btTransform trans;
-			if (body && body->getMotionState()) {
-				body->getMotionState()->getWorldTransform(trans);
-			}
-			else {
-				trans = obj->getWorldTransform();
-			}
-			//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-		}
+	//	//print positions of all objects
+	//	for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
+	//		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
+	//		btRigidBody* body = btRigidBody::upcast(obj);
+	//		btTransform trans;
+	//		if (body && body->getMotionState()) {
+	//			body->getMotionState()->getWorldTransform(trans);
+	//		}
+	//		else {
+	//			trans = obj->getWorldTransform();
+	//		}
+	//		//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+	//	}
 
-		//system("CLS");
-	}
+	//	//system("CLS");
+	//}
 }
 
 void PhysicsManager::exampleObjects(){
@@ -168,10 +184,4 @@ void PhysicsManager::exampleObjects(){
 
 		dynamicsWorld->addRigidBody(body);
 	}
-}
-
-bool PhysicsManager::Shutdown(){
-	bool exit = instance.get()->releaseWorld();
-	instance.reset(nullptr);
-	return exit;
 }

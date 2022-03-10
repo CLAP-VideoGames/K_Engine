@@ -1,9 +1,9 @@
 #ifndef CUSTOMBTOGRE_H
 #define CUSTOMBTOGRE_H
 
+#include <btBulletDynamicsCommon.h>
 #include "CustomVector.h"
 #include <Ogre.h>
-#include <btBulletDynamicsCommon.h>
 
 //namespace Ogre {
 //	class Quaternion;
@@ -172,7 +172,7 @@ namespace BtOgre {
 		std::unique_ptr<btBroadphaseInterface> mBroadphase;
 		btDynamicsWorld* mBtWorld;
 	public:
-		explicit DynamicsWorld(const Ogre::Vector3& gravity);
+		explicit DynamicsWorld(const CustomVector3& gravity);
 		~DynamicsWorld();
 		DynamicsWorld(btDynamicsWorld* btWorld) : mBtWorld(btWorld) {}
 

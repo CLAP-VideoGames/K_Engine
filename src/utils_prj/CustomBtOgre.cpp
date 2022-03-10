@@ -85,8 +85,8 @@ namespace BtOgre {
 	/// Creates a Bullet Physic world with all it's necessary elements
 	/// </summary>
 	/// <param name="gravity"> Desired world gravity </param>
-	DynamicsWorld::DynamicsWorld(const Ogre::Vector3& gravity)
-	{
+	DynamicsWorld::DynamicsWorld(const CustomVector3& gravity){
+
 		//Bullet initialisation.
 		mCollisionConfig.reset(new btDefaultCollisionConfiguration());
 		mDispatcher.reset(new btCollisionDispatcher(mCollisionConfig.get()));
