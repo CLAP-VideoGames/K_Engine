@@ -53,6 +53,9 @@ bool InputManager::update() {
 
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
+		case SDL_QUIT:
+			return false;
+			break;
 		case SDL_KEYDOWN:
 			onKeyDown(event);
 			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
