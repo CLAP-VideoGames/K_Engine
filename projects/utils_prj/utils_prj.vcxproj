@@ -180,6 +180,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\utils_prj\CustomBtOgre.h" />
+    <ClInclude Include="..\..\src\utils_prj\Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\physics_prj\physics_prj.vcxproj">

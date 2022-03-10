@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CUSTOMBTOGRE_H
 #define CUSTOMBTOGRE_H
 
