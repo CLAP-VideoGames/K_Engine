@@ -250,6 +250,11 @@ Ogre::Root* RenderManager::getRoot() {
 	return mRoot;
 }
 
+Ogre::SceneManager* RenderManager::getSceneManager()
+{
+	return mSM;
+}
+
 Ogre::RenderTarget* RenderManager::getRenderWindow()
 {
 	return mRenderWin;

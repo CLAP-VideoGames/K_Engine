@@ -3,6 +3,9 @@
 #define COMPONENT_H
 
 #include <string>;
+
+class Entity;
+
 /// <summary>
 /// You have to specify the id of the component with a string
 /// The engine will throw an exception otherwise
@@ -25,11 +28,9 @@
 class Component
 {
 public:
-	Component(std::string id);
 	~Component();
 
 #pragma region VirtualMethods
-
 	//update is called every frame of the game
 	virtual void update(){};
 
@@ -54,10 +55,11 @@ public:
 
 protected:
 	//Default string to force the user to give it a diferent id 
-	std::string id = "unknown";
+	std::string id;
+	Entity* entity;
 
 	bool enable;
-private:
 
+	Component(std::string id, Entity* ent);
 };
 #endif	

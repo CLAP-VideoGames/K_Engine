@@ -1,5 +1,8 @@
 #include "ComponentManager.h"
+
 #include "Transform.h"
+#include "MeshRenderer.h"
+
 #include <stdexcept>
 
 std::unique_ptr<ComponentManager> ComponentManager::instance = nullptr;
@@ -14,7 +17,8 @@ ComponentManager* ComponentManager::GetInstance()
 bool ComponentManager::Init()
 {
 	//Base components for our engine(Use this comand with every base component)
-	//instance.get()->availableComponents.emplace(Transform::GetId(), new Transform());
+	//instance.get()->availableComponents.emplace(Transform::GetId(), tr);
+	//instance.get()->availableComponents.emplace(MeshRenderer::GetId(), new MeshRenderer());
 
 	return true;
 }

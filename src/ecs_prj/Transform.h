@@ -9,22 +9,19 @@ namespace Ogre {
 class Transform : public Component
 {
 public:
-
-	Transform(Ogre::SceneNode* mNode);
+	Transform();
 	~Transform();
 
-	//Required method for the component name
-	static std::string GetId() { return name; }
+	static std::string GetId();
 
-protected:
+	void translate(float x, float y, float z);
+	void rotate(float x, float y, float z);
+	void scale(float x, float y, float z);
 
-	
+	Ogre::SceneNode* getNode();
+
 private:
-
-	//Required
 	static std::string name;
 
-	//Position, scale and rotation with their default initialization
 	Ogre::SceneNode* mNode;
-
 };

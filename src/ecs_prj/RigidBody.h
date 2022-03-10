@@ -6,7 +6,7 @@ class btRigidBody;
 class btDefaultMotionState;
 
 namespace BtOgre {
-	class RigidBody;
+	class RigidBodyState;
 }
 
 class RigidBody : public Component
@@ -27,19 +27,15 @@ protected:
 
 
 private:
-	BtOgre::RigidBody* rb;
-
 	//Boolean to control if the associated trigger is a trigger or not (default is false)
 	bool isTrigger = false;
 
 	//Reference to bullet rigidbody
-	btRigidBody* bulletRigidBody = nullptr;
-	
+	btRigidBody* rb = nullptr;
 	//Reference to the collision shape of this rigidbody
-	btCollisionShape* bulletCollisionShape = nullptr;
-
+	btCollisionShape* rbShape = nullptr;
 	//Reference to the default motion state of this rigidbody
-	btDefaultMotionState* bulletDefMotionState = nullptr;
+	BtOgre::RigidBodyState* rbState = nullptr;
 
 	//Required
 	static std::string name;

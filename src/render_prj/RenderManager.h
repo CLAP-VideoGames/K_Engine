@@ -35,6 +35,7 @@ public:
 	void exampleScene();
 
 	Ogre::Root* getRoot();
+	Ogre::SceneManager* getSceneManager();
 	Ogre::RenderTarget* getRenderWindow();
 
 private:

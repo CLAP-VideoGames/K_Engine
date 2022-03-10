@@ -19,7 +19,7 @@ public:
 
 	//Template to get a Component
 	template<typename T>
-	Component* getComponent();
+	T* getComponent();
 
 	//Template to remove a Component
 	template<typename T>
@@ -31,7 +31,7 @@ public:
 
 	//Template to add any Component to our Entity
 	template <typename T>
-	Component* addComponent();
+	T* addComponent();
 
 	//This mehtos is used to set our Entity to active or unactive
 	void setActive(bool a) { active = a; }

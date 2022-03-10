@@ -1,11 +1,9 @@
 #include "RigidBody.h"
 
-#include "CustomBtOgre.h"
-
 //Required
 std::string RigidBody::name = "RigidBody";
 
-RigidBody::RigidBody() : Component("RigidBody") {
+RigidBody::RigidBody() : Component("RigidBody", nullptr) {
 	name = id;
 }
 

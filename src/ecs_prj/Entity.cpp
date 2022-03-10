@@ -23,15 +23,15 @@ void Entity::update()
 }
 
 template<typename T>
-Component* Entity::getComponent()
+T* Entity::getComponent()
 {
 	std::string compName = getComponentName<T>();
 
 	auto iterator = components.find(compName);
-		
+
 	if (iterator != components.end()) return components[compName];
 
-	return nullptr;															
+	return nullptr;
 }
 
 template<typename T>
@@ -42,7 +42,7 @@ void Entity::removeComponent()
 	auto iterator = components.find(compName);
 
 	//If the entity has the component we remove it
-	if (hasComponent<T>()) {		
+	if (hasComponent<T>()) {
 		auto it = components.find(compName);
 
 		components.erase(it);
@@ -67,14 +67,13 @@ void Entity::hasComponent()
 }
 
 template<typename T>
-Component* Entity::addComponent()
+T* Entity::addComponent()
 {
-	std::string componentName = getComponentName<T>();
-
 	if (hasComponent<T>()) {
+		std::string componentName = getComponentName<T>();
 		return components[componentName];
 	}
-
+	return nullptr;
 }
 
 template<typename T>
