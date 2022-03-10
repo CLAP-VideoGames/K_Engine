@@ -2,6 +2,8 @@
 #define CUSTOMBTOGRE_H
 
 #include "CustomVector.h"
+#include <Ogre.h>
+#include <btBulletDynamicsCommon.h>
 
 //namespace Ogre {
 //	class Quaternion;

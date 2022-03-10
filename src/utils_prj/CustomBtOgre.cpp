@@ -1,8 +1,5 @@
 #include "CustomBtOgre.h"
 
-#include <Ogre.h>
-#include <btBulletDynamicsCommon.h>
-
 using namespace Ogre;
 
 namespace BtOgre {
