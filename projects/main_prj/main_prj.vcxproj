@@ -105,8 +105,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\sound_prj\Debug;$(SolutionDir)lib\ui_prj\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics_d.lib;render_d.lib;sound_d.lib;ui_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\sound_prj\Debug;$(SolutionDir)lib\ui_prj\Debug;$(SolutionDir)lib\input_prj\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics_d.lib;render_d.lib;sound_d.lib;ui_d.lib;input_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -124,8 +124,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\sound_prj\Release;$(SolutionDir)lib\ui_prj\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics.lib;render.lib;sound.lib;ui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\sound_prj\Release;$(SolutionDir)lib\ui_prj\Release;$(SolutionDir)lib\input_prj\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics.lib;render.lib;sound.lib;ui.lib;input.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -139,8 +139,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\sound_prj\Debug;$(SolutionDir)lib\ui_prj\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics_d.lib;render_d.lib;sound_d.lib;ui_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\sound_prj\Debug;$(SolutionDir)lib\ui_prj\Debug;$(SolutionDir)lib\input_prj\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics_d.lib;render_d.lib;sound_d.lib;ui_d.lib;input_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,13 +158,16 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\sound_prj\Release;$(SolutionDir)lib\ui_prj\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>physics.lib;render.lib;sound.lib;ui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\sound_prj\Release;$(SolutionDir)lib\ui_prj\Release;$(SolutionDir)lib\input_prj\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>physics.lib;render.lib;sound.lib;ui.lib;input.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\ecs_prj\ecs_prj.vcxproj">
       <Project>{a9c79538-c953-45eb-9232-435d0fbba7e2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\input_prj\input_prj.vcxproj">
+      <Project>{ea8304f0-b9dc-4d9f-94d0-106a28f1665e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\physics_prj\physics_prj.vcxproj">
       <Project>{2e4034b9-ad29-44c6-8f44-9b90c6e64e6c}</Project>

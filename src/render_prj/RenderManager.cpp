@@ -6,6 +6,7 @@
 #include <windows.h>
 #endif
 
+#define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <SDL_syswm.h>
 #include <SDL_video.h>
