@@ -61,6 +61,7 @@ int main() {
 		// UI Manager initialisation
 		UIManager::Init("K_EngineUI");
 		UIManager* uiMan = UIManager::GetInstance();
+		uiMan->exampleUI();
 
 		// Audio Manager initialisation
 		AudioManager::Init();

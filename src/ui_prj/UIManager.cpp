@@ -33,7 +33,6 @@ bool UIManager::Init(std::string n)
 
         instance.get()->initContext();
         instance.get()->initRoot();
-        instance.get()->initResources();
     }
     catch (const std::exception&) {
         return false;
@@ -84,7 +83,7 @@ void UIManager::initRoot()
     mRoot = (DefaultWindow*)winMgr->createWindow("DefaultWindow", "Root");
 }
 
-void UIManager::initResources()
+void UIManager::exampleUI()
 {
     // CEGUI relies on various systems being set-up, so this is what we do
     // here first.
@@ -96,7 +95,7 @@ void UIManager::initResources()
     // So, we use the SchemeManager singleton to load in a scheme that loads the
     // imagery and registers widgets for the TaharezLook skin.  This scheme also
     // loads in a font that gets used as the system default.
-    sch = &SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+    SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 
     // The next thing we do is to set a default cursor image.  This is
     // not strictly essential, although it is nice to always have a visible
@@ -104,12 +103,12 @@ void UIManager::initResources()
     //
     // The TaharezLook Imageset contains an Image named "MouseArrow" which is
     // the ideal thing to have as a defult cursor image.
-    guiContext->getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
+    //guiContext->getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
 
     // load font and setup default if not loaded via scheme
-    Font& defaultFont = FontManager::getSingleton().createFromFile("DejaVuSans-12.font");
+    //Font& defaultFont = FontManager::getSingleton().createFromFile("DejaVuSans-12.font");
     // Set default font for the gui context
-    guiContext->setDefaultFont(&defaultFont);
+    //guiContext->setDefaultFont(&defaultFont);
 
     // Set the root window as root of our GUI Context
     guiContext->setRootWindow(mRoot);
@@ -118,8 +117,8 @@ void UIManager::initResources()
     // and resized.
     //
     // Create a FrameWindow in the TaharezLook style, and name it 'Sample Window'
-    wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/FrameWindow", "Sample Window");
-
+    FrameWindow* wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/FrameWindow", "Sample Window");
+    
     // Here we attach the newly created FrameWindow to the previously created
     // DefaultWindow which we will be using as the root of the displayed gui.
     mRoot->addChild(wnd);
@@ -133,9 +132,8 @@ void UIManager::initResources()
     //
     // Here we set the FrameWindow so that it is half the size of the display,
     // and centered within the display.
-    wnd->setPosition(UVector2(cegui_reldim(0.25f), cegui_reldim(0.25f)));
-    wnd->setSize(USize(cegui_reldim(0.5f), cegui_reldim(0.5f)));
-
+    wnd->setPosition(UVector2(cegui_reldim(0.05f), cegui_reldim(0.05f)));
+    wnd->setSize(USize(cegui_reldim(0.25f), cegui_reldim(0.25f)));
     // now we set the maximum and minum sizes for the new window.  These are
     // specified using relative co-ordinates, but the important thing to note
     // is that these settings are aways relative to the display rather than the
@@ -149,9 +147,9 @@ void UIManager::initResources()
     // As a final step in the initialisation of our sample window, we set the window's
     // text to "Hello World!", so that this text will appear as the caption in the
     // FrameWindow's titlebar.
-    wnd->setText("Hello World!");
+    wnd->setText("K_EngineUI works!");
 
-    wnd->subscribeEvent(CEGUI::Window::EventMouseClick, Event::Subscriber(&UIManager::handleHelloWorldClicked, this));
+   wnd->subscribeEvent(CEGUI::Window::EventMouseClick, Event::Subscriber(&UIManager::handleHelloWorldClicked, this));
 }
 
 /*************************************************************************
@@ -175,5 +173,6 @@ bool UIManager::Shutdown()
 void UIManager::closeContext()
 {
     winMgr->destroyAllWindows();
+    CEGUI::System::getSingleton().destroyGUIContext(*guiContext);
     m_renderer->destroySystem();
 }

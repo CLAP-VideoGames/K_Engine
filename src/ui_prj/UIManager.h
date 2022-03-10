@@ -14,7 +14,6 @@ namespace CEGUI
     class WindowManager;
     class OgreRenderer;
     class FrameWindow;
-    class Scheme;
 }
 
 class UIManager
@@ -28,6 +27,7 @@ public:
     static bool Init(std::string n);
     static bool Shutdown();
 
+    void exampleUI();
 private:
     static std::unique_ptr<UIManager> instance;
     std::string name;
@@ -37,11 +37,9 @@ private:
     CEGUI::WindowManager* winMgr;
     CEGUI::OgreRenderer* m_renderer;
     CEGUI::FrameWindow* wnd;
-    CEGUI::Scheme* sch;
 
     void initContext();
     void initRoot();
-    void initResources();
 
     bool handleHelloWorldClicked(const CEGUI::EventArgs& args);
 
