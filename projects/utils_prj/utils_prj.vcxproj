@@ -180,7 +180,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\utils_prj\CustomBtOgre.h" />
-    <ClInclude Include="..\..\src\utils_prj\Vector.h" />
+    <ClInclude Include="..\..\src\utils_prj\CustomVector.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\physics_prj\physics_prj.vcxproj">
@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\utils_prj\CustomBtOgre.cpp" />
+    <ClCompile Include="..\..\src\utils_prj\CustomVector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

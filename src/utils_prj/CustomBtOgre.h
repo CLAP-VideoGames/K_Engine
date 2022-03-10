@@ -58,12 +58,19 @@ namespace BtOgre {
 	/// <returns></returns>
 	btBoxShape* createBoxCollider(const Ogre::MovableObject* mo);
 
+	//EXPERIMENTAL
+	btBoxShape* createBoxCollider(const Ogre::Vector3 initialVector, const Ogre::Vector3 endVector);
+	btBoxShape* createBoxCollider(const CustomVector3 initialVector, const CustomVector3 endVector);
+
 	/// <summary>
 	/// Creates a sphere collider using data from Ogre
 	/// </summary>
 	/// <param name="mo"> Ogre object from which to create the collider </param>
 	/// <returns></returns>
 	btSphereShape* createSphereCollider(const Ogre::MovableObject* mo);
+
+	//EXPERIMENTAL
+	btSphereShape* createSphereCollider(const float radius);
 
 	/// <summary>
 	/// Redefines default Bullet Motion State. This version updates the Ogre node to match it's physics counterpart.

@@ -18,12 +18,15 @@
     <ClInclude Include="..\..\src\utils_prj\CustomBtOgre.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\utils_prj\Vector.h">
+    <ClInclude Include="..\..\src\utils_prj\CustomVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\utils_prj\CustomBtOgre.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils_prj\CustomVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

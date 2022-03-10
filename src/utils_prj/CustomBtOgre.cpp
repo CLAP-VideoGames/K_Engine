@@ -15,12 +15,48 @@ namespace BtOgre {
 
 		return shape;
 	}
+
+	/// <summary>
+	/// *EXPERIMENTAL METHOD* Creates an invisible sphere collider from a given radius
+	/// </summary>
+	/// <param name="radius"> Sphere radius </param>
+	/// <returns></returns>
+	btSphereShape* createSphereCollider(const float radius) {
+		auto shape = new btSphereShape(radius);
+
+		return shape;
+	}
+
 	btBoxShape* createBoxCollider(const Ogre::MovableObject* mo)
 	{
 		OgreAssert(mo->getParentSceneNode(), "MovableObject must be attached");
 
 		auto shape = new btBoxShape(Converter::toBullet(mo->getBoundingBox().getHalfSize()));
 		shape->setLocalScaling(Converter::toBullet(mo->getParentSceneNode()->getScale()));
+
+		return shape;
+	}
+
+	/// <summary>
+	/// *EXPERIMENTAL METHOD* Creates a box collider shape using Ogre coordinates 
+	/// </summary>
+	/// <param name="initialVector"> Box initial vector </param>
+	/// <param name="endVector"> Box final vector </param>
+	/// <returns></returns>
+	btBoxShape* createBoxCollider(const Ogre::Vector3 initialVector, const Ogre::Vector3 endVector) {
+		auto shape = new btBoxShape(Converter::toBullet(AxisAlignedBox(initialVector, endVector).getHalfSize()));
+		
+		return shape;
+	}
+
+	/// <summary>
+	/// *EXPERIMENTAL METHOD* Creates a box collider shape using custom coordinates
+	/// </summary>
+	/// <param name="initialVector"> Box initial vector </param>
+	/// <param name="endVector"> Box final vector </param>
+	/// <returns></returns>
+	btBoxShape* createBoxCollider(const CustomVector3 initialVector, const CustomVector3 endVector) {
+		auto shape = new btBoxShape(Converter::toBullet(AxisAlignedBox(Converter::toOgre(initialVector), Converter::toOgre(endVector)).getHalfSize()));
 
 		return shape;
 	}

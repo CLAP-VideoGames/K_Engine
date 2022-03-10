@@ -1,4 +1,7 @@
 #include "RigidBody.h"
+
+#include "CustomBtOgre.h"
+
 //Required
 std::string RigidBody::name = "RigidBody";
 
