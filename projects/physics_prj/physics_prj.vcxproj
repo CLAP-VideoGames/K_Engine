@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)src\utils_prj\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\bullet\src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -114,8 +114,8 @@
     </Link>
     <Lib>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>Bullet2FileLoader_d.lib;Bullet3Collision_d.lib;Bullet3Common_d.lib;Bullet3Dynamics_d.lib;Bullet3Geometry_d.lib;Bullet3OpenCL_clew_d.lib;BulletCollision_d.lib;BulletDynamics_d.lib;BulletFileLoader_d.lib;BulletInverseDynamicsUtils_d.lib;BulletInverseDynamics_d.lib;BulletRoboticsGUI_d.lib;BulletRobotics_d.lib;BulletSoftBody_d.lib;BulletWorldImporter_d.lib;BulletXmlWorldImporter_d.lib;ConvexDecomposition_d.lib;GIMPACTUtils_d.lib;gtest_d.lib;HACD_d.lib;LinearMath_d.lib;utils_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\bullet\build\lib\Debug;$(SolutionDir)lib\utils_prj\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Bullet2FileLoader_d.lib;Bullet3Collision_d.lib;Bullet3Common_d.lib;Bullet3Dynamics_d.lib;Bullet3Geometry_d.lib;Bullet3OpenCL_clew_d.lib;BulletCollision_d.lib;BulletDynamics_d.lib;BulletFileLoader_d.lib;BulletInverseDynamicsUtils_d.lib;BulletInverseDynamics_d.lib;BulletRoboticsGUI_d.lib;BulletRobotics_d.lib;BulletSoftBody_d.lib;BulletWorldImporter_d.lib;BulletXmlWorldImporter_d.lib;ConvexDecomposition_d.lib;GIMPACTUtils_d.lib;gtest_d.lib;HACD_d.lib;LinearMath_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\bullet\build\lib\Debug;</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,7 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)src\utils_prj\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\bullet\src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,10 +155,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\bullet\build\lib\Debug;$(SolutionDir)dependencies\bullet\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
-      <AdditionalDependencies>Bullet2FileLoader_d.lib;Bullet3Collision_d.lib;Bullet3Common_d.lib;Bullet3Dynamics_d.lib;Bullet3Geometry_d.lib;Bullet3OpenCL_clew_d.lib;BulletCollision_d.lib;BulletDynamics_d.lib;BulletFileLoader_d.lib;BulletInverseDynamicsUtils_d.lib;BulletInverseDynamics_d.lib;BulletRoboticsGUI_d.lib;BulletRobotics_d.lib;BulletSoftBody_d.lib;BulletWorldImporter_d.lib;BulletXmlWorldImporter_d.lib;ConvexDecomposition_d.lib;GIMPACTUtils_d.lib;gtest_d.lib;HACD_d.lib;LinearMath_d.lib;utils_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Bullet2FileLoader_d.lib;Bullet3Collision_d.lib;Bullet3Common_d.lib;Bullet3Dynamics_d.lib;Bullet3Geometry_d.lib;Bullet3OpenCL_clew_d.lib;BulletCollision_d.lib;BulletDynamics_d.lib;BulletFileLoader_d.lib;BulletInverseDynamicsUtils_d.lib;BulletInverseDynamics_d.lib;BulletRoboticsGUI_d.lib;BulletRobotics_d.lib;BulletSoftBody_d.lib;BulletWorldImporter_d.lib;BulletXmlWorldImporter_d.lib;ConvexDecomposition_d.lib;GIMPACTUtils_d.lib;gtest_d.lib;HACD_d.lib;LinearMath_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\bullet\build\lib\Debug;$(SolutionDir)lib\utils_prj\Debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\bullet\build\lib\Debug;</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
