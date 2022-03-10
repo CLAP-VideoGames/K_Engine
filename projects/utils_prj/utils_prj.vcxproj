@@ -179,9 +179,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\utils_prj\BtOgreExtras.h" />
-    <ClInclude Include="..\..\src\utils_prj\BtOgreGP.h" />
-    <ClInclude Include="..\..\src\utils_prj\BtOgrePG.h" />
     <ClInclude Include="..\..\src\utils_prj\CustomBtOgre.h" />
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +190,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\utils_prj\BtOgre.cpp" />
     <ClCompile Include="..\..\src\utils_prj\CustomBtOgre.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
