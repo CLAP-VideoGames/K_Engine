@@ -5,6 +5,7 @@
 
 #include <SDL.h> 
 #include <SDL_mixer.h>
+#include <fmod.h>
 
 std::unique_ptr<AudioManager> AudioManager::instance = nullptr;
 

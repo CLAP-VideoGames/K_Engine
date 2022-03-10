@@ -28,6 +28,7 @@ private:
 
 	Mix_Chunk* wav = nullptr;
 	Mix_Music* mus = nullptr;
+	int volume = 10;
 
 	void loadWAV(const char* path);
 	void loadMUS(const char* path);
