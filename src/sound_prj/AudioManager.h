@@ -20,15 +20,31 @@ public:
 
 	void update() {};
 
-	void playWAV(const char* path);
-	void playMUS(const char* path);
+	void playWAV(const char* path, int loop = 0);
+	void playMUS(const char* path, int loop = 0);
+
+	void pauseMUS();
+	void pauseWAV(int channel);
+
+	void resumeMUS();
+	void resumeWAV(int channel);
+
+	void stopMUS();
+	void stopWAV(int channel);
+
+	void setVolumeWAV(int channel, int vol);
+	void setVolumeMUS(int vol);
+	int getVolumeWAV();
+	int getVolumeMUS();
 
 private:
 	static std::unique_ptr<AudioManager> instance;
 
 	Mix_Chunk* wav = nullptr;
 	Mix_Music* mus = nullptr;
-	int volume = 10;
+	int volumeWAV = 50; // Values between 0 and 128
+	int volumeMUS = 50; // Values between 0 and 128
+
 
 	void loadWAV(const char* path);
 	void loadMUS(const char* path);
