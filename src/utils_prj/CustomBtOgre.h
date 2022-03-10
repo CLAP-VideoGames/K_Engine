@@ -3,6 +3,7 @@
 
 #include <Ogre.h>
 #include <btBulletDynamicsCommon.h>
+#include "CustomVector.h"
 
 namespace BtOgre {
 	/// <summary>
@@ -18,6 +19,18 @@ namespace BtOgre {
 			return Ogre::Vector3(v.x(), v.y(), v.z());
 		}
 
+		static Ogre::Vector3 toOgre(const CustomVector3& v) {
+			return Ogre::Vector3(v.x, v.y, v.z);
+		}
+
+		static CustomVector3 toCustom(const btVector3& v) {
+			return CustomVector3(v.x(), v.y(), v.z());
+		}
+
+		static CustomVector3 toCustom(const Ogre::Vector3& v) {
+			return CustomVector3(v.x, v.y, v.z);
+		}
+
 		static btQuaternion toBullet(const Ogre::Quaternion& q)
 		{
 			return btQuaternion(q.x, q.y, q.z, q.w);
@@ -26,6 +39,11 @@ namespace BtOgre {
 		{
 			return btVector3(v.x, v.y, v.z);
 		}
+
+		static btVector3 toBullet(const CustomVector3& v) {
+			return btVector3(v.x, v.y, v.z);
+		}
+
 	};
 
 	/// <summary>
@@ -155,10 +173,6 @@ namespace BtOgre {
 
 		btSphereShape* createSphere();
 		btBoxShape* createBox();
-		btBvhTriangleMeshShape* createTrimesh();
-		btCylinderShape* createCylinder();
-		btConvexHullShape* createConvex();
-		btCapsuleShape* createCapsule();
 
 		const Ogre::Vector3* getVertices();
 		unsigned int getVertexCount();
