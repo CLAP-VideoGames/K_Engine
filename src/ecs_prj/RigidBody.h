@@ -6,7 +6,7 @@ class btRigidBody;
 class btDefaultMotionState;
 
 namespace BtOgre {
-
+	class RigidBody;
 }
 
 class RigidBody : public Component
@@ -27,6 +27,8 @@ protected:
 
 
 private:
+	BtOgre::RigidBody* rb;
+
 	//Boolean to control if the associated trigger is a trigger or not (default is false)
 	bool isTrigger = false;
 

@@ -2,11 +2,15 @@
 #include "Component.h"
 #include <vector>
 
+namespace Ogre {
+	class SceneNode;
+}
+
 class Transform : public Component
 {
 public:
 
-	Transform();
+	Transform(Ogre::SceneNode* mNode);
 	~Transform();
 
 	//Required method for the component name
@@ -21,12 +25,6 @@ private:
 	static std::string name;
 
 	//Position, scale and rotation with their default initialization
-
-	//array with the x y z coordinates of the position
-	double position[3]{0,0,0};
-	//array with the x y z coordinates of the scale
-	double scale[3]{1,1,1};
-	//array with the x y z coordinates of the rotation
-	double rotation[3]{0,0,0};
+	Ogre::SceneNode* mNode;
 
 };

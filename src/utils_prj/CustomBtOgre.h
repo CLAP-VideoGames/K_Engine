@@ -1,9 +1,24 @@
 #ifndef CUSTOMBTOGRE_H
 #define CUSTOMBTOGRE_H
 
-#include <Ogre.h>
-#include <btBulletDynamicsCommon.h>
 #include "CustomVector.h"
+
+//namespace Ogre {
+//	class Quaternion;
+//	class Vector3;
+//	class MovableObject;
+//	class Node;
+//	class Entity;
+//	class Matrix4;
+//	class Real;
+//	class VertexData;
+//	class Mesh;
+//	class Renderable;
+//	class IndexData;
+//	class ManualObject;
+//	class MeshPtr;
+//	class LogManager;
+//}
 
 namespace BtOgre {
 	/// <summary>
@@ -158,6 +173,9 @@ namespace BtOgre {
 		DynamicsWorld(btDynamicsWorld* btWorld) : mBtWorld(btWorld) {}
 
 		btRigidBody* addRigidBody(float mass, const Ogre::Entity* ent, ColliderType ct, void(*p)(void*, void* other, const btManifoldPoint& mnf), void* listener = 0);
+
+		btRigidBody* addRigidBody(float mass, const Ogre::SceneNode* mNode, const CustomVector3& initialPosition, const CustomVector3& endPosition,
+			ColliderType ct, void(*p)(void*, void* other, const btManifoldPoint& mnf), void* listener = 0);
 
 		btDynamicsWorld* getBtWorld() const { return mBtWorld; }
 	};
