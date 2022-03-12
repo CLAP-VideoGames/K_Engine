@@ -65,8 +65,8 @@ int main() {
 
 		#pragma region entityTesting
 			Entity* sinbad = entMan->addEntity();
-			Component* c = compMan->create("MeshRenderer");
 			
+			Component* c = sinbad->addComponent("MeshRenderer");
 			
 			
 		#pragma endregion

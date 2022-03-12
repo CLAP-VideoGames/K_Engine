@@ -48,6 +48,10 @@ public:
 
 	//physicsUpdate is called before update and it calls everyPhysic we need
 	virtual void physicsUpdate() {}
+
+	//Temporary method to develop our components
+	//(LLamad aqui a lo que querais testear de cada componente)
+	virtual void debug() {};
 #pragma endregion
 
 	//Active/Deactivate our component 
