@@ -70,10 +70,16 @@ void Entity::hasComponent()
 template<typename T>
 T* Entity::addComponent()
 {
-	if (hasComponent<T>()) {
-		std::string componentName = getComponentName<T>();
-		return components[componentName];
-	}
+	std::string compName = getComponentName<T>();
+
+	ComponentManager* comM = ComponentManager::GetInstance();
+
+	Component* c = comM->create(compName);
+
+	c->debug();
+
+	components.emplace(compName, c);
+	
 	return nullptr;
 }
 
