@@ -6,6 +6,7 @@
 #include <render_prj/RenderManager.h>
 
 #include <OgreEntity.h>
+#include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
 
 std::string MeshRenderer::name = "MeshRenderer";
@@ -22,6 +23,7 @@ MeshRenderer::~MeshRenderer() {}
 void MeshRenderer::debug()
 {
 	setSinbad();
+	setMaterial("Ogre/Skin");
 }
 
 void MeshRenderer::setVisible(bool value) {
@@ -29,14 +31,17 @@ void MeshRenderer::setVisible(bool value) {
 }
 
 void MeshRenderer::setMaterial(std::string nMaterial) {
-	material = nMaterial;
+	if (nMaterial != material) {
+		mEntity->setMaterialName(nMaterial);
+		material = nMaterial;
+	}
 }
 
 void MeshRenderer::setSinbad()
 {
-	ogreNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
-
-	ogreNode->attachObject(RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh"));
+	mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
+	mNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+	mNode->attachObject(mEntity);
 
 	scale();
 }
@@ -46,5 +51,5 @@ void MeshRenderer::scale()
 	Transform* trans = entity->getComponent<Transform>();
 	float* scaleT = trans->getScale();
 
-	ogreNode->setScale(Ogre::Vector3(scaleT));
+	mNode->setScale(Ogre::Vector3(scaleT));
 }

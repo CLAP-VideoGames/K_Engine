@@ -31,6 +31,8 @@ public:
 	float* getRotation();
 	float* getScale();
 
+	virtual void debug();
+
 private:
 	static std::string name;
 	

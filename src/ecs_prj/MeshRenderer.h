@@ -36,7 +36,8 @@ private:
 	static std::string name;
 
 	//Reference to the object's node
-	Ogre::SceneNode* ogreNode = nullptr;
+	Ogre::SceneNode* mNode = nullptr;
+	Ogre::Entity* mEntity = nullptr;
 
 	//Bool to control if the object is visible or not (default true)
 	bool visible = true;

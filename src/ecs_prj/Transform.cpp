@@ -76,3 +76,8 @@ float* Transform::getScale()
 {
 	return scale;
 }
+
+void Transform::debug()
+{
+	setScale(0.2, 0.2, 0.2);
+}

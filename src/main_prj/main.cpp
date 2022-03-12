@@ -65,9 +65,10 @@ int main() {
 			//Entity Manager
 			EntityManager* entMan = new EntityManager();
 			Entity* e = entMan->addEntity();
-			Transform* t = e->addComponent<Transform>();
-			t->setScale(0.2, 0.2, 0.2);
-			e->addComponent<MeshRenderer>();
+			Component* t = e->addComponent<Transform>();
+			t->debug();
+			Component* m = e->addComponent<MeshRenderer>();
+			m->debug();
 
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = SDL_GetTicks();
