@@ -11,6 +11,7 @@ class Transform : public Component
 {
 public:
 	Transform();
+	Transform(Entity* e);
 	~Transform();
 
 	static std::string GetId();
@@ -26,9 +27,9 @@ public:
 	void setScale(float x, float y, float z);
 
 	//These 3 methods set our arrays to the parameter we introduce in them
-	float* getPosition(float x, float y, float z);
-	float* getRotation(float x, float y, float z);
-	float* getScale(float x, float y, float z);
+	float* getPosition();
+	float* getRotation();
+	float* getScale();
 
 private:
 	static std::string name;

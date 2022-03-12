@@ -65,7 +65,8 @@ int main() {
 			//Entity Manager
 			EntityManager* entMan = new EntityManager();
 			Entity* e = entMan->addEntity();
-			e->addComponent<Transform>();
+			Transform* t = e->addComponent<Transform>();
+			t->setScale(0.2, 0.2, 0.2);
 			e->addComponent<MeshRenderer>();
 
 			bool run = true; // time --> miliseconds

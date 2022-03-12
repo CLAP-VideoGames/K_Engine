@@ -15,10 +15,9 @@ MeshRenderer::MeshRenderer() : Component("MeshRenderer", nullptr)
 	name = id;
 }
 
-MeshRenderer::~MeshRenderer()
-{
+MeshRenderer::MeshRenderer(Entity* e) : Component("Transform", e) { }
 
-}
+MeshRenderer::~MeshRenderer() {}
 
 void MeshRenderer::debug()
 {
@@ -37,12 +36,15 @@ void MeshRenderer::setSinbad()
 {
 	ogreNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 
-	ogreEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
+	ogreNode->attachObject(RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh"));
 
-	ogreNode->attachObject(ogreEntity);
+	scale();
 }
 
 void MeshRenderer::scale()
 {
-	//Transform* t = entity->getComponent<Transform>();
+	Transform* trans = entity->getComponent<Transform>();
+	float* scaleT = trans->getScale();
+
+	ogreNode->setScale(Ogre::Vector3(scaleT));
 }

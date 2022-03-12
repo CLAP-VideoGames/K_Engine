@@ -14,6 +14,7 @@
 * to include it in our file
 */
 class Component;
+class Entity;
 
 /*
 * Component Manager is the class responsible of the administration
@@ -60,7 +61,7 @@ public:
 
 	//We can catch an exception here if we want (LOOK AT IT AGAIN)
 	template<typename T, typename ...Ts>
-	T* create(Ts &&... args) {
+	T* create(Entity* e, Ts &&... args) {
 		//We check if the component exists
 		auto c = availableComponents.find(T::GetId());
 
@@ -68,12 +69,10 @@ public:
 			throw std::invalid_argument("There is no component with that name");
 
 		//We return a new instance of our component
-		auto newComponent = new T();
+		auto newComponent = new T(e, args...);
 
 		return newComponent;
 	}
-
-	Component* create(std::string compName);
 
 	//Not sure if this is going to be useful, but its simple code
 	bool existingComponent(std::string compName);

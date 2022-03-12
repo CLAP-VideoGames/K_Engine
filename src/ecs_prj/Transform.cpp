@@ -4,6 +4,8 @@ std::string Transform::name = "Transform";
 
 Transform::Transform() : Component("Transform", nullptr) { }
 
+Transform::Transform(Entity* e) : Component("Transform", e) { }
+
 Transform::~Transform() { }
 
 std::string Transform::GetId()
@@ -60,17 +62,17 @@ void Transform::setScale(float x, float y, float z)
 		scale[i] = toAdd[i];
 }
 
-float* Transform::getPosition(float x, float y, float z)
+float* Transform::getPosition()
 {
 	return position;
 }
 
-float* Transform::getRotation(float x, float y, float z)
+float* Transform::getRotation()
 {
 	return rotation;
 }
 
-float* Transform::getScale(float x, float y, float z)
+float* Transform::getScale()
 {
 	return scale;
 }

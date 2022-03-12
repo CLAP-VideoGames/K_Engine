@@ -6,6 +6,7 @@
 #include <stdexcept>
 
 #include "ComponentManager.h"
+
 class Component;
 
 /*
@@ -26,7 +27,7 @@ public:
 
 		auto iterator = components.find(compName);
 
-		if (iterator != components.end()) return components[compName];
+		if (iterator != components.end()) return static_cast<T*>(components[compName]);
 
 		return nullptr;
 	};
@@ -63,19 +64,19 @@ public:
 	}
 
 	//Template to add any Component to our Entity
-	template <typename T>
-	T* addComponent() {
+	template <typename T, typename ...Ts>
+	T* addComponent(Ts &&... args) {
 		std::string compName = getComponentName<T>();
 
 		ComponentManager* comM = ComponentManager::GetInstance();
 
-		Component* c = comM->create(compName);
+		T* c = comM->create<T>(this, args...);
 
 		c->debug();
 
 		components.emplace(compName, c);
 
-		return nullptr;
+		return static_cast<T*>(c);
 	}
 
 	//This mehtos is used to set our Entity to active or unactive

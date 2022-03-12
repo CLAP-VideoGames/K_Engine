@@ -29,19 +29,6 @@ bool ComponentManager::Init(std::string n)
 	return true;
 }
 
-Component* ComponentManager::create(std::string compName)
-{
-	//We check if the component exists
-	auto c = availableComponents.find(compName);
-
-	if (c == availableComponents.end()) {
-		throw std::invalid_argument("There is no component with that name");
-	}
-
-	//We return a new instance of our component
-	return availableComponents[compName];
-}
-
 bool ComponentManager::existingComponent(std::string compName)
 {
 	auto c = availableComponents.find(compName);

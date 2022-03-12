@@ -14,6 +14,7 @@ class MeshRenderer : public Component
 {
 public:
 	MeshRenderer();
+	MeshRenderer(Entity* e);
 	~MeshRenderer();
 
 	//Required method for the component name
@@ -33,9 +34,6 @@ protected:
 private:
 	//Required
 	static std::string name;
-
-	//Reference to object's entity
-	Ogre::Entity* ogreEntity = nullptr;
 
 	//Reference to the object's node
 	Ogre::SceneNode* ogreNode = nullptr;
