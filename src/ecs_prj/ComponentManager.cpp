@@ -14,15 +14,21 @@ ComponentManager* ComponentManager::GetInstance()
 	return instance.get();
 }
 
-bool ComponentManager::Init()
+bool ComponentManager::Init(std::string n)
 {
-	//Base components for our engine(Use this comand with every base component)
-	//instance.get()->availableComponents.emplace(Transform::GetId(), tr);
-	//instance.get()->availableComponents.emplace(MeshRenderer::GetId(), new MeshRenderer());
+	try {
+		instance.reset(new ComponentManager());
+
+		instance.get()->name = n;
+
+		instance.get()->availableComponents.emplace(Transform::GetId(), new Transform());
+	}
+	catch (const std::exception&) {
+		return false;
+	}
 
 	return true;
 }
-
 
 template<typename T, typename ...Ts>
 T* ComponentManager::create(Ts && ...args)

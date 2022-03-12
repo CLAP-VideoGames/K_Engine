@@ -2,10 +2,13 @@
 #include "Component.h"
 
 namespace Ogre {
-	class Node;
+	class SceneNode;
 	class Entity;
 }
 
+/*
+* MeshRender is the component used to add diferent model to our entities
+*/
 class MeshRenderer : public Component
 {
 public:
@@ -32,7 +35,7 @@ private:
 	Ogre::Entity* ogreEntity = nullptr;
 
 	//Reference to the object's node
-	Ogre::Node* ogreNode = nullptr;
+	Ogre::SceneNode* ogreNode = nullptr;
 
 	//Bool to control if the object is visible or not (default true)
 	bool visible = true;

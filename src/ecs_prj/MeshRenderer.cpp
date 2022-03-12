@@ -12,9 +12,16 @@ std::string MeshRenderer::name = "MeshRenderer";
 MeshRenderer::MeshRenderer() : Component("MeshRenderer", nullptr)
 {
 	name = id;
+	
+	//entity->getComponent<Transform>()->getNode()->createChildSceneNode()->
+	//	attachObject(RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh"));
 
-	entity->getComponent<Transform>()->getNode()->createChildSceneNode()->
-		attachObject(RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh"));
+
+	ogreNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+
+	ogreEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
+
+	ogreNode->attachObject(ogreEntity);
 }
 
 MeshRenderer::~MeshRenderer()

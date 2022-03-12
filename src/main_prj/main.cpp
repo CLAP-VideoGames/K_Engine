@@ -16,6 +16,7 @@
 #include <sound_prj/AudioManager.h>
 #include <input_prj/InputManager.h>
 #include <ecs_prj/EntityManager.h>
+#include <ecs_prj/ComponentManager.h>
 #include <ui_prj/UIManager.h>
 
 #define DELTA_TIME 33
@@ -53,6 +54,9 @@ int main() {
 			// Input Manager initialisation
 			InputManager::Init();
 			InputManager* inputMan = InputManager::GetInstance();
+
+			//ComponentManager Initialization
+			ComponentManager::Init("K_EngineComponents");
 
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = SDL_GetTicks();

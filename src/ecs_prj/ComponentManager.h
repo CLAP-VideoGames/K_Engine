@@ -33,7 +33,7 @@ public:
 	//in init we Initialize the base components of our engine
 	//Declare here your components when you end programming them
 	//Use Transform as an example
-	static bool Init();
+	static bool Init(std::string n);
 
 	//We can catch an exception here if we want (LOOK AT IT AGAIN)
 	template<typename T, typename ...Ts>
@@ -48,6 +48,9 @@ public:
 	bool existingComponent(std::string compName);
 
 private:
+	//identificator among singletons
+	std::string name;
+
 	//unique pointer for our instance so we do not have problems of sharing the memory 
 	static std::unique_ptr<ComponentManager> instance;
 	

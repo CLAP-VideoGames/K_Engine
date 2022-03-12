@@ -2,10 +2,11 @@
 #include "Component.h"
 #include <vector>
 
-namespace Ogre {
-	class SceneNode;
-}
-
+/*
+* The Transform component is used to store information about our entity
+* This component is the place from where rigidBody and meshRenderer take the information
+* To use physics and to render our entities
+*/
 class Transform : public Component
 {
 public:
@@ -14,14 +15,25 @@ public:
 
 	static std::string GetId();
 
+	//These 3 methods add the the amount that we introduce in them to our current arrays
 	void translate(float x, float y, float z);
 	void rotate(float x, float y, float z);
 	void scale(float x, float y, float z);
 
-	Ogre::SceneNode* getNode();
+	//These 3 methods set our arrays to the parameter we introduce in them
+	void setPosition(float x, float y, float z);
+	void setRotation(float x, float y, float z);
+	void setScale(float x, float y, float z);
 
 private:
 	static std::string name;
+	
+	//Arrays initialized to default values
+	// x y z axis, in that order of our 3 main information arrays
+	float position[3] = {0,0,0};
 
-	Ogre::SceneNode* mNode;
+	float rotation[3] = {0,0,0};
+
+	//Capital letter to avoid problems with the method scale
+	float Scale[3] = { 1,1,1 };;
 };

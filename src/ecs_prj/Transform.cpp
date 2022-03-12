@@ -1,19 +1,15 @@
 #include "Transform.h"
 
-#include <render_prj/RenderManager.h>
-
-#include <OgreSceneManager.h>
-
 std::string Transform::name = "Transform";
 
 Transform::Transform() : Component("Transform", nullptr)
 {
-	mNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+	
 }
 
 Transform::~Transform()
 {
-	delete mNode; mNode = nullptr;
+
 }
 
 std::string Transform::GetId()
@@ -23,23 +19,54 @@ std::string Transform::GetId()
 
 void Transform::translate(float x, float y, float z)
 {
-	mNode->translate(x, y, z, Ogre::Node::TS_WORLD);
+	float toAdd[3] = { x,y,z };
+
+	for (int i = 0; i < 3; i++) {
+		position[i] += toAdd[i];
+	}
 }
 
 void Transform::rotate(float x, float y, float z)
 {
-	Ogre::Matrix3 rotMatrix;
-	rotMatrix.FromEulerAnglesXYZ(Ogre::Degree(x), Ogre::Degree(y), Ogre::Degree(z));
-	Ogre::Quaternion rotQuat(rotMatrix);
-	mNode->setOrientation(rotQuat);
+	float toAdd[3] = { x,y,z };
+
+	for (int i = 0; i < 3; i++) {
+		rotation[i] += toAdd[i];
+	}
 }
 
 void Transform::scale(float x, float y, float z)
 {
-	mNode->scale(x, y, z);
+	float toAdd[3] = { x,y,z };
+
+	for (int i = 0; i < 3; i++) {
+		Scale[i] += toAdd[i];
+	}
 }
 
-Ogre::SceneNode* Transform::getNode()
+void Transform::setPosition(float x, float y, float z)
 {
-	return mNode;
+	float toAdd[3] = { x,y,z };
+
+	for (int i = 0; i < 3; i++) {
+		position[i] = toAdd[i];
+	}
+}
+
+void Transform::setRotation(float x, float y, float z)
+{
+	float toAdd[3] = { x,y,z };
+
+	for (int i = 0; i < 3; i++) {
+		rotation[i] = toAdd[i];
+	}
+}
+
+void Transform::setScale(float x, float y, float z)
+{
+	float toAdd[3] = { x,y,z };
+
+	for (int i = 0; i < 3; i++) {
+		Scale[i] = toAdd[i];
+	}
 }
