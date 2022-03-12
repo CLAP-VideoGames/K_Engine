@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include <stdexcept>
 #include "Component.h"
+#include "ComponentManager.h"
 
 Entity::Entity()
 {
@@ -74,6 +75,28 @@ T* Entity::addComponent()
 		return components[componentName];
 	}
 	return nullptr;
+}
+
+Component* Entity::addComponent(std::string compName)
+{
+	if (hasComponent(compName)) {
+		return components[compName];
+	}
+	else {
+		ComponentManager* comM = ComponentManager::GetInstance();
+
+		components.emplace(compName, comM->create(compName));
+	}
+	return nullptr;
+}
+
+bool Entity::hasComponent(std::string compName)
+{
+	auto iterator = components.find(compName);
+
+	if (iterator != components.end()) return true;
+
+	return false;
 }
 
 template<typename T>

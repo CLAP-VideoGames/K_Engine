@@ -6,6 +6,16 @@ EntityManager::EntityManager()
 
 }
 
+EntityManager::~EntityManager()
+{
+	int i = 0;
+	for (auto e : entities) {
+		delete e;
+		entities.erase(entities.begin() + i);
+		i++;
+	}
+}
+
 Entity* EntityManager::addEntity()
 {
 	auto c = new Entity();

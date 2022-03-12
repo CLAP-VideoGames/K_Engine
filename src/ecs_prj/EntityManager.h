@@ -10,9 +10,11 @@ class EntityManager
 {
 public:
 	EntityManager();
-	~EntityManager() {};
 
-	//Methos to add and Entity that return it to the user
+	//The destructor erases and deletes every entity in existence
+	~EntityManager();
+
+	//Method to add and Entity that return it to the user
 	Entity* addEntity();
 
 	//where every entity is updated

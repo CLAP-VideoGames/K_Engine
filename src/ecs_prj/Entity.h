@@ -33,6 +33,16 @@ public:
 	template <typename T>
 	T* addComponent();
 
+
+
+	//Add a component via strings
+	Component* addComponent(std::string compName);
+
+	//Check the existance of a component via string
+	bool hasComponent(std::string compName);
+
+
+
 	//This mehtos is used to set our Entity to active or unactive
 	void setActive(bool a) { active = a; }
 

@@ -39,6 +39,8 @@ public:
 	template<typename T, typename ...Ts>
 	T* create(Ts &&... args);
 
+	Component* create(std::string compName);
+
 	//This method allows the user to add its own components to the engine
 	//This method makes sure that the GetId() method is declared
 	template <typename T>

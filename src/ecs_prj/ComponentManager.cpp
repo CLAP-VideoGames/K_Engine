@@ -22,6 +22,7 @@ bool ComponentManager::Init(std::string n)
 		instance.get()->name = n;
 
 		instance.get()->availableComponents.emplace(Transform::GetId(), new Transform());
+		instance.get()->availableComponents.emplace(MeshRenderer::GetId(), new MeshRenderer());
 	}
 	catch (const std::exception&) {
 		return false;
@@ -44,6 +45,19 @@ T* ComponentManager::create(Ts && ...args)
 	auto newComponent = new T();
 
 	return newComponent;
+}
+
+Component* ComponentManager::create(std::string compName)
+{
+	//We check if the component exists
+	auto c = availableComponents.find(compName);
+
+	if (c == availableComponents.end()) {
+		throw std::invalid_argument("There is no component with that name");
+	}
+
+	//We return a new instance of our component
+	return availableComponents[compName];
 }
 
 template<typename T>

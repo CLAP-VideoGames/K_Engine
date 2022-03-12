@@ -12,16 +12,7 @@ std::string MeshRenderer::name = "MeshRenderer";
 MeshRenderer::MeshRenderer() : Component("MeshRenderer", nullptr)
 {
 	name = id;
-	
-	//entity->getComponent<Transform>()->getNode()->createChildSceneNode()->
-	//	attachObject(RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh"));
 
-
-	ogreNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
-
-	ogreEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
-
-	ogreNode->attachObject(ogreEntity);
 }
 
 MeshRenderer::~MeshRenderer()
@@ -35,4 +26,13 @@ void MeshRenderer::setVisible(bool value) {
 
 void MeshRenderer::setMaterial(std::string nMaterial) {
 	material = nMaterial;
+}
+
+void MeshRenderer::setSinbad()
+{
+	ogreNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+
+	ogreEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
+
+	ogreNode->attachObject(ogreEntity);
 }

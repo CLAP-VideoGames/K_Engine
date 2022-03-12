@@ -6,7 +6,8 @@
 
 #include <OgreLogManager.h>
 #include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
-
+//Just for testing
+#include "ecs_prj/Entity.h"
 // this should be on the render project, before the SDL.h,
 // but since it's here I put it there temporarily
 #include <SDL_timer.h>
@@ -33,7 +34,7 @@ int main() {
 			// Render Manager initialisation
 			RenderManager::Init("K_Engine"); //GetInstance() returns nullptr if Init isnt called first
 			RenderManager* renderMan = RenderManager::GetInstance();
-			renderMan->exampleScene();
+			//renderMan->exampleScene();
 
 			// Physics Manager initialisation
 			PhysicsManager::Init(10, 20, { 0, -9.8, 0 }); //GetInstance() returns nullptr if Init isnt called first
@@ -57,6 +58,19 @@ int main() {
 
 			//ComponentManager Initialization
 			ComponentManager::Init("K_EngineComponents");
+			ComponentManager* compMan = ComponentManager::GetInstance();
+
+			//Entity Manager
+			EntityManager* entMan = new EntityManager();
+
+		#pragma region entityTesting
+			Entity* sinbad = entMan->addEntity();
+			Component* c = compMan->create("MeshRenderer");
+			
+			
+			
+		#pragma endregion
+
 
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = SDL_GetTicks();
@@ -80,6 +94,7 @@ int main() {
 			UIManager::Shutdown();
 			PhysicsManager::Shutdown();
 			RenderManager::Shutdown();
+			delete entMan;
 		}
 		catch (Ogre::Exception& e) {
 			Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");

@@ -8,6 +8,7 @@ namespace Ogre {
 
 /*
 * MeshRender is the component used to add diferent model to our entities
+* It takes the information of the model position scale and rotation from transform
 */
 class MeshRenderer : public Component
 {
@@ -22,6 +23,9 @@ public:
 	void setVisible(bool value);
 
 	void setMaterial(std::string nMaterial);
+	
+	//Debuggin method to know that our component works as intended
+	void setSinbad();
 
 protected:
 
