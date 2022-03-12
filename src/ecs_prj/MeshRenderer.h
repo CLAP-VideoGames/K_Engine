@@ -20,6 +20,8 @@ public:
 	//Required method for the component name
 	static std::string GetId() { return name; }
 
+	virtual void debug();
+
 	void setVisible(bool value);
 
 	void setMaterial(std::string nMaterial);

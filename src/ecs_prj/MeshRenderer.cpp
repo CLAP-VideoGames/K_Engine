@@ -13,11 +13,21 @@ MeshRenderer::MeshRenderer() : Component("MeshRenderer", nullptr)
 {
 	name = id;
 
+	ogreNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+
+	ogreEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
+
+	ogreNode->attachObject(ogreEntity);
 }
 
 MeshRenderer::~MeshRenderer()
 {
 
+}
+
+void MeshRenderer::debug()
+{
+	setSinbad();
 }
 
 void MeshRenderer::setVisible(bool value) {

@@ -51,6 +51,8 @@ public:
 
 	//Temporary method to develop our components
 	//(LLamad aqui a lo que querais testear de cada componente)
+	//This method is called in Entity add component, so it executes everyTime
+	//You add a component to an entity
 	virtual void debug() {};
 #pragma endregion
 

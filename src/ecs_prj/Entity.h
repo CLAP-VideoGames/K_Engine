@@ -36,10 +36,10 @@ public:
 
 
 	//Add a component via strings
-	Component* addComponent(std::string compName);
+	Component* addComponent(const std::string& compName);
 
 	//Check the existance of a component via string
-	bool hasComponent(std::string compName);
+	bool hasComponent(const std::string& compName);
 
 
 

@@ -77,7 +77,7 @@ T* Entity::addComponent()
 	return nullptr;
 }
 
-Component* Entity::addComponent(std::string compName)
+Component* Entity::addComponent(const std::string& compName)
 {
 	if (hasComponent(compName)) {
 		return components[compName];
@@ -85,12 +85,16 @@ Component* Entity::addComponent(std::string compName)
 	else {
 		ComponentManager* comM = ComponentManager::GetInstance();
 
-		components.emplace(compName, comM->create(compName));
+		Component* c = comM->create(compName);
+
+		c->debug();
+
+		components.emplace(compName, c);
 	}
 	return nullptr;
 }
 
-bool Entity::hasComponent(std::string compName)
+bool Entity::hasComponent(const std::string& compName)
 {
 	auto iterator = components.find(compName);
 

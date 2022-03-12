@@ -58,17 +58,16 @@ int main() {
 
 			//ComponentManager Initialization
 			ComponentManager::Init("K_EngineComponents");
-			ComponentManager* compMan = ComponentManager::GetInstance();
+			//ComponentManager* compMan = ComponentManager::GetInstance();
 
 			//Entity Manager
 			EntityManager* entMan = new EntityManager();
 
 		#pragma region entityTesting
-			Entity* sinbad = entMan->addEntity();
+			//Entity* sinbad = entMan->addEntity();
 			
-			Component* c = sinbad->addComponent("MeshRenderer");
-			
-			
+			//sinbad->addComponent("MeshRenderer");
+		
 		#pragma endregion
 
 
