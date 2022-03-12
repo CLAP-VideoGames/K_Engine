@@ -29,6 +29,8 @@ public:
 	//Debuggin method to know that our component works as intended
 	void setSinbad();
 
+	void scale();
+
 protected:
 
 

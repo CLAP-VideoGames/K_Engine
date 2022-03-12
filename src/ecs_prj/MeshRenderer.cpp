@@ -12,12 +12,6 @@ std::string MeshRenderer::name = "MeshRenderer";
 MeshRenderer::MeshRenderer() : Component("MeshRenderer", nullptr)
 {
 	name = id;
-
-	ogreNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
-
-	ogreEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
-
-	ogreNode->attachObject(ogreEntity);
 }
 
 MeshRenderer::~MeshRenderer()
@@ -45,4 +39,9 @@ void MeshRenderer::setSinbad()
 	ogreEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
 
 	ogreNode->attachObject(ogreEntity);
+}
+
+void MeshRenderer::scale()
+{
+	Transform* t = entity->getComponent<Transform>();
 }
