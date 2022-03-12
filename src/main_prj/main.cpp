@@ -4,13 +4,12 @@
 #include <windows.h>
 #endif
 
-#include <OgreLogManager.h>
-#include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
 //Just for testing
-#include "ecs_prj/Entity.h"
 // this should be on the render project, before the SDL.h,
 // but since it's here I put it there temporarily
+#include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
 #include <SDL_timer.h>
+#include <OgreLogManager.h>
 
 #include <physics_prj/PhysicsManager.h>
 #include <render_prj/RenderManager.h>
@@ -18,6 +17,9 @@
 #include <input_prj/InputManager.h>
 #include <ecs_prj/EntityManager.h>
 #include <ecs_prj/ComponentManager.h>
+#include <ecs_prj/Entity.h>
+#include <ecs_prj/Transform.h>
+#include <ecs_prj/MeshRenderer.h>
 #include <ui_prj/UIManager.h>
 
 #define DELTA_TIME 33
@@ -62,14 +64,9 @@ int main() {
 
 			//Entity Manager
 			EntityManager* entMan = new EntityManager();
-
-		#pragma region entityTesting
-			Entity* sinbad = entMan->addEntity();
-			
-			sinbad->addComponent("MeshRenderer");
-		
-		#pragma endregion
-
+			Entity* e = entMan->addEntity();
+			e->addComponent<Transform>();
+			e->addComponent<MeshRenderer>();
 
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = SDL_GetTicks();

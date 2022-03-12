@@ -1,4 +1,5 @@
 #include "Component.h"
+
 #include <stdexcept>
 
 Component::Component(std::string id_ = "unknown", Entity* ent = nullptr)

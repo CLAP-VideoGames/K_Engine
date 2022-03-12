@@ -13,7 +13,6 @@ namespace Ogre {
 class MeshRenderer : public Component
 {
 public:
-
 	MeshRenderer();
 	~MeshRenderer();
 
@@ -25,9 +24,6 @@ public:
 	void setVisible(bool value);
 
 	void setMaterial(std::string nMaterial);
-	
-	//Debuggin method to know that our component works as intended
-	void setSinbad();
 
 	void scale();
 
@@ -35,7 +31,6 @@ protected:
 
 
 private:
-
 	//Required
 	static std::string name;
 
@@ -50,4 +45,7 @@ private:
 
 	//Name of the object's material
 	std::string material;
+
+	//Debuggin method to know that our component works as intended
+	void setSinbad();
 };

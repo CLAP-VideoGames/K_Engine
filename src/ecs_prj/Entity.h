@@ -1,15 +1,17 @@
 #pragma once
 #ifndef ENTITY_H
 #define ENTITY_H
-#include <unordered_map>
 
+#include <unordered_map>
+#include <stdexcept>
+
+#include "ComponentManager.h"
 class Component;
 
 /*
 *Our class Entity starts with only a Transform Component, which contains the rotation, position and scale of our entity
 *You can alterate you entitys with the following methods
 */
-
 class Entity
 {
 
@@ -19,29 +21,62 @@ public:
 
 	//Template to get a Component
 	template<typename T>
-	T* getComponent();
+	T* getComponent() {
+		std::string compName = getComponentName<T>();
+
+		auto iterator = components.find(compName);
+
+		if (iterator != components.end()) return components[compName];
+
+		return nullptr;
+	};
 
 	//Template to remove a Component
 	template<typename T>
-	void removeComponent();
+	void removeComponent() {
+		std::string compName = getComponentName<T>();
+
+		auto iterator = components.find(compName);
+
+		//If the entity has the component we remove it
+		if (hasComponent<T>()) {
+			auto it = components.find(compName);
+
+			components.erase(it);
+
+			delete components[compName];
+
+			components[compName] = nullptr;
+		}
+	}
 
 	//Templete to check if an Entity has an specific component
 	template <typename T>
-	void hasComponent();
+	void hasComponent() {
+		std::string compName = getComponentName<T>();
+
+		auto iterator = components.find(compName);
+
+		if (iterator != components.end()) return true;
+
+		return false;
+	}
 
 	//Template to add any Component to our Entity
 	template <typename T>
-	T* addComponent();
+	T* addComponent() {
+		std::string compName = getComponentName<T>();
 
+		ComponentManager* comM = ComponentManager::GetInstance();
 
+		Component* c = comM->create(compName);
 
-	//Add a component via strings
-	Component* addComponent(const std::string& compName);
+		c->debug();
 
-	//Check the existance of a component via string
-	bool hasComponent(const std::string& compName);
+		components.emplace(compName, c);
 
-
+		return nullptr;
+	}
 
 	//This mehtos is used to set our Entity to active or unactive
 	void setActive(bool a) { active = a; }
@@ -62,7 +97,17 @@ private:
 	*if it is not we throw an exception, if it is we return the componentName
 	*/
 	template<typename T>
-	std::string getComponentName();
+	std::string getComponentName() {
+		std::string compName;
+		try {
+			compName = T::GetId();
+		}
+		catch (std::string msg) {
+			throw std::invalid_argument("There is no component with that name");
+		}
+
+		return compName;
+	}
 
 	//bool to determine if we update the entity or not
 	bool active;

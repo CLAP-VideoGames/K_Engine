@@ -1,7 +1,6 @@
 #include "Entity.h"
-#include <stdexcept>
+
 #include "Component.h"
-#include "ComponentManager.h"
 
 Entity::Entity()
 {
@@ -11,115 +10,10 @@ Entity::Entity()
 	//Podemos hacer un new Transform desde aqui directamente
 }
 
-Entity::~Entity()
-{
-
-}
+Entity::~Entity() { }
 
 void Entity::update()
 {
-	for (auto c : components) {
+	for (auto c : components) 
 		c.second->update();
-	}
-}
-
-template<typename T>
-T* Entity::getComponent()
-{
-	std::string compName = getComponentName<T>();
-
-	auto iterator = components.find(compName);
-
-	if (iterator != components.end()) return components[compName];
-
-	return nullptr;
-}
-
-template<typename T>
-void Entity::removeComponent()
-{
-	std::string compName = getComponentName<T>();
-
-	auto iterator = components.find(compName);
-
-	//If the entity has the component we remove it
-	if (hasComponent<T>()) {
-		auto it = components.find(compName);
-
-		components.erase(it);
-
-		delete components[compName];
-
-		components[compName] = nullptr;
-	}
-
-}
-
-template<typename T>
-void Entity::hasComponent()
-{
-	std::string compName = getComponentName<T>();
-
-	auto iterator = components.find(compName);
-
-	if (iterator != components.end()) return true;
-
-	return false;
-}
-
-template<typename T>
-T* Entity::addComponent()
-{
-	std::string compName = getComponentName<T>();
-
-	ComponentManager* comM = ComponentManager::GetInstance();
-
-	Component* c = comM->create(compName);
-
-	c->debug();
-
-	components.emplace(compName, c);
-	
-	return nullptr;
-}
-
-Component* Entity::addComponent(const std::string& compName)
-{
-	if (hasComponent(compName)) {
-		return components[compName];
-	}
-	else {
-		ComponentManager* comM = ComponentManager::GetInstance();
-
-		Component* c = comM->create(compName);
-
-		c->debug();
-
-		components.emplace(compName, c);
-	}
-	return nullptr;
-}
-
-bool Entity::hasComponent(const std::string& compName)
-{
-	auto iterator = components.find(compName);
-
-	if (iterator != components.end()) return true;
-
-	return false;
-}
-
-template<typename T>
-std::string Entity::getComponentName()
-{
-	std::string compName;
-	try {
-
-		compName = T::GetId();
-	}
-	catch (std::string msg) {
-		throw std::invalid_argument("There is no component with that name");
-	}
-
-	return compName;
 }

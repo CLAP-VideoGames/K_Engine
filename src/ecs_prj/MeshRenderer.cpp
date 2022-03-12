@@ -3,9 +3,10 @@
 #include "Entity.h"
 #include "Transform.h"
 
+#include <render_prj/RenderManager.h>
+
 #include <OgreEntity.h>
 #include <OgreSceneManager.h>
-#include <render_prj/RenderManager.h>
 
 std::string MeshRenderer::name = "MeshRenderer";
 
@@ -43,5 +44,5 @@ void MeshRenderer::setSinbad()
 
 void MeshRenderer::scale()
 {
-	Transform* t = entity->getComponent<Transform>();
+	//Transform* t = entity->getComponent<Transform>();
 }
