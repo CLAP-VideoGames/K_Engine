@@ -3,6 +3,16 @@
 
 std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
 
+struct PhysicsManager::ColissionCallBack : btOverlapFilterCallback {
+	virtual bool needBroadphaseCollision(btBroadphaseProxy* proxy0, btBroadphaseProxy* proxy1) const {
+		bool collides = (proxy0->m_collisionFilterGroup & proxy1->m_collisionFilterMask) != 0;
+		collides = collides && (proxy1->m_collisionFilterGroup & proxy0 -> m_collisionFilterMask);
+
+		//add some additional logic here that modified 'collides'
+		return collides;
+	}
+};
+
 PhysicsManager::PhysicsManager() = default;
 
 PhysicsManager::~PhysicsManager() = default;
@@ -30,12 +40,16 @@ bool PhysicsManager::initWorld(int numIterations, int step, const btVector3& gra
 		///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
 		overlappingPairCache = new btDbvtBroadphase();
 
+		btOverlapFilterCallback* filterCallback = new ColissionCallBack();
+
 		///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
 		solver = new btSequentialImpulseConstraintSolver;
 
 		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
 
 		dynamicsWorld->setGravity(gravity);
+
+		dynamicsWorld->getPairCache()->setOverlapFilterCallback(filterCallback);
 
 		collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
 	}

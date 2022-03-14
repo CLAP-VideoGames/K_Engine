@@ -2,6 +2,13 @@
 #ifndef PHYSICSMANAGER_H
 #define PHYSICSMANAGER_H
 
+#define BIT(x) (1<<(x))
+
+
+
+//Collision Group
+
+
 #include <memory>
 
 template<typename T>
@@ -13,12 +20,22 @@ class btDefaultCollisionConfiguration;
 class btCollisionDispatcher;
 class btBroadphaseInterface;
 class btSequentialImpulseConstraintSolver;
-
+class btOverlapFilterCallback;
 class btVector3;
 
 class PhysicsManager{
-
 public:
+
+	struct ColissionCallBack;
+
+	enum CollisionLayer {
+		COL_NOTHING = 0,
+		COL_PLAYER = BIT(1),
+		COL_WORLD = BIT(2),
+	};
+
+	int playerCollidesWith = CollisionLayer::COL_PLAYER | CollisionLayer::COL_WORLD;
+
 	PhysicsManager();
 	~PhysicsManager();
 
@@ -40,6 +57,7 @@ private:
 	btDefaultCollisionConfiguration* collisionConfiguration;
 	btSequentialImpulseConstraintSolver* solver;
 	btAlignedObjectArray<btCollisionShape*>* collisionShapes;
+	btOverlapFilterCallback* filterCallback;
 
 	int numIterations_;
 
