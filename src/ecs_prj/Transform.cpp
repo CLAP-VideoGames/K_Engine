@@ -8,7 +8,6 @@ Transform::Transform(Entity* e) : Component("Transform", e)
 	position_ = new CustomVector3{ 0, 0, 0 };
 	rotation_ = new CustomVector3{ 0, 0, 0 };
 	scale_ = new CustomVector3{ 1, 1, 1 };
-
 }
 
 Transform::~Transform() {

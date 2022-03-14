@@ -7,10 +7,8 @@
 class btCollisionShape;
 class btRigidBody;
 class btDefaultMotionState;
-
-namespace BtOgre {
-	class RigidBodyState;
-}
+class RigidBodyState;
+class Transform;
 
 class RigidBody : public Component
 {
@@ -27,6 +25,8 @@ public:
 	void setTrasConstraints(int i, bool value);
 
 private:
+	Transform* transformRf_;
+	
 	//Boolean to control if the associated trigger is a trigger or not (default is false)
 	bool isTrigger = false;
 
@@ -35,7 +35,7 @@ private:
 	//Reference to the collision shape of this rigidbody
 	btCollisionShape* rbShape = nullptr;
 	//Reference to the default motion state of this rigidbody
-	BtOgre::RigidBodyState* rbState = nullptr;
+	RigidBodyState* rbState = nullptr;
 
 	//Required
 	static std::string name;

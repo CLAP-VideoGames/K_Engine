@@ -4,6 +4,7 @@
 #include <ecs_prj/Entity.h>
 
 #include <render_prj/RenderManager.h>
+#include <utils_prj/CustomVector3.h>
 
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
@@ -44,7 +45,7 @@ void MeshRenderer::setSinbad()
 void MeshRenderer::scale()
 {
 	Transform* trans = entity->getComponent<Transform>();
-	std::vector<float> scaleT = trans->getScale();
+	CustomVector3 scaleT = trans->getScale();
 
 	mNode->setScale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
 }
