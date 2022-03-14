@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -182,10 +182,12 @@
     <ClInclude Include="..\..\src\utils_prj\checkML.h" />
     <ClInclude Include="..\..\src\utils_prj\EngineTimer.h" />
     <ClInclude Include="..\..\src\utils_prj\CustomVector.h" />
+    <ClInclude Include="EngineMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\utils_prj\EngineTimer.cpp" />
     <ClCompile Include="..\..\src\utils_prj\CustomVector.cpp" />
+    <ClCompile Include="EngineMath.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
