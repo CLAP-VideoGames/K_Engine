@@ -1,39 +1,52 @@
-#include "CustomVector.h"
-
+#include "CustomVector3.h"
+#include <cassert> 
 #include <math.h>
 
-CustomVector3 CustomVector3::operator+(CustomVector3 other)
+CustomVector3 CustomVector3::operator+(CustomVector3 const& other)
 {
 	return CustomVector3(this->x + other.x, this->y + other.y, this->z + other.z);
 }
 
-CustomVector3 CustomVector3::operator-(CustomVector3 other)
+CustomVector3 CustomVector3::operator-(CustomVector3 const&  other)
 {
 	return CustomVector3(this->x - other.x, this->y - other.y, this->z - other.z);
 }
 
-CustomVector3 CustomVector3::operator*(CustomVector3 other)
+CustomVector3 CustomVector3::operator*(CustomVector3 const&  other)
 {
 	return CustomVector3(this->x * other.x, this->y * other.y, this->z * other.z);
 }
 
-CustomVector3 CustomVector3::operator/(CustomVector3 other)
+CustomVector3 CustomVector3::operator/(CustomVector3 const&  other)
 {
 	return CustomVector3(this->x / other.x, this->y / other.y, this->z / other.z);
 }
 
-void CustomVector3::operator+=(CustomVector3 other)
+void CustomVector3::operator+=(CustomVector3 const&  other)
 {
 	this->x += other.x;
 	this->y += other.y;
 	this->z += other.z;
 }
 
-void CustomVector3::operator-=(CustomVector3 other)
+void CustomVector3::operator-=(CustomVector3 const&  other)
 {
 	this->x -= other.x;
 	this->y -= other.y;
 	this->z -= other.z;
+}
+
+double& CustomVector3::operator[](int index){
+	assert(int < 3);
+
+	switch (index){
+		case 0:
+			return x;
+		case 1:
+			return y;
+		case 2:
+			return z;
+	}
 }
 
 float CustomVector3::getMagnitude()

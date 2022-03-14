@@ -107,8 +107,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>render_d.lib; physics_d.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>render_d.lib;physics_d.lib;utils_d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\utils_prj\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -128,8 +128,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>render.lib; physics.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>render.lib;physics.lib;utils.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\utils_prj\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -145,8 +145,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>render_d.lib; physics_d.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>render_d.lib;physics_d.lib;utils_d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Debug;$(SolutionDir)lib\physics_prj\Debug;$(SolutionDir)lib\utils_prj\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -166,8 +166,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>render.lib; physics.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>render.lib;physics.lib;utils.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\render_prj\Release;$(SolutionDir)lib\physics_prj\Release;$(SolutionDir)lib\utils_prj\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

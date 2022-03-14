@@ -11,6 +11,8 @@
 * This component is the place from where rigidBody and meshRenderer take the information
 * To use physics and to render our entities
 */
+class CustomVector3;
+
 class Transform : public Component
 {
 public:
@@ -30,9 +32,9 @@ public:
 	void setScale(float x, float y, float z);
 
 	//These 3 methods set our arrays to the parameter we introduce in them
-	std::vector<float> getPosition();
-	std::vector<float> getRotation();
-	std::vector<float> getScale();
+	CustomVector3 getPosition();
+	CustomVector3 getRotation();
+	CustomVector3 getScale();
 
 	virtual void debug();
 
@@ -41,8 +43,8 @@ private:
 	
 	//Arrays initialized to default values
 	// x y z axis, in that order of our 3 main information arrays
-	std::vector<float> position_;
-	std::vector<float> rotation_;
-	std::vector<float> scale_;
+	CustomVector3* position_;
+	CustomVector3* rotation_;
+	CustomVector3* scale_;
 }; 
 #endif // TRANSFORM_H

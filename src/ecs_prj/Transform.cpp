@@ -1,15 +1,21 @@
 #include "Transform.h"
+#include "utils_prj/CustomVector3.h"
 
 std::string Transform::name = "Transform";
 
 Transform::Transform(Entity* e) : Component("Transform", e)
 { 
-	position_ = { 0, 0, 0 };
-	rotation_ = { 0, 0, 0 };
-	scale_ = { 1, 1, 1 };
+	position_ = new CustomVector3{ 0, 0, 0 };
+	rotation_ = new CustomVector3{ 0, 0, 0 };
+	scale_ = new CustomVector3{ 1, 1, 1 };
+
 }
 
-Transform::~Transform() = default;
+Transform::~Transform() {
+	delete position_; position_ = nullptr;
+	delete rotation_; rotation_ = nullptr;
+	delete scale_; scale_ = nullptr;
+}
 
 std::string Transform::GetId()
 {
@@ -18,66 +24,49 @@ std::string Transform::GetId()
 
 void Transform::translate(float x, float y, float z)
 {
-	float toAdd[3] = { x, y, z };
-
-	for (int i = 0; i < 3; i++) {
-		position_[i] += toAdd[i];
-	}
+	CustomVector3 toAdd = { x, y, z };
+	(*position_) += toAdd;
 }
 
-void Transform::rotate(float x, float y, float z)
-{
-	float toAdd[3] = { x, y, z };
-
-	for (int i = 0; i < 3; i++)
-		rotation_[i] += toAdd[i];
+void Transform::rotate(float x, float y, float z) {
+	CustomVector3 toAdd = { x, y, z };
+	(*rotation_) += toAdd;
 }
 
-void Transform::scale(float x, float y, float z)
-{
-	float toAdd[3] = { x, y, z };
-
-	for (int i = 0; i < 3; i++)
-		scale_[i] += toAdd[i];
+void Transform::scale(float x, float y, float z){
+	CustomVector3 toAdd = { x, y, z };
+	(*scale_) += toAdd;
 }
 
-void Transform::setPosition(float x, float y, float z)
-{
-	float toAdd[3] = { x, y, z };
-
-	for (int i = 0; i < 3; i++) 
-		position_[i] = toAdd[i];
+void Transform::setPosition(float x, float y, float z) {
+	CustomVector3 toAdd = { x, y, z };
+	(*position_) = toAdd;
 }
 
-void Transform::setRotation(float x, float y, float z)
-{
-	float toAdd[3] = { x, y, z };
-
-	for (int i = 0; i < 3; i++) 
-		rotation_[i] = toAdd[i];
+void Transform::setRotation(float x, float y, float z) {
+	CustomVector3 toAdd = { x, y, z };
+	(*rotation_) = toAdd;
 }
 
 void Transform::setScale(float x, float y, float z)
 {
-	float toAdd[3] = { x, y, z };
-
-	for (int i = 0; i < 3; i++)
-		scale_[i] = toAdd[i];
+	CustomVector3 toAdd = { x, y, z };
+	(*scale_) = toAdd;
 }
 
-std::vector<float> Transform::getPosition()
+CustomVector3 Transform::getPosition()
 {
-	return position_;
+	return *position_;
 }
 
-std::vector<float>  Transform::getRotation()
+CustomVector3  Transform::getRotation()
 {
-	return rotation_;
+	return *rotation_;
 }
 
-std::vector<float>  Transform::getScale()
+CustomVector3  Transform::getScale()
 {
-	return scale_;
+	return *scale_;
 }
 
 void Transform::debug()

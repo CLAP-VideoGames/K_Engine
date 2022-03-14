@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\utils_prj\CustomVector.h">
+    <ClInclude Include="..\..\src\utils_prj\CustomVector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\utils_prj\checkML.h">
@@ -24,12 +24,18 @@
     <ClInclude Include="..\..\src\utils_prj\EngineTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\utils_prj\EngineMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\utils_prj\CustomVector.cpp">
+    <ClCompile Include="..\..\src\utils_prj\CustomVector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\utils_prj\EngineTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils_prj\EngineMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
