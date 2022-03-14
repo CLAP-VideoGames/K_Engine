@@ -8,7 +8,7 @@
 // this should be on the render project, before the SDL.h,
 // but since it's here I put it there temporarily
 #include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
-#include <SDL_timer.h>
+
 #include <OgreLogManager.h>
 
 #include <physics_prj/PhysicsManager.h>
@@ -23,6 +23,8 @@
 #include <ecs_prj/Transform.h>
 #include <ecs_prj/MeshRenderer.h>
 
+#include <utils_prj/EngineTimer.h>
+
 #define DELTA_TIME 33
 
 #ifdef _DEBUG
@@ -34,6 +36,9 @@ int main() {
 #endif
 
 		try {
+			// Timer for main loop
+			EngineTimer timer = EngineTimer();
+
 			// Render Manager initialisation
 			RenderManager::Init("K_Engine"); //GetInstance() returns nullptr if Init isnt called first
 			RenderManager* renderMan = RenderManager::GetInstance();
@@ -59,23 +64,18 @@ int main() {
 			InputManager::Init();
 			InputManager* inputMan = InputManager::GetInstance();
 
-			//ComponentManager Initialization
+			// Component Manager initialisation
 			ComponentManager::Init("K_EngineComponents");
-			//ComponentManager* compMan = ComponentManager::GetInstance();
-
-			//Entity Manager
-			EntityManager* entMan = new EntityManager();
+			EntityManager* entMan = new EntityManager(); // Entity Manager
 			Entity* e = entMan->addEntity();
-			Component* t = e->addComponent<Transform>();
-			t->debug();
-			Component* m = e->addComponent<MeshRenderer>();
-			m->debug();
+			Component* t = e->addComponent<Transform>(); t->debug();
+			Component* m = e->addComponent<MeshRenderer>(); m->debug();
 
 			bool run = true; // time --> miliseconds
-			unsigned int accFrameTime = 0, currTime = SDL_GetTicks();
+			unsigned int accFrameTime = 0, currTime = timer.currTime();
 			int cycles = 10000;
 			while (run) {
-				unsigned int frame = SDL_GetTicks() - currTime;
+				unsigned int frame = timer.currTime() - currTime;
 				currTime += frame;
 
 				accFrameTime += frame;

@@ -18,9 +18,18 @@
     <ClInclude Include="..\..\src\utils_prj\CustomVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\utils_prj\checkML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils_prj\EngineTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\utils_prj\CustomVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils_prj\EngineTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -189,6 +189,9 @@
     <ProjectReference Include="..\ui_prj\ui_prj.vcxproj">
       <Project>{c822419e-fa7d-4d61-93e6-8600be86d638}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\utils_prj\utils_prj.vcxproj">
+      <Project>{6722d8bc-01d9-41b8-a846-738d35a52e27}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main_prj\main.cpp" />
