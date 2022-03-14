@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <stdexcept>
 
-#include "ComponentManager.h"
+#include <ecs_prj/ComponentManager.h>
 
 class Component;
 
@@ -110,17 +110,15 @@ private:
 		return compName;
 	}
 
-	//bool to determine if we update the entity or not
-	bool active;
-	//bool to know when do we have to erase an entity
-	bool toDestroy;
+	
+	bool active;    // determines if we update the entity or not
+	bool toDestroy; // knows when do we have to erase an entity
 
 	//Map to find our components and erase them using the id of the component
-	std::unordered_map<std::string, Component*>components;
+	std::unordered_map<std::string, Component*> components;
 		
 	//strings to give the entity a tag or a name
 	std::string tag;
 	std::string name;
-
 };
-#endif
+#endif // ENTITY_H

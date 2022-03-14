@@ -1,5 +1,8 @@
 #pragma once
-#include "Component.h"
+#ifndef MESHRENDERER_H
+#define MESHRENDERER_H
+
+#include <ecs_prj/Component.h>
 
 namespace Ogre {
 	class SceneNode;
@@ -13,7 +16,6 @@ namespace Ogre {
 class MeshRenderer : public Component
 {
 public:
-	MeshRenderer();
 	MeshRenderer(Entity* e);
 	~MeshRenderer();
 
@@ -28,23 +30,18 @@ public:
 
 	void scale();
 
-protected:
-
-
 private:
-	//Required
+	// required
 	static std::string name;
 
-	//Reference to the object's node
-	Ogre::SceneNode* mNode = nullptr;
-	Ogre::Entity* mEntity = nullptr;
+	// reference to the object's node & entity
+	Ogre::SceneNode* mNode;
+	Ogre::Entity* mEntity;
 
-	//Bool to control if the object is visible or not (default true)
-	bool visible = true;
+	bool visible;		  // visibility of the object
+	std::string material; // name of the object's material
 
-	//Name of the object's material
-	std::string material;
-
-	//Debuggin method to know that our component works as intended
+	// debuggin method to know that our component works as intended
 	void setSinbad();
 };
+#endif // MESHRENDERER_H

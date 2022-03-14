@@ -2,11 +2,14 @@
 
 std::string Transform::name = "Transform";
 
-Transform::Transform() : Component("Transform", nullptr) { }
+Transform::Transform(Entity* e) : Component("Transform", e)
+{ 
+	position_ = { 0, 0, 0 };
+	rotation_ = { 0, 0, 0 };
+	scale_ = { 1, 1, 1 };
+}
 
-Transform::Transform(Entity* e) : Component("Transform", e) { }
-
-Transform::~Transform() { }
+Transform::~Transform() = default;
 
 std::string Transform::GetId()
 {
@@ -18,7 +21,7 @@ void Transform::translate(float x, float y, float z)
 	float toAdd[3] = { x, y, z };
 
 	for (int i = 0; i < 3; i++) {
-		position[i] += toAdd[i];
+		position_[i] += toAdd[i];
 	}
 }
 
@@ -27,15 +30,15 @@ void Transform::rotate(float x, float y, float z)
 	float toAdd[3] = { x, y, z };
 
 	for (int i = 0; i < 3; i++)
-		rotation[i] += toAdd[i];
+		rotation_[i] += toAdd[i];
 }
 
-void Transform::Scale(float x, float y, float z)
+void Transform::scale(float x, float y, float z)
 {
 	float toAdd[3] = { x, y, z };
 
 	for (int i = 0; i < 3; i++)
-		scale[i] += toAdd[i];
+		scale_[i] += toAdd[i];
 }
 
 void Transform::setPosition(float x, float y, float z)
@@ -43,7 +46,7 @@ void Transform::setPosition(float x, float y, float z)
 	float toAdd[3] = { x, y, z };
 
 	for (int i = 0; i < 3; i++) 
-		position[i] = toAdd[i];
+		position_[i] = toAdd[i];
 }
 
 void Transform::setRotation(float x, float y, float z)
@@ -51,7 +54,7 @@ void Transform::setRotation(float x, float y, float z)
 	float toAdd[3] = { x, y, z };
 
 	for (int i = 0; i < 3; i++) 
-		rotation[i] = toAdd[i];
+		rotation_[i] = toAdd[i];
 }
 
 void Transform::setScale(float x, float y, float z)
@@ -59,22 +62,22 @@ void Transform::setScale(float x, float y, float z)
 	float toAdd[3] = { x, y, z };
 
 	for (int i = 0; i < 3; i++)
-		scale[i] = toAdd[i];
+		scale_[i] = toAdd[i];
 }
 
-float* Transform::getPosition()
+std::vector<float> Transform::getPosition()
 {
-	return position;
+	return position_;
 }
 
-float* Transform::getRotation()
+std::vector<float>  Transform::getRotation()
 {
-	return rotation;
+	return rotation_;
 }
 
-float* Transform::getScale()
+std::vector<float>  Transform::getScale()
 {
-	return scale;
+	return scale_;
 }
 
 void Transform::debug()

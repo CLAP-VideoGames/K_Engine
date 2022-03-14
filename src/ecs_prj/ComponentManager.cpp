@@ -1,11 +1,13 @@
 #include "ComponentManager.h"
 
-#include "Transform.h"
-#include "MeshRenderer.h"
+#include <ecs_prj/Transform.h>
+#include <ecs_prj/MeshRenderer.h>
 
 std::unique_ptr<ComponentManager> ComponentManager::instance = nullptr;
 
 ComponentManager::ComponentManager() = default;
+
+ComponentManager::~ComponentManager() = default;
 
 ComponentManager* ComponentManager::GetInstance()
 {
@@ -19,8 +21,8 @@ bool ComponentManager::Init(std::string n)
 
 		instance.get()->name = n;
 
-		instance.get()->availableComponents.emplace(Transform::GetId(), new Transform());
-		instance.get()->availableComponents.emplace(MeshRenderer::GetId(), new MeshRenderer());
+		instance.get()->availableComponents.emplace(Transform::GetId(), new Transform(nullptr));
+		instance.get()->availableComponents.emplace(MeshRenderer::GetId(), new MeshRenderer(nullptr));
 	}
 	catch (const std::exception&) {
 		return false;

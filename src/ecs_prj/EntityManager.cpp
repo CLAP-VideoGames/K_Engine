@@ -1,10 +1,8 @@
 #include "EntityManager.h"
-#include "Entity.h"
 
-EntityManager::EntityManager()
-{
+#include <ecs_prj/Entity.h>
 
-}
+EntityManager::EntityManager() = default;
 
 EntityManager::~EntityManager()
 {

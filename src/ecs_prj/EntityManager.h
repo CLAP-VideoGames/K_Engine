@@ -1,7 +1,11 @@
 #pragma once
+#ifndef ENTITYMANAGER_H
+#define ENTITYMANAGER_H
+
 #include <vector>
 
 class Entity;
+
 /*
 * This class is in charge of having track of our entitys and updating them
 * also erasing them when necesary
@@ -21,7 +25,7 @@ public:
 	void update();
 
 private:
-
 	//Our entity vector
-	std::vector<Entity*>entities;
+	std::vector<Entity*> entities;
 };
+#endif // ENTITYMANAGER_H

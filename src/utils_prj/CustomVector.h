@@ -21,5 +21,4 @@ public:
 	CustomVector3 normalized();
 	void normalize();
 };
-
-#endif // VECTOR_H
+#endif // CUSTOMVECTOR_H

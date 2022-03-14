@@ -1,5 +1,4 @@
 #pragma once
-
 #ifndef INPUTMANAGER_H
 #define INPUTMANAGER_H
 
@@ -74,5 +73,4 @@ private:
 	void onMouseMotion(const SDL_Event& event);
 	void onMouseButtonChange(const SDL_Event& event, bool isDown);
 };
-
 #endif //INPUTMANAGER_H

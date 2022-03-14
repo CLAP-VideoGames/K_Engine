@@ -1,6 +1,10 @@
 #pragma once
-#include "Component.h"
+#ifndef TRANSFORM_H
+#define TRANSFORM_H
+
 #include <vector>
+
+#include <ecs_prj/Component.h>
 
 /*
 * The Transform component is used to store information about our entity
@@ -10,7 +14,6 @@
 class Transform : public Component
 {
 public:
-	Transform();
 	Transform(Entity* e);
 	~Transform();
 
@@ -19,7 +22,7 @@ public:
 	//These 3 methods add the the amount that we introduce in them to our current arrays
 	void translate(float x, float y, float z);
 	void rotate(float x, float y, float z);
-	void Scale(float x, float y, float z);
+	void scale(float x, float y, float z);
 
 	//These 3 methods set our arrays to the parameter we introduce in them
 	void setPosition(float x, float y, float z);
@@ -27,9 +30,9 @@ public:
 	void setScale(float x, float y, float z);
 
 	//These 3 methods set our arrays to the parameter we introduce in them
-	float* getPosition();
-	float* getRotation();
-	float* getScale();
+	std::vector<float> getPosition();
+	std::vector<float> getRotation();
+	std::vector<float> getScale();
 
 	virtual void debug();
 
@@ -38,7 +41,8 @@ private:
 	
 	//Arrays initialized to default values
 	// x y z axis, in that order of our 3 main information arrays
-	float position[3] = { 0, 0, 0 };
-	float rotation[3] = { 0, 0, 0 };
-	float scale[3] = { 1, 1, 1 };
-};
+	std::vector<float> position_;
+	std::vector<float> rotation_;
+	std::vector<float> scale_;
+}; 
+#endif // TRANSFORM_H

@@ -5,8 +5,7 @@
 #include <memory>
 #include <string>
 
-namespace CEGUI
-{
+namespace CEGUI {
     class Window;
     class DefaultWindow;
     class EventArgs;

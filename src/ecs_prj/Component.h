@@ -30,31 +30,28 @@ class Component
 public:
 	~Component();
 
-#pragma region VirtualMethods
-	//update is called every frame of the game
-	virtual void update(){};
+	//awake is called every time the component is activated
+	virtual void awake();
 
 	//start is called once the game starts
-	virtual void start(){};
-
-	//awake is called every time the component is activated
-	virtual void awake(){};
-
+	virtual void start();
+	
 	//onEnable is called every time the component is enabled
-	virtual void onEnable() {};
-
-	//onDisable is called every time the component is disabled
-	virtual void onDisable() {};
+	virtual void onEnable();
+	
+	//update is called every frame of the game
+	virtual void update();
 
 	//physicsUpdate is called before update and it calls everyPhysic we need
-	virtual void physicsUpdate() {}
+	virtual void physicsUpdate();
+
+	//onDisable is called every time the component is disabled
+	virtual void onDisable();
 
 	//Temporary method to develop our components
-	//(LLamad aqui a lo que querais testear de cada componente)
 	//This method is called in Entity add component, so it executes everyTime
 	//You add a component to an entity
-	virtual void debug() {};
-#pragma endregion
+	virtual void debug();
 
 	//Active/Deactivate our component 
 	void setActive(bool a);
@@ -62,10 +59,10 @@ public:
 protected:
 	//Default string to force the user to give it a diferent id 
 	std::string id;
-	Entity* entity;
-
 	bool enable;
+
+	Entity* entity;
 
 	Component(std::string id, Entity* ent);
 };
-#endif	
+#endif	// COMPONENT_H

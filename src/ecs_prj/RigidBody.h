@@ -1,5 +1,8 @@
 #pragma once
-#include "Component.h"
+#ifndef RIGIDBODY_H
+#define RIGIDBODY_H
+
+#include <ecs_prj/Component.h>
 
 class btCollisionShape;
 class btRigidBody;
@@ -23,9 +26,6 @@ public:
 	void setRotConstraints(int i, bool value);
 	void setTrasConstraints(int i, bool value);
 
-protected:
-
-
 private:
 	//Boolean to control if the associated trigger is a trigger or not (default is false)
 	bool isTrigger = false;
@@ -46,3 +46,4 @@ private:
 	//Array of constrains for traslation in x y z
 	bool traslationConstraints[3]{ false, false, false };
 };
+#endif // RIGIDBODY_H

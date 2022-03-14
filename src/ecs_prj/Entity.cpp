@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-#include "Component.h"
+#include <ecs_prj/Component.h>
 
 Entity::Entity()
 {

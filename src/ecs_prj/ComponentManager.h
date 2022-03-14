@@ -1,6 +1,6 @@
 #pragma once
-#ifndef COMPONENTFACTORY_H
-#define COMPONENTFACTORY_H
+#ifndef COMPONENTMANAGER_H
+#define COMPONENTMANAGER_H
 
 #include <memory>
 #include <stdexcept>
@@ -26,7 +26,7 @@ class ComponentManager
 public:
 	//Default Constructor to avoid problems in the future
 	ComponentManager();
-	~ComponentManager() {};
+	~ComponentManager();
 
 	//static method to get the manager instance in every file we want
 	static ComponentManager* GetInstance();
@@ -87,5 +87,4 @@ private:
 	//Map to store the current components 
 	std::unordered_map<std::string, Component*> availableComponents;
 };
-
-#endif
+#endif // COMPONENTMANAGER_H

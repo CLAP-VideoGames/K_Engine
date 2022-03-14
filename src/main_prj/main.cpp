@@ -15,12 +15,13 @@
 #include <render_prj/RenderManager.h>
 #include <sound_prj/AudioManager.h>
 #include <input_prj/InputManager.h>
+#include <ui_prj/UIManager.h>
+
 #include <ecs_prj/EntityManager.h>
 #include <ecs_prj/ComponentManager.h>
 #include <ecs_prj/Entity.h>
 #include <ecs_prj/Transform.h>
 #include <ecs_prj/MeshRenderer.h>
-#include <ui_prj/UIManager.h>
 
 #define DELTA_TIME 33
 

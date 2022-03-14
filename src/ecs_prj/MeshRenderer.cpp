@@ -1,7 +1,7 @@
 #include "MeshRenderer.h"
 
-#include "Entity.h"
-#include "Transform.h"
+#include <ecs_prj/Transform.h>
+#include <ecs_prj/Entity.h>
 
 #include <render_prj/RenderManager.h>
 
@@ -10,11 +10,6 @@
 #include <OgreSceneManager.h>
 
 std::string MeshRenderer::name = "MeshRenderer";
-
-MeshRenderer::MeshRenderer() : Component("MeshRenderer", nullptr)
-{
-	name = id;
-}
 
 MeshRenderer::MeshRenderer(Entity* e) : Component("Transform", e) { }
 
@@ -49,7 +44,7 @@ void MeshRenderer::setSinbad()
 void MeshRenderer::scale()
 {
 	Transform* trans = entity->getComponent<Transform>();
-	float* scaleT = trans->getScale();
+	std::vector<float> scaleT = trans->getScale();
 
-	mNode->setScale(Ogre::Vector3(scaleT));
+	mNode->setScale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
 }
