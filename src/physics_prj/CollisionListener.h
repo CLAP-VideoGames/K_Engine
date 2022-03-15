@@ -1,3 +1,7 @@
+#pragma once
+#ifndef COLLISIONMANAGER_H_
+#define COLLISIONMANAGER_H_
+
 class btManifoldPoint;
 
 class CollisionListener {
@@ -7,3 +11,4 @@ public:
 	void(*p)(void*, void* other, const btManifoldPoint& mnf);
 	void* obj;
 };
+#endif COLLISIONMANAGER_H_

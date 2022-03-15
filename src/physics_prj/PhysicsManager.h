@@ -3,12 +3,6 @@
 #define PHYSICSMANAGER_H
 
 #define BIT(x) (1<<(x))
-
-
-
-//Collision Group
-
-
 #include <memory>
 
 template<typename T>
@@ -22,10 +16,21 @@ class btBroadphaseInterface;
 class btSequentialImpulseConstraintSolver;
 class btOverlapFilterCallback;
 class btVector3;
+class DynamicsWorld;
+class btRigidBody;
+class CustomVector3;
+class btDynamicsWorld;
+
+
+enum class ColliderType {
+	CT_BOX,
+	CT_SPHERE,
+	CT_TRIMESH,
+	CT_HULL
+};
 
 class PhysicsManager{
 public:
-
 	struct ColissionCallBack;
 
 	enum CollisionLayer {
@@ -41,11 +46,16 @@ public:
 
 	static PhysicsManager* GetInstance();
 
-	static bool Init(int numIterations, int step, const btVector3& gravity);
+	static bool Init(int numIterations, int step, const CustomVector3& gravity);
 	static bool Shutdown();
 
 	void update();
 	void exampleObjects();
+	void changeCollisionFiltering(btRigidBody* rb, int group, int mask);
+
+	void changeGravity(CustomVector3 const& grav);
+
+	btDynamicsWorld* getWorld() const;
 
 private:
 	static std::unique_ptr<PhysicsManager> instance;
@@ -58,6 +68,7 @@ private:
 	btSequentialImpulseConstraintSolver* solver;
 	btAlignedObjectArray<btCollisionShape*>* collisionShapes;
 	btOverlapFilterCallback* filterCallback;
+	DynamicsWorld* dynamicsWorld_;
 
 	int numIterations_;
 

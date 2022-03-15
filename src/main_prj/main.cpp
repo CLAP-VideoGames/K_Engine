@@ -7,8 +7,6 @@
 //Just for testing
 // this should be on the render project, before the SDL.h,
 // but since it's here I put it there temporarily
-#include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
-
 #include <OgreLogManager.h>
 
 #include <physics_prj/PhysicsManager.h>
@@ -24,6 +22,7 @@
 #include <ecs_prj/MeshRenderer.h>
 
 #include <utils_prj/EngineTimer.h>
+#include <utils_prj/CustomVector3.h>
 
 //Temporary
 #include <iostream>
@@ -51,7 +50,6 @@ int main() {
 			// Physics Manager initialisation
 			PhysicsManager::Init(10, 20, { 0, -9.8, 0 }); //GetInstance() returns nullptr if Init isnt called first
 			PhysicsManager* physicsMan = PhysicsManager::GetInstance();
-			physicsMan->exampleObjects();
 
 			// UI Manager initialisation
 			UIManager::Init("K_EngineUI");

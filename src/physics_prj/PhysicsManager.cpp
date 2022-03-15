@@ -1,17 +1,9 @@
 #include "PhysicsManager.h"
 #include <btBulletDynamicsCommon.h>
+#include "DynamicsWorld.h"
+#include "CustomVector3.h"
 
 std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
-
-struct PhysicsManager::ColissionCallBack : btOverlapFilterCallback {
-	virtual bool needBroadphaseCollision(btBroadphaseProxy* proxy0, btBroadphaseProxy* proxy1) const {
-		bool collides = (proxy0->m_collisionFilterGroup & proxy1->m_collisionFilterMask) != 0;
-		collides = collides && (proxy1->m_collisionFilterGroup & proxy0 -> m_collisionFilterMask);
-
-		//add some additional logic here that modified 'collides'
-		return collides;
-	}
-};
 
 PhysicsManager::PhysicsManager() = default;
 
@@ -21,37 +13,18 @@ PhysicsManager* PhysicsManager::GetInstance(){
 	return instance.get();
 }
 
-bool PhysicsManager::Init(int numIterations, int step, const btVector3& gravity = btVector3(0, -9.8f, 0)){
+bool PhysicsManager::Init(int numIterations, int step, const CustomVector3& gravity = CustomVector3(0, -9.8f, 0)){
 	instance.reset(new PhysicsManager());
-	return instance.get()->initWorld(numIterations, step, gravity);
+	btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
+	return instance.get()->initWorld(numIterations, step, grav_);
 }
 
-bool PhysicsManager::initWorld(int numIterations, int step, const btVector3& gravity){
+bool PhysicsManager::initWorld(int numIterations, int step, btVector3 const& gravity){
 	bool succeed = true;
 	try{
-		///-----initialization_start-----
-		///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
+		this->gravity = new btVector3(gravity);
+		dynamicsWorld_ = new DynamicsWorld(gravity);
 		numIterations_ = numIterations;
-		collisionConfiguration = new btDefaultCollisionConfiguration();
-
-		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
-		dispatcher = new btCollisionDispatcher(collisionConfiguration);
-
-		///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
-		overlappingPairCache = new btDbvtBroadphase();
-
-		btOverlapFilterCallback* filterCallback = new ColissionCallBack();
-
-		///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
-		solver = new btSequentialImpulseConstraintSolver;
-
-		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-
-		dynamicsWorld->setGravity(gravity);
-
-		dynamicsWorld->getPairCache()->setOverlapFilterCallback(filterCallback);
-
-		collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
 	}
 	catch (const std::exception&){
 		succeed = false;
@@ -62,35 +35,9 @@ bool PhysicsManager::initWorld(int numIterations, int step, const btVector3& gra
 
 bool PhysicsManager::releaseWorld(){
 	bool succeed = true;
-	
 	try{
-		//cleanup in the reverse order of creation/initialization
-		///-----cleanup_start-----
-		//remove the rigidbodies from the dynamics world and delete them
-		for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
-			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-			btRigidBody* body = btRigidBody::upcast(obj);
-			if (body && body->getMotionState())
-				delete body->getMotionState();
-			dynamicsWorld->removeCollisionObject(obj);
-			delete obj;
-		}
-
-		//delete collision shapes
-		for (int j = 0; j < collisionShapes->size(); j++) {
-			btCollisionShape* shape = (*collisionShapes)[j];
-			(*collisionShapes)[j] = 0;
-			delete shape;
-		}
-
-		//delete objects
-		delete dynamicsWorld; dynamicsWorld = nullptr;
-		delete solver; solver = nullptr;
-		delete overlappingPairCache; overlappingPairCache = nullptr;
-		delete dispatcher; dispatcher = nullptr;
-		delete collisionConfiguration; collisionConfiguration = nullptr;
-		collisionShapes->clear();
-		delete collisionShapes; collisionShapes = nullptr;
+		delete gravity;
+		delete dynamicsWorld_; dynamicsWorld_ = nullptr;
 	}
 	catch (const std::exception&){
 		succeed = false;
@@ -187,6 +134,16 @@ void PhysicsManager::exampleObjects(){
 
 		dynamicsWorld->addRigidBody(body);
 	}
+}
+
+void PhysicsManager::changeCollisionFiltering(btRigidBody* rb, int group, int mask){
+	btBroadphaseProxy* proxy = rb->getBroadphaseProxy();
+	proxy->m_collisionFilterGroup = group;
+	proxy->m_collisionFilterMask = mask;
+}
+
+btDynamicsWorld* PhysicsManager::getWorld() const{
+	return dynamicsWorld_->getBtWorld();
 }
 
 bool PhysicsManager::Shutdown(){
