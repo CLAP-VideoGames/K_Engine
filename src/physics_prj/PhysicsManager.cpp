@@ -125,6 +125,7 @@ void PhysicsManager::exampleObjects(){
 	//keep track of the shapes, we release memory at exit.
 	//make sure to re-use collision shapes among rigid bodies whenever possible!
 	{
+		//Forma del objeto en función del tipo
 		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
 
 		collisionShapes->push_back(groundShape);
@@ -132,6 +133,7 @@ void PhysicsManager::exampleObjects(){
 		btTransform groundTransform;
 		groundTransform.setIdentity();
 		groundTransform.setOrigin(btVector3(0, -56, 0));
+		
 
 		btScalar mass(0.);
 
@@ -146,6 +148,9 @@ void PhysicsManager::exampleObjects(){
 		btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
 		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
 		btRigidBody* body = new btRigidBody(rbInfo);
+
+		//body->getCollisionShape()
+		//body->getWorldTransform();
 
 		//add the body to the dynamics world
 		dynamicsWorld->addRigidBody(body);
