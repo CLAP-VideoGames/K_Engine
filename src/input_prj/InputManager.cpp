@@ -58,8 +58,6 @@ bool InputManager::update() {
 			break;
 		case SDL_KEYDOWN:
 			onKeyDown(event);
-			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-				return false;
 			break;
 		case SDL_KEYUP:
 			onKeyUp(event);
@@ -90,19 +88,19 @@ bool InputManager::keyUpEvent() {
 }
 
 bool InputManager::isKeyDown(SDL_Scancode key) {
-	return keyDownEvent() && kbState_[key] == 1;
+	return isKeyDownEvent_ && kbState_[key] == 1;
 }
 
 bool InputManager::isKeyDown(SDL_Keycode key) {
-	return isKeyDown(SDL_GetScancodeFromKey(key));
+	return isKeyDownEvent_ && isKeyDown(SDL_GetScancodeFromKey(key));
 }
 
 bool InputManager::isKeyUp(SDL_Scancode key) {
-	return keyUpEvent() && kbState_[key] == 0;
+	return isKeyUpEvent_ && kbState_[key] == 0;
 }
 
 bool InputManager::isKeyUp(SDL_Keycode key) {
-	return isKeyUp(SDL_GetScancodeFromKey(key));
+	return isKeyUpEvent_ && isKeyUp(SDL_GetScancodeFromKey(key));
 }
 
 // mouse
@@ -134,11 +132,11 @@ bool InputManager::getLeftMouseButtonPressed() {
 	return isLeftMousePressed_;
 }
 
-void InputManager::onKeyDown(const SDL_Event&) {
+void InputManager::onKeyDown(const SDL_Event& e) {
 	isKeyDownEvent_ = true;
 }
 
-void InputManager::onKeyUp(const SDL_Event&) {
+void InputManager::onKeyUp(const SDL_Event& e) {
 	isKeyUpEvent_ = true;
 }
 

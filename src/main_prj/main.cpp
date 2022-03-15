@@ -25,6 +25,10 @@
 
 #include <utils_prj/EngineTimer.h>
 
+//Temporary
+#include <iostream>
+#include <string>
+
 #define DELTA_TIME 33
 
 #ifdef _DEBUG
@@ -80,8 +84,12 @@ int main() {
 
 				accFrameTime += frame;
 				while (accFrameTime >= DELTA_TIME) {
-					// get input here (clear and check same time)			
-					run = inputMan->update();
+					inputMan->update();
+
+					//if (inputMan->getLeftMouseButtonPressed()) {
+					//	run = false;
+					//}
+					
 					//physicsMan->Update();
 					accFrameTime -= DELTA_TIME;
 				}
