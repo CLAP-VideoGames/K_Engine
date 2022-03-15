@@ -13,7 +13,7 @@
 std::string MeshRenderer::name = "MeshRenderer";
 
 MeshRenderer::MeshRenderer(Entity* e) : Component("MeshRenderer", e) { 
-	transformRf = entity->getComponent<Transform>();
+	if(entity != nullptr)transformRf = entity->getComponent<Transform>();
 }
 
 MeshRenderer::~MeshRenderer() {}
