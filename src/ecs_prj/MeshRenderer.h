@@ -1,15 +1,15 @@
 #pragma once
 #ifndef MESHRENDERER_H
 #define MESHRENDERER_H
-
 #include <ecs_prj/Component.h>
+
+class Transform;
 
 namespace Ogre {
 	class SceneNode;
 	class Entity;
 }
 
-class Tranform;
 /*
 * MeshRender is the component used to add diferent model to our entities
 * It takes the information of the model position scale and rotation from transform
@@ -39,10 +39,12 @@ private:
 	// required
 	static std::string name;
 
+	// reference to tranform Component
+	Transform* transformRf;
+
 	// reference to the object's node & entity
 	Ogre::SceneNode* mNode;
 	Ogre::Entity* mEntity;
-	Transform* tranformRf_;
 
 	bool visible;		  // visibility of the object
 	std::string material; // name of the object's material

@@ -12,8 +12,8 @@
 
 std::string MeshRenderer::name = "MeshRenderer";
 
-MeshRenderer::MeshRenderer(Entity* e) : Component("Transform", e) { 
-	tranformRf_ = entity->getComponent<Transform>();
+MeshRenderer::MeshRenderer(Entity* e) : Component("MeshRenderer", e) { 
+	transformRf = entity->getComponent<Transform>();
 }
 
 MeshRenderer::~MeshRenderer() {}
@@ -49,13 +49,13 @@ void MeshRenderer::setSinbad()
 }
 
 void MeshRenderer::scale() {
-	tranformRf_ = entity->getComponent<Transform>();
-	CustomVector3 scaleT = tranformRf_->getScale();
+	transformRf = entity->getComponent<Transform>();
+	CustomVector3 scaleT = transformRf->getScale();
 
 	mNode->setScale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
 }
 
 void MeshRenderer::syncPosition(){
-	CustomVector3 pos = tranformRf_->getPosition();
-	mNode->setPosition({ pos.x,pos.y, pos.z});
+	CustomVector3 pos = transformRf->getPosition();
+	mNode->setPosition(Ogre::Vector3(pos.x,pos.y, pos.z));
 }
