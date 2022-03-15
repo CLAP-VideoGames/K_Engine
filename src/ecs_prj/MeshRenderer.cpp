@@ -12,7 +12,9 @@
 
 std::string MeshRenderer::name = "MeshRenderer";
 
-MeshRenderer::MeshRenderer(Entity* e) : Component("Transform", e) { }
+MeshRenderer::MeshRenderer(Entity* e) : Component("Transform", e) { 
+	tranformRf_ = entity->getComponent<Transform>();
+}
 
 MeshRenderer::~MeshRenderer() {}
 
@@ -20,6 +22,10 @@ void MeshRenderer::debug()
 {
 	setSinbad();
 	setMaterial("Ogre/Skin");
+}
+
+void MeshRenderer::update(){
+	syncPosition();
 }
 
 void MeshRenderer::setVisible(bool value) {
@@ -42,10 +48,14 @@ void MeshRenderer::setSinbad()
 	scale();
 }
 
-void MeshRenderer::scale()
-{
-	Transform* trans = entity->getComponent<Transform>();
-	CustomVector3 scaleT = trans->getScale();
+void MeshRenderer::scale() {
+	tranformRf_ = entity->getComponent<Transform>();
+	CustomVector3 scaleT = tranformRf_->getScale();
 
 	mNode->setScale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
+}
+
+void MeshRenderer::syncPosition(){
+	CustomVector3 pos = tranformRf_->getPosition();
+	mNode->setPosition({ pos.x,pos.y, pos.z});
 }

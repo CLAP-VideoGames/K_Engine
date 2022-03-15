@@ -9,6 +9,7 @@ namespace Ogre {
 	class Entity;
 }
 
+class Tranform;
 /*
 * MeshRender is the component used to add diferent model to our entities
 * It takes the information of the model position scale and rotation from transform
@@ -24,19 +25,24 @@ public:
 
 	virtual void debug();
 
+	virtual void update();
+
 	void setVisible(bool value);
 
 	void setMaterial(std::string nMaterial);
 
-	void scale();
-
 private:
+	void scale();
+	
+	void syncPosition();
+
 	// required
 	static std::string name;
 
 	// reference to the object's node & entity
 	Ogre::SceneNode* mNode;
 	Ogre::Entity* mEntity;
+	Transform* tranformRf_;
 
 	bool visible;		  // visibility of the object
 	std::string material; // name of the object's material

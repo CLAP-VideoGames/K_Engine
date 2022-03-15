@@ -24,6 +24,7 @@ public:
 	void setRotConstraints(int i, bool value);
 	void setTrasConstraints(int i, bool value);
 
+	virtual void update();
 private:
 	Transform* transformRf_;
 	
