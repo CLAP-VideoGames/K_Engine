@@ -75,7 +75,6 @@ int main() {
 			compMan->add<MeshRenderer>();
 			compMan->add<RigidBody>();
 
-
 			EntityManager* entMan = new EntityManager(); // Entity Manager
 			Entity* ogre = entMan->addEntity();
 			//Configurations
