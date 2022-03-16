@@ -53,6 +53,11 @@ void Transform::setScale(float x, float y, float z)
 	(*scale_) = toAdd;
 }
 
+void Transform::setScale(float n){
+	CustomVector3 toAdd = { n, n, n };
+	(*scale_) = toAdd;
+}
+
 CustomVector3 Transform::getPosition()
 {
 	return *position_;

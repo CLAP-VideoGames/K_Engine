@@ -49,25 +49,25 @@ bool PhysicsManager::releaseWorld(){
 }
 
 void PhysicsManager::update(){
-	for (int i = 0; i < numIterations_; i++) {
-		btWorld->stepSimulation(1.f / 60.f, 10);
+	//for (int i = 0; i < numIterations_; i++) {
+	btWorld->stepSimulation(1.f / 60.f, 10);
 
-		//print positions of all objects
-		for (int j = btWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
-			btCollisionObject* obj = btWorld->getCollisionObjectArray()[j];
-			btRigidBody* body = btRigidBody::upcast(obj);
-			btTransform trans;
-			if (body && body->getMotionState()) {
-				body->getMotionState()->getWorldTransform(trans);
-			}
-			else {
-				trans = obj->getWorldTransform();
-			}
-			//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+	//print positions of all objects
+	for (int j = btWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
+		btCollisionObject* obj = btWorld->getCollisionObjectArray()[j];
+		btRigidBody* body = btRigidBody::upcast(obj);
+		btTransform trans;
+		if (body && body->getMotionState()) {
+			body->getMotionState()->getWorldTransform(trans);
 		}
-
-		//system("CLS");
+		else {
+			trans = obj->getWorldTransform();
+		}
+		printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 	}
+
+	system("CLS");
+	//}
 }
 
 void PhysicsManager::exampleObjects(){

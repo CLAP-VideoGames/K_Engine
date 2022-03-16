@@ -72,8 +72,6 @@ public:
 
 		T* c = comM->create<T>(this, args...);
 
-		c->debug();
-
 		components.emplace(compName, c);
 
 		return static_cast<T*>(c);

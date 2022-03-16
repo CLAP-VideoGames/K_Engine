@@ -70,15 +70,26 @@ int main() {
 			// Component Manager initialisation(Como "Lectura de un mapa")
 			ComponentManager::Init("K_EngineComponents");
 			EntityManager* entMan = new EntityManager(); // Entity Manager
-			Entity* e = entMan->addEntity();
-			Component* t = e->addComponent<Transform>(); t->debug();
-			Component* m = e->addComponent<MeshRenderer>(); m->debug();
-			ColliderType boxType = ColliderType::CT_BOX;
-			Component* r = e->addComponent<RigidBody>(boxType);
-
+			Entity* ogre = entMan->addEntity();
+			//Configurations
+			{
+				Transform* t = ogre->addComponent<Transform>(); t->setScale(0.02f);
+				MeshRenderer* m = ogre->addComponent<MeshRenderer>(); m->debug();
+				ColliderType boxType = ColliderType::CT_BOX;
+				//RigidBody* r = ogre->addComponent<RigidBody>(boxType);
+			}
+			
+			//Configurations
+			Entity* platform = entMan->addEntity();
+			{
+				Transform* t = platform->addComponent<Transform>(); t->setScale(0.1, 0.01, 0.1);
+				t->setPosition(0, -3.5, 0);
+				MeshRenderer* m = platform->addComponent<MeshRenderer>(); m->debug();
+				ColliderType boxType = ColliderType::CT_BOX;
+				//RigidBody* r = platform->addComponent<RigidBody>(boxType);
+			}
 
 			entMan->start();
-
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = timer.currTime();
 			int cycles = 10000;
@@ -93,8 +104,8 @@ int main() {
 					//if (inputMan->getLeftMouseButtonPressed()) {
 					//	run = false;
 					//}
-					
-					//physicsMan->Update();
+					entMan->update();
+					physicsMan->update();
 					accFrameTime -= DELTA_TIME;
 				}
 

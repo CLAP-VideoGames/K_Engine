@@ -10,11 +10,11 @@
 //Required
 std::string RigidBody::name = "RigidBody";
 
-RigidBody::RigidBody(Entity* e) : Component("RigidBody", nullptr) {
+RigidBody::RigidBody(Entity* e) : Component("RigidBody", e) {
 	name = id;
 }
 
-RigidBody::RigidBody(Entity* e, ColliderType type) : Component("RigidBody", nullptr) {
+RigidBody::RigidBody(Entity* e, ColliderType type) : Component("RigidBody", e) {
 	name = id;
 	type_ = type;
 }

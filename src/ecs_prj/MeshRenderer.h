@@ -33,7 +33,7 @@ public:
 	void setMaterial(std::string nMaterial);
 
 private:
-	void scale();
+	void syncScale();
 	
 	void syncPosition();
 

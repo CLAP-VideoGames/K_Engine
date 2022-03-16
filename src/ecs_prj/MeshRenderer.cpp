@@ -17,8 +17,7 @@ MeshRenderer::MeshRenderer(Entity* e) : Component("MeshRenderer", e) {
 
 MeshRenderer::~MeshRenderer() {}
 
-void MeshRenderer::debug()
-{
+void MeshRenderer::debug(){
 	setSinbad();
 	setMaterial("Ogre/Skin");
 }
@@ -28,6 +27,7 @@ void MeshRenderer::start(){
 }
 
 void MeshRenderer::update(){
+	syncScale();
 	syncPosition();
 }
 
@@ -44,14 +44,12 @@ void MeshRenderer::setMaterial(std::string nMaterial) {
 
 void MeshRenderer::setSinbad()
 {
-	mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
+	mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("cube.mesh");
 	mNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	mNode->attachObject(mEntity);
-
-	scale();
 }
 
-void MeshRenderer::scale() {
+void MeshRenderer::syncScale() {
 	transformRf = entity->getComponent<Transform>();
 	CustomVector3 scaleT = transformRf->getScale();
 
