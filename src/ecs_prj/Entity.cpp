@@ -14,6 +14,17 @@ Entity::~Entity() { }
 
 void Entity::update()
 {
-	for (auto c : components) 
+	for (auto c : components) {
+		//Update is called before physics update so the physics uses the information from the last update
 		c.second->update();
+
+		c.second->physicsUpdate();
+	}
+}
+
+void Entity::start()
+{
+	for (auto e : components) {
+		e.second->start();
+	}
 }

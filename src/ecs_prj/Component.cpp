@@ -33,4 +33,6 @@ void Component::setActive(bool a)
 {
 	enable = a;
 	enable ? onEnable() : onDisable();
+
+	awake();
 }

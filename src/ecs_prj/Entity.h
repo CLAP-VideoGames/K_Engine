@@ -91,6 +91,9 @@ public:
 	//To know when to update our entity
 	bool isActive() { return active; }
 
+	//The start of everyComponent of our entity
+	void start();
+
 private:
 
 	/*

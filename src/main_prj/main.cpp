@@ -67,7 +67,7 @@ int main() {
 			InputManager::Init();
 			InputManager* inputMan = InputManager::GetInstance();
 
-			// Component Manager initialisation
+			// Component Manager initialisation(Como "Lectura de un mapa")
 			ComponentManager::Init("K_EngineComponents");
 			EntityManager* entMan = new EntityManager(); // Entity Manager
 			Entity* e = entMan->addEntity();
@@ -75,6 +75,9 @@ int main() {
 			Component* m = e->addComponent<MeshRenderer>(); m->debug();
 			ColliderType boxType = ColliderType::CT_BOX;
 			Component* r = e->addComponent<RigidBody>(boxType);
+
+
+			entMan->start();
 
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = timer.currTime();

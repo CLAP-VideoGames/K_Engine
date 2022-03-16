@@ -33,6 +33,13 @@ void EntityManager::update()
 			delete e;
 			entities.erase(entities.begin() + i);
 		}//If it is active, we update it
-		else if (e->isActive()) e->update(); 
+		else if (e->isActive())e->update();
+	}
+}
+
+void EntityManager::start()
+{
+	for (auto e : entities) {
+		e->start();
 	}
 }
