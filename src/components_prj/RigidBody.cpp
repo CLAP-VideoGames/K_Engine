@@ -1,7 +1,11 @@
 #include "RigidBody.h"
-#include "Entity.h"
+
+#include <components_prj/Transform.h>
+
+#include <ecs_prj/Entity.h>
+
 #include <utils_prj/CustomVector3.h>
-#include <ecs_prj/Transform.h>
+
 #include <physics_prj/PhysicsManager.h>
 #include <physics_prj/DynamicsWorld.h>
 #include <physics_prj/CollisionListener.h>

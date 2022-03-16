@@ -4,13 +4,13 @@
 
 #include <memory>
 #include <stdexcept>
-#include <unordered_map>
+#include <unordered_set>
 
 //Podemos usar esta clase para administrar que el usuario no pueda añadir componentes
 //Sin las cosas que queremos que añada
 
 /*
-* Declaration of the Component class so we do not have 
+* Declaration of the Component class so we do not have
 * to include it in our file
 */
 class Component;
@@ -19,7 +19,7 @@ class Entity;
 /*
 * Component Manager is the class responsible of the administration
 * of external and base component for our games, we add external components
-* to the engine using the Add method. 	
+* to the engine using the Add method.
 */
 class ComponentManager
 {
@@ -40,51 +40,35 @@ public:
 	//This method makes sure that the GetId() method is declared
 	template <typename T>
 	void add() {
-		std::string compName;
-
+		//throw std::invalid_argument("Your component does not contain a GetId() method, declare it and try again");
 		//The user is not allowed to add a component without an static GetId() method
-		try {
-			compName = T::GetId();
-
-		}
-		catch (std::string msg) {
-			throw std::invalid_argument("Your component does not contain a GetId() method, declare it and try again");
-		}
-
-		//If the component is not alredy in the component map, we add it
-		auto c = availableComponents.find(compName);
-
-		if (c == availableComponents.end()) {
-			availableComponents.emplace(T::GetId(), new T());
-		}
+		if (!existingComponent(T::GetId()))
+			availableComponents.emplace(T::GetId());
 	}
 
 	//We can catch an exception here if we want (LOOK AT IT AGAIN)
 	template<typename T, typename ...Ts>
 	T* create(Entity* e, Ts &&... args) {
 		//We check if the component exists
-		auto c = availableComponents.find(T::GetId());
-
-		if (c == availableComponents.end()) 
+		if (!existingComponent(T::GetId()))
 			throw std::invalid_argument("There is no component with that name");
 
 		//We return a new instance of our component
 		auto newComponent = new T(e, args...);
-
 		return newComponent;
 	}
 
-	//Not sure if this is going to be useful, but its simple code
-	bool existingComponent(std::string compName);
-
 private:
+	//unique pointer for our instance so we do not have problems of sharing the memory 
+	static std::unique_ptr<ComponentManager> instance;
+
 	//identificator among singletons
 	std::string name;
 
-	//unique pointer for our instance so we do not have problems of sharing the memory 
-	static std::unique_ptr<ComponentManager> instance;
-	
 	//Map to store the current components 
-	std::unordered_map<std::string, Component*> availableComponents;
+	std::unordered_set<std::string> availableComponents;
+
+	//Not sure if this is going to be useful, but its simple code
+	bool existingComponent(std::string compName);
 };
 #endif // COMPONENTMANAGER_H

@@ -18,9 +18,10 @@
 #include <ecs_prj/EntityManager.h>
 #include <ecs_prj/ComponentManager.h>
 #include <ecs_prj/Entity.h>
-#include <ecs_prj/Transform.h>
-#include <ecs_prj/RigidBody.h>
-#include <ecs_prj/MeshRenderer.h>
+
+#include <components_prj/Transform.h>
+#include <components_prj/RigidBody.h>
+#include <components_prj/MeshRenderer.h>
 
 #include <utils_prj/EngineTimer.h>
 #include <utils_prj/CustomVector3.h>
@@ -69,6 +70,12 @@ int main() {
 
 			// Component Manager initialisation(Como "Lectura de un mapa")
 			ComponentManager::Init("K_EngineComponents");
+			ComponentManager* compMan = ComponentManager::GetInstance();
+			compMan->add<Transform>();
+			compMan->add<MeshRenderer>();
+			compMan->add<RigidBody>();
+
+
 			EntityManager* entMan = new EntityManager(); // Entity Manager
 			Entity* ogre = entMan->addEntity();
 			//Configurations
