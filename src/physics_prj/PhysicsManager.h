@@ -16,9 +16,10 @@ class btBroadphaseInterface;
 class btSequentialImpulseConstraintSolver;
 class btOverlapFilterCallback;
 class btVector3;
+class btTransform;
 class DynamicsWorld;
 class btRigidBody;
-class CustomVector3;
+struct CustomVector3;
 class btDynamicsWorld;
 
 
@@ -52,22 +53,16 @@ public:
 	void update();
 	void exampleObjects();
 	void changeCollisionFiltering(btRigidBody* rb, int group, int mask);
-
+	btTransform* createTransform(CustomVector3 const& position);
 	void changeGravity(CustomVector3 const& grav);
 
-	btDynamicsWorld* getWorld() const;
+	DynamicsWorld* getWorld() const;
 
 private:
 	static std::unique_ptr<PhysicsManager> instance;
 
 	btVector3* gravity;
-	btCollisionDispatcher* dispatcher; 
-	btBroadphaseInterface* overlappingPairCache;
-	btDiscreteDynamicsWorld* dynamicsWorld;
-	btDefaultCollisionConfiguration* collisionConfiguration;
-	btSequentialImpulseConstraintSolver* solver;
-	btAlignedObjectArray<btCollisionShape*>* collisionShapes;
-	btOverlapFilterCallback* filterCallback;
+	btDynamicsWorld* btWorld;
 	DynamicsWorld* dynamicsWorld_;
 
 	int numIterations_;

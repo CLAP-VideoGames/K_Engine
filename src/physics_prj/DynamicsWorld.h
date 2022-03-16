@@ -42,7 +42,7 @@ public:
 
 	btDynamicsWorld* getBtWorld() const { return btWorld_; };
 
-	btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, float mass, int group, int mask, CollisionListener* colList);
+	btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, float mass, int group, int mask, CollisionListener* colList = nullptr);
 
 	btBoxShape* createBoxCollider(btVector3 const& size);
 

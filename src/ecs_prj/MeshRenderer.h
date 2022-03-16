@@ -25,6 +25,7 @@ public:
 
 	virtual void debug();
 
+	virtual void start();
 	virtual void update();
 
 	void setVisible(bool value);

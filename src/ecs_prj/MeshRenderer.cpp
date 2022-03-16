@@ -13,7 +13,6 @@
 std::string MeshRenderer::name = "MeshRenderer";
 
 MeshRenderer::MeshRenderer(Entity* e) : Component("MeshRenderer", e) { 
-	if(entity != nullptr)transformRf = entity->getComponent<Transform>();
 }
 
 MeshRenderer::~MeshRenderer() {}
@@ -22,6 +21,10 @@ void MeshRenderer::debug()
 {
 	setSinbad();
 	setMaterial("Ogre/Skin");
+}
+
+void MeshRenderer::start(){
+	transformRf = entity->getComponent<Transform>();
 }
 
 void MeshRenderer::update(){

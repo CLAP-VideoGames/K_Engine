@@ -84,7 +84,9 @@ btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& tra
 
 	auto rb = new btRigidBody(mass, state, cs, inertia);
 	btWorld_->addRigidBody(rb, group, mask);
-	rb->setUserPointer(colList);
+	
+	if(colList != nullptr)
+		rb->setUserPointer(colList);
 	
 	return rb;
 }

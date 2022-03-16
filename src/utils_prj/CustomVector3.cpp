@@ -38,7 +38,7 @@ void CustomVector3::operator-=(CustomVector3 const&  other)
 
 double& CustomVector3::operator[](int index){
 
-	assert(index< 3);
+	assert(index< 3, "Index out of bounds.");
 
 	switch (index){
 		case 0:

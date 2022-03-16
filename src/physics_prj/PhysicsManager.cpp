@@ -1,5 +1,6 @@
 #include "PhysicsManager.h"
 #include <btBulletDynamicsCommon.h>
+#include "LinearMath/btTransform.h"
 #include "DynamicsWorld.h"
 #include "CustomVector3.h"
 
@@ -24,6 +25,7 @@ bool PhysicsManager::initWorld(int numIterations, int step, btVector3 const& gra
 	try{
 		this->gravity = new btVector3(gravity);
 		dynamicsWorld_ = new DynamicsWorld(gravity);
+		btWorld = dynamicsWorld_->getBtWorld();
 		numIterations_ = numIterations;
 	}
 	catch (const std::exception&){
@@ -48,11 +50,11 @@ bool PhysicsManager::releaseWorld(){
 
 void PhysicsManager::update(){
 	for (int i = 0; i < numIterations_; i++) {
-		dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+		btWorld->stepSimulation(1.f / 60.f, 10);
 
 		//print positions of all objects
-		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
-			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
+		for (int j = btWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
+			btCollisionObject* obj = btWorld->getCollisionObjectArray()[j];
 			btRigidBody* body = btRigidBody::upcast(obj);
 			btTransform trans;
 			if (body && body->getMotionState()) {
@@ -75,7 +77,7 @@ void PhysicsManager::exampleObjects(){
 		//Forma del objeto en función del tipo
 		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
 
-		collisionShapes->push_back(groundShape);
+		//collisionShapes->push_back(groundShape);
 
 		btTransform groundTransform;
 		groundTransform.setIdentity();
@@ -100,7 +102,7 @@ void PhysicsManager::exampleObjects(){
 		//body->getWorldTransform();
 
 		//add the body to the dynamics world
-		dynamicsWorld->addRigidBody(body);
+		btWorld->addRigidBody(body);
 	}
 
 	//the ground is a cube of side 100 at position y = -56.
@@ -110,7 +112,7 @@ void PhysicsManager::exampleObjects(){
 
 		//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
 		btCollisionShape* colShape = new btSphereShape(btScalar(1.));
-		collisionShapes->push_back(colShape);
+		//btWorld->push_back(colShape);
 
 		/// Create Dynamic Objects
 		btTransform startTransform;
@@ -132,7 +134,7 @@ void PhysicsManager::exampleObjects(){
 		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
 		btRigidBody* body = new btRigidBody(rbInfo);
 
-		dynamicsWorld->addRigidBody(body);
+		btWorld->addRigidBody(body);
 	}
 }
 
@@ -142,8 +144,23 @@ void PhysicsManager::changeCollisionFiltering(btRigidBody* rb, int group, int ma
 	proxy->m_collisionFilterMask = mask;
 }
 
-btDynamicsWorld* PhysicsManager::getWorld() const{
-	return dynamicsWorld_->getBtWorld();
+btTransform* PhysicsManager::createTransform(CustomVector3 const& position) {
+	btVector3 pos = { (btScalar)position.x, (btScalar)position.y, (btScalar)position.z };
+	btTransform* tr = new btTransform();
+	tr->setIdentity();
+	tr->setOrigin(pos);
+	return tr;
+}
+
+void PhysicsManager::changeGravity(CustomVector3 const& gravity){
+	btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
+	
+	if (this->gravity != nullptr) *this->gravity = grav_;
+	else this->gravity = new btVector3(grav_);
+}
+
+DynamicsWorld* PhysicsManager::getWorld() const{
+	return dynamicsWorld_;
 }
 
 bool PhysicsManager::Shutdown(){

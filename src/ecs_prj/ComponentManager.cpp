@@ -2,6 +2,7 @@
 
 #include <ecs_prj/Transform.h>
 #include <ecs_prj/MeshRenderer.h>
+#include <ecs_prj/RigidBody.h>
 
 std::unique_ptr<ComponentManager> ComponentManager::instance = nullptr;
 
@@ -23,6 +24,7 @@ bool ComponentManager::Init(std::string n)
 
 		instance.get()->availableComponents.emplace(Transform::GetId(), new Transform(nullptr));
 		instance.get()->availableComponents.emplace(MeshRenderer::GetId(), new MeshRenderer(nullptr));
+		instance.get()->availableComponents.emplace(RigidBody::GetId(), new RigidBody(nullptr));
 	}
 	catch (const std::exception&) {
 		return false;

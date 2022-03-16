@@ -19,6 +19,7 @@
 #include <ecs_prj/ComponentManager.h>
 #include <ecs_prj/Entity.h>
 #include <ecs_prj/Transform.h>
+#include <ecs_prj/RigidBody.h>
 #include <ecs_prj/MeshRenderer.h>
 
 #include <utils_prj/EngineTimer.h>
@@ -72,6 +73,8 @@ int main() {
 			Entity* e = entMan->addEntity();
 			Component* t = e->addComponent<Transform>(); t->debug();
 			Component* m = e->addComponent<MeshRenderer>(); m->debug();
+			ColliderType boxType = ColliderType::CT_BOX;
+			Component* r = e->addComponent<RigidBody>(boxType);
 
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = timer.currTime();
