@@ -37,7 +37,6 @@ public:
 	Ogre::Root* getRoot();
 	Ogre::SceneManager* getSceneManager();
 	Ogre::RenderTarget* getRenderWindow();
-
 private:
 	static std::unique_ptr<RenderManager> instance;
 
@@ -50,8 +49,8 @@ private:
 	SDL_Window* mSDLWin;
 	Ogre::RenderWindow* mRenderWin;
 
-	Ogre::Camera* mCamera;
-	Ogre::SceneNode* mCameraNode;
+	//Ogre::Camera* mCamera;
+	//Ogre::SceneNode* mCameraNode;
 
 	void initRoot();
 	void initWindow();

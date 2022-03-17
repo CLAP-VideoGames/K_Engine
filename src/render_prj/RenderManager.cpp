@@ -1,5 +1,5 @@
 #include "RenderManager.h"
-
+#include "Camera.h"
 #include <iostream>
 #include <string>
 #ifndef _DEBUG
@@ -191,19 +191,8 @@ void RenderManager::initScene() {
 	lightNode->setPosition(0, 10, 15);
 	lightNode->attachObject(light);
 
-	// also need to tell where we are
-	Ogre::SceneNode* camNode = mSM->getRootSceneNode()->createChildSceneNode();
-	camNode->setPosition(0, 0, 15);
-	camNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
-
-	// create the camera
-	Ogre::Camera* cam = mSM->createCamera("myCam");
-	cam->setNearClipDistance(5); // specific to this sample
-	cam->setAutoAspectRatio(true);
-	camNode->attachObject(cam);
-
-	// and tell it to render into the main window
-	mRenderWin->addViewport(cam);
+	// We create a camera and assign it to a viewport
+	Camara* cam = new Camara(this);
 }
 
 void RenderManager::closeContext()
@@ -259,3 +248,8 @@ Ogre::RenderTarget* RenderManager::getRenderWindow()
 {
 	return mRenderWin;
 }
+/*
+Ogre::Camera* RenderManager::getCamera()
+{
+	return mCamera;
+}*/

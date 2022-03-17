@@ -18,9 +18,15 @@
     <ClCompile Include="..\..\src\render_prj\RenderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\render_prj\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\render_prj\RenderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render_prj\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

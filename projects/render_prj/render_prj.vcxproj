@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\render_prj\Camera.cpp" />
     <ClCompile Include="..\..\src\render_prj\RenderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\render_prj\Camera.h" />
     <ClInclude Include="..\..\src\render_prj\RenderManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
