@@ -18,9 +18,11 @@ RigidBody::RigidBody(Entity* e) : Component("RigidBody", e) {
 	name = id;
 }
 
-RigidBody::RigidBody(Entity* e, ColliderType type) : Component("RigidBody", e) {
+RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass) : Component("RigidBody", e) {
 	name = id;
 	type_ = type;
+	bType_ = bType;
+	mass_ = mass;
 }
 
 RigidBody::~RigidBody() {
@@ -50,7 +52,7 @@ void RigidBody::start(){
 	btTransform_ = PhysicsManager::GetInstance()->createTransform({0,0,0});
 	CustomVector3 scale = transformRf_->getScale();
 	btVector3 size = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-	rb = world_->addRigidBody(type_, *btTransform_, size, 1.0f, 0, 0);
+	rb = world_->addRigidBody(type_, *btTransform_, size, bType_, mass_, 0, 0);
 }
 
 void RigidBody::update(){

@@ -26,6 +26,9 @@ bool InputManager::Init()
 	Uint32 SDL_system_init = SDL_WasInit(SDL_INIT_EVERYTHING);
 	if (!SDL_system_init)
 		std::cout << "SDL not initialized\n";
+
+	// controller = SDL_GameControllerOpen(0);
+
 	return true;
 }
 
@@ -57,9 +60,11 @@ bool InputManager::update() {
 			return false;
 			break;
 		case SDL_KEYDOWN:
+		
 			onKeyDown(event);
 			break;
 		case SDL_KEYUP:
+		
 			onKeyUp(event);
 			break;
 		case SDL_MOUSEMOTION:
@@ -101,6 +106,10 @@ bool InputManager::isKeyUp(SDL_Scancode key) {
 
 bool InputManager::isKeyUp(SDL_Keycode key) {
 	return isKeyUpEvent_ && isKeyUp(SDL_GetScancodeFromKey(key));
+}
+
+bool InputManager::controllerButtonPressed(SDL_GameController* controller, SDL_GameControllerButton button) {
+	return SDL_GameControllerGetButton(controller, button);
 }
 
 // mouse

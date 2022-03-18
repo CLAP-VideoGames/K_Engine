@@ -13,13 +13,14 @@ class DynamicsWorld;
 class RigidBodyState;
 class Transform;
 enum class ColliderType;
+enum class BodyType;
 
 class RigidBody : public Component
 {
 public:
 	//Required Contructor so the component is initialized properly
 	RigidBody(Entity* e);
-	RigidBody(Entity* e,ColliderType type_);
+	RigidBody(Entity* e,ColliderType type_, BodyType bType_, float mass);
 	~RigidBody();
 
 	//Required method for the component name
@@ -36,13 +37,16 @@ public:
 private:
 	//Reference to transform Component
 	Transform* transformRf_ = nullptr;
-	//Type of the body
+	//Mesh Type of the body
 	ColliderType type_;
+	//Body Physics Type
+	BodyType bType_;
 	//Reference to the world
 	DynamicsWorld* world_ = nullptr;
 	//Boolean to control if the associated trigger is a trigger or not (default is false)
 	bool isTrigger = false;
-
+	//Mass of the body
+	float mass_;
 	//Reference to bullet rigidbody
 	btRigidBody* rb = nullptr;
 	//Reference to the collision shape of this rigidbody

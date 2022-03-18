@@ -6,11 +6,9 @@ EntityManager::EntityManager() = default;
 
 EntityManager::~EntityManager()
 {
-	int i = 0;
-	for (auto e : entities) {
-		delete e;
-		entities.erase(entities.begin() + i);
-		i++;
+	while (!entities.empty()) {
+		delete entities[0];
+		entities.erase(entities.begin());
 	}
 }
 

@@ -17,6 +17,7 @@ class btTransform;
 class btCollisionShape;
 class CollisionListener;
 enum class ColliderType;
+enum class BodyType;
 
 template<typename T>
 class btAlignedObjectArray;
@@ -42,7 +43,7 @@ public:
 
 	btDynamicsWorld* getBtWorld() const { return btWorld_; };
 
-	btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, float mass, int group, int mask, CollisionListener* colList = nullptr);
+	btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, BodyType bodyType, float mass, int group, int mask, CollisionListener* colList = nullptr);
 
 	btBoxShape* createBoxCollider(btVector3 const& size);
 
