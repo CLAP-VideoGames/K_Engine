@@ -1,38 +1,43 @@
 #pragma once
-#ifndef _CAMERA_H_
-#define _CAMERA_H_
+#ifndef CAMERA_H_
+#define CAMERA_H_
+
 #include <memory>
-#include "RenderManager.h"
-#include <OgreRoot.h>
-#include <OgreRenderWindow.h>
+#include <vector>
 
-class Camara
-{
-private:
+namespace Ogre {
+	class Root;
+	class Camera;
+	class SceneNode;
+	class SceneManager;
+	class Viewport;
+}
 
-	RenderManager* rendM = nullptr;
-
-	float near, far; // How near or far is the camera looking 
-	
-	Ogre::SceneManager* mSM_ = nullptr;
-	Ogre::Camera* mCamera = nullptr;
-	Ogre::SceneNode* mCameraNode = nullptr;
-	Ogre::Root* mRoot;
-	Ogre::Viewport* vp = nullptr;
-
+class Camera {
 public:
-	Camara(RenderManager* r);
-	~Camara() {};
+	Camera();
+	~Camera();
 
-	Ogre::Camera* getCam();
-	Ogre::Viewport* getViewPort();
+	void setNearClipDistance(float nClip);
+	void setFarClipDistance(float fClip);
 
+	void translateCamera(float x, float y, float z);
+	void setCameraPos(float x, float y, float z);
 
-	void moveCamera(float x, float y, float z);
-	void setCamPos(float x, float y, float z);
-	void rotateCamera();
-	
+	void rotateCamera(float pitchAngle, float yawAngle, float rollAngle);
 
+	Ogre::Camera* getCamera();
+	std::vector<float> getCameraPosition();
+	std::vector<float> getCameraDirection();
+
+private:
+	Ogre::Camera* mCamera;
+	Ogre::SceneNode* mCameraNode;
+	Ogre::Viewport* mViewport;
+
+	void yaw(float angle);		// Rotate in Y axis 
+	void pitch(float angle);	// Rotate in X axis
+	void roll(float angle);		// Rotate in Z axis
 };
-#endif _CAMERA_H_
+#endif // CAMERA_H_
 

@@ -6,12 +6,10 @@
 #include <memory>
 
 namespace Ogre {
-	class Log;
 	class Root;
 	class Camera;
 	class Viewport;
 	class SceneNode;
-	class LogManager;
 	class RenderWindow;
 	class SceneManager;
 	class FileSystemLayer;

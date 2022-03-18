@@ -1,49 +1,65 @@
 #include "Camera.h"
 
+#include <render_prj/RenderManager.h>
 
-Camara::Camara(RenderManager* r)
+#include <OgreRoot.h>
+#include <OgreSceneManager.h>
+#include <OgreRenderWindow.h>
+#include <OgreVector.h>
+
+Camera::Camera()
 {
-	rendM = r;
-	mSM_ = rendM->getSceneManager();
+	mCamera = RenderManager::GetInstance()->getSceneManager()->createCamera("K_Engine_Cam");
 
-	mCameraNode = mSM_->getRootSceneNode()->createChildSceneNode();
+	mCameraNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	mCameraNode->setPosition(0, 0, 15);
 	mCameraNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
-
-	near = 5;
-	far = 10000;
-	mRoot = r->getRoot();
-	mCamera = mSM_->createCamera("myCam");
-	mCamera->setNearClipDistance(near);
-	mCamera->setFarClipDistance(far);
-	mCamera->setAutoAspectRatio(true);
 	mCameraNode->attachObject(mCamera);
-
-	rendM->getRenderWindow()->addViewport(mCamera);
 }
 
-void Camara::moveCamera(float x, float y, float z)
+Camera::~Camera() = default;
+
+void Camera::setNearClipDistance(float nClip)
+{
+	mCamera->setNearClipDistance(nClip);
+}
+
+void Camera::setFarClipDistance(float fClip)
+{
+	mCamera->setFarClipDistance(fClip);
+}
+
+void Camera::translateCamera(float x, float y, float z)
 {
 	mCameraNode->translate(x, y, z);
 }
 
-
-void Camara::setCamPos(float x, float y, float z)
+void Camera::setCameraPos(float x, float y, float z)
 {
 	mCameraNode->setPosition(x, y, z);
 }
 
-void Camara::rotateCamera()
+void Camera::rotateCamera(float pitchAngle = 0, float yawAngle = 0, float rollAngle = 0)
 {
-	//mCameraNode->yaw, roll, pitch 
-	//mCameraNode->rotate()
+	if (pitchAngle != 0)
+		pitch(pitchAngle);
+	if (yawAngle != 0)
+		yaw(yawAngle);
+	if (rollAngle != 0)
+		roll(rollAngle);
 }
 
-Ogre::Camera* Camara::getCam()
+Ogre::Camera* Camera::getCamera()
 {
 	return mCamera;
 }
-Ogre::Viewport* Camara::getViewPort()
+
+std::vector<float> Camera::getCameraPosition()
 {
-	return vp;
+	return { mCameraNode->getPosition().x, mCameraNode->getPosition().y, mCameraNode->getPosition().z };
+}
+
+std::vector<float> Camera::getCameraDirection()
+{
+	return std::vector<float>();
 }

@@ -192,7 +192,7 @@ void RenderManager::initScene() {
 	lightNode->attachObject(light);
 
 	// We create a camera and assign it to a viewport
-	Camara* cam = new Camara(this);
+	//Camera* cam = new Camera(this);
 }
 
 void RenderManager::closeContext()
