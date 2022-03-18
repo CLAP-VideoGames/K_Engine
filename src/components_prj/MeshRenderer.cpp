@@ -25,11 +25,13 @@ void MeshRenderer::debug(){
 
 void MeshRenderer::start(){
 	transformRf = entity->getComponent<Transform>();
+	mNode->showBoundingBox(true);
 }
 
 void MeshRenderer::update(){
 	syncScale();
 	syncPosition();
+	syncRotation();
 }
 
 void MeshRenderer::setVisible(bool value) {
@@ -41,6 +43,16 @@ void MeshRenderer::setMaterial(std::string nMaterial) {
 		mEntity->setMaterialName(nMaterial);
 		material = nMaterial;
 	}
+}
+
+Ogre::Quaternion MeshRenderer::EulerToQuaternion(CustomVector3 const& rot){
+	Ogre::Matrix3 mx;
+
+	//mx.FromEulerAnglesYXZ(Ogre::Degree(rot.y), Ogre::Degree(rot.x), Ogre::Degree(rot.z));
+
+	mx.FromEulerAnglesYXZ(Ogre::Degree(0.0f), Ogre::Degree(0.0f), Ogre::Degree(0.0f));
+	Ogre::Quaternion result(mx);
+	return result;
 }
 
 void MeshRenderer::setSinbad()
@@ -60,4 +72,10 @@ void MeshRenderer::syncScale() {
 void MeshRenderer::syncPosition(){
 	CustomVector3 pos = transformRf->getPosition();
 	mNode->setPosition(Ogre::Vector3(pos.x,pos.y, pos.z));
+}
+
+void MeshRenderer::syncRotation() {
+	CustomVector3 rot = transformRf->getRotation();
+	Ogre::Quaternion q = EulerToQuaternion(rot);
+	mNode->rotate(q, Ogre::Node::TS_LOCAL);
 }

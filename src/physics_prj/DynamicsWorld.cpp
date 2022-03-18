@@ -64,8 +64,7 @@ DynamicsWorld::~DynamicsWorld(){
 }
 
 btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, BodyType bT, float mass,  int group,
- int mask,
-										 CollisionListener* colList){
+ int mask, CollisionListener* colList){
 	btDefaultMotionState* state = new btDefaultMotionState(transform);
 	btCollisionShape* cs = NULL;
 	switch (ct) {

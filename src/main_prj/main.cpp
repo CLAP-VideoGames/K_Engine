@@ -50,7 +50,7 @@ int main() {
 			//renderMan->exampleScene();
 
 			// Physics Manager initialisation
-			PhysicsManager::Init(10, 20, { 0, -9.8, 0 }); //GetInstance() returns nullptr if Init isnt called first
+			PhysicsManager::Init(10, 20, { 0, -2.3, 0 }); //GetInstance() returns nullptr if Init isnt called first
 			PhysicsManager* physicsMan = PhysicsManager::GetInstance();
 
 			// UI Manager initialisation
@@ -82,22 +82,23 @@ int main() {
 			//Configurations Scope
 			{
 				Transform* t = ogre->addComponent<Transform>(); t->setScale(0.02f);
-				MeshRenderer* m = ogre->addComponent<MeshRenderer>(); m->debug();
+				t->setPosition(0, 4, 0);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
 				float mass = 1.0f;
-				//RigidBody* r = ogre->addComponent<RigidBody>(boxType, bodyType, mass);
+				RigidBody* r = ogre->addComponent<RigidBody>(boxType, bodyType, mass);
+				MeshRenderer* m = ogre->addComponent<MeshRenderer>(); m->debug();
 			}
 			
 			//Configurations Scope
 			Entity* platform = entMan->addEntity();
 			{
 				Transform* t = platform->addComponent<Transform>(); t->setScale(0.1, 0.01, 0.1);
-				t->setPosition(0, -3.5, 0);
-				MeshRenderer* m = platform->addComponent<MeshRenderer>(); m->debug();
+				t->setPosition(0, 0, 0);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType = BodyType::BT_STATIC;
-				//RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);
+				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);
+				MeshRenderer* m = platform->addComponent<MeshRenderer>(); m->debug();
 			}
 
 			SDL_GameController* c = SDL_GameControllerOpen(0);

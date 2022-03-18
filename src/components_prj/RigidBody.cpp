@@ -49,14 +49,17 @@ void RigidBody::start(){
 	transformRf_ = entity->getComponent<Transform>();
 	world_ = PhysicsManager::GetInstance()->getWorld();
 	
-	btTransform_ = PhysicsManager::GetInstance()->createTransform({0,0,0});
+	btTransform_ = PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition());
 	CustomVector3 scale = transformRf_->getScale();
 	btVector3 size = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 	rb = world_->addRigidBody(type_, *btTransform_, size, bType_, mass_, 0, 0);
 }
 
 void RigidBody::update(){
-	//transformRf_->setPosition();
+	btVector3 pos = rb->getWorldTransform().getOrigin();
+	btVector3 rot = rb->getWorldTransform().getRotation().getAxis();
+	transformRf_->setPosition(pos.x(), pos.y(), pos.z());
+	transformRf_->setRotation(rot.x(), rot.y(), rot.z());
 }
 
 void RigidBody::debug(){

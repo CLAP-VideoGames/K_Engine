@@ -4,10 +4,12 @@
 #include <ecs_prj/Component.h>
 
 class Transform;
+class CustomVector3;
 
 namespace Ogre {
 	class SceneNode;
 	class Entity;
+	class Quaternion;
 }
 
 /*
@@ -32,10 +34,14 @@ public:
 
 	void setMaterial(std::string nMaterial);
 
+	Ogre::Quaternion EulerToQuaternion(CustomVector3 const& rot);
+
 private:
 	void syncScale();
 	
 	void syncPosition();
+
+	void syncRotation();
 
 	// required
 	static std::string name;
