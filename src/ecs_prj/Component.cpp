@@ -32,7 +32,10 @@ void Component::debug() {}
 void Component::setActive(bool a)
 {
 	enable = a;
-	enable ? onEnable() : onDisable();
 
-	awake();
+	if (enable) {
+		onEnable();
+		awake();
+	}
+	else onDisable();
 }
