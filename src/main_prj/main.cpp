@@ -68,6 +68,8 @@ int main() {
 			InputManager::Init();
 			InputManager* inputMan = InputManager::GetInstance();
 
+			inputMan->setDeathZones(5000, 0);
+
 			// Component Manager initialisation(Como "Lectura de un mapa")
 			ComponentManager::Init("K_EngineComponents");
 			ComponentManager* compMan = ComponentManager::GetInstance();
@@ -115,6 +117,8 @@ int main() {
 					if (inputMan->controllerButtonPressed(c, SDL_CONTROLLER_BUTTON_B)) {
 						run = false;
 					}
+
+					std::cout << inputMan->controllerAxisValue(c, SDL_CONTROLLER_AXIS_LEFTX) << "\n";
 					entMan->update();
 					physicsMan->update();
 					accFrameTime -= DELTA_TIME;

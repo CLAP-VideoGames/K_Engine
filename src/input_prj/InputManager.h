@@ -57,6 +57,15 @@ public:
 	//Return if a button is pressed (parameter button)
 	bool controllerButtonPressed(SDL_GameController* controller, SDL_GameControllerButton button);
 
+	/// <summary>
+	/// This method returns the value of the given axis(this can be a trigger or a joystick)
+	/// If there is no controller it returns 0
+	/// </summary>
+	/// <param name="controller"></param>
+	/// <param name="axis"></param>
+	/// <returns></returns>
+	double controllerAxisValue(SDL_GameController* controller, SDL_GameControllerAxis axis);
+
 	//Detects when the mouse is moving
 	bool mouseMotionEvent();
 
@@ -78,6 +87,13 @@ public:
 	//Left button pressed
 	bool getLeftMouseButtonPressed();
 
+	/// <summary>
+	/// The first parameter is the new value of the deathZone 
+	/// And the second is the axis being 0 = LeftJoyStick 1 = RightJoyStick 2 = LeftTrigger 3 = RightTrigger
+	/// </summary>
+	/// <param name="deathZoneValue"></param>
+	/// <param name="axis"></param>
+	void setDeathZones(double deathZoneValue, int axis);
 private:
 	static std::unique_ptr<InputManager> instance;
 
@@ -92,6 +108,14 @@ private:
 	bool isRightMousePressed_;
 	bool isLeftMousePressed_;
 	
+	//Editable deathZone for our joySticks
+	float deathZoneLeftJoy;
+	float deathZoneRightJoy;
+
+	//Editable deathZone for our Trigger
+	float deathZoneRightTrigger;
+	float deathZoneLeftTrigger;
+
 	std::pair<int, int> mousePos_;
 	std::array<bool, 3> mbState_;
 

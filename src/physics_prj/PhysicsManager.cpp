@@ -66,7 +66,7 @@ void PhysicsManager::update(){
 		printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 	}
 
-	system("CLS");
+	//system("CLS");
 	//}
 }
 

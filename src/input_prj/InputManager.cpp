@@ -58,23 +58,27 @@ bool InputManager::update() {
 		switch (event.type) {
 		case SDL_QUIT:
 			return false;
+
 			break;
 		case SDL_KEYDOWN:
-		
 			onKeyDown(event);
+		
 			break;
 		case SDL_KEYUP:
-		
 			onKeyUp(event);
+		
 			break;
 		case SDL_MOUSEMOTION:
 			onMouseMotion(event);
+
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			onMouseButtonChange(event, true);
+
 			break;
 		case SDL_MOUSEBUTTONUP:
 			onMouseButtonChange(event, false);
+
 			break;
 		default:
 			break;
@@ -109,7 +113,47 @@ bool InputManager::isKeyUp(SDL_Keycode key) {
 }
 
 bool InputManager::controllerButtonPressed(SDL_GameController* controller, SDL_GameControllerButton button) {
-	return SDL_GameControllerGetButton(controller, button);
+	if(controller != nullptr) return SDL_GameControllerGetButton(controller, button);
+
+	return false;
+}
+
+double InputManager::controllerAxisValue(SDL_GameController* controller, SDL_GameControllerAxis axis)
+{
+	if (controller != nullptr) {
+		double value = SDL_GameControllerGetAxis(controller, axis);
+
+		switch (axis)
+		{
+			case SDL_CONTROLLER_AXIS_LEFTX:
+			case SDL_CONTROLLER_AXIS_LEFTY:
+				if (-deathZoneLeftJoy < value && value < deathZoneLeftJoy) return 0;
+
+				return value;
+			break;
+
+			case SDL_CONTROLLER_AXIS_RIGHTX:
+			case SDL_CONTROLLER_AXIS_RIGHTY:
+				if (-deathZoneRightJoy < value && value < deathZoneRightJoy) return 0;
+
+				return value;
+				break;
+
+			case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
+				if (-deathZoneLeftTrigger < value && value < deathZoneLeftTrigger) return 0;
+
+				return value;
+				break;
+
+			case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
+				if (-deathZoneRightTrigger < value && value < deathZoneRightTrigger) return 0;
+
+				return value;
+				break;
+		}
+	}
+
+	return 0;
 }
 
 // mouse
@@ -139,6 +183,29 @@ bool InputManager::getRightMouseButtonPressed() {
 
 bool InputManager::getLeftMouseButtonPressed() {
 	return isLeftMousePressed_;
+}
+
+void InputManager::setDeathZones(double deathZoneValue, int axis)
+{
+	switch (axis)
+	{
+	case 0:
+		deathZoneLeftJoy = deathZoneValue;
+
+		break;
+	case 1:
+		deathZoneRightJoy = deathZoneValue;
+
+		break;
+	case 2:
+		deathZoneLeftTrigger = deathZoneValue;
+
+		break;
+	case 3:
+		deathZoneRightTrigger = deathZoneValue;
+
+		break;
+	}
 }
 
 void InputManager::onKeyDown(const SDL_Event& e) {
