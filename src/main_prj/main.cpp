@@ -77,22 +77,25 @@ int main() {
 
 			EntityManager* entMan = new EntityManager(); // Entity Manager
 			Entity* ogre = entMan->addEntity();
-			//Configurations
+			//Configurations Scope
 			{
 				Transform* t = ogre->addComponent<Transform>(); t->setScale(0.02f);
 				MeshRenderer* m = ogre->addComponent<MeshRenderer>(); m->debug();
 				ColliderType boxType = ColliderType::CT_BOX;
-				//RigidBody* r = ogre->addComponent<RigidBody>(boxType);
+				BodyType bodyType =  BodyType::BT_DYNAMIC;
+				float mass = 1.0f;
+				//RigidBody* r = ogre->addComponent<RigidBody>(boxType, bodyType, mass);
 			}
 			
-			//Configurations
+			//Configurations Scope
 			Entity* platform = entMan->addEntity();
 			{
 				Transform* t = platform->addComponent<Transform>(); t->setScale(0.1, 0.01, 0.1);
 				t->setPosition(0, -3.5, 0);
 				MeshRenderer* m = platform->addComponent<MeshRenderer>(); m->debug();
 				ColliderType boxType = ColliderType::CT_BOX;
-				//RigidBody* r = platform->addComponent<RigidBody>(boxType);
+				BodyType bodyType = BodyType::BT_STATIC;
+				//RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);
 			}
 
 			entMan->start();

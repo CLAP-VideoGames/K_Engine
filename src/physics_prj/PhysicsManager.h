@@ -30,6 +30,11 @@ enum class ColliderType {
 	CT_HULL
 };
 
+enum class BodyType {
+	BT_STATIC,
+	BT_DYNAMIC,
+};
+
 class PhysicsManager{
 public:
 	struct ColissionCallBack;
