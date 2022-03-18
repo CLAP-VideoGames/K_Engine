@@ -7,10 +7,9 @@
 
 #include <SDL_scancode.h>
 #include <SDL_keycode.h>
+#include <SDL_gamecontroller.h>
 
 union SDL_Event;
-
-
 
 class InputManager {
 public:
@@ -55,6 +54,9 @@ public:
 	//KeyCode is the actual key, no matter where it is in the keyboard
 	bool isKeyUp(SDL_Keycode key);
 
+	//Return if a button is pressed (parameter button)
+	bool controllerButtonPressed(SDL_GameController* controller, SDL_GameControllerButton button);
+
 	//Detects when the mouse is moving
 	bool mouseMotionEvent();
 
@@ -92,7 +94,7 @@ private:
 	
 	std::pair<int, int> mousePos_;
 	std::array<bool, 3> mbState_;
-	
+
 	//The key that is being pressed
 	const Uint8* kbState_;
 

@@ -98,6 +98,8 @@ int main() {
 				//RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);
 			}
 
+			SDL_GameController* c = SDL_GameControllerOpen(0);
+
 			entMan->start();
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = timer.currTime();
@@ -110,9 +112,9 @@ int main() {
 				while (accFrameTime >= DELTA_TIME) {
 					inputMan->update();
 
-					//if (inputMan->getLeftMouseButtonPressed()) {
-					//	run = false;
-					//}
+					if (inputMan->controllerButtonPressed(c, SDL_CONTROLLER_BUTTON_B)) {
+						run = false;
+					}
 					entMan->update();
 					physicsMan->update();
 					accFrameTime -= DELTA_TIME;

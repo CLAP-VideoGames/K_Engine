@@ -55,6 +55,7 @@ public:
 
 		//We return a new instance of our component
 		auto newComponent = new T(e, args...);
+
 		return newComponent;
 	}
 
