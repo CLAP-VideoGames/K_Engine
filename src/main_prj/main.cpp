@@ -108,6 +108,7 @@ int main() {
 			unsigned int accFrameTime = 0, currTime = timer.currTime();
 			int cycles = 10000;
 			while (run) {
+				system("CLS");
 				unsigned int frame = timer.currTime() - currTime;
 				currTime += frame;
 

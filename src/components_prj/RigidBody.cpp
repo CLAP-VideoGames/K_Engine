@@ -60,7 +60,7 @@ void RigidBody::update(){
 	btScalar y;
 	btScalar z;
 	btScalar x;
-	btTransform_->getRotation().getEulerZYX(y, x, z);
+	rb->getWorldTransform().getRotation().getEulerZYX(z, y, x);
 	//btVector3 rot = btTransform_->getRotation().getAxis();
 	transformRf_->setPosition(pos.x(), pos.y(), pos.z());
 	transformRf_->setRotation(x, y, z);

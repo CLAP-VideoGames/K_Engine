@@ -48,7 +48,7 @@ void MeshRenderer::setMaterial(std::string nMaterial) {
 
 Ogre::Quaternion MeshRenderer::EulerToQuaternion(CustomVector3 const& rot){
 	Ogre::Matrix3 mx;
-	mx.FromEulerAnglesYXZ(Ogre::Degree(rot.y), Ogre::Degree(rot.x), Ogre::Degree(rot.z));
+	mx.FromEulerAnglesYXZ(Ogre::Radian(rot.y), Ogre::Radian(rot.x), Ogre::Radian(rot.z));
 	Ogre::Quaternion result(mx);
 	return result;
 }
@@ -75,6 +75,7 @@ void MeshRenderer::syncPosition(){
 void MeshRenderer::syncRotation() {
 	CustomVector3 rot = transformRf->getRotation();
 	Ogre::Vector3 axis ={ Ogre::Real(rot.x), Ogre::Real(rot.y), Ogre::Real(rot.z) };
+	printf("MESH: world girar object = %f,%f,%f\n", float(rot.x), float(rot.y), float(rot.z));
 	Ogre::Quaternion q = EulerToQuaternion(rot);
-	mNode->rotate(q, Ogre::Node::TS_LOCAL);
+	mNode->setOrientation(q);
 }

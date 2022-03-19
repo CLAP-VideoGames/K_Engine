@@ -52,7 +52,7 @@ void PhysicsManager::update(){
 	//for (int i = 0; i < numIterations_; i++) {
 	btWorld->stepSimulation(1.f / 60.f, 10);
 
-	system("CLS");
+	
 	//print positions of all objects
 	for (int j = btWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
 		btCollisionObject* obj = btWorld->getCollisionObjectArray()[j];
@@ -64,9 +64,12 @@ void PhysicsManager::update(){
 		else {
 			trans = obj->getWorldTransform();
 		}
-		btVector3 rot = trans.getRotation().getAxis();
-		printf("world girar object %d = %f,%f,%f\n", j, float(rot.getX()), float(rot.getY()), float(rot.getZ()));
-		printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+		btScalar y;
+		btScalar z;
+		btScalar x;
+		trans.getRotation().getEulerZYX(y, x, z);
+		printf("PHYSICS: world girar object %d = %f,%f,%f\n", j, float(x), float(y), float(z));
+		//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 		printf("________\n");
 	}
 }
