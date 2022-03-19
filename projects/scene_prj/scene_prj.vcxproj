@@ -160,9 +160,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\scene_prj\Scene.cpp" />
     <ClCompile Include="..\..\src\scene_prj\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\scene_prj\Scene.h" />
     <ClInclude Include="..\..\src\scene_prj\SceneManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

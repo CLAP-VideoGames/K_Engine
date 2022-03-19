@@ -114,12 +114,6 @@ int main() {
 				accFrameTime += frame;
 				while (accFrameTime >= DELTA_TIME) {
 					inputMan->update();
-
-					if (inputMan->controllerButtonPressed(c, SDL_CONTROLLER_BUTTON_B)) {
-						run = false;
-					}
-
-					std::cout << inputMan->controllerAxisValue(c, SDL_CONTROLLER_AXIS_LEFTX) << "\n";
 					entMan->update();
 					physicsMan->update();
 					accFrameTime -= DELTA_TIME;

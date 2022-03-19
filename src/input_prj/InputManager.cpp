@@ -79,8 +79,9 @@ bool InputManager::update() {
 		case SDL_MOUSEBUTTONUP:
 			onMouseButtonChange(event, false);
 
-			break;
-		default:
+		case SDL_MOUSEWHEEL:
+			mouseScrollAmount = event.wheel.y;
+
 			break;
 		}
 	}
@@ -183,6 +184,11 @@ bool InputManager::getRightMouseButtonPressed() {
 
 bool InputManager::getLeftMouseButtonPressed() {
 	return isLeftMousePressed_;
+}
+
+float InputManager::mouseScroll()
+{
+	return mouseScrollAmount;
 }
 
 void InputManager::setDeathZones(double deathZoneValue, int axis)

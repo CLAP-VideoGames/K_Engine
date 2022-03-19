@@ -87,6 +87,9 @@ public:
 	//Left button pressed
 	bool getLeftMouseButtonPressed();
 
+	//Return the amount scroll of the mouse
+	float mouseScroll();
+
 	/// <summary>
 	/// The first parameter is the new value of the deathZone 
 	/// And the second is the axis being 0 = LeftJoyStick 1 = RightJoyStick 2 = LeftTrigger 3 = RightTrigger
@@ -94,7 +97,9 @@ public:
 	/// <param name="deathZoneValue"></param>
 	/// <param name="axis"></param>
 	void setDeathZones(double deathZoneValue, int axis);
+
 private:
+
 	static std::unique_ptr<InputManager> instance;
 
 	bool isKeyUpEvent_;
@@ -116,8 +121,10 @@ private:
 	float deathZoneRightTrigger;
 	float deathZoneLeftTrigger;
 
+	//Information of the mouse
 	std::pair<int, int> mousePos_;
 	std::array<bool, 3> mbState_;
+	float mouseScrollAmount;
 
 	//The key that is being pressed
 	const Uint8* kbState_;
