@@ -35,9 +35,9 @@ private:
 	Ogre::SceneNode* mCameraNode;
 	Ogre::Viewport* mViewport;
 
-	//void yaw(float angle);		// Rotate in Y axis 
-	//void pitch(float angle);	// Rotate in X axis
-	//void roll(float angle);		// Rotate in Z axis
+	void yaw(float angle);		// Rotate in Y axis 
+	void pitch(float angle);	// Rotate in X axis
+	void roll(float angle);		// Rotate in Z axis
 };
 #endif // CAMERA_H_
 

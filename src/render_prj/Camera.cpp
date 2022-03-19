@@ -44,12 +44,12 @@ void KCamera::setCameraPos(float x, float y, float z)
 
 void KCamera::rotateCamera(float pitchAngle = 0, float yawAngle = 0, float rollAngle = 0)
 {
-	/*if (pitchAngle != 0)
+	if (pitchAngle != 0)
 		pitch(pitchAngle);
 	if (yawAngle != 0)
 		yaw(yawAngle);
 	if (rollAngle != 0)
-		roll(rollAngle);*/
+		roll(rollAngle);
 }
 
 Ogre::Camera* KCamera::getCamera()
@@ -65,4 +65,19 @@ std::vector<float> KCamera::getCameraPosition()
 std::vector<float> KCamera::getCameraDirection()
 {
 	return std::vector<float>();
+}
+
+void KCamera::yaw(float angle)
+{
+	mCameraNode->yaw(Ogre::Degree(angle));
+}
+
+void KCamera::pitch(float angle)
+{
+	mCameraNode->pitch(Ogre::Degree(angle));
+}
+
+void KCamera::roll(float angle)
+{
+	mCameraNode->roll(Ogre::Degree(angle));
 }
