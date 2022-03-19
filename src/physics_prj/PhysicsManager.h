@@ -58,7 +58,7 @@ public:
 	void update();
 	void exampleObjects();
 	void changeCollisionFiltering(btRigidBody* rb, int group, int mask);
-	btTransform* createTransform(CustomVector3 const& position);
+	btTransform* createTransform(CustomVector3 const& position, CustomVector3 const& rotation);
 	void changeGravity(CustomVector3 const& grav);
 
 	DynamicsWorld* getWorld() const;

@@ -83,7 +83,7 @@ int main() {
 			//Configurations Scope
 			{
 				Transform* t = entity->addComponent<Transform>(); t->setScale(3.0f);
-				t->setPosition(0, 5, 0);
+				t->setPosition(-2, 5, 0);
 				ColliderType boxType = ColliderType::CT_SPHERE;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
 				float mass = 1.0f;
@@ -96,7 +96,7 @@ int main() {
 			{
 				Transform* t = platform->addComponent<Transform>(); t->setScale(5.f, 1.0f, 5.f);
 				t->setPosition(-2.8, 0.f, 0);
-				t->setRotation(Math::PI/4.0f, 0.f, 0);
+				t->setRotation(0, 0, -45);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType = BodyType::BT_STATIC;
 				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);

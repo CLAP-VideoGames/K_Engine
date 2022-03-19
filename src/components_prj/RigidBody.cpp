@@ -49,7 +49,7 @@ void RigidBody::start(){
 	transformRf_ = entity->getComponent<Transform>();
 	world_ = PhysicsManager::GetInstance()->getWorld();
 	
-	btTransform_ = PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition());
+	btTransform_ = PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
 	CustomVector3 scale = transformRf_->getScale();
 	btVector3 size = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 	rb = world_->addRigidBody(type_, *btTransform_, size, bType_, mass_, 0, 0);

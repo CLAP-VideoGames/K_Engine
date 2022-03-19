@@ -145,12 +145,18 @@ void PhysicsManager::changeCollisionFiltering(btRigidBody* rb, int group, int ma
 	proxy->m_collisionFilterMask = mask;
 }
 
-btTransform* PhysicsManager::createTransform(CustomVector3 const& position) {
+btTransform* PhysicsManager::createTransform(CustomVector3 const& position, CustomVector3 const& rotation) {
 	btVector3 pos = { (btScalar)position.x, (btScalar)position.y, (btScalar)position.z };
+	btVector3 rot = { (btScalar)btRadians(rotation.x), (btScalar)btRadians(rotation.y), (btScalar)btRadians(rotation.z) };
+
 	btTransform* tr = new btTransform();
 	tr->setIdentity();
 	tr->setOrigin(pos);
 	//tr->setBasis()
+	
+	tr->setRotation(btQuaternion(rot.x(), rot.y(), rot.z()));
+	
+
 	return tr;
 }
 

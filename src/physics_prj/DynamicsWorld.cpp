@@ -104,7 +104,7 @@ btBoxShape* DynamicsWorld::createBoxCollider(btVector3 const& size){
 }
 
 btSphereShape* DynamicsWorld::createSphereCollider(btVector3 const& radius){
-	auto shape = new btSphereShape(1.0f);
+	auto shape = new btSphereShape(radius.x()/2);
 	//shape->setLocalScaling(radius);
 	return shape;;
 }
