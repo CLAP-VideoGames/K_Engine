@@ -5,7 +5,7 @@ set SRC_DIR=.\src\
 set BUILD_DIR=.\build\
 
 set OGRE_BUILD_SOL=.\build\OGRE.sln
-set SDL2_BUILD_SOL=.\build\SDL2-build\SDL2.sln
+set SDL2_BUILD_SOL=.\build\SDL-build\SDL2.sln
 
 set CMAKE_EXEC=..\cmake\bin\cmake.exe
 
