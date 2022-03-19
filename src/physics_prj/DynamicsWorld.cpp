@@ -64,7 +64,7 @@ DynamicsWorld::~DynamicsWorld(){
 }
 
 btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, BodyType bT, float mass,  int group,
- int mask, CollisionListener* colList){
+							int mask, CollisionListener* colList){
 	btDefaultMotionState* state = new btDefaultMotionState(transform);
 	btCollisionShape* cs = NULL;
 	switch (ct) {
@@ -89,7 +89,7 @@ btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& tra
 	}
 	
 	auto rb = new btRigidBody(mass, state, cs, inertia);
-	btWorld_->addRigidBody(rb, group, mask);
+	btWorld_->addRigidBody(rb/*, group, mask*/);
 	
 	if(colList != nullptr)
 		rb->setUserPointer(colList);
@@ -98,13 +98,13 @@ btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& tra
 }
 
 btBoxShape* DynamicsWorld::createBoxCollider(btVector3 const& size){
-	auto shape = new btBoxShape((size / 2));
-	shape->setLocalScaling(size);
+	auto shape = new btBoxShape(size/2.0f);
+	//shape->setLocalScaling(size);
 	return shape;
 }
 
 btSphereShape* DynamicsWorld::createSphereCollider(btVector3 const& radius){
 	auto shape = new btSphereShape(1.0f);
-	shape->setLocalScaling(radius);
+	//shape->setLocalScaling(radius);
 	return shape;;
 }

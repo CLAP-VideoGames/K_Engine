@@ -78,3 +78,9 @@ void Transform::debug()
 {
 	setScale(0.2, 0.2, 0.2);
 }
+
+void Transform::update(){
+	//printf("world girar object = %f,%f,%f\n", float(rotation_->x), float(rotation_->y), float(rotation_->z));
+	//printf("world pos object  = %f,%f,%f\n",  float(position_->x), float(position_->y), float(position_->z));
+	//printf("________\n");
+}

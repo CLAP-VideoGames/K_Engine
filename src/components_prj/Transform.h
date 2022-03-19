@@ -38,6 +38,7 @@ public:
 	CustomVector3 getScale();
 
 	virtual void debug();
+	virtual void update();
 
 private:
 	static std::string name;

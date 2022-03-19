@@ -57,9 +57,13 @@ void RigidBody::start(){
 
 void RigidBody::update(){
 	btVector3 pos = rb->getWorldTransform().getOrigin();
-	btVector3 rot = rb->getWorldTransform().getRotation().getAxis();
+	btScalar y;
+	btScalar z;
+	btScalar x;
+	btTransform_->getRotation().getEulerZYX(y, x, z);
+	//btVector3 rot = btTransform_->getRotation().getAxis();
 	transformRf_->setPosition(pos.x(), pos.y(), pos.z());
-	transformRf_->setRotation(rot.x(), rot.y(), rot.z());
+	transformRf_->setRotation(x, y, z);
 }
 
 void RigidBody::debug(){

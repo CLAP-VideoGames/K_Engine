@@ -10,6 +10,7 @@
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
+#include <OgreQuaternion.h>
 
 std::string MeshRenderer::name = "MeshRenderer";
 
@@ -47,17 +48,14 @@ void MeshRenderer::setMaterial(std::string nMaterial) {
 
 Ogre::Quaternion MeshRenderer::EulerToQuaternion(CustomVector3 const& rot){
 	Ogre::Matrix3 mx;
-
-	//mx.FromEulerAnglesYXZ(Ogre::Degree(rot.y), Ogre::Degree(rot.x), Ogre::Degree(rot.z));
-
-	mx.FromEulerAnglesYXZ(Ogre::Degree(0.0f), Ogre::Degree(0.0f), Ogre::Degree(0.0f));
+	mx.FromEulerAnglesYXZ(Ogre::Degree(rot.y), Ogre::Degree(rot.x), Ogre::Degree(rot.z));
 	Ogre::Quaternion result(mx);
 	return result;
 }
 
 void MeshRenderer::setSinbad()
 {
-	mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("cube.mesh");
+	mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("cubeTest.mesh");
 	mNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	mNode->attachObject(mEntity);
 }
@@ -76,6 +74,7 @@ void MeshRenderer::syncPosition(){
 
 void MeshRenderer::syncRotation() {
 	CustomVector3 rot = transformRf->getRotation();
+	Ogre::Vector3 axis ={ Ogre::Real(rot.x), Ogre::Real(rot.y), Ogre::Real(rot.z) };
 	Ogre::Quaternion q = EulerToQuaternion(rot);
 	mNode->rotate(q, Ogre::Node::TS_LOCAL);
 }

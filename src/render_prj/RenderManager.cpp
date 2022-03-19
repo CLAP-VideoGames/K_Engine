@@ -196,7 +196,7 @@ void RenderManager::initScene() {
 	KCamera* cam = new KCamera();
 	cam->setNearClipDistance(5);
 	cam->setFarClipDistance(10000);
-	cam->setCameraPos(0, 0, 15);
+	cam->setCameraPos(0, 0, 50);
 }
 
 void RenderManager::closeContext()
