@@ -25,6 +25,7 @@
 
 #include <utils_prj/EngineTimer.h>
 #include <utils_prj/CustomVector3.h>
+#include <utils_prj/EngineMath.h>
 
 //Temporary
 #include <iostream>
@@ -83,7 +84,7 @@ int main() {
 			{
 				Transform* t = entity->addComponent<Transform>(); t->setScale(3.0f);
 				t->setPosition(0, 5, 0);
-				ColliderType boxType = ColliderType::CT_BOX;
+				ColliderType boxType = ColliderType::CT_SPHERE;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
 				float mass = 1.0f;
 				RigidBody* r = entity->addComponent<RigidBody>(boxType, bodyType, mass);
@@ -94,7 +95,8 @@ int main() {
 			Entity* platform = entMan->addEntity();
 			{
 				Transform* t = platform->addComponent<Transform>(); t->setScale(5.f, 1.0f, 5.f);
-				t->setPosition(-3.5, 0.f, 0);
+				t->setPosition(-2.8, 0.f, 0);
+				t->setRotation(Math::PI/4.0f, 0.f, 0);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType = BodyType::BT_STATIC;
 				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);

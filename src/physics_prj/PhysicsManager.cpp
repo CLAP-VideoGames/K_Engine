@@ -68,9 +68,6 @@ void PhysicsManager::update(){
 		btScalar z;
 		btScalar x;
 		trans.getRotation().getEulerZYX(y, x, z);
-		printf("PHYSICS: world girar object %d = %f,%f,%f\n", j, float(x), float(y), float(z));
-		//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-		printf("________\n");
 	}
 }
 
@@ -153,6 +150,7 @@ btTransform* PhysicsManager::createTransform(CustomVector3 const& position) {
 	btTransform* tr = new btTransform();
 	tr->setIdentity();
 	tr->setOrigin(pos);
+	//tr->setBasis()
 	return tr;
 }
 

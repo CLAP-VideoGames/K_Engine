@@ -75,7 +75,6 @@ void MeshRenderer::syncPosition(){
 void MeshRenderer::syncRotation() {
 	CustomVector3 rot = transformRf->getRotation();
 	Ogre::Vector3 axis ={ Ogre::Real(rot.x), Ogre::Real(rot.y), Ogre::Real(rot.z) };
-	printf("MESH: world girar object = %f,%f,%f\n", float(rot.x), float(rot.y), float(rot.z));
 	Ogre::Quaternion q = EulerToQuaternion(rot);
 	mNode->setOrientation(q);
 }
