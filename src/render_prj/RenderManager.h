@@ -18,6 +18,8 @@ namespace Ogre {
 
 class SDL_Window;
 
+class KCamera;
+
 class RenderManager {
 public:
 	RenderManager();
@@ -35,6 +37,8 @@ public:
 	Ogre::Root* getRoot();
 	Ogre::SceneManager* getSceneManager();
 	Ogre::RenderTarget* getRenderWindow();
+	KCamera* getCamera();
+
 private:
 	static std::unique_ptr<RenderManager> instance;
 
@@ -47,14 +51,12 @@ private:
 	SDL_Window* mSDLWin;
 	Ogre::RenderWindow* mRenderWin;
 
-	//Ogre::Camera* mCamera;
-	//Ogre::SceneNode* mCameraNode;
+	KCamera* mCamera;
 
 	void initRoot();
 	void initWindow();
 	void initResources();
 	void initScene();
-	void initRTShaderSystem();
 
 	void closeContext();
 	void closeWindow();

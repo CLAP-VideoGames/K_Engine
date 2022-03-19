@@ -7,59 +7,62 @@
 #include <OgreRenderWindow.h>
 #include <OgreVector.h>
 
-Camera::Camera()
+KCamera::KCamera()
 {
 	mCamera = RenderManager::GetInstance()->getSceneManager()->createCamera("K_Engine_Cam");
+	mCamera->setAutoAspectRatio(true);
 
 	mCameraNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
-	mCameraNode->setPosition(0, 0, 15);
+	mCameraNode->setPosition(0, 0, 0);
 	mCameraNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
 	mCameraNode->attachObject(mCamera);
+
+	RenderManager::GetInstance()->getRenderWindow()->addViewport(mCamera);
 }
 
-Camera::~Camera() = default;
+KCamera::~KCamera() = default;
 
-void Camera::setNearClipDistance(float nClip)
+void KCamera::setNearClipDistance(float nClip)
 {
 	mCamera->setNearClipDistance(nClip);
 }
 
-void Camera::setFarClipDistance(float fClip)
+void KCamera::setFarClipDistance(float fClip)
 {
 	mCamera->setFarClipDistance(fClip);
 }
 
-void Camera::translateCamera(float x, float y, float z)
+void KCamera::translateCamera(float x, float y, float z)
 {
 	mCameraNode->translate(x, y, z);
 }
 
-void Camera::setCameraPos(float x, float y, float z)
+void KCamera::setCameraPos(float x, float y, float z)
 {
 	mCameraNode->setPosition(x, y, z);
 }
 
-void Camera::rotateCamera(float pitchAngle = 0, float yawAngle = 0, float rollAngle = 0)
+void KCamera::rotateCamera(float pitchAngle = 0, float yawAngle = 0, float rollAngle = 0)
 {
-	if (pitchAngle != 0)
+	/*if (pitchAngle != 0)
 		pitch(pitchAngle);
 	if (yawAngle != 0)
 		yaw(yawAngle);
 	if (rollAngle != 0)
-		roll(rollAngle);
+		roll(rollAngle);*/
 }
 
-Ogre::Camera* Camera::getCamera()
+Ogre::Camera* KCamera::getCamera()
 {
 	return mCamera;
 }
 
-std::vector<float> Camera::getCameraPosition()
+std::vector<float> KCamera::getCameraPosition()
 {
 	return { mCameraNode->getPosition().x, mCameraNode->getPosition().y, mCameraNode->getPosition().z };
 }
 
-std::vector<float> Camera::getCameraDirection()
+std::vector<float> KCamera::getCameraDirection()
 {
 	return std::vector<float>();
 }

@@ -1,5 +1,5 @@
 #include "RenderManager.h"
-#include "Camera.h"
+
 #include <iostream>
 #include <string>
 #ifndef _DEBUG
@@ -24,6 +24,8 @@
 #include <OgreFileSystemLayer.h>
 #include <OgreGpuProgramManager.h>
 
+#include <render_prj/Camera.h>
+
 using namespace Ogre;
 using namespace std;
 
@@ -47,7 +49,6 @@ bool RenderManager::Init(std::string n) {
 		instance.get()->initWindow();
 		instance.get()->initResources();
 		instance.get()->initScene();
-		//initRTShaderSystem();
 	}
 	catch (const std::exception&) {
 		return false;
@@ -192,7 +193,10 @@ void RenderManager::initScene() {
 	lightNode->attachObject(light);
 
 	// We create a camera and assign it to a viewport
-	//Camera* cam = new Camera(this);
+	KCamera* cam = new KCamera();
+	cam->setNearClipDistance(5);
+	cam->setFarClipDistance(10000);
+	cam->setCameraPos(0, 0, 15);
 }
 
 void RenderManager::closeContext()
@@ -217,25 +221,8 @@ void RenderManager::closeWindow()
 	}
 }
 
-/// <summary>
-/// Inicia el sistema de shaders. El método debe llamarse despues de setupScenes
-/// </summary>
-void RenderManager::initRTShaderSystem()
+Ogre::Root* RenderManager::getRoot() 
 {
-	//if (Ogre::RTShader::ShaderGenerator::initialize())
-	//{
-	//    mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-
-	//    // Create and register the material manager listener if it doesn't exist yet.
-	//    if (!mMaterialMgrListener) {
-	//        mMaterialMgrListener = new OgreBites::SGTechniqueResolverListener(mShaderGenerator);
-	//        Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
-	//    }
-	//}
-	//mShaderGenerator->addSceneManager(mSceneMgr);
-}
-
-Ogre::Root* RenderManager::getRoot() {
 	return mRoot;
 }
 
@@ -248,8 +235,8 @@ Ogre::RenderTarget* RenderManager::getRenderWindow()
 {
 	return mRenderWin;
 }
-/*
-Ogre::Camera* RenderManager::getCamera()
+
+KCamera* RenderManager::getCamera()
 {
 	return mCamera;
-}*/
+}
