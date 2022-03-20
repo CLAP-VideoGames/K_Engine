@@ -1,4 +1,6 @@
 #pragma once
+#ifndef SCENE_H
+#define SCENE_H
 #include <string>
 class EntityManager;
 
@@ -22,3 +24,5 @@ private:
 	//In charge of keeping track of the entities of the scene
 	EntityManager* entMan;
 };
+
+#endif

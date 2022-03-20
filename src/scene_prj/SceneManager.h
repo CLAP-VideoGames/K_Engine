@@ -1,4 +1,7 @@
 #pragma once
+#ifndef SCENEMANAGER_H
+#define SCENEMANAGER_H
+
 #include <stack>
 
 class Scene;
@@ -33,9 +36,10 @@ public:
 	/// returns the top of the scene stack
 	/// </summary>
 	/// <returns></returns>
-	Scene* actualSecne();
+	Scene* actualScene();
+
 private:
 
 	std::stack<Scene*> scenes;
 };
-
+#endif
