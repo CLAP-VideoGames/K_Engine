@@ -125,14 +125,14 @@ int main() {
 				m->setMaterial("K_Engine/PrototypeOrange");
 			}
 
-			SDL_GameController* c = SDL_GameControllerOpen(0);
+			//SDL_GameController* c = SDL_GameControllerOpen(0);
 
 			entMan->start();
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = timer.currTime();
 			int cycles = 10000;
 			while (run) {
-				system("CLS");
+				//system("CLS");
 				unsigned int frame = timer.currTime() - currTime;
 				currTime += frame;
 

@@ -18,6 +18,9 @@
     <ClInclude Include="..\..\src\input_prj\InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\input_prj\K_Engine_Keys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\input_prj\InputManager.cpp">

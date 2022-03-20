@@ -4,6 +4,9 @@
 
 #include <SDL.h>
 #include <SDL_syswm.h>
+#include <SDL_scancode.h>
+#include <SDL_keycode.h>
+#include <SDL_gamecontroller.h>
 
 std::unique_ptr<InputManager> InputManager::instance = nullptr;
 
@@ -97,32 +100,32 @@ bool InputManager::keyUpEvent() {
 	return isKeyUpEvent_;
 }
 
-bool InputManager::isKeyDown(SDL_Scancode key) {
+bool InputManager::isKeyDown(K_Engine_Scancode key) {
 	return isKeyDownEvent_ && kbState_[key] == 1;
 }
 
-bool InputManager::isKeyDown(SDL_Keycode key) {
-	return isKeyDownEvent_ && isKeyDown(SDL_GetScancodeFromKey(key));
+bool InputManager::isKeyDown(K_Engine_Keycode key) {
+	return isKeyDownEvent_ && isKeyDown((K_Engine_Scancode)SDL_GetScancodeFromKey(key));
 }
 
-bool InputManager::isKeyUp(SDL_Scancode key) {
+bool InputManager::isKeyUp(K_Engine_Scancode key) {
 	return isKeyUpEvent_ && kbState_[key] == 0;
 }
 
-bool InputManager::isKeyUp(SDL_Keycode key) {
-	return isKeyUpEvent_ && isKeyUp(SDL_GetScancodeFromKey(key));
+bool InputManager::isKeyUp(K_Engine_Keycode key) {
+	return isKeyUpEvent_ && isKeyUp((K_Engine_Scancode)SDL_GetScancodeFromKey(key));
 }
 
-bool InputManager::controllerButtonPressed(SDL_GameController* controller, SDL_GameControllerButton button) {
-	if(controller != nullptr) return SDL_GameControllerGetButton(controller, button);
+bool InputManager::controllerButtonPressed(SDL_GameController* controller, K_Engine_GameControllerButton button) {
+	if(controller != nullptr) return SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)button);
 
 	return false;
 }
 
-double InputManager::controllerAxisValue(SDL_GameController* controller, SDL_GameControllerAxis axis)
+double InputManager::controllerAxisValue(SDL_GameController* controller, K_Engine_GameControllerAxis axis)
 {
 	if (controller != nullptr) {
-		double value = SDL_GameControllerGetAxis(controller, axis);
+		double value = SDL_GameControllerGetAxis(controller, (SDL_GameControllerAxis)axis);
 
 		switch (axis)
 		{
@@ -170,7 +173,7 @@ std::pair<INT32, INT32>& InputManager::getMousePos() {
 	return mousePos_;
 }
 
-int InputManager::getMouseButtonState(MouseButtons b) {
+int InputManager::getMouseButtonState(K_Engine_MouseButton b) {
 	return mbState_[(int)b];
 }
 
@@ -233,14 +236,14 @@ void InputManager::onMouseButtonChange(const SDL_Event & event, bool isDown) {
 	isMouseButtonHeldDown_ = isDown;
 	switch (event.button.button) {
 	case SDL_BUTTON_LEFT:
-		mbState_[(int)MouseButtons::LEFT] = isDown;
+		mbState_[(int)K_Engine_MouseButton::LEFT] = isDown;
 		isLeftMousePressed_ = isDown;
 		break;
 	case SDL_BUTTON_MIDDLE:
-		mbState_[(int)MouseButtons::MIDDLE] = isDown;
+		mbState_[(int)K_Engine_MouseButton::MIDDLE] = isDown;
 		break;
 	case SDL_BUTTON_RIGHT:
-		mbState_[(int)MouseButtons::RIGHT] = isDown;
+		mbState_[(int)K_Engine_MouseButton::RIGHT] = isDown;
 		isRightMousePressed_ = isDown;
 		break;
 	default:

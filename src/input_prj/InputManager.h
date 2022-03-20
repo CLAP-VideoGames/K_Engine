@@ -5,22 +5,13 @@
 #include <array>
 #include <memory>
 
-#include <SDL_scancode.h>
-#include <SDL_keycode.h>
-#include <SDL_gamecontroller.h>
+#include <input_prj/K_Engine_Keys.h>
 
 union SDL_Event;
+typedef struct _SDL_GameController SDL_GameController;
 
 class InputManager {
 public:
-	//Enum with the buttons
-	enum MouseButtons : uint8_t {
-		LEFT = 0,
-		MIDDLE = 1,
-		RIGHT = 2
-	};
-
-
 	InputManager();
 	~InputManager();
 
@@ -43,19 +34,19 @@ public:
 	bool keyUpEvent();
 
 	//Scancode is the physical position of the key
-	bool isKeyDown(SDL_Scancode key);
+	bool isKeyDown(K_Engine_Scancode key);
 
 	//KeyCode is the actual key, no matter where it is in the keyboard
-	bool isKeyDown(SDL_Keycode key);
+	bool isKeyDown(K_Engine_Keycode key);
 
 	//Scancode is the physical position of the key
-	bool isKeyUp(SDL_Scancode key);
+	bool isKeyUp(K_Engine_Scancode key);
 
 	//KeyCode is the actual key, no matter where it is in the keyboard
-	bool isKeyUp(SDL_Keycode key);
+	bool isKeyUp(K_Engine_Keycode key);
 
 	//Return if a button is pressed (parameter button)
-	bool controllerButtonPressed(SDL_GameController* controller, SDL_GameControllerButton button);
+	bool controllerButtonPressed(SDL_GameController* controller, K_Engine_GameControllerButton button);
 
 	/// <summary>
 	/// This method returns the value of the given axis(this can be a trigger or a joystick)
@@ -64,7 +55,7 @@ public:
 	/// <param name="controller"></param>
 	/// <param name="axis"></param>
 	/// <returns></returns>
-	double controllerAxisValue(SDL_GameController* controller, SDL_GameControllerAxis axis);
+	double controllerAxisValue(SDL_GameController* controller, K_Engine_GameControllerAxis axis);
 
 	//Detects when the mouse is moving
 	bool mouseMotionEvent();
@@ -76,7 +67,7 @@ public:
 	std::pair<int, int>& getMousePos();
 
 	//return 1, 2, or 3 (left, center and right, repectively)
-	int getMouseButtonState(MouseButtons b);
+	int getMouseButtonState(K_Engine_MouseButton b);
 
 	//Any mouse button held
 	bool getMouseButtonHeld();
