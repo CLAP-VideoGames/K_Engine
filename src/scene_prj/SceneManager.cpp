@@ -33,7 +33,7 @@ void SceneManager::updateScene()
 	scenes.top()->update();
 }
 
-Scene* SceneManager::actualSecne()
+Scene* SceneManager::actualScene()
 {
 	return scenes.top();
 }
