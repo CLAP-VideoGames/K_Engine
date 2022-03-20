@@ -26,6 +26,8 @@ bool InputManager::Init()
 	instance.get()->kbState_ = SDL_GetKeyboardState(0);
 	instance.get()->flush();
 
+	instance.get()->controller = SDL_GameControllerOpen(0);
+
 	Uint32 SDL_system_init = SDL_WasInit(SDL_INIT_EVERYTHING);
 	if (!SDL_system_init)
 		std::cout << "SDL not initialized\n";
@@ -116,13 +118,13 @@ bool InputManager::isKeyUp(K_Engine_Keycode key) {
 	return isKeyUpEvent_ && isKeyUp((K_Engine_Scancode)SDL_GetScancodeFromKey(key));
 }
 
-bool InputManager::controllerButtonPressed(SDL_GameController* controller, K_Engine_GameControllerButton button) {
+bool InputManager::controllerButtonPressed(K_Engine_GameControllerButton button) {
 	if(controller != nullptr) return SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)button);
 
 	return false;
 }
 
-double InputManager::controllerAxisValue(SDL_GameController* controller, K_Engine_GameControllerAxis axis)
+double InputManager::controllerAxisValue(K_Engine_GameControllerAxis axis)
 {
 	if (controller != nullptr) {
 		double value = SDL_GameControllerGetAxis(controller, (SDL_GameControllerAxis)axis);
@@ -196,6 +198,11 @@ float InputManager::mouseScroll()
 
 void InputManager::setDeathZones(double deathZoneValue, int axis)
 {
+	//Limiting the parameters
+	if (deathZoneValue > DEATHZONEMAX) deathZoneValue = DEATHZONEMAX;
+	else if (deathZoneValue < DEATHZONEMIN) deathZoneValue = DEATHZONEMIN;
+
+
 	switch (axis)
 	{
 	case 0:

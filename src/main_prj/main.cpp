@@ -125,20 +125,21 @@ int main() {
 				m->setMaterial("K_Engine/PrototypeOrange");
 			}
 
-			//SDL_GameController* c = SDL_GameControllerOpen(0);
-
 			entMan->start();
 			bool run = true; // time --> miliseconds
 			unsigned int accFrameTime = 0, currTime = timer.currTime();
 			int cycles = 10000;
 			while (run) {
-				//system("CLS");
 				unsigned int frame = timer.currTime() - currTime;
 				currTime += frame;
 
 				accFrameTime += frame;
 				while (accFrameTime >= DELTA_TIME) {
 					inputMan->update();
+
+					run = !(inputMan->controllerButtonPressed(CONTROLLER_BUTTON_B) 
+						|| inputMan->isKeyDown(SCANCODE_ESCAPE));
+					
 					entMan->update();
 					physicsMan->update();
 					accFrameTime -= DELTA_TIME;
