@@ -43,6 +43,8 @@ public:
 
 	btDynamicsWorld* getBtWorld() const { return btWorld_; };
 
+	void scaleCollisionShape(btRigidBody* rb, btVector3 const& scale);
+
 	btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const & scale, BodyType bodyType, float mass, float restitution, float friction, int group, int mask, CollisionListener* colList = nullptr);
 
 	btBoxShape* createBoxCollider(btVector3 const& size, btVector3 const& dimensions);

@@ -80,3 +80,9 @@ void RigidBody::update(){
 void RigidBody::debug(){
 
 }
+
+void RigidBody::syncScale(){
+	KVector3 scale = transformRf_->getScale();
+	btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
+	world_->scaleCollisionShape(rb, scale_);
+}
