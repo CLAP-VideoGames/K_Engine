@@ -18,9 +18,10 @@ namespace Ogre {
 
 class SDL_Window;
 
-class KCamera;
-
 namespace K_Engine {
+
+	class KCamera;
+
 	class RenderManager {
 	public:
 		RenderManager();

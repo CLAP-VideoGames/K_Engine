@@ -55,19 +55,19 @@ int main() {
 			PhysicsManager* physicsMan = PhysicsManager::GetInstance();
 
 			// UI Manager initialisation
-			UIManager::Init("K_EngineUI");
-			UIManager* uiMan = UIManager::GetInstance();
+			K_Engine::UIManager::Init("K_EngineUI");
+			K_Engine::UIManager* uiMan = K_Engine::UIManager::GetInstance();
 			uiMan->exampleUI();
 
 			// Audio Manager initialisation
-			AudioManager::Init();
-			AudioManager* audioMan = AudioManager::GetInstance();
+			K_Engine::AudioManager::Init();
+			K_Engine::AudioManager* audioMan = K_Engine::AudioManager::GetInstance();
 			//audioMan->playWAV("./assets/sounds/clap.wav");
 			audioMan->playMUS("./assets/sounds/clapV2.ogg");
 
 			// Input Manager initialisation
-			InputManager::Init();
-			InputManager* inputMan = InputManager::GetInstance();
+			K_Engine::InputManager::Init();
+			K_Engine::InputManager* inputMan = K_Engine::InputManager::GetInstance();
 
 			inputMan->setDeathZones(5000, 0);
 
@@ -147,8 +147,8 @@ int main() {
 				renderMan->render();
 			}
 
-			AudioManager::Shutdown();
-			UIManager::Shutdown();
+			K_Engine::AudioManager::Shutdown();
+			K_Engine::UIManager::Shutdown();
 			PhysicsManager::Shutdown();
 			K_Engine::RenderManager::Shutdown();
 			delete entMan;

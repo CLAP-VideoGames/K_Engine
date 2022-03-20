@@ -6,42 +6,45 @@
 #include <string>
 
 namespace CEGUI {
-    class Window;
-    class DefaultWindow;
-    class EventArgs;
-    class GUIContext;
-    class WindowManager;
-    class OgreRenderer;
-    class FrameWindow;
+	class Window;
+	class DefaultWindow;
+	class EventArgs;
+	class GUIContext;
+	class WindowManager;
+	class OgreRenderer;
+	class FrameWindow;
 }
 
-class UIManager
-{
-public:
-    UIManager();
-    ~UIManager();
+namespace K_Engine {
 
-    static UIManager* GetInstance();
+	class UIManager
+	{
+	public:
+		UIManager();
+		~UIManager();
 
-    static bool Init(std::string n);
-    static bool Shutdown();
+		static UIManager* GetInstance();
 
-    void exampleUI();
-private:
-    static std::unique_ptr<UIManager> instance;
-    std::string name;
+		static bool Init(std::string n);
+		static bool Shutdown();
 
-    CEGUI::GUIContext* guiContext;
-    CEGUI::DefaultWindow* mRoot;
-    CEGUI::WindowManager* winMgr;
-    CEGUI::OgreRenderer* m_renderer;
-    CEGUI::FrameWindow* wnd;
+		void exampleUI();
+	private:
+		static std::unique_ptr<UIManager> instance;
+		std::string name;
 
-    void initContext();
-    void initRoot();
+		CEGUI::GUIContext* guiContext;
+		CEGUI::DefaultWindow* mRoot;
+		CEGUI::WindowManager* winMgr;
+		CEGUI::OgreRenderer* m_renderer;
+		CEGUI::FrameWindow* wnd;
 
-    bool handleHelloWorldClicked(const CEGUI::EventArgs& args);
+		void initContext();
+		void initRoot();
 
-    void closeContext();
-};
+		bool handleHelloWorldClicked(const CEGUI::EventArgs& args);
+
+		void closeContext();
+	};
+}
 #endif // UIMANAGER_H

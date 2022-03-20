@@ -29,7 +29,6 @@
 using namespace Ogre;
 using namespace std;
 
-
 namespace K_Engine {
 	std::unique_ptr<RenderManager> RenderManager::instance = nullptr;
 

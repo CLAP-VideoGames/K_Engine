@@ -13,133 +13,136 @@
 union SDL_Event;
 typedef struct _SDL_GameController SDL_GameController;
 
-class InputManager {
-public:
-	InputManager();
-	~InputManager();
+namespace K_Engine {
 
-	//Instance of our Singleton
-	static InputManager* GetInstance();
+	class InputManager {
+	public:
+		InputManager();
+		~InputManager();
 
-	//Starts the singleton
-	static bool Init();
+		//Instance of our Singleton
+		static InputManager* GetInstance();
 
-	//Deletes everything we need to delete
-	static bool Shutdown();
+		//Starts the singleton
+		static bool Init();
 
-	//Clears the state
-	void flush();
+		//Deletes everything we need to delete
+		static bool Shutdown();
 
-	//Detects input
-	bool update();
+		//Clears the state
+		void flush();
 
-	//Scancode is the physical position of the key
-	bool isKeyDown(K_Engine_Scancode key);
+		//Detects input
+		bool update();
 
-	//KeyCode is the actual key, no matter where it is in the keyboard
-	bool isKeyDown(K_Engine_Keycode key);
+		//Scancode is the physical position of the key
+		bool isKeyDown(K_Engine_Scancode key);
 
-	//Scancode is the physical position of the key
-	bool isKeyUp(K_Engine_Scancode key);
+		//KeyCode is the actual key, no matter where it is in the keyboard
+		bool isKeyDown(K_Engine_Keycode key);
 
-	//KeyCode is the actual key, no matter where it is in the keyboard
-	bool isKeyUp(K_Engine_Keycode key);
+		//Scancode is the physical position of the key
+		bool isKeyUp(K_Engine_Scancode key);
 
-	//Return if a button is pressed (parameter button)
-	bool controllerButtonPressed(K_Engine_GameControllerButton button);
+		//KeyCode is the actual key, no matter where it is in the keyboard
+		bool isKeyUp(K_Engine_Keycode key);
 
-	/// <summary>
-	/// This method returns the value of the given axis(this can be a trigger or a joystick)
-	/// If there is no controller it returns 0
-	/// </summary>
-	/// <param name="controller"></param>
-	/// <param name="axis"></param>
-	/// <returns></returns>
-	double controllerAxisValue(K_Engine_GameControllerAxis axis);
+		//Return if a button is pressed (parameter button)
+		bool controllerButtonPressed(K_Engine_GameControllerButton button);
 
-	//Detects when the mouse is moving
-	bool mouseMotionEvent();
+		/// <summary>
+		/// This method returns the value of the given axis(this can be a trigger or a joystick)
+		/// If there is no controller it returns 0
+		/// </summary>
+		/// <param name="controller"></param>
+		/// <param name="axis"></param>
+		/// <returns></returns>
+		double controllerAxisValue(K_Engine_GameControllerAxis axis);
 
-	//Detects when a mouse button is clicked
-	bool mouseButtonEvent();
+		//Detects when the mouse is moving
+		bool mouseMotionEvent();
 
-	//The actual position of the mouse
-	std::pair<int, int>& getMousePos();
+		//Detects when a mouse button is clicked
+		bool mouseButtonEvent();
 
-	//return 1, 2, or 3 (left, center and right, repectively)
-	int getMouseButtonState(K_Engine_MouseButton b);
+		//The actual position of the mouse
+		std::pair<int, int>& getMousePos();
 
-	//Any mouse button held
-	bool getMouseButtonHeld();
+		//return 1, 2, or 3 (left, center and right, repectively)
+		int getMouseButtonState(K_Engine_MouseButton b);
 
-	//Right button pressed
-	bool getRightMouseButtonPressed();
+		//Any mouse button held
+		bool getMouseButtonHeld();
 
-	//Left button pressed
-	bool getLeftMouseButtonPressed();
+		//Right button pressed
+		bool getRightMouseButtonPressed();
 
-	//Return the amount scroll of the mouse
-	float mouseScroll();
+		//Left button pressed
+		bool getLeftMouseButtonPressed();
 
-	/// <summary>
-	/// Default value for everyDeathZone is 3000, maximum is 32000
-	/// The first parameter is the new value of the deathZone 
-	/// And the second is the axis being 0 = LeftJoyStick 1 = RightJoyStick 2 = LeftTrigger 3 = RightTrigger
-	/// </summary>
-	/// <param name="deathZoneValue"></param>
-	/// <param name="axis"></param>
-	void setDeathZones(double deathZoneValue, int axis);
+		//Return the amount scroll of the mouse
+		float mouseScroll();
 
-private:
+		/// <summary>
+		/// Default value for everyDeathZone is 3000, maximum is 32000
+		/// The first parameter is the new value of the deathZone 
+		/// And the second is the axis being 0 = LeftJoyStick 1 = RightJoyStick 2 = LeftTrigger 3 = RightTrigger
+		/// </summary>
+		/// <param name="deathZoneValue"></param>
+		/// <param name="axis"></param>
+		void setDeathZones(double deathZoneValue, int axis);
 
-	static std::unique_ptr<InputManager> instance;
+	private:
 
-	bool isKeyUpEvent_;
-	bool isKeyDownEvent_;
+		static std::unique_ptr<InputManager> instance;
 
-	bool isMouseMotionEvent_;
-	bool isMouseButtonEvent_;
-	
-	//Esto es para ver que se sigue pulsando
-	bool isMouseButtonHeldDown_;
-	bool isRightMousePressed_;
-	bool isLeftMousePressed_;
-	
-	//Editable deathZone for our joySticks
-	float deathZoneLeftJoy = 3000;
-	float deathZoneRightJoy = 3000;
+		bool isKeyUpEvent_;
+		bool isKeyDownEvent_;
 
-	//Editable deathZone for our Trigger
-	float deathZoneRightTrigger = 3000;
-	float deathZoneLeftTrigger = 3000;
+		bool isMouseMotionEvent_;
+		bool isMouseButtonEvent_;
 
-	//Information of the mouse
-	std::pair<int, int> mousePos_;
-	std::array<bool, 3> mbState_;
-	float mouseScrollAmount;
+		//Esto es para ver que se sigue pulsando
+		bool isMouseButtonHeldDown_;
+		bool isRightMousePressed_;
+		bool isLeftMousePressed_;
 
-	//For xbox controller
-	SDL_GameController* controller;
+		//Editable deathZone for our joySticks
+		float deathZoneLeftJoy = 3000;
+		float deathZoneRightJoy = 3000;
 
-	//The key that is being pressed
-	const Uint8* kbState_;
+		//Editable deathZone for our Trigger
+		float deathZoneRightTrigger = 3000;
+		float deathZoneLeftTrigger = 3000;
 
-	//this method is called when a keyIsDown and it set the boolean
-	//keyDown event to true
-	void onKeyDown(const SDL_Event& e);
+		//Information of the mouse
+		std::pair<int, int> mousePos_;
+		std::array<bool, 3> mbState_;
+		float mouseScrollAmount;
 
-	//Same as the method from above but with key up
-	void onKeyUp(const SDL_Event& e);
-	
-	//Sets the mouse motion boolean true and changes the paor of the
-	//Mouse position
-	void onMouseMotion(const SDL_Event& event);
+		//For xbox controller
+		SDL_GameController* controller;
 
-	//Change the booleans of the vector mBState to true or false
-	//if they have been clicked
-	void onMouseButtonChange(const SDL_Event& event, bool isDown);
+		//The key that is being pressed
+		const Uint8* kbState_;
 
-	bool keyDownEvent();
-	bool keyUpEvent();
-};
+		//this method is called when a keyIsDown and it set the boolean
+		//keyDown event to true
+		void onKeyDown(const SDL_Event& e);
+
+		//Same as the method from above but with key up
+		void onKeyUp(const SDL_Event& e);
+
+		//Sets the mouse motion boolean true and changes the paor of the
+		//Mouse position
+		void onMouseMotion(const SDL_Event& event);
+
+		//Change the booleans of the vector mBState to true or false
+		//if they have been clicked
+		void onMouseButtonChange(const SDL_Event& event, bool isDown);
+
+		bool keyDownEvent();
+		bool keyUpEvent();
+	};
+}
 #endif //INPUTMANAGER_H
