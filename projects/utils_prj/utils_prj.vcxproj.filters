@@ -15,27 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\utils_prj\CustomVector3.h">
+    <ClInclude Include="..\..\src\utils_prj\KVector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\utils_prj\checkML.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\utils_prj\EngineTimer.h">
+    <ClInclude Include="..\..\src\utils_prj\KTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\utils_prj\EngineMath.h">
+    <ClInclude Include="..\..\src\utils_prj\KMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\utils_prj\CustomVector3.cpp">
+    <ClCompile Include="..\..\src\utils_prj\KVector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\utils_prj\EngineTimer.cpp">
+    <ClCompile Include="..\..\src\utils_prj\KTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\utils_prj\EngineMath.cpp">
+    <ClCompile Include="..\..\src\utils_prj\KMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

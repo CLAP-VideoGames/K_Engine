@@ -2,7 +2,7 @@
 #include <btBulletDynamicsCommon.h>
 #include "LinearMath/btTransform.h"
 #include "DynamicsWorld.h"
-#include "CustomVector3.h"
+#include "KVector3.h"
 
 std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
 
@@ -14,7 +14,7 @@ PhysicsManager* PhysicsManager::GetInstance(){
 	return instance.get();
 }
 
-bool PhysicsManager::Init(int numIterations, int step, const CustomVector3& gravity = CustomVector3(0, -9.8f, 0)){
+bool PhysicsManager::Init(int numIterations, int step, const KVector3& gravity = KVector3(0, -9.8f, 0)){
 	instance.reset(new PhysicsManager());
 	btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 	return instance.get()->initWorld(numIterations, step, grav_);
@@ -145,7 +145,7 @@ void PhysicsManager::changeCollisionFiltering(btRigidBody* rb, int group, int ma
 	proxy->m_collisionFilterMask = mask;
 }
 
-btTransform* PhysicsManager::createTransform(CustomVector3 const& position, CustomVector3 const& rotation) {
+btTransform* PhysicsManager::createTransform(KVector3 const& position, KVector3 const& rotation) {
 	btVector3 pos = { (btScalar)position.x, (btScalar)position.y, (btScalar)position.z };
 	btVector3 rot = { (btScalar)btRadians(rotation.x), (btScalar)btRadians(rotation.y), (btScalar)btRadians(rotation.z) };
 
@@ -160,7 +160,7 @@ btTransform* PhysicsManager::createTransform(CustomVector3 const& position, Cust
 	return tr;
 }
 
-void PhysicsManager::changeGravity(CustomVector3 const& gravity){
+void PhysicsManager::changeGravity(KVector3 const& gravity){
 	btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 	
 	if (this->gravity != nullptr) *this->gravity = grav_;

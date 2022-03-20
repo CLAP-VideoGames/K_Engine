@@ -4,7 +4,7 @@
 
 #include <ecs_prj/Entity.h>
 
-#include <utils_prj/CustomVector3.h>
+#include <utils_prj/KVector3.h>
 
 #include <physics_prj/PhysicsManager.h>
 #include <physics_prj/DynamicsWorld.h>
@@ -60,7 +60,7 @@ void RigidBody::start(){
 	world_ = PhysicsManager::GetInstance()->getWorld();
 	
 	btTransform_ = PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
-	CustomVector3 scale = transformRf_->getScale();
+	KVector3 scale = transformRf_->getScale();
 	btVector3 size = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 	rb = world_->addRigidBody(type_, *btTransform_, size, bType_, mass_, restitution_, friction_, 0, 0);
 }

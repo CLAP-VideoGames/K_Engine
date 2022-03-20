@@ -180,14 +180,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\utils_prj\checkML.h" />
-    <ClInclude Include="..\..\src\utils_prj\EngineMath.h" />
-    <ClInclude Include="..\..\src\utils_prj\EngineTimer.h" />
-    <ClInclude Include="..\..\src\utils_prj\CustomVector3.h" />
+    <ClInclude Include="..\..\src\utils_prj\KMath.h" />
+    <ClInclude Include="..\..\src\utils_prj\KTimer.h" />
+    <ClInclude Include="..\..\src\utils_prj\KVector3.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\utils_prj\EngineMath.cpp" />
-    <ClCompile Include="..\..\src\utils_prj\EngineTimer.cpp" />
-    <ClCompile Include="..\..\src\utils_prj\CustomVector3.cpp" />
+    <ClCompile Include="..\..\src\utils_prj\KMath.cpp" />
+    <ClCompile Include="..\..\src\utils_prj\KTimer.cpp" />
+    <ClCompile Include="..\..\src\utils_prj\KVector3.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

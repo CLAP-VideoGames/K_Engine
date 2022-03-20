@@ -23,9 +23,9 @@
 #include <components_prj/RigidBody.h>
 #include <components_prj/MeshRenderer.h>
 
-#include <utils_prj/EngineTimer.h>
-#include <utils_prj/CustomVector3.h>
-#include <utils_prj/EngineMath.h>
+#include <utils_prj/KTimer.h>
+#include <utils_prj/KVector3.h>
+#include <utils_prj/KMath.h>
 
 //Temporary
 #include <iostream>
@@ -43,7 +43,7 @@ int main() {
 
 		try {
 			// Timer for main loop
-			EngineTimer timer = EngineTimer();
+			KTimer timer = KTimer();
 
 			// Render Manager initialisation
 			RenderManager::Init("K_Engine"); //GetInstance() returns nullptr if Init isnt called first
@@ -86,7 +86,7 @@ int main() {
 				t->setPosition(-2, 5, 0);
 				ColliderType boxType = ColliderType::CT_SPHERE;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
-				float mass = 2.0f;
+				float mass = 1.0f;
 				RigidBody* r = entity->addComponent<RigidBody>(boxType, bodyType, mass);
 				r->setFriction(0.6f);
 				r->setRestitution(1.2f);

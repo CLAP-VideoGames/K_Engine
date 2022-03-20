@@ -1,11 +1,11 @@
 #ifndef CUSTOMTIMER_H
 #define CUSTOMTIMER_H
 
-class EngineTimer
+class KTimer
 {
 public:
-	EngineTimer();
-	~EngineTimer();
+	KTimer();
+	~KTimer();
 
 	void reset();
 	unsigned int currTime() const;

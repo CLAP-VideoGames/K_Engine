@@ -4,7 +4,7 @@
 #include <ecs_prj/Component.h>
 
 class Transform;
-class CustomVector3;
+class KVector3;
 
 namespace Ogre {
 	class SceneNode;
@@ -35,7 +35,7 @@ public:
 	void setMaterial(std::string nMaterial);
 	void setMesh(std::string mesh);
 
-	Ogre::Quaternion EulerToQuaternion(CustomVector3 const& rot);
+	Ogre::Quaternion EulerToQuaternion(KVector3 const& rot);
 
 private:
 	void syncScale();

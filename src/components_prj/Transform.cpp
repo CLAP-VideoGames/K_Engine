@@ -1,14 +1,14 @@
 #include "Transform.h"
 
-#include <utils_prj/CustomVector3.h>
+#include <utils_prj/KVector3.h>
 
 std::string Transform::name = "Transform";
 
 Transform::Transform(Entity* e) : Component("Transform", e)
 { 
-	position_ = new CustomVector3{ 0, 0, 0 };
-	rotation_ = new CustomVector3{ 0, 0, 0 };
-	scale_ = new CustomVector3{ 1, 1, 1 };
+	position_ = new KVector3{ 0, 0, 0 };
+	rotation_ = new KVector3{ 0, 0, 0 };
+	scale_ = new KVector3{ 1, 1, 1 };
 }
 
 Transform::~Transform() {
@@ -24,52 +24,52 @@ std::string Transform::GetId()
 
 void Transform::translate(float x, float y, float z)
 {
-	CustomVector3 toAdd = { x, y, z };
+	KVector3 toAdd = { x, y, z };
 	(*position_) += toAdd;
 }
 
 void Transform::rotate(float x, float y, float z) {
-	CustomVector3 toAdd = { x, y, z };
+	KVector3 toAdd = { x, y, z };
 	(*rotation_) += toAdd;
 }
 
 void Transform::scale(float x, float y, float z){
-	CustomVector3 toAdd = { x, y, z };
+	KVector3 toAdd = { x, y, z };
 	(*scale_) += toAdd;
 }
 
 void Transform::setPosition(float x, float y, float z) {
-	CustomVector3 toAdd = { x, y, z };
+	KVector3 toAdd = { x, y, z };
 	(*position_) = toAdd;
 }
 
 void Transform::setRotation(float x, float y, float z) {
-	CustomVector3 toAdd = { x, y, z };
+	KVector3 toAdd = { x, y, z };
 	(*rotation_) = toAdd;
 }
 
 void Transform::setScale(float x, float y, float z)
 {
-	CustomVector3 toAdd = { x, y, z };
+	KVector3 toAdd = { x, y, z };
 	(*scale_) = toAdd;
 }
 
 void Transform::setScale(float n){
-	CustomVector3 toAdd = { n, n, n };
+	KVector3 toAdd = { n, n, n };
 	(*scale_) = toAdd;
 }
 
-CustomVector3 Transform::getPosition()
+KVector3 Transform::getPosition()
 {
 	return *position_;
 }
 
-CustomVector3  Transform::getRotation()
+KVector3  Transform::getRotation()
 {
 	return *rotation_;
 }
 
-CustomVector3  Transform::getScale()
+KVector3  Transform::getScale()
 {
 	return *scale_;
 }

@@ -19,7 +19,7 @@ class btVector3;
 class btTransform;
 class DynamicsWorld;
 class btRigidBody;
-struct CustomVector3;
+struct KVector3;
 class btDynamicsWorld;
 
 
@@ -52,14 +52,14 @@ public:
 
 	static PhysicsManager* GetInstance();
 
-	static bool Init(int numIterations, int step, const CustomVector3& gravity);
+	static bool Init(int numIterations, int step, const KVector3& gravity);
 	static bool Shutdown();
 
 	void update();
 	void exampleObjects();
 	void changeCollisionFiltering(btRigidBody* rb, int group, int mask);
-	btTransform* createTransform(CustomVector3 const& position, CustomVector3 const& rotation);
-	void changeGravity(CustomVector3 const& grav);
+	btTransform* createTransform(KVector3 const& position, KVector3 const& rotation);
+	void changeGravity(KVector3 const& grav);
 
 	DynamicsWorld* getWorld() const;
 

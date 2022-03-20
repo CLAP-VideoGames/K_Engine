@@ -1,26 +1,26 @@
-#include "EngineTimer.h"
+#include "KTimer.h"
 
 #include <SDL_timer.h>
 
-EngineTimer::EngineTimer() 
+KTimer::KTimer() 
 {
 	reset();
 }
 
-EngineTimer::~EngineTimer() = default;
+KTimer::~KTimer() = default;
 
-void EngineTimer::reset()
+void KTimer::reset()
 {
 	startTime = SDL_GetTicks();
 	paused = false;
 }
 
-unsigned int EngineTimer::currTime() const 
+unsigned int KTimer::currTime() const 
 {
 	return paused ? pauseTime - startTime : SDL_GetTicks() - startTime;
 }
 
-void EngineTimer::pause()
+void KTimer::pause()
 {
 	if (!paused) {
 		paused = true;
@@ -28,7 +28,7 @@ void EngineTimer::pause()
 	}
 }
 
-void EngineTimer::resume()
+void KTimer::resume()
 {
 	if (paused) {
 		startTime += (SDL_GetTicks() - pauseTime);

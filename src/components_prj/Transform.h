@@ -11,7 +11,7 @@
 * This component is the place from where rigidBody and meshRenderer take the information
 * To use physics and to render our entities
 */
-class CustomVector3;
+class KVector3;
 
 class Transform : public Component
 {
@@ -33,9 +33,9 @@ public:
 	void setScale(float n);
 
 	//These 3 methods set our arrays to the parameter we introduce in them
-	CustomVector3 getPosition();
-	CustomVector3 getRotation();
-	CustomVector3 getScale();
+	KVector3 getPosition();
+	KVector3 getRotation();
+	KVector3 getScale();
 
 	virtual void debug();
 	virtual void update();
@@ -45,8 +45,8 @@ private:
 	
 	//Arrays initialized to default values
 	// x y z axis, in that order of our 3 main information arrays
-	CustomVector3* position_;
-	CustomVector3* rotation_;
-	CustomVector3* scale_;
+	KVector3* position_;
+	KVector3* rotation_;
+	KVector3* scale_;
 }; 
 #endif // TRANSFORM_H
