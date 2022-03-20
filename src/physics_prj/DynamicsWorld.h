@@ -43,11 +43,11 @@ public:
 
 	btDynamicsWorld* getBtWorld() const { return btWorld_; };
 
-	btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, BodyType bodyType, float mass, float restitution, float friction, int group, int mask, CollisionListener* colList = nullptr);
+	btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const & scale, BodyType bodyType, float mass, float restitution, float friction, int group, int mask, CollisionListener* colList = nullptr);
 
-	btBoxShape* createBoxCollider(btVector3 const& size);
+	btBoxShape* createBoxCollider(btVector3 const& size, btVector3 const& dimensions);
 
-	btSphereShape* createSphereCollider(btVector3 const& radius);
+	btSphereShape* createSphereCollider(btVector3 const& radius, btVector3 const& dimensions);
 };
 
 #endif _DYNAMICSWORLD_H_

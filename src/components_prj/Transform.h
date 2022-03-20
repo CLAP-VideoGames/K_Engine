@@ -28,14 +28,17 @@ public:
 
 	//These 3 methods set our arrays to the parameter we introduce in them
 	void setPosition(float x, float y, float z);
+	void setDimensions(float x, float y, float z);
+	void setDimensions(float d);
 	void setRotation(float x, float y, float z);
 	void setScale(float x, float y, float z);
 	void setScale(float n);
 
 	//These 3 methods set our arrays to the parameter we introduce in them
-	KVector3 getPosition();
-	KVector3 getRotation();
-	KVector3 getScale();
+	KVector3 getPosition() const;
+	KVector3 getRotation() const;
+	KVector3 getScale() const;
+	KVector3 getDimensions() const;
 
 	virtual void debug();
 	virtual void update();
@@ -48,5 +51,6 @@ private:
 	KVector3* position_;
 	KVector3* rotation_;
 	KVector3* scale_;
+	KVector3* dimensions_;
 }; 
 #endif // TRANSFORM_H

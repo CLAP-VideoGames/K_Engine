@@ -60,9 +60,11 @@ void RigidBody::start(){
 	world_ = PhysicsManager::GetInstance()->getWorld();
 	
 	btTransform_ = PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
+	KVector3 dimensions = transformRf_->getDimensions();
 	KVector3 scale = transformRf_->getScale();
-	btVector3 size = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-	rb = world_->addRigidBody(type_, *btTransform_, size, bType_, mass_, restitution_, friction_, 0, 0);
+	btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
+	btVector3 dimensions_ = { (btScalar)dimensions.x, (btScalar)dimensions.y, (btScalar)dimensions.z };
+	rb = world_->addRigidBody(type_, *btTransform_, dimensions_ , scale_, bType_, mass_, restitution_, friction_, 0, 0);
 }
 
 void RigidBody::update(){

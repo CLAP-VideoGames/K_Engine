@@ -82,7 +82,7 @@ int main() {
 			Entity* entity = entMan->addEntity();
 			//Configurations Scope
 			{
-				Transform* t = entity->addComponent<Transform>(); t->setScale(3.0f);
+				Transform* t = entity->addComponent<Transform>(); t->setDimensions(3.0f);
 				t->setPosition(-2, 5, 0);
 				ColliderType boxType = ColliderType::CT_SPHERE;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
@@ -98,7 +98,7 @@ int main() {
 			//Configurations Scope
 			{
 				Entity* platform = entMan->addEntity();
-				Transform* t = platform->addComponent<Transform>(); t->setScale(5.f, 1.0f, 5.f);
+				Transform* t = platform->addComponent<Transform>(); t->setDimensions(5.f, 1.0f, 5.f);
 				t->setPosition(-2.8, 0.f, 0);
 				t->setRotation(0, 0, -45);
 				ColliderType boxType = ColliderType::CT_BOX;
@@ -113,7 +113,7 @@ int main() {
 			//Configurations Scope
 			{
 				Entity* platform = entMan->addEntity();
-				Transform* t = platform->addComponent<Transform>(); t->setScale(5.f, 1.0f, 5.f);
+				Transform* t = platform->addComponent<Transform>(); t->setDimensions(5.f, 1.0f, 5.f);
 				t->setPosition(2.8, 0.f, 0);
 				t->setRotation(0, 0, 45);
 				ColliderType boxType = ColliderType::CT_BOX;
