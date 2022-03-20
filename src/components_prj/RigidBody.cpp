@@ -23,6 +23,8 @@ RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass) :
 	type_ = type;
 	bType_ = bType;
 	mass_ = mass;
+	friction_ = 0.3;
+	restitution_ = 0.1f;
 }
 
 RigidBody::~RigidBody() {
@@ -45,6 +47,14 @@ void RigidBody::setTrasConstraints(int i, bool value) {
 	traslationConstraints[i] = value;
 }
 
+void RigidBody::setRestitution(float value){
+	restitution_ = value;
+}
+
+void RigidBody::setFriction(float value){
+	friction_ = value;
+}
+
 void RigidBody::start(){
 	transformRf_ = entity->getComponent<Transform>();
 	world_ = PhysicsManager::GetInstance()->getWorld();
@@ -52,7 +62,7 @@ void RigidBody::start(){
 	btTransform_ = PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
 	CustomVector3 scale = transformRf_->getScale();
 	btVector3 size = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-	rb = world_->addRigidBody(type_, *btTransform_, size, bType_, mass_, 0, 0);
+	rb = world_->addRigidBody(type_, *btTransform_, size, bType_, mass_, restitution_, friction_, 0, 0);
 }
 
 void RigidBody::update(){

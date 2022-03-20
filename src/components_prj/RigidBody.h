@@ -31,6 +31,9 @@ public:
 	void setRotConstraints(int i, bool value);
 	void setTrasConstraints(int i, bool value);
 
+	void setRestitution(float value);
+	void setFriction(float value);
+
 	virtual void start();
 	virtual void update();
 	virtual void debug();
@@ -58,6 +61,9 @@ private:
 	//Required
 	static std::string name;
 
+	float restitution_;
+	
+	float friction_;
 	//Array of constrains for rotation in x y z
 	bool rotationConstraints[3]{ false, false, false };
 

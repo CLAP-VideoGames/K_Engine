@@ -51,7 +51,7 @@ int main() {
 			//renderMan->exampleScene();
 
 			// Physics Manager initialisation
-			PhysicsManager::Init(10, 20, { 0, -6.3, 0 }); //GetInstance() returns nullptr if Init isnt called first
+			PhysicsManager::Init(10, 20, { 0, -9.8, 0 }); //GetInstance() returns nullptr if Init isnt called first
 			PhysicsManager* physicsMan = PhysicsManager::GetInstance();
 
 			// UI Manager initialisation
@@ -86,21 +86,43 @@ int main() {
 				t->setPosition(-2, 5, 0);
 				ColliderType boxType = ColliderType::CT_SPHERE;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
-				float mass = 1.0f;
+				float mass = 2.0f;
 				RigidBody* r = entity->addComponent<RigidBody>(boxType, bodyType, mass);
-				MeshRenderer* m = entity->addComponent<MeshRenderer>(); m->debug();
+				r->setFriction(0.6f);
+				r->setRestitution(1.2f);
+				MeshRenderer* m = entity->addComponent<MeshRenderer>();
+				m->setMesh("sphere.mesh");
+				m->setMaterial("K_Engine/PrototypeBlue");
 			}
 			
 			//Configurations Scope
-			Entity* platform = entMan->addEntity();
 			{
+				Entity* platform = entMan->addEntity();
 				Transform* t = platform->addComponent<Transform>(); t->setScale(5.f, 1.0f, 5.f);
 				t->setPosition(-2.8, 0.f, 0);
 				t->setRotation(0, 0, -45);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType = BodyType::BT_STATIC;
 				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);
-				MeshRenderer* m = platform->addComponent<MeshRenderer>(); m->debug();
+				r->setRestitution(0.8f);
+				MeshRenderer* m = platform->addComponent<MeshRenderer>();
+				m->setMesh("cube.mesh");
+				m->setMaterial("K_Engine/PrototypeOrange");
+			}
+
+			//Configurations Scope
+			{
+				Entity* platform = entMan->addEntity();
+				Transform* t = platform->addComponent<Transform>(); t->setScale(5.f, 1.0f, 5.f);
+				t->setPosition(2.8, 0.f, 0);
+				t->setRotation(0, 0, 45);
+				ColliderType boxType = ColliderType::CT_BOX;
+				BodyType bodyType = BodyType::BT_STATIC;
+				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);
+				r->setRestitution(0.8f);
+				MeshRenderer* m = platform->addComponent<MeshRenderer>();
+				m->setMesh("cube.mesh");
+				m->setMaterial("K_Engine/PrototypeOrange");
 			}
 
 			SDL_GameController* c = SDL_GameControllerOpen(0);

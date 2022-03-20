@@ -15,6 +15,7 @@
 std::string MeshRenderer::name = "MeshRenderer";
 
 MeshRenderer::MeshRenderer(Entity* e) : Component("MeshRenderer", e) { 
+	mNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 }
 
 MeshRenderer::~MeshRenderer() {}
@@ -46,6 +47,14 @@ void MeshRenderer::setMaterial(std::string nMaterial) {
 	}
 }
 
+void MeshRenderer::setMesh(std::string mesh){
+	if (mNode) {
+		mNode->detachAllObjects();
+		mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity(mesh);
+		mNode->attachObject(mEntity);
+	}
+}
+
 Ogre::Quaternion MeshRenderer::EulerToQuaternion(CustomVector3 const& rot){
 	Ogre::Matrix3 mx;
 	mx.FromEulerAnglesYXZ(Ogre::Radian(rot.y), Ogre::Radian(rot.x), Ogre::Radian(rot.z));
@@ -53,11 +62,11 @@ Ogre::Quaternion MeshRenderer::EulerToQuaternion(CustomVector3 const& rot){
 	return result;
 }
 
-void MeshRenderer::setSinbad()
-{
-	mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("cubeTest.mesh");
-	mNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
-	mNode->attachObject(mEntity);
+void MeshRenderer::setSinbad(){
+	if(mNode){
+		mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
+		mNode->attachObject(mEntity);
+	}
 }
 
 void MeshRenderer::syncScale() {

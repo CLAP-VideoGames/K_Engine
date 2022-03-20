@@ -33,6 +33,7 @@ public:
 	void setVisible(bool value);
 
 	void setMaterial(std::string nMaterial);
+	void setMesh(std::string mesh);
 
 	Ogre::Quaternion EulerToQuaternion(CustomVector3 const& rot);
 

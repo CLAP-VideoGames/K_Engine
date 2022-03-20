@@ -63,8 +63,8 @@ DynamicsWorld::~DynamicsWorld(){
 	//The remaining objects are deleted by themselves as they are unique pointers
 }
 
-btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, BodyType bT, float mass,  int group,
-							int mask, CollisionListener* colList){
+btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& size, BodyType bT, float mass,  float restitution, float friction, 
+										 int group, int mask, CollisionListener* colList){
 	btDefaultMotionState* state = new btDefaultMotionState(transform);
 	btCollisionShape* cs = NULL;
 	switch (ct) {
@@ -88,7 +88,11 @@ btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& tra
 			break;
 	}
 	
-	auto rb = new btRigidBody(mass, state, cs, inertia);
+	btRigidBody::btRigidBodyConstructionInfo bodyCI = btRigidBody::btRigidBodyConstructionInfo(mass, state, cs, inertia);
+	bodyCI.m_restitution = restitution;
+	bodyCI.m_friction = friction;
+
+	auto rb = new btRigidBody(bodyCI);
 	btWorld_->addRigidBody(rb/*, group, mask*/);
 	
 	if(colList != nullptr)
