@@ -20,45 +20,47 @@ class SDL_Window;
 
 class KCamera;
 
-class RenderManager {
-public:
-	RenderManager();
-	~RenderManager();
+namespace K_Engine {
+	class RenderManager {
+	public:
+		RenderManager();
+		~RenderManager();
 
-	static RenderManager* GetInstance();
+		static RenderManager* GetInstance();
 
-	static bool Init(std::string n);
-	static bool Shutdown();
+		static bool Init(std::string n);
+		static bool Shutdown();
 
-	void render();
+		void render();
 
-	void exampleScene();
+		void exampleScene();
 
-	Ogre::Root* getRoot();
-	Ogre::SceneManager* getSceneManager();
-	Ogre::RenderTarget* getRenderWindow();
-	KCamera* getCamera();
+		Ogre::Root* getRoot();
+		Ogre::SceneManager* getSceneManager();
+		Ogre::RenderTarget* getRenderWindow();
+		KCamera* getCamera();
 
-private:
-	static std::unique_ptr<RenderManager> instance;
+	private:
+		static std::unique_ptr<RenderManager> instance;
 
-	std::string name;
+		std::string name;
 
-	Ogre::Root* mRoot;
-	Ogre::SceneManager* mSM;
-	Ogre::FileSystemLayer* mFSLayer;
+		Ogre::Root* mRoot;
+		Ogre::SceneManager* mSM;
+		Ogre::FileSystemLayer* mFSLayer;
 
-	SDL_Window* mSDLWin;
-	Ogre::RenderWindow* mRenderWin;
+		SDL_Window* mSDLWin;
+		Ogre::RenderWindow* mRenderWin;
 
-	KCamera* mCamera;
+		KCamera* mCamera;
 
-	void initRoot();
-	void initWindow();
-	void initResources();
-	void initScene();
+		void initRoot();
+		void initWindow();
+		void initResources();
+		void initScene();
 
-	void closeContext();
-	void closeWindow();
-};
+		void closeContext();
+		void closeWindow();
+	};
+}
 #endif // RENDERMANAGER_H

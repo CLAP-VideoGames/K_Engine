@@ -46,8 +46,8 @@ int main() {
 			KTimer timer = KTimer();
 
 			// Render Manager initialisation
-			RenderManager::Init("K_Engine"); //GetInstance() returns nullptr if Init isnt called first
-			RenderManager* renderMan = RenderManager::GetInstance();
+			K_Engine::RenderManager::Init("K_Engine"); //GetInstance() returns nullptr if Init isnt called first
+			K_Engine::RenderManager* renderMan = K_Engine::RenderManager::GetInstance();
 			//renderMan->exampleScene();
 
 			// Physics Manager initialisation
@@ -137,8 +137,7 @@ int main() {
 				while (accFrameTime >= DELTA_TIME) {
 					inputMan->update();
 
-					run = !(inputMan->controllerButtonPressed(CONTROLLER_BUTTON_B) 
-						|| inputMan->isKeyDown(SCANCODE_ESCAPE));
+					run = (!inputMan->controllerButtonPressed(CONTROLLER_BUTTON_B) && !inputMan->isKeyDown(SCANCODE_ESCAPE));
 					
 					entMan->update();
 					physicsMan->update();
@@ -151,7 +150,7 @@ int main() {
 			AudioManager::Shutdown();
 			UIManager::Shutdown();
 			PhysicsManager::Shutdown();
-			RenderManager::Shutdown();
+			K_Engine::RenderManager::Shutdown();
 			delete entMan;
 		}
 		catch (Ogre::Exception& e) {

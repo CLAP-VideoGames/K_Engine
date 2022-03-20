@@ -15,7 +15,7 @@
 std::string MeshRenderer::name = "MeshRenderer";
 
 MeshRenderer::MeshRenderer(Entity* e) : Component("MeshRenderer", e) { 
-	mNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+	mNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 }
 
 MeshRenderer::~MeshRenderer() {}
@@ -50,7 +50,7 @@ void MeshRenderer::setMaterial(std::string nMaterial) {
 void MeshRenderer::setMesh(std::string mesh){
 	if (mNode) {
 		mNode->detachAllObjects();
-		mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity(mesh);
+		mEntity = K_Engine::RenderManager::GetInstance()->getSceneManager()->createEntity(mesh);
 		mNode->attachObject(mEntity);
 	}
 }
@@ -64,7 +64,7 @@ Ogre::Quaternion MeshRenderer::EulerToQuaternion(KVector3 const& rot){
 
 void MeshRenderer::setSinbad(){
 	if(mNode){
-		mEntity = RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
+		mEntity = K_Engine::RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
 		mNode->attachObject(mEntity);
 	}
 }

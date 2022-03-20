@@ -9,15 +9,15 @@
 
 KCamera::KCamera()
 {
-	mCamera = RenderManager::GetInstance()->getSceneManager()->createCamera("K_Engine_Cam");
+	mCamera = K_Engine::RenderManager::GetInstance()->getSceneManager()->createCamera("K_Engine_Cam");
 	mCamera->setAutoAspectRatio(true);
 
-	mCameraNode = RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+	mCameraNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	mCameraNode->setPosition(0, 0, 0);
 	mCameraNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
 	mCameraNode->attachObject(mCamera);
 
-	RenderManager::GetInstance()->getRenderWindow()->addViewport(mCamera);
+	K_Engine::RenderManager::GetInstance()->getRenderWindow()->addViewport(mCamera);
 }
 
 KCamera::~KCamera() = default;
