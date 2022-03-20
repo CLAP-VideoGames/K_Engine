@@ -1,5 +1,7 @@
 #include "Transform.h"
-
+#include "RigidBody.h"
+#include "MeshRenderer.h"
+#include <ecs_prj/Entity.h>
 #include <utils_prj/KVector3.h>
 
 std::string Transform::name = "Transform";
@@ -38,6 +40,17 @@ void Transform::rotate(float x, float y, float z) {
 void Transform::scale(float x, float y, float z){
 	KVector3 toAdd = { x, y, z };
 	(*scale_) += toAdd;
+
+	RigidBody* rb = entity->getComponent<RigidBody>();
+	if (rb) {
+		rb->syncScale();
+	}
+
+	MeshRenderer* mR = entity->getComponent<MeshRenderer>();
+	if (mR) {
+		mR->syncScale();
+	}
+
 }
 
 void Transform::setPosition(float x, float y, float z) {

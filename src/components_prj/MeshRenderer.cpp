@@ -28,10 +28,10 @@ void MeshRenderer::debug(){
 void MeshRenderer::start(){
 	transformRf = entity->getComponent<Transform>();
 	mNode->showBoundingBox(true);
+	syncDimensions();
 }
 
 void MeshRenderer::update(){
-	syncScale();
 	syncPosition();
 	syncRotation();
 }
@@ -70,6 +70,13 @@ void MeshRenderer::setSinbad(){
 }
 
 void MeshRenderer::syncScale() {
+	transformRf = entity->getComponent<Transform>();
+	KVector3 scaleT = transformRf->getScale();
+
+	mNode->scale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
+}
+
+void MeshRenderer::syncDimensions(){
 	transformRf = entity->getComponent<Transform>();
 	KVector3 scaleT = transformRf->getDimensions();
 

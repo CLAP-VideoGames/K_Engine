@@ -37,6 +37,9 @@ public:
 	virtual void start();
 	virtual void update();
 	virtual void debug();
+
+	void syncScale();
+
 private:
 	//Reference to transform Component
 	Transform* transformRf_ = nullptr;

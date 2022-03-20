@@ -36,10 +36,12 @@ public:
 	void setMesh(std::string mesh);
 
 	Ogre::Quaternion EulerToQuaternion(KVector3 const& rot);
+	void syncScale();
 
 private:
-	void syncScale();
 	
+	void syncDimensions();
+
 	void syncPosition();
 
 	void syncRotation();

@@ -63,6 +63,11 @@ DynamicsWorld::~DynamicsWorld(){
 	//The remaining objects are deleted by themselves as they are unique pointers
 }
 
+void DynamicsWorld::scaleCollisionShape(btRigidBody* rb, btVector3 const& scale){
+	btCollisionShape* cs = rb->getCollisionShape();
+	cs->setLocalScaling(scale);
+}
+
 btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const& size, BodyType bT, float mass,  float restitution, float friction,
 										 int group, int mask, CollisionListener* colList){
 	btDefaultMotionState* state = new btDefaultMotionState(transform);
@@ -98,6 +103,9 @@ btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& tra
 	if(colList != nullptr)
 		rb->setUserPointer(colList);
 	
+	
+	//btCollisionShape::setLocalScaling();
+
 	return rb;
 }
 
