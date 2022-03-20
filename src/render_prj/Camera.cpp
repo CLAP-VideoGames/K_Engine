@@ -64,7 +64,7 @@ std::vector<float> KCamera::getCameraPosition()
 
 std::vector<float> KCamera::getCameraDirection()
 {
-	return std::vector<float>();
+	return { mCamera->getRealDirection().x, mCamera->getRealDirection().y, mCamera->getRealDirection().z};
 }
 
 void KCamera::yaw(float angle)

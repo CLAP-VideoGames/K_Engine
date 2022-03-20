@@ -18,16 +18,28 @@ public:
 	KCamera();
 	~KCamera();
 
+	// Sets the distance to the near clipping plane.
 	void setNearClipDistance(float nClip);
+	
+	// Sets the distance to the far clipping plane.
 	void setFarClipDistance(float fClip);
 
+	// Moves the camera from its original position
 	void translateCamera(float x, float y, float z);
+
+	// Set the position of the camera
 	void setCameraPos(float x, float y, float z);
 
+	// Rotate the camera to a certain direction, depending on the angle it receives
 	void rotateCamera(float pitchAngle, float yawAngle, float rollAngle);
 
+	// Returns the object Camera
 	Ogre::Camera* getCamera();
+
+	// Returns the position of the camera
 	std::vector<float> getCameraPosition();
+	
+	// Returns the direction the camera is looking at
 	std::vector<float> getCameraDirection();
 
 private:
