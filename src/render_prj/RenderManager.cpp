@@ -73,6 +73,8 @@ namespace K_Engine {
 	}
 
 	void RenderManager::render() {
+		mCamera->update();
+
 		mRoot->renderOneFrame();
 	}
 
@@ -194,10 +196,10 @@ namespace K_Engine {
 		lightNode->attachObject(light);
 
 		// We create a camera and assign it to a viewport
-		KCamera* cam = new KCamera();
-		cam->setNearClipDistance(5);
-		cam->setFarClipDistance(10000);
-		cam->setCameraPos(0, 0, 15);
+		mCamera = new KCamera();
+		mCamera->setNearClipDistance(5);
+		mCamera->setFarClipDistance(10000);
+		mCamera->setCameraPos(0, 15, 15);
 	}
 
 	void RenderManager::closeContext()

@@ -93,6 +93,7 @@ int main() {
 				MeshRenderer* m = entity->addComponent<MeshRenderer>();
 				m->setMesh("sphere.mesh");
 				m->setMaterial("K_Engine/PrototypeBlue");
+				m->debug();
 			}
 			
 			//Configurations Scope

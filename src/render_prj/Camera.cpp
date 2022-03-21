@@ -2,6 +2,8 @@
 
 #include <render_prj/RenderManager.h>
 
+#include <input_prj/InputManager.h>
+
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
@@ -10,6 +12,8 @@
 namespace K_Engine {
 	KCamera::KCamera()
 	{
+		debugMovement = false;
+
 		mCamera = K_Engine::RenderManager::GetInstance()->getSceneManager()->createCamera("K_Engine_Cam");
 		mCamera->setAutoAspectRatio(true);
 
@@ -53,6 +57,16 @@ namespace K_Engine {
 			roll(rollAngle);
 	}
 
+	void KCamera::setAnchor(Ogre::SceneNode* anchor)
+	{
+		mAnchorEntity = anchor;
+	}
+
+	void KCamera::update()
+	{
+		debug();
+	}
+
 	Ogre::Camera* KCamera::getCamera()
 	{
 		return mCamera;
@@ -81,5 +95,21 @@ namespace K_Engine {
 	void KCamera::roll(float angle)
 	{
 		mCameraNode->roll(Ogre::Degree(angle));
+	}
+
+	void KCamera::debug()
+	{
+		if (mAnchorEntity != nullptr && !debugMovement) mCameraNode->lookAt(mAnchorEntity->getPosition(), Ogre::Node::TS_PARENT);
+
+		if (InputManager::GetInstance()->isKeyDown(K_Engine_Keycode::KEY_a)) yaw(-0.10);
+		else if (InputManager::GetInstance()->isKeyDown(K_Engine_Keycode::KEY_d)) yaw(0.10);
+
+		else if (InputManager::GetInstance()->isKeyDown(K_Engine_Keycode::KEY_s)) pitch(-0.10);
+		else if (InputManager::GetInstance()->isKeyDown(K_Engine_Keycode::KEY_w)) pitch(0.10);
+
+		else if (InputManager::GetInstance()->isKeyDown(K_Engine_Keycode::KEY_q)) roll(-0.10);
+		else if (InputManager::GetInstance()->isKeyDown(K_Engine_Keycode::KEY_e)) roll(0.10);
+
+		debugMovement = InputManager::GetInstance()->isKeyDown(K_Engine_Keycode::KEY_SPACE);
 	}
 }

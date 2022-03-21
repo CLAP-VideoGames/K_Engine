@@ -6,7 +6,6 @@
 #include <vector>
 
 namespace Ogre {
-	class Root;
 	class Camera;
 	class SceneNode;
 	class SceneManager;
@@ -35,6 +34,10 @@ namespace K_Engine {
 		// Rotate the camera to a certain direction, depending on the angle it receives
 		void rotateCamera(float pitchAngle, float yawAngle, float rollAngle);
 
+		void setAnchor(Ogre::SceneNode* anchor);
+
+		void update();
+
 		// Returns the object Camera
 		Ogre::Camera* getCamera();
 
@@ -48,10 +51,15 @@ namespace K_Engine {
 		Ogre::Camera* mCamera;
 		Ogre::SceneNode* mCameraNode;
 		Ogre::Viewport* mViewport;
+		Ogre::SceneNode* mAnchorEntity;
+
+		bool debugMovement;
 
 		void yaw(float angle);		// Rotate in Y axis 
 		void pitch(float angle);	// Rotate in X axis
 		void roll(float angle);		// Rotate in Z axis
+
+		void debug();
 	};
 }
 #endif // CAMERA_H_

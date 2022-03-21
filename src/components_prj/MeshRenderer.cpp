@@ -5,6 +5,7 @@
 #include <ecs_prj/Entity.h>
 
 #include <render_prj/RenderManager.h>
+#include <render_prj/Camera.h>
 #include <utils_prj/KVector3.h>
 
 #include <OgreEntity.h>
@@ -21,8 +22,7 @@ MeshRenderer::MeshRenderer(Entity* e) : Component("MeshRenderer", e) {
 MeshRenderer::~MeshRenderer() {}
 
 void MeshRenderer::debug(){
-	setSinbad();
-	setMaterial("Ogre/Skin");
+	K_Engine::RenderManager::GetInstance()->getCamera()->setAnchor(mNode);
 }
 
 void MeshRenderer::start(){
