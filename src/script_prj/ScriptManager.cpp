@@ -27,19 +27,20 @@ ScriptManager* ScriptManager::GetInstance() {
 
 bool ScriptManager::Init(const std::string& filename)
 {
-    L = luaL_newstate();
-    if (luaL_loadfile(L, filename.c_str()) || lua_pcall(L, 0, 0, 0)) {
+    instance.get()->luaState = luaL_newstate();
+    if (luaL_loadfile(instance.get()->luaState, filename.c_str()) || lua_pcall(instance.get()->luaState, 0, 0, 0)) {
         std::cout << "Error: script not loaded (" << filename << ")" << std::endl;
-        L = 0;
+        instance.get()->luaState = 0;
     }
+    luaL_openlibs(instance.get()->luaState); // load default Lua libs
 
-	return true;
+    return true;
 }
 
 bool ScriptManager::Shutdown()
 {
-    if (L) lua_close(L);
-	return true;
+    if (instance.get()->luaState) lua_close(instance.get()->luaState);
+    return true;
 }
 
 void ScriptManager::printError(const std::string& variableName, const std::string& reason)
@@ -47,16 +48,26 @@ void ScriptManager::printError(const std::string& variableName, const std::strin
     std::cout << "Error: can't get [" << variableName << "]. " << reason << std::endl;
 }
 
-//Tuto
-//https://eliasdaler.wordpress.com/2013/10/11/lua_cpp_binder/
-template <>
-inline std::string ScriptManager::lua_getdefault() {
+template<typename T>
+T ScriptManager::lua_getdefault(const std::string& variableName) {
+    return 0;
+}
+
+template<>
+std::string ScriptManager::lua_getdefault(const std::string& variableName) {
     return "null";
 }
 
+//Clean LuaStack
+void ScriptManager::clean()
+{
+    int n = lua_gettop(luaState);
+    lua_pop(luaState, n);
+}
+
 template<typename T>
-T get(const std::string& variableName) {
-    if (!L) {
+T ScriptManager::get(const std::string& variableName) {
+    if (!luaState) {
         printError(variableName, "Script is not loaded");
         return lua_getdefault<T>();
     }
@@ -69,7 +80,7 @@ T get(const std::string& variableName) {
         result = lua_getdefault<T>();
     }
 
-    lua_pop(L, level + 1); // pop all existing elements from stack
+    lua_pop(luaState, level + 1); // pop all existing elements from stack
     return result;
 }
 
@@ -79,13 +90,13 @@ bool ScriptManager::lua_gettostack(const std::string& variableName) {
     for (unsigned int i = 0; i < variableName.size(); i++) {
         if (variableName.at(i) == '.') {
             if (level == 0) {
-                lua_getglobal(L, var.c_str());
+                lua_getglobal(luaState, var.c_str());
             }
             else {
-                lua_getfield(L, -1, var.c_str());
+                lua_getfield(luaState, -1, var.c_str());
             }
 
-            if (lua_isnil(L, -1)) {
+            if (lua_isnil(luaState, -1)) {
                 printError(variableName, var + " is not defined");
                 return false;
             }
@@ -99,12 +110,12 @@ bool ScriptManager::lua_gettostack(const std::string& variableName) {
         }
     }
     if (level == 0) {
-        lua_getglobal(L, var.c_str());
+        lua_getglobal(luaState, var.c_str());
     }
     else {
-        lua_getfield(L, -1, var.c_str());
+        lua_getfield(luaState, -1, var.c_str());
     }
-    if (lua_isnil(L, -1)) {
+    if (lua_isnil(luaState, -1)) {
         printError(variableName, var + " is not defined");
         return false;
     }
@@ -112,128 +123,74 @@ bool ScriptManager::lua_gettostack(const std::string& variableName) {
     return true;
 }
 
-template <>
-inline bool template <>
-inline bool LuaScript::lua_get(const std::string& variableName) {
-    return (bool)lua_toboolean(L, -1);
+template<>
+bool ScriptManager::lua_get(const std::string& variableName) {
+    return (bool)lua_toboolean(luaState, -1);
 }
 
-template <>
-inline float LuaScript::lua_get(const std::string& variableName) {
-    if (!lua_isnumber(L, -1)) {
+template<>
+float ScriptManager::lua_get(const std::string& variableName) {
+    if (!lua_isnumber(luaState, -1)) {
+    printError(variableName, "Not a number");
+    }
+    return (float)lua_tonumber(luaState, -1);
+}
+
+template<>
+int ScriptManager::lua_get(const std::string& variableName) {
+    if (!lua_isnumber(luaState, -1)) {
         printError(variableName, "Not a number");
     }
-    return (float)lua_tonumber(L, -1);
+    return (int)lua_tonumber(luaState, -1);
 }
 
-template <>
-inline int LuaScript::lua_get(const std::string& variableName) {
-    if (!lua_isnumber(L, -1)) {
-        printError(variableName, "Not a number");
-    }
-    return (int)lua_tonumber(L, -1);
-}
-
-template <>
-inline std::string LuaScript::lua_get(const std::string& variableName) {
+template<>
+std::string ScriptManager::lua_get(const std::string& variableName) {
     std::string s = "null";
-    if (lua_isstring(L, -1)) {
-        s = std::string(lua_tostring(L, -1));
+    if (lua_isstring(luaState, -1)) {
+        s = std::string(lua_tostring(luaState, -1));
     }
     else {
         printError(variableName, "Not a string");
     }
     return s;
-}::lua_get(const std::string& variableName) {
-    return (bool)lua_toboolean(L, -1);
 }
 
-template <>
-inline float template <>
-inline bool LuaScript::lua_get(const std::string& variableName) {
-    return (bool)lua_toboolean(L, -1);
+//Array getters
+template<typename T>
+std::vector<T> ScriptManager::getArray(const std::string& name) {
+    std::vector<T> v;
+    if (!lua_gettostack(name.c_str())) {
+        printError(name, "Array not found");
+        clean();
+        return std::vector<T>();
+    }
+    lua_pushnil(luaState);
+    while (lua_next(luaState, -2)) {
+        if (lua_isnumber(luaState, -1)) {
+            v.push_back((T)lua_tonumber(luaState, -1));
+        }
+        lua_pop(luaState, 1);
+    }
+    clean();
+    return v;
 }
 
-template <>
-inline float LuaScript::lua_get(const std::string& variableName) {
-    if (!lua_isnumber(L, -1)) {
-        printError(variableName, "Not a number");
+template<>
+std::vector<std::string> ScriptManager::getArray(const std::string& name) {
+    std::vector<std::string> v;
+    if (!lua_gettostack(name.c_str())) {
+        printError(name, "Array not found");
+        clean();
+        return std::vector<std::string>();
     }
-    return (float)lua_tonumber(L, -1);
-}
-
-template <>
-inline int template <>
-inline bool LuaScript::lua_get(const std::string& variableName) {
-    return (bool)lua_toboolean(L, -1);
-}
-
-template <>
-inline float LuaScript::lua_get(const std::string& variableName) {
-    if (!lua_isnumber(L, -1)) {
-        printError(variableName, "Not a number");
+    lua_pushnil(luaState);
+    while (lua_next(luaState, -2)) {
+        if (lua_isstring(luaState, - 1)) {
+            v.push_back(std::string(lua_tostring(luaState, -1)));
+        }
+        lua_pop(luaState, 1);
     }
-    return (float)lua_tonumber(L, -1);
-}
-
-template <>
-inline int ScripManager::lua_get(const std::string& variableName) {
-    if (!lua_isnumber(L, -1)) {
-        printError(variableName, "Not a number");
-    }
-    return (int)lua_tonumber(L, -1);
-}
-
-template <>
-inline std::string ScripManager::lua_get(const std::string& variableName) {
-    std::string s = "null";
-    if (lua_isstring(L, -1)) {
-        s = std::string(lua_tostring(L, -1));
-    }
-    else {
-        printError(variableName, "Not a string");
-    }
-    return s;
-}::lua_get(const std::string& variableName) {
-    if (!lua_isnumber(L, -1)) {
-        printError(variableName, "Not a number");
-    }
-    return (int)lua_tonumber(L, -1);
-}
-
-template <>
-inline std::string ScripManager::lua_get(const std::string& variableName) {
-    std::string s = "null";
-    if (lua_isstring(L, -1)) {
-        s = std::string(lua_tostring(L, -1));
-    }
-    else {
-        printError(variableName, "Not a string");
-    }
-    return s;
-}::lua_get(const std::string& variableName) {
-    if (!lua_isnumber(L, -1)) {
-        printError(variableName, "Not a number");
-    }
-    return (float)lua_tonumber(L, -1);
-}
-
-template <>
-inline int LuaScript::lua_get(const std::string& variableName) {
-    if (!lua_isnumber(L, -1)) {
-        printError(variableName, "Not a number");
-    }
-    return (int)lua_tonumber(L, -1);
-}
-
-template <>
-inline std::string ScripManager::lua_get(const std::string& variableName) {
-    std::string s = "null";
-    if (lua_isstring(L, -1)) {
-        s = std::string(lua_tostring(L, -1));
-    }
-    else {
-        printError(variableName, "Not a string");
-    }
-    return s;
+    clean();
+    return v;
 }

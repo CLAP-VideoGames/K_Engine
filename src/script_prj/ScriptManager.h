@@ -4,10 +4,10 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
-namespace Lua {
-    class LuaScript;
-}
+
+typedef struct lua_State lua_State;
 
 class ScriptManager {
 public:
@@ -26,21 +26,24 @@ public:
     bool lua_gettostack(const std::string& variableName);
     // Generic get
     template<typename T>
-    T lua_get(const std::string& variableName) {
-        return 0;
-    }
+    T lua_get(const std::string& variableName);
     // Generic default get
     template<typename T>
-    T lua_getdefault(const std::string& variableName) {
-        return 0;
-    }
+    T lua_getdefault(const std::string& variableName);
+    //Generic getArray
+    template<typename T>
+    std::vector<T> getArray(const std::string& name);
 
-    inline std::string lua_getdefault();
 private:
     static std::unique_ptr<ScriptManager> instance;
     std::string name;
 
-    lua_State* L;
+    
+    lua_State* luaState;
+    int level;
+
+    //Methods
+    void clean();
 };
 
 #endif //SCRIPTMANAGER_H
