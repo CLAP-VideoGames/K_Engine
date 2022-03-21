@@ -20,7 +20,7 @@ class RigidBody : public Component
 public:
 	//Required Contructor so the component is initialized properly
 	RigidBody(Entity* e);
-	RigidBody(Entity* e,ColliderType type_, BodyType bType_, float mass);
+	RigidBody(Entity* e,ColliderType type_, BodyType bType_, float mass, int group_ = 1, int mask_ = 1);
 	~RigidBody();
 
 	//Required method for the component name
@@ -72,5 +72,9 @@ private:
 
 	//Array of constrains for traslation in x y z
 	bool traslationConstraints[3]{ false, false, false };
+
+	//Collision filtering
+	int group_;
+	int mask_;
 };
 #endif // RIGIDBODY_H

@@ -18,13 +18,16 @@ RigidBody::RigidBody(Entity* e) : Component("RigidBody", e) {
 	name = id;
 }
 
-RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass) : Component("RigidBody", e) {
+RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int group, int mask) : Component("RigidBody", e) {
 	name = id;
 	type_ = type;
 	bType_ = bType;
 	mass_ = mass;
 	friction_ = 0.3;
 	restitution_ = 0.1f;
+
+	group_ = group;
+	mask_ = mask;
 }
 
 RigidBody::~RigidBody() {
@@ -64,7 +67,7 @@ void RigidBody::start(){
 	KVector3 scale = transformRf_->getScale();
 	btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 	btVector3 dimensions_ = { (btScalar)dimensions.x, (btScalar)dimensions.y, (btScalar)dimensions.z };
-	rb = world_->addRigidBody(type_, *btTransform_, dimensions_ , scale_, bType_, mass_, restitution_, friction_, 0, 0);
+	rb = world_->addRigidBody(type_, *btTransform_, dimensions_ , scale_, bType_, mass_, restitution_, friction_, group_, mask_);
 }
 
 void RigidBody::update(){

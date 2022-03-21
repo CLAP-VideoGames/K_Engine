@@ -98,7 +98,7 @@ btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& tra
 	bodyCI.m_friction = friction;
 
 	auto rb = new btRigidBody(bodyCI);
-	btWorld_->addRigidBody(rb/*, group, mask*/);
+	btWorld_->addRigidBody(rb, group, mask);
 	
 	if(colList != nullptr)
 		rb->setUserPointer(colList);
