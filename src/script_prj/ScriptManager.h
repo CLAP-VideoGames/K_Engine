@@ -6,6 +6,9 @@
 #include <string>
 #include <vector>
 
+namespace luabridge {
+    class LuaRef;
+}
 
 typedef struct lua_State lua_State;
 
@@ -41,9 +44,9 @@ private:
     
     lua_State* luaState;
     int level;
-
-    //Methods
-    void clean();
+    //Clean LuaStack top
+    static void clean();
+    bool checkLua(lua_State* L, int r);
 };
 
 #endif //SCRIPTMANAGER_H

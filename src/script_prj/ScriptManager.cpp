@@ -34,12 +34,20 @@ bool ScriptManager::Init(const std::string& filename)
     }
     luaL_openlibs(instance.get()->luaState); // load default Lua libs
 
+    //Registro de las funciones
+
+    if (instance.get()->luaState) {
+
+    }
+    else throw exception("ERROR: LUA wasn't compile correctly");
+
     return true;
 }
 
 bool ScriptManager::Shutdown()
 {
-    if (instance.get()->luaState) lua_close(instance.get()->luaState);
+    if (instance.get()->luaState) 
+        lua_close(instance.get()->luaState);
     return true;
 }
 
@@ -58,11 +66,10 @@ std::string ScriptManager::lua_getdefault(const std::string& variableName) {
     return "null";
 }
 
-//Clean LuaStack
 void ScriptManager::clean()
 {
-    int n = lua_gettop(luaState);
-    lua_pop(luaState, n);
+    int n = lua_gettop(instance.get()->luaState);
+    lua_pop(instance.get()->luaState, n);
 }
 
 template<typename T>
@@ -117,6 +124,18 @@ bool ScriptManager::lua_gettostack(const std::string& variableName) {
     }
     if (lua_isnil(luaState, -1)) {
         printError(variableName, var + " is not defined");
+        return false;
+    }
+
+    return true;
+}
+
+bool ScriptManager::checkLua(lua_State* L, int r)
+{
+    if (r != LUA_OK)
+    {
+        string errormsg = lua_tostring(L, -1);
+        cout << errormsg << endl;
         return false;
     }
 
