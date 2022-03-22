@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include <lua.hpp>
 
 extern "C" {
 #include <lua.h>
@@ -95,9 +96,13 @@ void ScriptManager::registerClassesandFunctions(lua_State* L)
     //GRAPHICS
     //PHYSICS
     //UI
+    //SCENE
+    //LUA
+    getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
+        .endClass();
 }
 
-bool ScriptManager::reloadLuaScript(const char* luafile)
+bool ScriptManager::reloadLuaScript(const std::string& luafile)
 {
-    return checkLua(luaState, luaL_dofile(luaState, luafile));
+    return checkLua(luaState, luaL_dofile(luaState, luafile.c_str()));
 }

@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <string>
+#include <map>
 
 #define SCRIPTS_FILE_PATH "assets/scripts/"
 #define FILE_EXTENSION ".lua"
@@ -40,7 +41,7 @@ private:
     //Clases y funciones de otros proyectos
     void registerClassesandFunctions(lua_State* L);
     //Reload Lua Script
-    bool reloadLuaScript(const char* luafile);
+    bool reloadLuaScript(const std::string& luafile);
 };
 
 #endif //SCRIPTMANAGER_H
