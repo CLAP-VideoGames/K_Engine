@@ -4,7 +4,9 @@
 
 #include <memory>
 #include <string>
-#include <vector>
+
+#define SCRIPTS_FILE_PATH "assets/scripts/"
+#define FILE_EXTENSION ".lua"
 
 namespace luabridge {
     class LuaRef;
@@ -22,31 +24,23 @@ public:
     static bool Init(const std::string& filename);
     static bool Shutdown();
 
-    void printError(const std::string& variableName, const std::string& reason);
-
-    template<typename T>
-    T get(const std::string& variableName);
-    bool lua_gettostack(const std::string& variableName);
-    // Generic get
-    template<typename T>
-    T lua_get(const std::string& variableName);
-    // Generic default get
-    template<typename T>
-    T lua_getdefault(const std::string& variableName);
-    //Generic getArray
-    template<typename T>
-    std::vector<T> getArray(const std::string& name);
+    luabridge::LuaRef getLuaClass(const std::string& c_name);
+    //luabridge::LuaRef getLuaHost(Entity* ent, const std::string& e_name);
 
 private:
-    static std::unique_ptr<ScriptManager> instance;
-    std::string name;
+    static std::unique_ptr<ScriptManager> instance; 
 
-    
     lua_State* luaState;
-    int level;
+    std::map<std::string, luabridge::LuaRef> classes_;
+    
     //Clean LuaStack top
     static void clean();
+    //Check lua scripting
     bool checkLua(lua_State* L, int r);
+    //Clases y funciones de otros proyectos
+    void registerClassesandFunctions(lua_State* L);
+    //Reload Lua Script
+    bool reloadLuaScript(const char* luafile);
 };
 
 #endif //SCRIPTMANAGER_H
