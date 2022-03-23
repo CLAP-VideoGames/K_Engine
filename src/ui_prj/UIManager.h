@@ -15,6 +15,32 @@ namespace CEGUI {
 	class FrameWindow;
 }
 
+enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image};
+
+/// <summary>
+/// type = Button/Label/whatever you need to put in the scheme
+/// Text = "" if it has no text or "whatever" if it has text
+/// wnd = the window CEGUI return from its creation, so we accest it
+/// </summary>
+struct UiElement {
+
+	UITypes type;
+	FrameWindow* wnd;
+	
+	// createButton(string mesg, std::Pair<float,float> size, std::Pair<float,float> pos){
+	// UIELement newJIHAEW;
+	//																	IMPORTANT SHIT					
+	// FrameWindow* wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/Button", "Sample Window");
+	// 
+	// UIElement.wnd = wnd;
+	// type = Button;
+	// 
+	// return newJIHAEW;
+	// }
+	//wnd->setText(text);
+	//return wnd;
+};
+
 namespace K_Engine {
 	class UIManager {
 	public:
@@ -37,6 +63,7 @@ namespace K_Engine {
 		CEGUI::WindowManager* winMgr;
 		CEGUI::OgreRenderer* m_renderer;
 		CEGUI::FrameWindow* wnd;
+
 
 		void initContext();
 		void initRoot();

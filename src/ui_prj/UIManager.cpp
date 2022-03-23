@@ -42,8 +42,6 @@ namespace K_Engine {
         return true;
     }
 
-
-
     bool UIManager::handleHelloWorldClicked(const CEGUI::EventArgs& args)
     {
         std::cout << "Hello World!" << std::endl;
@@ -82,6 +80,7 @@ namespace K_Engine {
         //
         // Create a DefaultWindow called 'Root'.
         mRoot = (DefaultWindow*)winMgr->createWindow("DefaultWindow", "Root");
+        mRoot->setUsingAutoRenderingSurface(true);
     }
 
     void UIManager::exampleUI()
