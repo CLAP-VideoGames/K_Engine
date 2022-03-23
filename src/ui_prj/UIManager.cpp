@@ -34,6 +34,8 @@ namespace K_Engine {
 
             instance.get()->initContext();
             instance.get()->initRoot();
+
+            CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
         }
         catch (const std::exception&) {
             return false;
@@ -86,6 +88,15 @@ namespace K_Engine {
 
     void UIManager::exampleUI()
     {
+
+       SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+       /* CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>
+            (CEGUI::System::getSingleton().getResourceProvider());
+
+        rp->setResourceGroupDirectory("layouts", "Layouts");*/
+
+        //CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+
         // CEGUI relies on various systems being set-up, so this is what we do
         // here first.
         //
@@ -96,7 +107,7 @@ namespace K_Engine {
         // So, we use the SchemeManager singleton to load in a scheme that loads the
         // imagery and registers widgets for the TaharezLook skin.  This scheme also
         // loads in a font that gets used as the system default.
-        SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+        CEGUI::Window* wnd =  winMgr->loadLayoutFromFile("TaharezLookOverview.layout");
 
         // The next thing we do is to set a default cursor image.  This is
         // not strictly essential, although it is nice to always have a visible
@@ -118,7 +129,7 @@ namespace K_Engine {
         // and resized.
         //
         // Create a FrameWindow in the TaharezLook style, and name it 'Sample Window'
-        FrameWindow* wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/FrameWindow", "Sample Window");
+        //FrameWindow* wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/FrameWindow", "Sample Window");
 
         // Here we attach the newly created FrameWindow to the previously created
         // DefaultWindow which we will be using as the root of the displayed gui.

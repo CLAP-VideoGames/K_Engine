@@ -74,6 +74,8 @@ int main() {
 			// Component Manager initialisation(Como "Lectura de un mapa")
 			ComponentManager::Init("K_EngineComponents");
 			ComponentManager* compMan = ComponentManager::GetInstance();
+
+			//Initialization of the base components
 			compMan->add<Transform>();
 			compMan->add<MeshRenderer>();
 			compMan->add<RigidBody>();
