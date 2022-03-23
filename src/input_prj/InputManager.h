@@ -14,7 +14,6 @@ union SDL_Event;
 typedef struct _SDL_GameController SDL_GameController;
 
 namespace K_Engine {
-
 	class InputManager {
 	public:
 		InputManager();

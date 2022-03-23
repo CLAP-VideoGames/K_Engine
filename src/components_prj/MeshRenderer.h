@@ -1,6 +1,7 @@
 #pragma once
 #ifndef MESHRENDERER_H
 #define MESHRENDERER_H
+
 #include <ecs_prj/Component.h>
 
 class Transform;
@@ -39,7 +40,6 @@ public:
 	void syncScale();
 
 private:
-	
 	void syncDimensions();
 
 	void syncPosition();

@@ -16,9 +16,7 @@ namespace CEGUI {
 }
 
 namespace K_Engine {
-
-	class UIManager
-	{
+	class UIManager {
 	public:
 		UIManager();
 		~UIManager();
@@ -29,6 +27,7 @@ namespace K_Engine {
 		static bool Shutdown();
 
 		void exampleUI();
+
 	private:
 		static std::unique_ptr<UIManager> instance;
 		std::string name;

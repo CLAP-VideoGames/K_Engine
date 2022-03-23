@@ -9,10 +9,10 @@
 //Podemos usar esta clase para administrar que el usuario no pueda añadir componentes
 //Sin las cosas que queremos que añada
 
-/*
-* Declaration of the Component class so we do not have
-* to include it in our file
-*/
+	/*
+	* Declaration of the Component class so we do not have
+	* to include it in our file
+	*/
 class Component;
 class Entity;
 
@@ -72,4 +72,5 @@ private:
 	//Not sure if this is going to be useful, but its simple code
 	bool existingComponent(std::string compName);
 };
+
 #endif // COMPONENTMANAGER_H

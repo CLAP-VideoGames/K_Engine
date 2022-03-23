@@ -10,7 +10,7 @@
 #include <OgreVector.h>
 
 namespace K_Engine {
-	KCamera::KCamera()
+	Camera::Camera()
 	{
 		debugMovement = false;
 
@@ -25,29 +25,29 @@ namespace K_Engine {
 		K_Engine::RenderManager::GetInstance()->getRenderWindow()->addViewport(mCamera);
 	}
 
-	KCamera::~KCamera() = default;
+	Camera::~Camera() = default;
 
-	void KCamera::setNearClipDistance(float nClip)
+	void Camera::setNearClipDistance(float nClip)
 	{
 		mCamera->setNearClipDistance(nClip);
 	}
 
-	void KCamera::setFarClipDistance(float fClip)
+	void Camera::setFarClipDistance(float fClip)
 	{
 		mCamera->setFarClipDistance(fClip);
 	}
 
-	void KCamera::translateCamera(float x, float y, float z)
+	void Camera::translateCamera(float x, float y, float z)
 	{
 		mCameraNode->translate(x, y, z);
 	}
 
-	void KCamera::setCameraPos(float x, float y, float z)
+	void Camera::setCameraPos(float x, float y, float z)
 	{
 		mCameraNode->setPosition(x, y, z);
 	}
 
-	void KCamera::rotateCamera(float pitchAngle = 0, float yawAngle = 0, float rollAngle = 0)
+	void Camera::rotateCamera(float pitchAngle = 0, float yawAngle = 0, float rollAngle = 0)
 	{
 		if (pitchAngle != 0)
 			pitch(pitchAngle);
@@ -57,47 +57,47 @@ namespace K_Engine {
 			roll(rollAngle);
 	}
 
-	void KCamera::setAnchor(Ogre::SceneNode* anchor)
+	void Camera::setAnchor(Ogre::SceneNode* anchor)
 	{
 		mAnchorEntity = anchor;
 	}
 
-	void KCamera::update()
+	void Camera::update()
 	{
 		debug();
 	}
 
-	Ogre::Camera* KCamera::getCamera()
+	Ogre::Camera* Camera::getCamera()
 	{
 		return mCamera;
 	}
 
-	std::vector<float> KCamera::getCameraPosition()
+	std::vector<float> Camera::getCameraPosition()
 	{
 		return { mCameraNode->getPosition().x, mCameraNode->getPosition().y, mCameraNode->getPosition().z };
 	}
 
-	std::vector<float> KCamera::getCameraDirection()
+	std::vector<float> Camera::getCameraDirection()
 	{
 		return { mCamera->getRealDirection().x, mCamera->getRealDirection().y, mCamera->getRealDirection().z };
 	}
 
-	void KCamera::yaw(float angle)
+	void Camera::yaw(float angle)
 	{
 		mCameraNode->yaw(Ogre::Degree(angle));
 	}
 
-	void KCamera::pitch(float angle)
+	void Camera::pitch(float angle)
 	{
 		mCameraNode->pitch(Ogre::Degree(angle));
 	}
 
-	void KCamera::roll(float angle)
+	void Camera::roll(float angle)
 	{
 		mCameraNode->roll(Ogre::Degree(angle));
 	}
 
-	void KCamera::debug()
+	void Camera::debug()
 	{
 		if (mAnchorEntity != nullptr && !debugMovement) mCameraNode->lookAt(mAnchorEntity->getPosition(), Ogre::Node::TS_PARENT);
 

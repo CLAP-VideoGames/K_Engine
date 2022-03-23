@@ -4,42 +4,42 @@
 
 #include <stack>
 
-class Scene;
+namespace K_Engine {
+	class Scene;
 
-class SceneManager
-{
-public:
-	//Default constructor
-	SceneManager();
+	class SceneManager {
+	public:
+		//Default constructor
+		SceneManager();
 
-	//Clears the scene stack
-	~SceneManager();
+		//Clears the scene stack
+		~SceneManager();
 
-	//Allows the user to pop the scenes stack
-	void popScene();
+		//Allows the user to pop the scenes stack
+		void popScene();
 
-	//Allows the user to push a new scene into the stack
-	void pushScene(Scene* newS);
+		//Allows the user to push a new scene into the stack
+		void pushScene(Scene* newS);
 
-	/// <summary>
-	/// Pops the actual scene and pushes the new scene
-	/// </summary>
-	/// <param name="newS"></param>
-	void changeScene(Scene* newS);
+		/// <summary>
+		/// Pops the actual scene and pushes the new scene
+		/// </summary>
+		/// <param name="newS"></param>
+		void changeScene(Scene* newS);
 
-	/// <summary>
-	/// called once per frame, it calls the actual scene update
-	/// </summary>
-	void updateScene();
+		/// <summary>
+		/// called once per frame, it calls the actual scene update
+		/// </summary>
+		void updateScene();
 
-	/// <summary>
-	/// returns the top of the scene stack
-	/// </summary>
-	/// <returns></returns>
-	Scene* actualScene();
+		/// <summary>
+		/// returns the top of the scene stack
+		/// </summary>
+		/// <returns></returns>
+		Scene* currentScene();
 
-private:
-
-	std::stack<Scene*> scenes;
-};
+	private:
+		std::stack<Scene*> scenes;
+	};
+}
 #endif

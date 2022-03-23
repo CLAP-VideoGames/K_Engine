@@ -1,39 +1,42 @@
 #include "SceneManager.h"
-#include "Scene.h"
 
-SceneManager::SceneManager() = default;
+#include <scene_prj/Scene.h>
 
-SceneManager::~SceneManager()
-{
-	while (!scenes.empty())
+namespace K_Engine {
+	SceneManager::SceneManager() = default;
+
+	SceneManager::~SceneManager()
 	{
-		delete scenes.top();
+		while (!scenes.empty())
+		{
+			delete scenes.top();
+			scenes.pop();
+		}
+	}
+
+	void SceneManager::popScene()
+	{
 		scenes.pop();
 	}
-}
 
-void SceneManager::popScene()
-{
-	scenes.pop();
-}
+	void SceneManager::pushScene(Scene* newS)
+	{
+		scenes.push(newS);
+	}
 
-void SceneManager::pushScene(Scene* newS)
-{
-	scenes.push(newS);
-}
+	void SceneManager::changeScene(Scene* newS)
+	{
+		popScene();
+		pushScene(newS);
+	}
 
-void SceneManager::changeScene(Scene* newS)
-{
-	popScene();
-	pushScene(newS);
-}
+	void SceneManager::updateScene()
+	{
+		scenes.top()->update();
+	}
 
-void SceneManager::updateScene()
-{
-	scenes.top()->update();
-}
-
-Scene* SceneManager::actualScene()
-{
-	return scenes.top();
+	Scene* SceneManager::currentScene()
+	{
+		return scenes.top();
+	}
 }

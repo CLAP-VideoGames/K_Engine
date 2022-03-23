@@ -10,7 +10,7 @@ Entity::Entity()
 	//Podemos hacer un new Transform desde aqui directamente
 }
 
-Entity::~Entity() { }
+Entity::~Entity() = default;
 
 void Entity::update()
 {

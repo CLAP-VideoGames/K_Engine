@@ -13,11 +13,10 @@ namespace Ogre {
 }
 
 namespace K_Engine {
-
-	class KCamera {
+	class Camera {
 	public:
-		KCamera();
-		~KCamera();
+		Camera();
+		~Camera();
 
 		// Sets the distance to the near clipping plane.
 		void setNearClipDistance(float nClip);

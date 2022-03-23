@@ -8,7 +8,10 @@ class btCollisionShape;
 class btRigidBody;
 class btTransform;
 class btDefaultMotionState;
-class DynamicsWorld;
+
+namespace K_Engine {
+	class DynamicsWorld;
+}
 
 class RigidBodyState;
 class Transform;
@@ -20,7 +23,7 @@ class RigidBody : public Component
 public:
 	//Required Contructor so the component is initialized properly
 	RigidBody(Entity* e);
-	RigidBody(Entity* e,ColliderType type_, BodyType bType_, float mass, int group_ = 1, int mask_ = 1);
+	RigidBody(Entity* e, ColliderType type_, BodyType bType_, float mass, int group_ = 1, int mask_ = 1);
 	~RigidBody();
 
 	//Required method for the component name
@@ -48,7 +51,7 @@ private:
 	//Body Physics Type
 	BodyType bType_;
 	//Reference to the world
-	DynamicsWorld* world_ = nullptr;
+	K_Engine::DynamicsWorld* world_ = nullptr;
 	//Boolean to control if the associated trigger is a trigger or not (default is false)
 	bool isTrigger = false;
 	//Mass of the body
@@ -65,7 +68,7 @@ private:
 	static std::string name;
 
 	float restitution_;
-	
+
 	float friction_;
 	//Array of constrains for rotation in x y z
 	bool rotationConstraints[3]{ false, false, false };

@@ -35,10 +35,10 @@ public:
 
 	//start is called once the game starts
 	virtual void start();
-	
+
 	//onEnable is called every time the component is enabled
 	virtual void onEnable();
-	
+
 	//update is called every frame of the game
 	virtual void update();
 

@@ -35,4 +35,5 @@ private:
 	//Our entity vector
 	std::vector<Entity*> entities;
 };
+
 #endif // ENTITYMANAGER_H

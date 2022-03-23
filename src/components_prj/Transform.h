@@ -6,13 +6,13 @@
 
 #include <ecs_prj/Component.h>
 
+class KVector3;
+
 /*
 * The Transform component is used to store information about our entity
 * This component is the place from where rigidBody and meshRenderer take the information
 * To use physics and to render our entities
 */
-class KVector3;
-
 class Transform : public Component
 {
 public:
@@ -45,12 +45,12 @@ public:
 
 private:
 	static std::string name;
-	
+
 	//Arrays initialized to default values
 	// x y z axis, in that order of our 3 main information arrays
 	KVector3* position_;
 	KVector3* rotation_;
 	KVector3* scale_;
 	KVector3* dimensions_;
-}; 
+};
 #endif // TRANSFORM_H

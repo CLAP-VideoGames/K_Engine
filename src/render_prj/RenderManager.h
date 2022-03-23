@@ -19,8 +19,7 @@ namespace Ogre {
 class SDL_Window;
 
 namespace K_Engine {
-
-	class KCamera;
+	class Camera;
 
 	class RenderManager {
 	public:
@@ -39,7 +38,7 @@ namespace K_Engine {
 		Ogre::Root* getRoot();
 		Ogre::SceneManager* getSceneManager();
 		Ogre::RenderTarget* getRenderWindow();
-		KCamera* getCamera();
+		Camera* getCamera();
 
 	private:
 		static std::unique_ptr<RenderManager> instance;
@@ -53,7 +52,7 @@ namespace K_Engine {
 		SDL_Window* mSDLWin;
 		Ogre::RenderWindow* mRenderWin;
 
-		KCamera* mCamera;
+		Camera* mCamera;
 
 		void initRoot();
 		void initWindow();

@@ -22,7 +22,7 @@ Entity* EntityManager::addEntity()
 }
 
 void EntityManager::update()
-{	
+{
 	//The basic cycle of every entity
 	for (int i = 0; i < entities.size(); i++) {
 		auto e = entities[i];

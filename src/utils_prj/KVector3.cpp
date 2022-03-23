@@ -1,52 +1,57 @@
 #include "KVector3.h"
+
 #include <cassert> 
 #include <math.h>
+
+KVector3::KVector3() : x(0), y(0), z(0) {};
+KVector3::KVector3(double _x, double _y, double _z) : x(_x), y(_y), z(_z) {};
+KVector3::~KVector3() = default;
 
 KVector3 KVector3::operator+(KVector3 const& other)
 {
 	return KVector3(this->x + other.x, this->y + other.y, this->z + other.z);
 }
 
-KVector3 KVector3::operator-(KVector3 const&  other)
+KVector3 KVector3::operator-(KVector3 const& other)
 {
 	return KVector3(this->x - other.x, this->y - other.y, this->z - other.z);
 }
 
-KVector3 KVector3::operator*(KVector3 const&  other)
+KVector3 KVector3::operator*(KVector3 const& other)
 {
 	return KVector3(this->x * other.x, this->y * other.y, this->z * other.z);
 }
 
-KVector3 KVector3::operator/(KVector3 const&  other)
+KVector3 KVector3::operator/(KVector3 const& other)
 {
 	return KVector3(this->x / other.x, this->y / other.y, this->z / other.z);
 }
 
-void KVector3::operator+=(KVector3 const&  other)
+void KVector3::operator+=(KVector3 const& other)
 {
 	this->x += other.x;
 	this->y += other.y;
 	this->z += other.z;
 }
 
-void KVector3::operator-=(KVector3 const&  other)
+void KVector3::operator-=(KVector3 const& other)
 {
 	this->x -= other.x;
 	this->y -= other.y;
 	this->z -= other.z;
 }
 
-double& KVector3::operator[](int index){
+double& KVector3::operator[](int index) {
 
-	assert(index< 3, "Index out of bounds.");
+	assert(index < 3, "Index out of bounds.");
 
-	switch (index){
-		case 0:
-			return x;
-		case 1:
-			return y;
-		case 2:
-			return z;
+	switch (index) {
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
 	}
 }
 

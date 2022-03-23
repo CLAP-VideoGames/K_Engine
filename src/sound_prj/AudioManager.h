@@ -8,8 +8,7 @@ class Mix_Chunk;
 #include <memory>
 
 namespace K_Engine {
-	class AudioManager
-	{
+	class AudioManager {
 	public:
 		AudioManager();
 		~AudioManager();

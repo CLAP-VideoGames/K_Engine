@@ -31,10 +31,10 @@ RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, i
 }
 
 RigidBody::~RigidBody() {
-	
+
 }
 
-std::string RigidBody::GetId(){
+std::string RigidBody::GetId() {
 	return name;
 }
 
@@ -50,27 +50,27 @@ void RigidBody::setTrasConstraints(int i, bool value) {
 	traslationConstraints[i] = value;
 }
 
-void RigidBody::setRestitution(float value){
+void RigidBody::setRestitution(float value) {
 	restitution_ = value;
 }
 
-void RigidBody::setFriction(float value){
+void RigidBody::setFriction(float value) {
 	friction_ = value;
 }
 
-void RigidBody::start(){
+void RigidBody::start() {
 	transformRf_ = entity->getComponent<Transform>();
-	world_ = PhysicsManager::GetInstance()->getWorld();
-	
-	btTransform_ = PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
+	world_ = K_Engine::PhysicsManager::GetInstance()->getWorld();
+
+	btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
 	KVector3 dimensions = transformRf_->getDimensions();
 	KVector3 scale = transformRf_->getScale();
 	btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 	btVector3 dimensions_ = { (btScalar)dimensions.x, (btScalar)dimensions.y, (btScalar)dimensions.z };
-	rb = world_->addRigidBody(type_, *btTransform_, dimensions_ , scale_, bType_, mass_, restitution_, friction_, group_, mask_);
+	rb = world_->addRigidBody(type_, *btTransform_, dimensions_, scale_, bType_, mass_, restitution_, friction_, group_, mask_);
 }
 
-void RigidBody::update(){
+void RigidBody::update() {
 	btVector3 pos = rb->getWorldTransform().getOrigin();
 	btScalar y;
 	btScalar z;
@@ -80,11 +80,11 @@ void RigidBody::update(){
 	transformRf_->setRotation(x, y, z);
 }
 
-void RigidBody::debug(){
+void RigidBody::debug() {
 
 }
 
-void RigidBody::syncScale(){
+void RigidBody::syncScale() {
 	KVector3 scale = transformRf_->getScale();
 	btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 	world_->scaleCollisionShape(rb, scale_);

@@ -113,13 +113,12 @@ private:
 		return compName;
 	}
 
-	
 	bool active;    // determines if we update the entity or not
 	bool toDestroy; // knows when do we have to erase an entity
 
 	//Map to find our components and erase them using the id of the component
 	std::unordered_map<std::string, Component*> components;
-		
+
 	//strings to give the entity a tag or a name
 	std::string tag;
 	std::string name;
