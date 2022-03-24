@@ -1,6 +1,10 @@
 #pragma once
 #ifndef UIMANAGER_H
 #define UIMANAGER_H
+//This constant is used to make every UIElement have the same logic
+//We have to do this because CEGUI decided that position(0,0) for a text
+//Is the center of the screen and position(0,0) for a progress bar is topLeft
+#define CEGUIOFSETT = 0.48;
 
 #include <memory>
 #include <string>
@@ -15,7 +19,7 @@ namespace CEGUI {
 	class FrameWindow;
 }
 
-enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image, Text};
+enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image, Text, ProgressB};
 
 /// <summary>
 /// type = Button/Label/whatever you need to put in the scheme
@@ -59,13 +63,19 @@ namespace K_Engine {
 		/// Then we return an UiElement so the user can handle it as it wishes
 		/// </summary>
 		/// <param name="text_"> what you text will show </param>
-		/// <param name="pos"> the position u want your text.(0,0) is the center
-		/// of the screen, using values in the interval [0, 0.5) should be engough
-		/// to set the position u want </param>
+		/// <param name="pos">Position(0,0) is top left o the screen </param>
 		/// <param name="size"> You cannot change size because CeGuI also it seems u cannot change font size </param>
 		/// <returns></returns>
 		UiElement addText(std::string text_,
 			std::pair<float,float> pos = std::pair<float,float>(0,0));
+
+		/// <summary>
+		/// This method adds a progress bar in the given position and with the given scale
+		/// (0,0) is top left of the screen
+		/// </summary>
+		/// <returns></returns>
+		UiElement addProgressBar(std::pair<float, float> pos = std::pair<float, float>(0, 0),
+			std::pair<float,float> size = std::pair<float, float>(0, 0));
 
 	private:
 		static std::unique_ptr<UIManager> instance;

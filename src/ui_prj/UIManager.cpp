@@ -164,6 +164,10 @@ namespace K_Engine {
         //Creation of the element
         UiElement t;
 
+        //Converting the position to topLeft corner because CEGUI isnt coherent with its own self
+        pos.first -= 0.48;
+        pos.second -= 0.48;
+
         //It is text
         t.type = Text;
 
@@ -181,6 +185,30 @@ namespace K_Engine {
 
         //You cannot change the size of a text in CEGUI for some reason
         t.wnd->setSize(USize(cegui_reldim(1), cegui_reldim(1)));
+
+        //Return of the element
+        return t;
+    }
+
+    UiElement UIManager::addProgressBar(std::pair<float, float> pos, std::pair<float, float> size)
+    {
+        //Creation of the element
+        UiElement t;
+
+        //It is text
+        t.type = ProgressB;
+
+        //Creation from the scheme
+        t.wnd = winMgr->createWindow("TaharezLook/ProgressBar");
+
+        //Adding as a child so we see it
+        mRoot->addChild(t.wnd);
+
+        //Position
+        t.wnd->setPosition(UVector2(cegui_reldim(pos.first), cegui_reldim(pos.second)));
+
+        //You cannot change the size of a text in CEGUI for some reason
+        t.wnd->setSize(USize(cegui_reldim(size.first), cegui_reldim(size.second)));
 
         //Return of the element
         return t;
