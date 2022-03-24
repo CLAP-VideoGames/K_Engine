@@ -190,7 +190,7 @@ namespace K_Engine {
         return t;
     }
 
-    ProgressBar* UIManager::addProgressBar(std::pair<float, float> pos, std::pair<float, float> size)
+    CEGUI::ProgressBar* UIManager::addProgressBar(std::pair<float, float> pos, std::pair<float, float> size)
     {
         //Creation of the element
         ProgressBar* bar;

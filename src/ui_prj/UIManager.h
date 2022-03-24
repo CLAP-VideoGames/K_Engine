@@ -17,7 +17,9 @@ namespace CEGUI {
 	class WindowManager;
 	class OgreRenderer;
 	class FrameWindow;
+	class ProgressBar;
 }
+
 
 enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image, Text};
 
@@ -80,8 +82,9 @@ namespace K_Engine {
 		/// We can not return UiElement here because we dont wan the user to cast the elemnt every time
 		/// </summary>
 		/// <returns></returns>
-		ProgressBar* addProgressBar(std::pair<float, float> pos = std::pair<float, float>(0, 0),
-			std::pair<float,float> size = std::pair<float, float>(0, 0));
+		CEGUI::ProgressBar* addProgressBar(std::pair<float, float> pos = std::pair<float, float>(0, 0),
+			std::pair<float, float> size = std::pair<float, float>(0, 0));
+
 
 	private:
 		static std::unique_ptr<UIManager> instance;
