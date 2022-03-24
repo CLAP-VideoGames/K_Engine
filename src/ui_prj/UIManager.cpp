@@ -34,6 +34,8 @@ namespace K_Engine {
 
             instance.get()->initContext();
             instance.get()->initRoot();
+
+
         }
         catch (const std::exception&) {
             return false;
@@ -59,6 +61,10 @@ namespace K_Engine {
         //m_CEGUI.setDisplaySize( CEGUI::Size(800,600) );
 
         guiContext = &CEGUI::System::getSingleton().createGUIContext(m_renderer->getDefaultRenderTarget());
+
+        //Loading the scheme and setting the context
+        SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+        // Set the root window as root of our GUI Context
     }
 
 
@@ -81,13 +87,11 @@ namespace K_Engine {
         // Create a DefaultWindow called 'Root'.
         mRoot = (DefaultWindow*)winMgr->createWindow("DefaultWindow", "Root");
         mRoot->setUsingAutoRenderingSurface(true);
+        guiContext->setRootWindow(mRoot);
     }
 
     void UIManager::exampleUI()
     {
-
-       SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
-
        // CEGUI relies on various systems being set-up, so this is what we do
        // here first.
        //
@@ -102,7 +106,6 @@ namespace K_Engine {
 
        FrameWindow* wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/Label", "Sample Window");
  
-
        // The next thing we do is to set a default cursor image.  This is
        // not strictly essential, although it is nice to always have a visible
        // indicator if a window or widget does not explicitly set one of its own.
@@ -115,9 +118,6 @@ namespace K_Engine {
        //Font& defaultFont = FontManager::getSingleton().createFromFile("DejaVuSans-12.font");
        // Set default font for the gui context
        //guiContext->setDefaultFont(&defaultFont);
-
-       // Set the root window as root of our GUI Context
-       guiContext->setRootWindow(mRoot);
 
        // A FrameWindow is a window with a frame and a titlebar which may be moved around
        // and resized.
@@ -157,6 +157,31 @@ namespace K_Engine {
        wnd->setText("K_EngineUI works!");
 
        wnd->subscribeEvent(CEGUI::Window::EventMouseClick, Event::Subscriber(&UIManager::handleHelloWorldClicked, this));
+    }
+
+    UiElement UIManager::addText(std::string text_, std::pair<float, float> pos, std::pair<float, float> size)
+    {
+        //Creation of the element
+        UiElement t;
+
+        //It is text
+        t.type = Text;
+
+        //Creation from the scheme
+        t.wnd = winMgr->createWindow("TaharezLook/Label");
+
+        //Adding as a child so we see it
+        mRoot->addChild(t.wnd);
+
+        t.wnd->setText(text_);
+        //Posititon and size
+        t.wnd->setPosition(UVector2(UDim(pos.first, 0.0f), UDim(pos.second, 0.0f)));
+        t.wnd->setSize(USize(UDim(size.first, 0.0f), UDim(size.second, 0.0f)));
+
+        //Its msg
+
+        //Return of the element
+        return t;
     }
 
     /*************************************************************************

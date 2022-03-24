@@ -15,7 +15,7 @@ namespace CEGUI {
 	class FrameWindow;
 }
 
-enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image};
+enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image, Text};
 
 /// <summary>
 /// type = Button/Label/whatever you need to put in the scheme
@@ -25,7 +25,7 @@ enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image};
 struct UiElement {
 
 	UITypes type;
-	FrameWindow* wnd;
+	CEGUI::Window* wnd;
 	
 	// createButton(string mesg, std::Pair<float,float> size, std::Pair<float,float> pos){
 	// UIELement newJIHAEW;
@@ -53,6 +53,20 @@ namespace K_Engine {
 		static bool Shutdown();
 
 		void exampleUI();
+
+		/// <summary>
+		/// Adds a text in the x = 0 and y = 0, with 1 as defauult size
+		/// Then we return an UiElement so the user can handle it as it wishes
+		/// </summary>
+		/// <param name="text_"> what you text will show </param>
+		/// <param name="pos"> the position u want your text.(0,0) is the center
+		/// of the screen, using values in the interval [0, 0.5) should be engough
+		/// to set the position u want </param>
+		/// <param name="size"> the size you want your text to be </param>
+		/// <returns></returns>
+		UiElement addText(std::string text_,
+			std::pair<float,float> pos = std::pair<float,float>(0,0),
+			std::pair<float, float> size = std::pair<float, float>(1, 1));
 
 	private:
 		static std::unique_ptr<UIManager> instance;

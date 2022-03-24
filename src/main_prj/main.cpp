@@ -57,7 +57,9 @@ int main() {
 			// UI Manager initialisation
 			K_Engine::UIManager::Init("K_EngineUI");
 			K_Engine::UIManager* uiMan = K_Engine::UIManager::GetInstance();
-			uiMan->exampleUI();
+			uiMan->addText("No teneis buen gusto para los videojuegos",
+				std::pair<float,float>(0,0),
+				std::pair<float, float>(0.5, 0.5));
 
 			// Audio Manager initialisation
 			K_Engine::AudioManager::Init();
