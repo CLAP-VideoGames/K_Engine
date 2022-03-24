@@ -19,6 +19,7 @@ namespace CEGUI {
 	class OgreRenderer;
 	class FrameWindow;
 	class ProgressBar;
+	class ButtonBase;
 }
 
 //UIComponents
@@ -35,7 +36,7 @@ enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image, Text};
 /// wnd = the window CEGUI return from its creation, so we accest it
 /// </summary>
 /// 
-/// ¡¡¡¡IMPORTANT FOR DEVELOPERS!!!! MAYBE U HAVE TO USE ANOTHER CLASS LIKE PROGRESSBAR
+/// ï¿½ï¿½ï¿½ï¿½IMPORTANT FOR DEVELOPERS!!!! MAYBE U HAVE TO USE ANOTHER CLASS LIKE PROGRESSBAR
 /// IF IT HAS ITS OWN METHODS LIKE PROGRESS BAR, DONT USE THIS STRUCT AND ERASE
 /// THE TYPE FROM THE ENUM ABOVE, IF THE USER IS ONLY GOING TO NEED THE METHODS
 /// FORM WINDOW, USE THIS STRUCT AND CREATE A METHOD LIKE ADDTEXT
@@ -85,7 +86,7 @@ namespace K_Engine {
 		/// <summary>
 		/// This method adds a progress bar in the given position and with the given scale
 		/// (0,0) is top left of the screen
-		/// We can not return UiElement here because we dont wan the user to cast the elemnt every time
+		/// We can not return UiElement here because we dont want the user to cast the elemnt every time
 		/// </summary>
 		/// <returns></returns>
 		CEGUI::ProgressBar* addProgressBar(std::pair<float, float> pos = std::pair<float, float>(0, 0),
@@ -97,6 +98,12 @@ namespace K_Engine {
 		/// </summary>
 		/// <returns></returns>
 		UISlider* createSlider(std::pair<float, float> pos, std::pair<float, float> size = std::pair<float, float>(1, 1), std::string name = "UISlider", float value = 0);
+		/// <summary>
+		/// This method adds a button in the given position and scale. (0, 0) is the upper-left corner.
+		/// </summary>
+		/// <returns></returns>
+		CEGUI::ButtonBase* addButton(std::string text, std::pair<float, float> pos = std::pair<float, float>(0, 0),
+			std::pair<float, float> size = std::pair<float, float>(0, 0));
 
 		/// <summary>
 		/// This method adds a slider in the given position and with the given scale

@@ -240,6 +240,33 @@ namespace K_Engine {
         return scrollbar;
     }
 
+    CEGUI::ButtonBase* UIManager::addButton(std::string text_, std::pair<float, float> pos, std::pair<float, float> size)
+    {
+        //Creation of the elements
+        ButtonBase* button;
+        UiElement img;
+
+        //image
+        //img.type = Image;
+
+        //Creation from the scheme
+        button = (ButtonBase*)winMgr->createWindow("TaharezLook/ImageButton");
+
+        //Adding as a child so we see it
+        mRoot->addChild(button);
+
+        //Position
+        button->setPosition(UVector2(cegui_reldim(pos.first), cegui_reldim(pos.second)));
+
+        //You cannot change the size of a text in CEGUI for some reason
+        button->setSize(USize(cegui_reldim(size.first), cegui_reldim(size.second)));
+
+        //Creation of the text
+        //addText(text_, pos);
+
+        //Return of the element
+        return button;
+    }
 
     /*************************************************************************
         Cleans up resources allocated in the initialiseSample call.
