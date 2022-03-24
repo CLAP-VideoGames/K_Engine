@@ -74,8 +74,10 @@ int main() {
 			uiMan->addProgressBar(std::pair<float,float>(0.5,0.5),
 				std::pair<float, float>(0.3, 0.1));*/
 
-			uiMan->addButton("BUTTON", std::pair<float, float>(0.5, 0.5),
-				std::pair<float, float>(0.3, 0.1));
+			/*uiMan->addButton("BUTTON", std::pair<float, float>(0.5, 0.5),
+				std::pair<float, float>(0.3, 0.1));*/
+
+			uiMan->debug();
 
 			/*uiMan->createSlider(std::pair<float, float>(0.2f, 0.2f), std::pair<float, float>(0.1f, 0.1f));
 			uiMan->createScrollbar(std::pair<float, float>(0.7f, 0.7f), std::pair<float, float>(0.1f, 0.1f));*/
@@ -171,8 +173,10 @@ int main() {
 				while (accFrameTime >= DELTA_TIME) {
 					inputMan->update();
 
-					run = (!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) && !inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE));
-					
+					run = (!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B)
+						&& !inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE));
+						
+					uiMan->update();
 					entMan->update();
 					physicsMan->update();
 					accFrameTime -= DELTA_TIME;

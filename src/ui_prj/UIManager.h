@@ -113,6 +113,12 @@ namespace K_Engine {
 		/// <returns></returns>
 		UIScrollbar* createScrollbar(std::pair<float, float> pos, std::pair<float, float> size = std::pair<float, float>(1, 1), std::string name = "UIScrollbar", float value = 0);
 
+		void debug();
+
+		/// <summary>
+		/// Just to debug
+		/// </summary>
+		void update();
 	private:
 		static std::unique_ptr<UIManager> instance;
 		std::string name;
@@ -125,6 +131,8 @@ namespace K_Engine {
 		CEGUI::FrameWindow* wnd;
 
 		std::vector<UIComponent*> ceguiElements;
+
+		CEGUI::ButtonBase* b;
 
 		void initContext();
 		void initRoot();

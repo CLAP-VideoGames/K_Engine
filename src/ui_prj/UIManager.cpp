@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include <RenderManager.h>
+#include <render_prj/RenderManager.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/Window.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
@@ -11,6 +11,7 @@
 #include "UIComponent.h"
 #include "UIScrollBar.h"
 #include "UISlider.h"
+
 
 using namespace CEGUI;
 using namespace std;
@@ -39,8 +40,6 @@ namespace K_Engine {
             instance.get()->initContext();
             instance.get()->initScheme();
             instance.get()->initRoot();
-
-
         }
         catch (const std::exception&) {
             return false;
@@ -240,6 +239,22 @@ namespace K_Engine {
         return scrollbar;
     }
 
+    void UIManager::debug()
+    {
+        b = addButton("BUTTON", std::pair<float, float>(0.5, 0.5),
+            std::pair<float, float>(0.3, 0.1));
+
+        /*b->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&b->setPushedState(true)));*/
+    }
+
+    void UIManager::update()
+    {
+        
+        if (b->isPushed()) {
+            std::cout << "Me llaman el bartolo" << "\n";
+        }
+    }
+
     CEGUI::ButtonBase* UIManager::addButton(std::string text_, std::pair<float, float> pos, std::pair<float, float> size)
     {
         //Creation of the elements
@@ -258,7 +273,10 @@ namespace K_Engine {
         button->setSize(USize(cegui_reldim(size.first), cegui_reldim(size.second)));
 
         //Creation of the text
-        addText(text_, pos);
+        button->setText(text_);
+
+        //This is not called by deafult, wow
+        button->activate();
 
         // Event on click
         //x button->subscribeEvent(CEGUI::Window::EventMouseClick, Event::Subscriber(&K_Engine::UIManager::onButtonClick), this);
