@@ -98,6 +98,7 @@ namespace K_Engine {
 		/// </summary>
 		/// <returns></returns>
 		UISlider* createSlider(std::pair<float, float> pos, std::pair<float, float> size = std::pair<float, float>(1, 1), std::string name = "UISlider", float value = 0);
+		
 		/// <summary>
 		/// This method adds a button in the given position and scale. (0, 0) is the upper-left corner.
 		/// </summary>
@@ -131,6 +132,8 @@ namespace K_Engine {
 
 		void cleanElements();
 		void closeContext();
+
+		void onButtonClick(const CEGUI::EventArgs& args);
 	};
 }
 #endif // UIMANAGER_H
