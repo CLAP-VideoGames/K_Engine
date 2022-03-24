@@ -190,28 +190,25 @@ namespace K_Engine {
         return t;
     }
 
-    UiElement UIManager::addProgressBar(std::pair<float, float> pos, std::pair<float, float> size)
+    ProgressBar* UIManager::addProgressBar(std::pair<float, float> pos, std::pair<float, float> size)
     {
         //Creation of the element
-        UiElement t;
-
-        //It is text
-        t.type = ProgressB;
+        ProgressBar* bar;
 
         //Creation from the scheme
-        t.wnd = winMgr->createWindow("TaharezLook/ProgressBar");
+        bar = (ProgressBar*)winMgr->createWindow("TaharezLook/ProgressBar");
 
         //Adding as a child so we see it
-        mRoot->addChild(t.wnd);
+        mRoot->addChild(bar);
 
         //Position
-        t.wnd->setPosition(UVector2(cegui_reldim(pos.first), cegui_reldim(pos.second)));
+        bar->setPosition(UVector2(cegui_reldim(pos.first), cegui_reldim(pos.second)));
 
         //You cannot change the size of a text in CEGUI for some reason
-        t.wnd->setSize(USize(cegui_reldim(size.first), cegui_reldim(size.second)));
+        bar->setSize(USize(cegui_reldim(size.first), cegui_reldim(size.second)));
 
         //Return of the element
-        return t;
+        return bar;
     }
 
     /*************************************************************************
