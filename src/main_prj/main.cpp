@@ -58,8 +58,9 @@ int main() {
 			K_Engine::UIManager::Init("K_EngineUI");
 			K_Engine::UIManager* uiMan = K_Engine::UIManager::GetInstance();
 			uiMan->addText("Hola",
-				std::pair<float,float>(0,0),
-				std::pair<float, float>(0.3, 0.3));
+				std::pair<float,float>(-0.4,-0.4));
+			
+			//uiMan->exampleUI();
 
 			// Audio Manager initialisation
 			K_Engine::AudioManager::Init();

@@ -104,7 +104,7 @@ namespace K_Engine {
        // loads in a font that gets used as the system default.
        //CEGUI::Window* wnd =  winMgr->loadLayoutFromFile("K_EngineImage.layout");
 
-       FrameWindow* wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/Label", "Sample Window");
+       FrameWindow* wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/FrameWindow", "Sample Window");
  
        // The next thing we do is to set a default cursor image.  This is
        // not strictly essential, although it is nice to always have a visible
@@ -139,7 +139,7 @@ namespace K_Engine {
        // Here we set the FrameWindow so that it is half the size of the display,
        // and centered within the display.
        wnd->setPosition(UVector2(cegui_reldim(0.05f), cegui_reldim(0.05f)));
-       wnd->setSize(USize(cegui_reldim(0.25f), cegui_reldim(0.25f)));
+       wnd->setSize(USize(cegui_reldim(0.9f), cegui_reldim(0.9f)));
 
        // now we set the maximum and minum sizes for the new window.  These are
        // specified using relative co-ordinates, but the important thing to note
@@ -149,7 +149,7 @@ namespace K_Engine {
        // here we set a maximum size for the FrameWindow which is equal to the size
        // of the display, and a minimum size of one tenth of the display.
        wnd->setMaxSize(USize(cegui_reldim(1.0f), cegui_reldim(1.0f)));
-       wnd->setMinSize(USize(cegui_reldim(0.1f), cegui_reldim(0.1f)));
+       wnd->setMinSize(USize(cegui_reldim(0.01f), cegui_reldim(0.01f)));
 
        // As a final step in the initialisation of our sample window, we set the window's
        // text to "Hello World!", so that this text will appear as the caption in the
@@ -159,7 +159,7 @@ namespace K_Engine {
        wnd->subscribeEvent(CEGUI::Window::EventMouseClick, Event::Subscriber(&UIManager::handleHelloWorldClicked, this));
     }
 
-    UiElement UIManager::addText(std::string text_, std::pair<float, float> pos, std::pair<float, float> size)
+    UiElement UIManager::addText(std::string text_, std::pair<float, float> pos)
     {
         //Creation of the element
         UiElement t;
@@ -176,9 +176,11 @@ namespace K_Engine {
         //Its msg
         t.wnd->setText(text_);
 
-        //Posititon and size
-        t.wnd->setPosition(UVector2(UDim(pos.first, 0.0f), UDim(pos.second, 0.0f)));
-        t.wnd->setSize(USize(UDim(size.first, 0.0f), UDim(size.second, 0.0f)));
+        //Position
+        t.wnd->setPosition(UVector2(cegui_reldim(pos.first), cegui_reldim(pos.second)));
+
+        //You cannot change the size of a text in CEGUI for some reason
+        t.wnd->setSize(USize(cegui_reldim(1), cegui_reldim(1)));
 
         //Return of the element
         return t;

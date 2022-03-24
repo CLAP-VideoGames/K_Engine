@@ -62,11 +62,10 @@ namespace K_Engine {
 		/// <param name="pos"> the position u want your text.(0,0) is the center
 		/// of the screen, using values in the interval [0, 0.5) should be engough
 		/// to set the position u want </param>
-		/// <param name="size"> the size you want your text to be </param>
+		/// <param name="size"> You cannot change size because CeGuI also it seems u cannot change font size </param>
 		/// <returns></returns>
 		UiElement addText(std::string text_,
-			std::pair<float,float> pos = std::pair<float,float>(0,0),
-			std::pair<float, float> size = std::pair<float, float>(1, 1));
+			std::pair<float,float> pos = std::pair<float,float>(0,0));
 
 	private:
 		static std::unique_ptr<UIManager> instance;
