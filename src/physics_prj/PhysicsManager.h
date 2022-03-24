@@ -5,11 +5,15 @@
 #define BIT(x) (1<<(x))
 
 #include <memory>
+#include <string>
 
 class btVector3;
 class btTransform;
 class btRigidBody;
 class btDynamicsWorld;
+class CollisionLayers;
+
+class DefaultLayers;
 
 enum class ColliderType {
 	CT_BOX,
@@ -56,6 +60,10 @@ namespace K_Engine {
 
 		DynamicsWorld* getWorld() const;
 
+		int getLayerValue(std::string name) const;
+
+		void addLayer(std::string name);
+
 	private:
 		static std::unique_ptr<PhysicsManager> instance;
 
@@ -64,6 +72,8 @@ namespace K_Engine {
 		DynamicsWorld* dynamicsWorld_;
 
 		int numIterations_;
+
+		CollisionLayers* colLayers_;
 
 		bool initWorld(int numIterations, int step, const btVector3& gravity);
 		bool releaseWorld();

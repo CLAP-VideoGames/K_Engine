@@ -21,6 +21,9 @@
     <ClCompile Include="..\..\src\physics_prj\DynamicsWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\physics_prj\CollisionLayers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\physics_prj\PhysicsManager.h">
@@ -30,6 +33,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\physics_prj\CollisionListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\physics_prj\CollisionLayers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

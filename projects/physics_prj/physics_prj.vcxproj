@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\physics_prj\CollisionLayers.cpp" />
     <ClCompile Include="..\..\src\physics_prj\DynamicsWorld.cpp" />
     <ClCompile Include="..\..\src\physics_prj\PhysicsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\physics_prj\CollisionLayers.h" />
     <ClInclude Include="..\..\src\physics_prj\CollisionListener.h" />
     <ClInclude Include="..\..\src\physics_prj\DynamicsWorld.h" />
     <ClInclude Include="..\..\src\physics_prj\PhysicsManager.h" />

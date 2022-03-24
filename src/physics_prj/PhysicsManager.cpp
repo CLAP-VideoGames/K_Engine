@@ -4,6 +4,7 @@
 #include <LinearMath/btTransform.h>
 
 #include <physics_prj/DynamicsWorld.h>
+#include <physics_prj/CollisionLayers.h>
 #include <utils_prj/KVector3.h>
 
 namespace K_Engine {
@@ -26,6 +27,7 @@ namespace K_Engine {
 	bool PhysicsManager::initWorld(int numIterations, int step, btVector3 const& gravity) {
 		bool succeed = true;
 		try {
+			colLayers_ = new CollisionLayers();
 			this->gravity = new btVector3(gravity);
 			dynamicsWorld_ = new DynamicsWorld(gravity);
 			btWorld = dynamicsWorld_->getBtWorld();
@@ -156,10 +158,7 @@ namespace K_Engine {
 		tr->setIdentity();
 		tr->setOrigin(pos);
 		//tr->setBasis()
-
 		tr->setRotation(btQuaternion(rot.x(), rot.y(), rot.z()));
-
-
 		return tr;
 	}
 
@@ -172,6 +171,14 @@ namespace K_Engine {
 
 	DynamicsWorld* PhysicsManager::getWorld() const {
 		return dynamicsWorld_;
+	}
+
+	int PhysicsManager::getLayerValue(std::string name) const {
+		return colLayers_->getLayer(name);
+	}
+
+	void PhysicsManager::addLayer(std::string name){
+		colLayers_->addLayer(name);
 	}
 
 	bool PhysicsManager::Shutdown() {

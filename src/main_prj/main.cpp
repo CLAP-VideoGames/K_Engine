@@ -10,6 +10,7 @@
 #include <OgreLogManager.h>
 
 #include <physics_prj/PhysicsManager.h>
+#include <physics_prj/CollisionLayers.h>
 #include <render_prj/RenderManager.h>
 #include <sound_prj/AudioManager.h>
 #include <input_prj/InputManager.h>
@@ -55,6 +56,14 @@ int main() {
 			K_Engine::PhysicsManager::Init(10, 20, { 0, -9.8, 0 }); //GetInstance() returns nullptr if Init isnt called first
 			K_Engine::PhysicsManager* physicsMan = K_Engine::PhysicsManager::GetInstance();
 
+
+			std::string playerLayer = "Player";
+			std::string nothingLayer = "Nothing";
+			std::string platformLayer = "Platform";
+
+			physicsMan->addLayer(playerLayer);
+			physicsMan->addLayer(nothingLayer);
+			physicsMan->addLayer(platformLayer);
 			// UI Manager initialisation
 			K_Engine::UIManager::Init("K_EngineUI");
 			K_Engine::UIManager* uiMan = K_Engine::UIManager::GetInstance();
@@ -92,24 +101,26 @@ int main() {
 			compMan->add<RigidBody>();
 			compMan->add<AudioSource>();
 
-			EntityManager* entMan = new EntityManager(); // Entity Manager
-			Entity* entity = entMan->addEntity();
+			int playerCollidesWith = physicsMan->getLayerValue(platformLayer);
 			//Configurations Scope
+			EntityManager* entMan = new EntityManager(); // Entity Manager
 			{
-				Transform* t = entity->addComponent<Transform>(); t->setDimensions(3.0f);
+				Entity* player = entMan->addEntity();
+				Transform* t = player->addComponent<Transform>(); t->setDimensions(3.0f);
 				t->setPosition(-2, 5, 0);
 				ColliderType boxType = ColliderType::CT_SPHERE;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
 				float mass = 1.0f;
-				RigidBody* r = entity->addComponent<RigidBody>(boxType, bodyType, mass);
+				RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
 				r->setFriction(0.6f);
 				r->setRestitution(1.2f);
-				MeshRenderer* m = entity->addComponent<MeshRenderer>();
+				MeshRenderer* m = player->addComponent<MeshRenderer>();
 				m->setMesh("sphere.mesh");
 				m->setMaterial("K_Engine/PrototypeBlue");
 				m->debug();
 			}
 			
+			int platformCollidesWith = physicsMan->getLayerValue(playerLayer);
 			//Configurations Scope
 			{
 				Entity* platform = entMan->addEntity();
@@ -118,13 +129,13 @@ int main() {
 				t->setRotation(0, 0, -45);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType = BodyType::BT_STATIC;
-				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);
+				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f, physicsMan->getLayerValue(platformLayer), platformCollidesWith);
 				r->setRestitution(0.8f);
 				MeshRenderer* m = platform->addComponent<MeshRenderer>();
 				m->setMesh("cube.mesh");
 				m->setMaterial("K_Engine/PrototypeOrange");
 			}
-
+			int futureCollidesWith = physicsMan->getLayerValue(nothingLayer);
 			//Configurations Scope
 			{
 				Entity* platform = entMan->addEntity();
@@ -133,7 +144,7 @@ int main() {
 				t->setRotation(0, 0, 45);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType = BodyType::BT_STATIC;
-				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f);
+				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f, physicsMan->getLayerValue(platformLayer), futureCollidesWith);
 				r->setRestitution(0.8f);
 				MeshRenderer* m = platform->addComponent<MeshRenderer>();
 				m->setMesh("cube.mesh");
@@ -141,10 +152,10 @@ int main() {
 			}
 
 			{
-				Entity* audio = entMan->addEntity();
-				AudioSource* a = audio->addComponent<AudioSource>();
-				a->playSong("./assets/sounds/samba_UCM.ogg");
-				a->playSong("./assets/sounds/clapV2.ogg");
+				//Entity* audio = entMan->addEntity();
+				//AudioSource* a = audio->addComponent<AudioSource>();
+				//a->playSong("./assets/sounds/samba_UCM.ogg");
+				//a->playSong("./assets/sounds/clapV2.ogg");
 				//a->setGeneralVolume(35);
 			}
 
