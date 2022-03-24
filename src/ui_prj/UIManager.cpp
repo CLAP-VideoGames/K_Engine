@@ -244,13 +244,9 @@ namespace K_Engine {
     {
         //Creation of the elements
         ButtonBase* button;
-        UiElement img;
-
-        //image
-        //img.type = Image;
 
         //Creation from the scheme
-        button = (ButtonBase*)winMgr->createWindow("TaharezLook/ImageButton");
+        button = (ButtonBase*)winMgr->createWindow(schemeName + "/Button");
 
         //Adding as a child so we see it
         mRoot->addChild(button);
@@ -262,7 +258,10 @@ namespace K_Engine {
         button->setSize(USize(cegui_reldim(size.first), cegui_reldim(size.second)));
 
         //Creation of the text
-        //addText(text_, pos);
+        addText(text_, pos);
+
+        // Event on click
+        //x button->subscribeEvent(CEGUI::Window::EventMouseClick, Event::Subscriber(&K_Engine::UIManager::onButtonClick), this);
 
         //Return of the element
         return button;
@@ -298,5 +297,10 @@ namespace K_Engine {
         winMgr->destroyAllWindows();
         CEGUI::System::getSingleton().destroyGUIContext(*guiContext);
         m_renderer->destroySystem();
+    }
+
+    void UIManager::onButtonClick(const CEGUI::EventArgs& args)
+    {
+        std::cout << "HOLA SI SOY UN BOTON QUE HA SIDO PRESIONADO";
     }
 }
