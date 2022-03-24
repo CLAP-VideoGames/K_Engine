@@ -246,7 +246,7 @@ namespace K_Engine {
         ButtonBase* button;
 
         //Creation from the scheme
-        button = (ButtonBase*)winMgr->createWindow("TaharezLook/Button");
+        button = (ButtonBase*)winMgr->createWindow(schemeName + "/Button");
 
         //Adding as a child so we see it
         mRoot->addChild(button);
