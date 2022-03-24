@@ -28,30 +28,39 @@ namespace K_Engine {
 		return instance.get();
 	}
 
-	bool ScriptManager::Init(const std::string& filename)
+	bool ScriptManager::Init(std::string name)
 	{
-		instance.get()->luaState = luaL_newstate();
-		if (luaL_loadfile(instance.get()->luaState, filename.c_str()) || lua_pcall(instance.get()->luaState, 0, 0, 0)) {
-			std::cout << "Error: script not loaded (" << filename << ")" << std::endl;
-			instance.get()->luaState = 0;
+		try {
+			instance->name = name;
+			//New state for Lua
+			instance.get()->luaState = luaL_newstate();
+			luaL_openlibs(instance.get()->luaState); // load default Lua libs
+
+			//Registro de las funciones
+
+			if (instance.get()->luaState) {
+				instance.get()->registerClassesandFunctions(instance.get()->luaState);
+			}
+			else throw exception("ERROR: LUA wasn't compile correctly");
 		}
-		luaL_openlibs(instance.get()->luaState); // load default Lua libs
-
-		//Registro de las funciones
-
-		if (instance.get()->luaState) {
-
+		catch (const std::exception&) {
+			return false;
 		}
-		else throw exception("ERROR: LUA wasn't compile correctly");
 
 		return true;
 	}
 
 	bool ScriptManager::Shutdown()
 	{
-		instance.get()->classes_.clear();
-		if (instance.get()->luaState)
-			lua_close(instance.get()->luaState);
+		try {
+			instance.get()->classes_.clear();
+			if (instance.get()->luaState)
+				lua_close(instance.get()->luaState);
+		}
+		catch (const std::exception&) {
+			return false;
+		}
+
 		return true;
 	}
 
@@ -64,14 +73,6 @@ namespace K_Engine {
 		}
 		return m;
 	}
-
-	//luabridge::LuaRef ScriptManager::getLuaHost(Entity* ent, const std::string& e_name)
-	//{
-	//    luabridge::LuaRef b = luabridge::LuaRef(luaState);
-	//    if (ent->hasComponent((int)ManID::LUA, enum_map_[c_name]))
-	//        b = static_cast<LuaComponent*>(ent->getComponent((int)ManID::LUA, enum_map_[c_name]))->getSelf();
-	//    return b;
-	//}
 
 	void ScriptManager::clean()
 	{
@@ -91,18 +92,15 @@ namespace K_Engine {
 		return true;
 	}
 
-	void ScriptManager::registerClassesandFunctions(lua_State* L)
-	{
-		//ECS
-		//INPUT
-		//GRAPHICS
-		//PHYSICS
-		//UI
-		//SCENE
-		//LUA
-		getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
-			.endClass();
-	}
+void ScriptManager::registerClassesandFunctions(lua_State* L)
+{
+    //ECS
+    //UI
+    //LUA
+    getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
+		
+        .endClass();
+}
 
 	bool ScriptManager::reloadLuaScript(const std::string& luafile)
 	{

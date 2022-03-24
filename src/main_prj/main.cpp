@@ -58,12 +58,15 @@ int main() {
 			// UI Manager initialisation
 			K_Engine::UIManager::Init("K_EngineUI");
 			K_Engine::UIManager* uiMan = K_Engine::UIManager::GetInstance();
-			uiMan->addText("Hola",
+			/*uiMan->addText("Hola",
 				std::pair<float,float>(0,0));
 			
+				CEGUI::ProgressBar * pr = 
 			uiMan->addProgressBar(std::pair<float,float>(0.5,0.5),
-				std::pair<float, float>(0.3, 0.1));
+				std::pair<float, float>(0.3, 0.1));*/
 
+			/*uiMan->createSlider(std::pair<float, float>(0.2f, 0.2f), std::pair<float, float>(0.1f, 0.1f));
+			uiMan->createScrollbar(std::pair<float, float>(0.7f, 0.7f), std::pair<float, float>(0.1f, 0.1f));*/
 			//uiMan->exampleUI();
 
 			// Audio Manager initialisation

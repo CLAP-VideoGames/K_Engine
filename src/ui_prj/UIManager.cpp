@@ -8,6 +8,10 @@
 #include <CEGUI/Window.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 
+#include "UIComponent.h"
+#include "UIScrollBar.h"
+#include "UISlider.h"
+
 using namespace CEGUI;
 using namespace std;
 
@@ -33,6 +37,7 @@ namespace K_Engine {
             instance.get()->name = n;
 
             instance.get()->initContext();
+            instance.get()->initScheme();
             instance.get()->initRoot();
 
 
@@ -42,13 +47,6 @@ namespace K_Engine {
         }
 
         return true;
-    }
-
-    bool UIManager::handleHelloWorldClicked(const CEGUI::EventArgs& args)
-    {
-        std::cout << "Hello World!" << std::endl;
-
-        return false;
     }
 
     void UIManager::initContext()
@@ -62,9 +60,13 @@ namespace K_Engine {
 
         guiContext = &CEGUI::System::getSingleton().createGUIContext(m_renderer->getDefaultRenderTarget());
 
+    }
+
+    void UIManager::initScheme() 
+    {
+        schemeName = "TaharezLook";
         //Loading the scheme and setting the context
-        SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
-        // Set the root window as root of our GUI Context
+        SchemeManager::getSingleton().createFromFile(schemeName + ".scheme");
     }
 
 
@@ -84,6 +86,7 @@ namespace K_Engine {
         // when it is set as the root GUI sheet window, it will cover the entire display.
         // The DefaultWindow does not perform any rendering of its own, so is invisible.
         //
+        // Set the root window as root of our GUI Context
         // Create a DefaultWindow called 'Root'.
         mRoot = (DefaultWindow*)winMgr->createWindow("DefaultWindow", "Root");
         mRoot->setUsingAutoRenderingSurface(true);
@@ -104,7 +107,7 @@ namespace K_Engine {
        // loads in a font that gets used as the system default.
        //CEGUI::Window* wnd =  winMgr->loadLayoutFromFile("K_EngineImage.layout");
 
-       FrameWindow* wnd = (FrameWindow*)winMgr->createWindow("TaharezLook/FrameWindow", "Sample Window");
+       FrameWindow* wnd = (FrameWindow*)winMgr->createWindow(schemeName + "/FrameWindow", "Sample Window");
  
        // The next thing we do is to set a default cursor image.  This is
        // not strictly essential, although it is nice to always have a visible
@@ -155,8 +158,6 @@ namespace K_Engine {
        // text to "Hello World!", so that this text will appear as the caption in the
        // FrameWindow's titlebar.
        wnd->setText("K_EngineUI works!");
-
-       wnd->subscribeEvent(CEGUI::Window::EventMouseClick, Event::Subscriber(&UIManager::handleHelloWorldClicked, this));
     }
 
     UiElement UIManager::addText(std::string text_, std::pair<float, float> pos)
@@ -172,7 +173,7 @@ namespace K_Engine {
         t.type = Text;
 
         //Creation from the scheme
-        t.wnd = winMgr->createWindow("TaharezLook/Label");
+        t.wnd = winMgr->createWindow(schemeName + "/Label");
 
         //Adding as a child so we see it
         mRoot->addChild(t.wnd);
@@ -196,7 +197,7 @@ namespace K_Engine {
         ProgressBar* bar;
 
         //Creation from the scheme
-        bar = (ProgressBar*)winMgr->createWindow("TaharezLook/ProgressBar");
+        bar = (ProgressBar*)winMgr->createWindow(schemeName + "/ProgressBar");
 
         //Adding as a child so we see it
         mRoot->addChild(bar);
@@ -207,9 +208,38 @@ namespace K_Engine {
         //You cannot change the size of a text in CEGUI for some reason
         bar->setSize(USize(cegui_reldim(size.first), cegui_reldim(size.second)));
 
+
         //Return of the element
         return bar;
     }
+
+    UISlider* UIManager::createSlider(std::pair<float, float> pos, std::pair<float, float> size, std::string name, float value) {
+
+        //Creation of the element
+        UISlider* slider = new UISlider(winMgr, mRoot, schemeName ,pos, size, name, value);
+        slider->setName(name);
+
+        //Add to vector
+        ceguiElements.push_back(slider);
+        //Activate it
+        slider->activate(true);
+
+        return slider;
+    }
+
+    UIScrollbar* UIManager::createScrollbar(std::pair<float, float> pos, std::pair<float, float> size, std::string name, float value) {
+        //Creation of the element
+        UIScrollbar* scrollbar = new UIScrollbar(winMgr, mRoot, schemeName ,pos, size, name, value);
+        scrollbar->setName(name);
+
+        //Add to vector
+        ceguiElements.push_back(scrollbar);
+        //Activate it
+        scrollbar->activate(true);
+
+        return scrollbar;
+    }
+
 
     /*************************************************************************
         Cleans up resources allocated in the initialiseSample call.
@@ -227,6 +257,13 @@ namespace K_Engine {
         }
 
         return true;
+    }
+
+    void UIManager::cleanElements()
+    {
+        for (UIComponent* c : ceguiElements) {
+            delete c;
+        }
     }
 
     void UIManager::closeContext()

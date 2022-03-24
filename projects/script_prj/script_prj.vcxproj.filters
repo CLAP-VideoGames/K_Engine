@@ -18,6 +18,9 @@
     <ClCompile Include="..\..\src\script_prj\ScriptManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\script_prj\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\script_prj\ScriptManager.h">

@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace CEGUI {
 	class Window;
@@ -19,6 +20,11 @@ namespace CEGUI {
 	class FrameWindow;
 	class ProgressBar;
 }
+
+//UIComponents
+class UIComponent;
+class UISlider;
+class UIScrollbar;
 
 
 enum UITypes {Button, Slider, ScrollBar, MarkBox, Pointer, Image, Text};
@@ -85,10 +91,24 @@ namespace K_Engine {
 		CEGUI::ProgressBar* addProgressBar(std::pair<float, float> pos = std::pair<float, float>(0, 0),
 			std::pair<float, float> size = std::pair<float, float>(0, 0));
 
+		/// <summary>
+		/// This method adds a slider in the given position and with the given scale
+		/// (0,0) is top left of the screen
+		/// </summary>
+		/// <returns></returns>
+		UISlider* createSlider(std::pair<float, float> pos, std::pair<float, float> size = std::pair<float, float>(1, 1), std::string name = "UISlider", float value = 0);
+
+		/// <summary>
+		/// This method adds a slider in the given position and with the given scale
+		/// (0,0) is top left of the screen
+		/// </summary>
+		/// <returns></returns>
+		UIScrollbar* createScrollbar(std::pair<float, float> pos, std::pair<float, float> size = std::pair<float, float>(1, 1), std::string name = "UIScrollbar", float value = 0);
 
 	private:
 		static std::unique_ptr<UIManager> instance;
 		std::string name;
+		std::string schemeName;
 
 		CEGUI::GUIContext* guiContext;
 		CEGUI::DefaultWindow* mRoot;
@@ -96,12 +116,13 @@ namespace K_Engine {
 		CEGUI::OgreRenderer* m_renderer;
 		CEGUI::FrameWindow* wnd;
 
+		std::vector<UIComponent*> ceguiElements;
 
 		void initContext();
 		void initRoot();
+		void initScheme();
 
-		bool handleHelloWorldClicked(const CEGUI::EventArgs& args);
-
+		void cleanElements();
 		void closeContext();
 	};
 }

@@ -19,10 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\ui_prj\UIComponent.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UIManager.cpp" />
+    <ClCompile Include="..\..\src\ui_prj\UIScrollbar.cpp" />
+    <ClCompile Include="..\..\src\ui_prj\UISlider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\ui_prj\UIComponent.h" />
     <ClInclude Include="..\..\src\ui_prj\UIManager.h" />
+    <ClInclude Include="..\..\src\ui_prj\UIScrollBar.h" />
+    <ClInclude Include="..\..\src\ui_prj\UISlider.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\render_prj\render_prj.vcxproj">
