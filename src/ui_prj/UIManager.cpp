@@ -173,12 +173,12 @@ namespace K_Engine {
         //Adding as a child so we see it
         mRoot->addChild(t.wnd);
 
+        //Its msg
         t.wnd->setText(text_);
+
         //Posititon and size
         t.wnd->setPosition(UVector2(UDim(pos.first, 0.0f), UDim(pos.second, 0.0f)));
         t.wnd->setSize(USize(UDim(size.first, 0.0f), UDim(size.second, 0.0f)));
-
-        //Its msg
 
         //Return of the element
         return t;
