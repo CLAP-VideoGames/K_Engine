@@ -179,11 +179,13 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\components_prj\AudioSource.cpp" />
     <ClCompile Include="..\..\src\components_prj\MeshRenderer.cpp" />
     <ClCompile Include="..\..\src\components_prj\RigidBody.cpp" />
     <ClCompile Include="..\..\src\components_prj\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\components_prj\AudioSource.h" />
     <ClInclude Include="..\..\src\components_prj\MeshRenderer.h" />
     <ClInclude Include="..\..\src\components_prj\RigidBody.h" />
     <ClInclude Include="..\..\src\components_prj\Transform.h" />

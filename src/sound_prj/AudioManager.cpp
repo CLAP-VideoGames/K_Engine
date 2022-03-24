@@ -48,6 +48,7 @@ namespace K_Engine {
 
 	//-------------------------------------------------------------------------------
 
+	// It loads a WAV file 
 	void AudioManager::loadWAV(const char* path)
 	{
 		wav = Mix_LoadWAV(path);
@@ -56,6 +57,7 @@ namespace K_Engine {
 			std::cout << "WAV sound could not be loaded \n";
 	}
 
+	// It loads a OGG file (MP3 and other not available)
 	void AudioManager::loadMUS(const char* path)
 	{
 		mus = Mix_LoadMUS(path);
@@ -66,11 +68,11 @@ namespace K_Engine {
 
 	//-------------------------------------------------------------------------------
 
-	void AudioManager::playWAV(const char* path, int loop)
+	void AudioManager::playWAV(const char* path, int vol, int loop)
 	{
 		// Load and set volume
 		loadWAV(path);
-		Mix_VolumeChunk(wav, volumeWAV);
+		Mix_VolumeChunk(wav, vol);
 
 		if (Mix_PlayChannel(-1, wav, loop) == -1)
 			std::cout << "WAV sound could not be played!\n";
@@ -173,43 +175,19 @@ namespace K_Engine {
 
 	void AudioManager::setVolumeMUS(int vol)
 	{
-		volumeMUS = vol;
-
-		if (volumeMUS < 0)
+		if (vol > 0 && vol < 128)
 		{
-			volumeMUS = 0;
+			Mix_VolumeMusic(vol);
 		}
-		else if (volumeMUS > 128)
-		{
-			volumeMUS = 128;
-		}
-
-		Mix_VolumeMusic(vol);
 	}
 
 	void AudioManager::setVolumeWAV(int channel, int vol)
 	{
-		volumeWAV = vol;
-		if (volumeWAV < 0)
+		if (vol > 0 && vol < 128)
 		{
-			volumeWAV = 0;
+			Mix_Volume(channel, vol); // If channel = -1, all channel will have the same volume
 		}
-		else if (volumeWAV > 128)
-		{
-			volumeWAV = 128;
-		}
-		Mix_Volume(channel, vol); // If channel = -1, all channel will have the same volume
 	}
 
 	//-------------------------------------------------------------------------------
-
-	int AudioManager::getVolumeWAV()
-	{
-		return volumeWAV;
-	}
-
-	int AudioManager::getVolumeMUS()
-	{
-		return volumeMUS;
-	}
 }

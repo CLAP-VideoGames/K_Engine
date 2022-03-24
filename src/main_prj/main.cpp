@@ -22,6 +22,7 @@
 #include <components_prj/Transform.h>
 #include <components_prj/RigidBody.h>
 #include <components_prj/MeshRenderer.h>
+#include <components_prj/AudioSource.h>
 
 #include <utils_prj/KTimer.h>
 #include <utils_prj/KVector3.h>
@@ -68,8 +69,6 @@ int main() {
 			// Audio Manager initialisation
 			K_Engine::AudioManager::Init();
 			K_Engine::AudioManager* audioMan = K_Engine::AudioManager::GetInstance();
-			//audioMan->playWAV("./assets/sounds/clap.wav");
-			audioMan->playMUS("./assets/sounds/clapV2.ogg");
 
 			// Input Manager initialisation
 			K_Engine::InputManager::Init();
@@ -85,6 +84,7 @@ int main() {
 			compMan->add<Transform>();
 			compMan->add<MeshRenderer>();
 			compMan->add<RigidBody>();
+			compMan->add<AudioSource>();
 
 			EntityManager* entMan = new EntityManager(); // Entity Manager
 			Entity* entity = entMan->addEntity();
@@ -132,6 +132,14 @@ int main() {
 				MeshRenderer* m = platform->addComponent<MeshRenderer>();
 				m->setMesh("cube.mesh");
 				m->setMaterial("K_Engine/PrototypeOrange");
+			}
+
+			{
+				Entity* audio = entMan->addEntity();
+				AudioSource* a = audio->addComponent<AudioSource>();
+				a->playSong("./assets/sounds/samba_UCM.ogg");
+				a->playSong("./assets/sounds/clapV2.ogg");
+				//a->setGeneralVolume(35);
 			}
 
 			entMan->start();

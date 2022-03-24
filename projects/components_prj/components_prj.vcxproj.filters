@@ -24,6 +24,9 @@
     <ClCompile Include="..\..\src\components_prj\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\components_prj\AudioSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\components_prj\MeshRenderer.h">
@@ -33,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\components_prj\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components_prj\AudioSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
