@@ -16,31 +16,80 @@ class KVector3;
 class Transform : public Component
 {
 public:
+	/// <summary>
+	/// Required to be initialized properly in the Component Manager
+	/// </summary>
+	/// <param name="e">Entity to be attached to</param>
 	Transform(Entity* e);
 	~Transform();
 
 	static std::string GetId();
 
-	//These 3 methods add the the amount that we introduce in them to our current arrays
+	/// <summary>
+	/// Moves the entity to a new positions relative to the current one.
+	/// </summary>
 	void translate(float x, float y, float z);
+
+	/// <summary>
+	/// Rotates the entity to a new rotation relative to the current one.
+	/// </summary>
 	void rotate(float x, float y, float z);
+	/// <summary>
+	/// Scales the entity to a new scale relative to the current one.
+	/// </summary>
 	void scale(float x, float y, float z);
 
-	//These 3 methods set our arrays to the parameter we introduce in them
+	/// <summary>
+	/// Sets the entity to a new position
+	/// </summary>
 	void setPosition(float x, float y, float z);
+	/// <summary>
+	/// Sets the entity to a new size given its axis values
+	/// </summary>
 	void setDimensions(float x, float y, float z);
+	/// <summary>
+	/// Sets the entity to a new size given a global value for all its axis.
+	/// </summary>
 	void setDimensions(float d);
+	/// <summary>
+	/// Sets the entity to a new rotaion
+	/// </summary>
 	void setRotation(float x, float y, float z);
+	/// <summary>
+	/// Sets the entity to a new scale given its aixs values
+	/// </summary>
 	void setScale(float x, float y, float z);
+	/// <summary>
+	/// Sets the entity to a new scale given a global value for all its axis
+	/// </summary>
 	void setScale(float n);
 
-	//These 3 methods set our arrays to the parameter we introduce in them
+	/// <summary>
+	/// Gets the entity world position
+	/// </summary>
 	KVector3 getPosition() const;
+	/// <summary>
+	/// Gets the entity world rotation
+	/// </summary>
+	/// <returns></returns>
 	KVector3 getRotation() const;
+	/// <summary>
+	/// Gets entity scale. It's ownself, relative to it.
+	/// </summary>
 	KVector3 getScale() const;
+	/// <summary>
+	/// Gets the entity size
+	/// </summary>
 	KVector3 getDimensions() const;
 
+	/// <summary>
+	/// Custom method for debugging.
+	/// </summary>
 	virtual void debug();
+
+	/// <summary>
+	/// It's called every frame of the game.
+	/// </summary>
 	virtual void update();
 
 private:

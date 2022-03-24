@@ -53,7 +53,7 @@ int main() {
 			//renderMan->exampleScene();
 
 			// Physics Manager initialisation
-			K_Engine::PhysicsManager::Init(10, 20, { 0, -9.8, 0 }); //GetInstance() returns nullptr if Init isnt called first
+			K_Engine::PhysicsManager::Init(20, { 0, -9.8, 0 }); //GetInstance() returns nullptr if Init isnt called first
 			K_Engine::PhysicsManager* physicsMan = K_Engine::PhysicsManager::GetInstance();
 
 

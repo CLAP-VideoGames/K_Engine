@@ -18,29 +18,82 @@ class Transform;
 enum class ColliderType;
 enum class BodyType;
 
+
+/// <summary>
+/// This componentn provides to the entity a physic behaviour. 
+/// </summary>
 class RigidBody : public Component
 {
 public:
-	//Required Contructor so the component is initialized properly
+	/// <summary>
+	/// Required to be initialized properly in the Component Manager
+	/// </summary>
+	/// <param name="e">Entity to be attached to</param>
 	RigidBody(Entity* e);
-	RigidBody(Entity* e, ColliderType type_, BodyType bType_, float mass, int group_ = 1, int mask_ = 1);
+
+	/// <summary>
+	/// Initialize the new component, creating a new physic object with the given attributes
+	/// </summary>
+	/// <param name="e">Entity to be attached to</param>
+	/// <param name="type_">Collider shape type</param>
+	/// <param name="bType_">Physics type, dynamic, static...</param>
+	/// <param name="mass">Mass value</param>
+	/// <param name="mask_">Layer which belongs to</param>
+	/// <param name="group_">With which layers collides</param>
+	RigidBody(Entity* e, ColliderType type_, BodyType bType_, float mass, int mask_ = 1, int group_ = 1);
 	~RigidBody();
 
 	//Required method for the component name
 	static std::string GetId();
 
+	/// <summary>
+	/// Determines whether is a trigger or not
+	/// </summary>
 	void setTrigger(bool value);
 
+	/// <summary>
+	/// Rotation restrictions
+	/// </summary>
+	/// <param name="i">Index of each axis. x, y, z respectively</param>
+	/// <param name="value">wheters is blocked or not</param>
 	void setRotConstraints(int i, bool value);
-	void setTrasConstraints(int i, bool value);
+	/// <summary>
+	/// Position restrictions
+	/// </summary>
+	/// <param name="i">Index of each axis. x, y, z respectively</param>
+	/// <param name="value">wheters is blocked or not</param>
+	void setPosConstraints(int i, bool value);
 
+	/// <summary>
+	/// Bounciness factor
+	/// </summary>
+	/// <param name="value"></param>
 	void setRestitution(float value);
+
+	/// <summary>
+	/// Friction factor.
+	/// </summary>
+	/// <param name="value"></param>
 	void setFriction(float value);
 
+	/// <summary>
+	/// It's called at the beginning of the execution.
+	/// </summary>
 	virtual void start();
+
+	/// <summary>
+	/// It's called every frame of the game.
+	/// </summary> 
 	virtual void update();
+
+	/// <summary>
+	/// Custom method for debugging.
+	/// </summary>
 	virtual void debug();
 
+	/// <summary>
+	/// Updates the physic scale which the transform scale
+	/// </summary>
 	void syncScale();
 
 private:
@@ -66,18 +119,18 @@ private:
 	btTransform* btTransform_ = nullptr;
 	//Required
 	static std::string name;
-
+	//Bounciness factor
 	float restitution_;
-
+	//Friction factor
 	float friction_;
 	//Array of constrains for rotation in x y z
 	bool rotationConstraints[3]{ false, false, false };
 
 	//Array of constrains for traslation in x y z
-	bool traslationConstraints[3]{ false, false, false };
+	bool positionConstraints[3]{ false, false, false };
 
 	//Collision filtering
 	int group_;
 	int mask_;
 };
-#endif // RIGIDBODY_H
+#endif RIGIDBODY_H

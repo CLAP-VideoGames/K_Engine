@@ -18,8 +18,19 @@ public:
 	void operator-=(KVector3 const& other);
 	double& operator[](int);
 
+	/// <summary>
+	/// Size of the vector
+	/// </summary>
+	/// <returns></returns>
 	float getMagnitude();
+
+	/// <summary>
+	/// Returns a vector copy normalized
+	/// </summary>
 	KVector3 normalized();
+	/// <summary>
+	/// Normalize the current vector
+	/// </summary>
 	void normalize();
 };
 #endif // CUSTOMVECTOR_H

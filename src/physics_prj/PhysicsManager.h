@@ -2,8 +2,6 @@
 #ifndef PHYSICSMANAGER_H
 #define PHYSICSMANAGER_H
 
-#define BIT(x) (1<<(x))
-
 #include <memory>
 #include <string>
 
@@ -12,8 +10,6 @@ class btTransform;
 class btRigidBody;
 class btDynamicsWorld;
 class CollisionLayers;
-
-class DefaultLayers;
 
 enum class ColliderType {
 	CT_BOX,
@@ -27,12 +23,6 @@ enum class BodyType {
 	BT_DYNAMIC,
 };
 
-enum CollisionLayer {
-	COL_NOTHING = 0,
-	COL_PLAYER = BIT(1),
-	COL_WORLD = BIT(2),
-};
-
 struct KVector3;
 
 namespace K_Engine {
@@ -42,40 +32,94 @@ namespace K_Engine {
 	public:
 		struct CollisionCallBack;
 
-		int playerCollidesWith = CollisionLayer::COL_PLAYER | CollisionLayer::COL_WORLD;
-
 		PhysicsManager();
+
 		~PhysicsManager();
 
+		/// <summary>
+		///	returns an instance of the manager. It must've been initialized previously.
+		/// </summary>
+		/// <returns></returns>
 		static PhysicsManager* GetInstance();
+		
+		/// <summary>
+		/// Initialize the static manager instance.
+		/// </summary>
+		/// <param name="step">Number of physics steps by second</param>
+		/// <param name="gravity">Gravity of the world</param>
+		/// <returns>if has been succesful the initialization</returns>
+		static bool Init(int step, const KVector3& gravity);
 
-		static bool Init(int numIterations, int step, const KVector3& gravity);
+		/// <summary>
+		/// Realease the world and all its objects.
+		/// </summary>
+		/// <returns>if has been succesful the shutdown</returns>
 		static bool Shutdown();
 
+		/// <summary>
+		/// Updates all the physics objects.
+		/// </summary>
 		void update();
-		void exampleObjects();
-		void changeCollisionFiltering(btRigidBody* rb, int group, int mask);
+
+		/// <summary>
+		/// Change the collision layer and group of a certain rigidbody.
+		/// </summary>
+		/// <param name="rb">Reference to the RigidBody</param>
+		/// <param name="group">With which layers collides</param>
+		/// <param name="name">Name of the mask which belongs</param>
+		void changeCollisionFiltering(btRigidBody* rb, int group, std::string nameMask);
+
+		/// <summary>
+		/// Creates a simple physic transform, settint a given position and rotation.
+		/// </summary>
+		/// <param name="position"></param>
+		/// <param name="rotation"></param>
+		/// <returns>reference to the created transform</returns>
 		btTransform* createTransform(KVector3 const& position, KVector3 const& rotation);
+
+		/// <summary>
+		/// Change the gravity of the physic world.
+		/// </summary>
+		/// <param name="grav"></param>
 		void changeGravity(KVector3 const& grav);
 
+		/// <summary>
+		/// Returns a reference to the physics world.
+		/// </summary>
 		DynamicsWorld* getWorld() const;
 
+		/// <summary>
+		/// Returns the value of the mask
+		/// </summary>
+		/// <param name="name">Key name</param>
 		int getLayerValue(std::string name) const;
 
+		/// <summary>
+		/// Adds a new layer to the world. It can be accesed by its name.
+		/// </summary>
+		/// <param name="name">Key name</param>
 		void addLayer(std::string name);
 
 	private:
 		static std::unique_ptr<PhysicsManager> instance;
-
 		btVector3* gravity;
 		btDynamicsWorld* btWorld;
 		DynamicsWorld* dynamicsWorld_;
-
-		int numIterations_;
-
 		CollisionLayers* colLayers_;
 
-		bool initWorld(int numIterations, int step, const btVector3& gravity);
+		/// <summary>
+		/// Initialize the world with the given parameters
+		/// </summary>
+		/// <param name="numIterations"></param>
+		/// <param name="step"></param>
+		/// <param name="gravity"></param>
+		/// <returns></returns>
+		bool initWorld(int step, const btVector3& gravity);
+
+		/// <summary>
+		/// Realease the world and all its objects.
+		/// </summary>
+		/// <returns>if has been succesful the shutdown</returns>
 		bool releaseWorld();
 	};
 }

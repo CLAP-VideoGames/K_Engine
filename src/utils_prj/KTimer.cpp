@@ -3,8 +3,7 @@
 #include <SDL_timer.h>
 
 namespace K_Engine {
-	KTimer::KTimer()
-	{
+	KTimer::KTimer(){
 		reset();
 	}
 

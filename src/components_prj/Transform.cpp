@@ -73,8 +73,7 @@ void Transform::setRotation(float x, float y, float z) {
 	(*rotation_) = toAdd;
 }
 
-void Transform::setScale(float x, float y, float z)
-{
+void Transform::setScale(float x, float y, float z){
 	KVector3 toAdd = { x, y, z };
 	(*scale_) = toAdd;
 }

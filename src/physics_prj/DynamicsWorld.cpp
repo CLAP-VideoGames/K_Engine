@@ -96,29 +96,31 @@ namespace K_Engine {
 			break;
 		}
 
+		//Configuration of the body
 		btRigidBody::btRigidBodyConstructionInfo bodyCI = btRigidBody::btRigidBodyConstructionInfo(mass, state, cs, inertia);
 		bodyCI.m_restitution = restitution;
 		bodyCI.m_friction = friction;
 
+		//Creation of the body
 		auto rb = new btRigidBody(bodyCI);
 		btWorld_->addRigidBody(rb, group, mask);
 
+		//Adding personal data
 		if (colList != nullptr)
 			rb->setUserPointer(colList);
-
-
-		//btCollisionShape::setLocalScaling();
 
 		return rb;
 	}
 
 	btBoxShape* DynamicsWorld::createBoxCollider(btVector3 const& dimensions, btVector3 const& scale) {
+		//Size divided by 2 since it just need the corner points
 		auto shape = new btBoxShape(dimensions / 2.0f);
 		shape->setLocalScaling(scale);
 		return shape;
 	}
 
 	btSphereShape* DynamicsWorld::createSphereCollider(btVector3 const& radius, btVector3 const& scale) {
+		//Size divided by 2 since it just need the corner points
 		auto shape = new btSphereShape(radius.x() / 2);
 		shape->setLocalScaling(scale);
 		return shape;;

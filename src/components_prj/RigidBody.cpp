@@ -18,7 +18,7 @@ RigidBody::RigidBody(Entity* e) : Component("RigidBody", e) {
 	name = id;
 }
 
-RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int group, int mask) : Component("RigidBody", e) {
+RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group) : Component("RigidBody", e) {
 	name = id;
 	type_ = type;
 	bType_ = bType;
@@ -46,8 +46,8 @@ void RigidBody::setTrigger(bool value) {
 void RigidBody::setRotConstraints(int i, bool value) {
 	rotationConstraints[i] = value;
 }
-void RigidBody::setTrasConstraints(int i, bool value) {
-	traslationConstraints[i] = value;
+void RigidBody::setPosConstraints(int i, bool value) {
+	positionConstraints[i] = value;
 }
 
 void RigidBody::setRestitution(float value) {
