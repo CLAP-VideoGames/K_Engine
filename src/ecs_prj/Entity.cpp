@@ -1,6 +1,8 @@
 #include "Entity.h"
 
 #include <ecs_prj/Component.h>
+#include <components_prj/Transform.h>
+#include <utils_prj/KVector3.h>
 
 Entity::Entity()
 {
@@ -20,6 +22,11 @@ void Entity::update()
 
 		c.second->physicsUpdate();
 	}
+
+	//Update for the entity children
+	for (auto c : children) {
+		c->update();
+	}
 }
 
 void Entity::start()
@@ -27,4 +34,9 @@ void Entity::start()
 	for (auto e : components) {
 		e.second->start();
 	}
+}
+
+void Entity::addChild(Entity* child)
+{
+	children.push_back(child);
 }

@@ -3,7 +3,9 @@
 #define COLLISIONMANAGER_H_
 
 class btManifoldPoint;
-
+/// <summary>
+/// It doesnt work
+/// </summary>
 namespace K_Engine {
 	class CollisionListener {
 	public:
