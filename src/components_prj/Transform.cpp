@@ -152,8 +152,41 @@ void Transform::setScale(float x, float y, float z) {
 }
 
 void Transform::setScale(float n) {
-	KVector3 toAdd = { n, n, n };
-	(*scale_) = toAdd;
+	KVector3 toSet = { n, n, n };
+
+	std::vector<Entity*> children = entity->getChildren();
+
+	for (auto c : children) {
+
+		//Data for the calculation
+		Transform* childT = c->getComponent<Transform>();
+
+		KVector3 childScale = childT->getScale();
+
+		KVector3 oldParentScale = getScale();
+
+		KVector3 toSetChild = toSet;
+
+		//Get the diference between new pos and oldPos
+		toSetChild.x -= oldParentScale.x;
+		toSetChild.y -= oldParentScale.y;
+		toSetChild.z -= oldParentScale.z;
+
+		//Set its new position with the parent as (0,0,0)
+		childT->setScale((childScale.x + toSetChild.x), (childScale.y + toSetChild.y), (childScale.z + toSetChild.z));
+	}
+
+	RigidBody* rb = entity->getComponent<RigidBody>();
+	if (rb) {
+		rb->syncScale();
+	}
+
+	MeshRenderer* mR = entity->getComponent<MeshRenderer>();
+	if (mR) {
+		mR->syncScale();
+	}
+
+	(*scale_) = toSet;
 }
 
 KVector3 Transform::getPosition() const {

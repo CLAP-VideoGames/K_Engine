@@ -198,7 +198,7 @@ int main() {
 						
 					if (inputMan->isKeyDown(K_Engine::SCANCODE_0)) {
 						KVector3 scal = t->getScale();
-						t->setScale(scal.x +1,scal.y + 1,scal.z);
+						t->setScale(3,3,3);
 					}
 
 					uiMan->update();
