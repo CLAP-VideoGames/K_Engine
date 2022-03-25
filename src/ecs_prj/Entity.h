@@ -82,7 +82,7 @@ public:
 	//This mehtos is used to set our Entity to active or unactive
 	void setActive(bool a) { active = a; }
 
-	//This methos updates our entity and is called once per frame
+	//This method updates our entity and is called once per frame
 	void update();
 
 	//To know when to destroy our entity
@@ -94,6 +94,11 @@ public:
 	//The start of everyComponent of our entity
 	void start();
 
+	//Add an entity to the children vector
+	void addChild(Entity* child);
+
+	//Getter for the children vector
+	std::vector<Entity*> getChildren() { return children; }
 private:
 
 	/*
@@ -122,5 +127,8 @@ private:
 	//strings to give the entity a tag or a name
 	std::string tag;
 	std::string name;
+
+	//Entitys attached to thi entity
+	std::vector<Entity*> children;
 };
 #endif // ENTITY_H

@@ -106,8 +106,8 @@ int main() {
 			int playerCollidesWith = physicsMan->getLayerValue(platformLayer);
 			//Configurations Scope
 			EntityManager* entMan = new EntityManager(); // Entity Manager
+			Entity* player = entMan->addEntity();
 			{
-				Entity* player = entMan->addEntity();
 				Transform* t = player->addComponent<Transform>(); t->setDimensions(3.0f);
 				t->setPosition(-2, 5, 0);
 				ColliderType boxType = ColliderType::CT_SPHERE;
@@ -121,6 +121,24 @@ int main() {
 				m->setMaterial("K_Engine/PrototypeBlue");
 				m->debug();
 			}
+
+			Entity* playerChild = entMan->addEntity();
+			{
+				Transform* t = playerChild->addComponent<Transform>(); t->setDimensions(3.0f);
+				t->setPosition(3, 6, 0);
+				t->setRotation(0, 0, 10);
+				ColliderType boxType = ColliderType::CT_SPHERE;
+				BodyType bodyType =  BodyType::BT_DYNAMIC;
+				float mass = 1.0f;
+				//RigidBody* r = playerChild->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
+				//r->setFriction(0.6f);
+				//r->setRestitution(1.2f);
+				MeshRenderer* m = playerChild->addComponent<MeshRenderer>();
+				m->setMesh("sphere.mesh");
+				m->setMaterial("K_Engine/PrototypeBlue");
+				m->debug();
+			}
+			player->addChild(playerChild);
 			
 			int platformCollidesWith = physicsMan->getLayerValue(playerLayer);
 			//Configurations Scope
@@ -137,7 +155,7 @@ int main() {
 				m->setMesh("cube.mesh");
 				m->setMaterial("K_Engine/PrototypeOrange");
 			}
-			int futureCollidesWith = physicsMan->getLayerValue(nothingLayer);
+			int futureCollidesWith = physicsMan->getLayerValue(playerLayer);
 			//Configurations Scope
 			{
 				Entity* platform = entMan->addEntity();
@@ -154,11 +172,12 @@ int main() {
 			}
 
 			{
-				//Entity* audio = entMan->addEntity();
-				//AudioSource* a = audio->addComponent<AudioSource>();
+				/*Entity* audio = entMan->addEntity();
+				AudioSource* a = audio->addComponent<AudioSource>();
 				//a->playSong("./assets/sounds/samba_UCM.ogg");
-				//a->playSong("./assets/sounds/clapV2.ogg");
-				//a->setGeneralVolume(35);
+				a->playSoundEffect("./assets/sounds/clap.wav",-1);
+				a->setGeneralVolume(35);
+				a->stopOneSoundEffect("./assets/sounds/clap.wav");*/
 			}
 
 			entMan->start();

@@ -35,6 +35,7 @@ namespace K_Engine {
 		void setVolumeWAV(int channel, int vol);
 		void setVolumeMUS(int vol);
 
+		int locateAudioFile(const char* path);
 	private:
 		static std::unique_ptr<AudioManager> instance;
 

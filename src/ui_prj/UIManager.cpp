@@ -241,8 +241,8 @@ namespace K_Engine {
 
     void UIManager::debug()
     {
-        b = addButton("BUTTON", std::pair<float, float>(0.5, 0.5),
-            std::pair<float, float>(0.3, 0.1));
+   /*     b = addButton("BUTTON", std::pair<float, float>(0.5, 0.5),
+            std::pair<float, float>(0.3, 0.1));*/
 
         /*b->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&b->setPushedState(true)));*/
     }
@@ -250,9 +250,9 @@ namespace K_Engine {
     void UIManager::update()
     {
         
-        if (b->isPushed()) {
-            std::cout << "Me llaman el bartolo" << "\n";
-        }
+        //if (b->isPushed()) {
+        //    std::cout << "Me llaman el bartolo" << "\n";
+        //}
     }
 
     CEGUI::ButtonBase* UIManager::addButton(std::string text_, std::pair<float, float> pos, std::pair<float, float> size)
