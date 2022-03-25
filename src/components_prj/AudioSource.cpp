@@ -104,3 +104,18 @@ void AudioSource::resumeAudio()
 	audioM->resumeMUS();
 	audioM->resumeWAV(-1);
 }
+
+void AudioSource::stopOneSoundEffect(const char* path)
+{
+	audioM->stopWAV(audioM->locateAudioFile(path));
+}
+
+void AudioSource::pauseOneSoundEffect(const char* path)
+{
+	audioM->pauseWAV(audioM->locateAudioFile(path));
+}
+
+void AudioSource::resumeOneSoundEffect(const char* path)
+{
+	audioM->resumeWAV(audioM->locateAudioFile(path));
+}

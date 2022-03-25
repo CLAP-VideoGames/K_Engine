@@ -73,9 +73,20 @@ namespace K_Engine {
 		// Load and set volume
 		loadWAV(path);
 		Mix_VolumeChunk(wav, vol);
+		int channel = locateAudioFile(path);
 
-		if (Mix_PlayChannel(-1, wav, loop) == -1)
-			std::cout << "WAV sound could not be played!\n";
+		if (channel == -1)
+		{
+			// Gets the first empty channel and assign the audio file to that channel, and starts playing
+			if (Mix_PlayChannel(-1, wav, loop) == -1)
+				std::cout << "WAV sound could not be played!\n";
+		}
+		else
+		{
+			// Gets the channel where it's already located and play it again
+			if (Mix_PlayChannel(channel, wav, loop) == -1)
+				std::cout << "Existing WAV sound could not be played!\n";
+		}		
 	}
 
 	void AudioManager::playMUS(const char* path, int loop)
@@ -190,4 +201,33 @@ namespace K_Engine {
 	}
 
 	//-------------------------------------------------------------------------------
+	
+	int AudioManager::locateAudioFile(const char* path)
+	{
+		int channelsOccupied = Mix_AllocateChannels(-1); // Returns how many channels are being used
+		int i = 0;
+		Mix_Chunk* file = Mix_LoadWAV(path);
+
+		if (!file)
+			std::cout << "file sound could not be loaded to be checked \n";
+
+		Mix_Chunk* aux = Mix_GetChunk(i);
+
+		// Checks, channel by channel, if there's already a channel with the same audio file
+		while (i <= channelsOccupied && file != aux)
+		{
+			i++;
+			aux = Mix_GetChunk(i);
+		}
+
+		if (i > channelsOccupied)
+		{
+			return -1;
+		}
+		else
+		{
+			return i;
+		}
+	}
+
 }

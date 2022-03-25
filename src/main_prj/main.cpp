@@ -172,11 +172,12 @@ int main() {
 			}
 
 			{
-				//Entity* audio = entMan->addEntity();
-				//AudioSource* a = audio->addComponent<AudioSource>();
+				/*Entity* audio = entMan->addEntity();
+				AudioSource* a = audio->addComponent<AudioSource>();
 				//a->playSong("./assets/sounds/samba_UCM.ogg");
-				//a->playSong("./assets/sounds/clapV2.ogg");
-				//a->setGeneralVolume(35);
+				a->playSoundEffect("./assets/sounds/clap.wav",-1);
+				a->setGeneralVolume(35);
+				a->stopOneSoundEffect("./assets/sounds/clap.wav");*/
 			}
 
 			entMan->start();

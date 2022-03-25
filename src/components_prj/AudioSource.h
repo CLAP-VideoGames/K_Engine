@@ -27,6 +27,10 @@ public:
 	void pauseAudio();
 	void resumeAudio();
 
+	void stopOneSoundEffect(const char* path);
+	void pauseOneSoundEffect(const char* path);
+	void resumeOneSoundEffect(const char* path);
+
 	// void stopSoundEffect // Parar X efecto de sonido en especifico (Aplicable para play,pause y resume)
 	//virtual void debug();
 	//virtual void update();
