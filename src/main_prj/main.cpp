@@ -107,15 +107,15 @@ int main() {
 			//Configurations Scope
 			EntityManager* entMan = new EntityManager(); // Entity Manager
 			Entity* player = entMan->addEntity();
+			Transform* t = player->addComponent<Transform>(); t->setDimensions(3.0f);
 			{
-				Transform* t = player->addComponent<Transform>(); t->setDimensions(3.0f);
-				t->setPosition(-2, 5, 0);
+				t->setPosition(3, 3, 0);
 				ColliderType boxType = ColliderType::CT_SPHERE;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
 				float mass = 1.0f;
-				RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
-				r->setFriction(0.6f);
-				r->setRestitution(1.2f);
+				//RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
+				//r->setFriction(0.6f);
+				//r->setRestitution(1.2f);
 				MeshRenderer* m = player->addComponent<MeshRenderer>();
 				m->setMesh("sphere.mesh");
 				m->setMaterial("K_Engine/PrototypeBlue");
@@ -124,9 +124,9 @@ int main() {
 
 			Entity* playerChild = entMan->addEntity();
 			{
-				Transform* t = playerChild->addComponent<Transform>(); t->setDimensions(3.0f);
-				t->setPosition(3, 6, 0);
-				t->setRotation(0, 0, 10);
+				Transform* t = playerChild->addComponent<Transform>(); t->setDimensions(1.0f);
+				t->setPosition(7, 7, 0);
+				//t->setRotation(0, 0, 10);
 				ColliderType boxType = ColliderType::CT_SPHERE;
 				BodyType bodyType =  BodyType::BT_DYNAMIC;
 				float mass = 1.0f;
@@ -155,6 +155,7 @@ int main() {
 				m->setMesh("cube.mesh");
 				m->setMaterial("K_Engine/PrototypeOrange");
 			}
+
 			int futureCollidesWith = physicsMan->getLayerValue(playerLayer);
 			//Configurations Scope
 			{
@@ -195,6 +196,11 @@ int main() {
 					run = (!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B)
 						&& !inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE));
 						
+					if (inputMan->isKeyDown(K_Engine::SCANCODE_0)) {
+						KVector3 scal = t->getScale();
+						t->setScale(scal.x +1,scal.y + 1,scal.z);
+					}
+
 					uiMan->update();
 					entMan->update();
 					physicsMan->update();

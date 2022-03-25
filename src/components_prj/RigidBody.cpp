@@ -77,47 +77,6 @@ void RigidBody::update() {
 	btScalar x;
 	rb->getWorldTransform().getRotation().getEulerZYX(z, y, x);
 
-	//Before we set the new position we recalculate the children positions
-	std::vector<Entity*> children = entity->getChildren();
-	for (auto c : children) {
-		//Data for the calculation
-		Transform* childT = c->getComponent<Transform>();
-
-		KVector3 childPos = childT->getPosition();
-		KVector3 childRot = childT->getRotation();
-
-		KVector3 oldParentPos = entity->getComponent<Transform>()->getPosition();
-		KVector3 oldParentRot = entity->getComponent<Transform>()->getRotation();
-
-		KVector3 toAdd;
-		KVector3 rotToAdd;
-
-		//Set to the new pos because we dont have a converter to btVector3
-		toAdd.x = pos.x();
-		toAdd.y = pos.y();
-		toAdd.z = pos.z();
-
-		//Set to the new rot because we btScalar
-		rotToAdd.x = x;
-		rotToAdd.y = y;
-		rotToAdd.z = z;
-
-		//Get the diference between new pos and oldPos
-		toAdd.x -= oldParentPos.x;
-		toAdd.y -= oldParentPos.y;
-		toAdd.z -= oldParentPos.z;
-
-		//Get the diference between new rot and oldRot
-		rotToAdd.x -= oldParentRot.x;
-		rotToAdd.y -= oldParentRot.y;
-		rotToAdd.z -= oldParentRot.z;
-
-		//Set its new position with the parent as (0,0,0)
-		childT->setPosition(childPos.x + toAdd.x, childPos.y + toAdd.y, childPos.z + toAdd.z);
-		//Set its new rotation acording to its parent
-		childT->setRotation(childRot.x + rotToAdd.x, childRot.y + rotToAdd.y, childRot.z + rotToAdd.z);
-	}
-
 	//set new position
 	transformRf_->setPosition(pos.x(), pos.y(), pos.z());
 	transformRf_->setRotation(x, y, z);

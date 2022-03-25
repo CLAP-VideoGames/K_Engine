@@ -7,7 +7,7 @@
 std::string Transform::name = "Transform";
 
 Transform::Transform(Entity* e) : Component("Transform", e)
-{ 
+{
 	position_ = new KVector3{ 0, 0, 0 };
 	rotation_ = new KVector3{ 0, 0, 0 };
 	scale_ = new KVector3{ 1, 1, 1 };
@@ -29,6 +29,16 @@ std::string Transform::GetId()
 void Transform::translate(float x, float y, float z)
 {
 	KVector3 toAdd = { x, y, z };
+	std::vector<Entity*> children = entity->getChildren();
+
+	for (auto c : children) {
+
+		//Translate childre
+		Transform* childT = c->getComponent<Transform>();
+
+		childT->translate(x, y, z);
+	}
+
 	(*position_) += toAdd;
 }
 
@@ -37,9 +47,10 @@ void Transform::rotate(float x, float y, float z) {
 	(*rotation_) += toAdd;
 }
 
-void Transform::scale(float x, float y, float z){
+void Transform::scale(float x, float y, float z) {
 	KVector3 toAdd = { x, y, z };
 	(*scale_) += toAdd;
+
 
 	RigidBody* rb = entity->getComponent<RigidBody>();
 	if (rb) {
@@ -51,19 +62,48 @@ void Transform::scale(float x, float y, float z){
 		mR->syncScale();
 	}
 
+	std::vector<Entity*> children = entity->getChildren();
+
+	for (auto c : children) {
+		c->getComponent<Transform>()->scale(x, y, z);
+	}
+
 }
 
 void Transform::setPosition(float x, float y, float z) {
-	KVector3 toAdd = { x, y, z };
-	(*position_) = toAdd;
+	KVector3 toSet = { x, y, z };
+
+	std::vector<Entity*> children = entity->getChildren();
+
+	for (auto c : children) {
+
+		//Data for the calculation
+		Transform* childT = c->getComponent<Transform>();
+
+		KVector3 childPos = childT->getPosition();
+
+		KVector3 oldParentPos = getPosition();
+
+		KVector3 toSetChild = toSet;
+
+		//Get the diference between new pos and oldPos
+		toSetChild.x -= oldParentPos.x;
+		toSetChild.y -= oldParentPos.y;
+		toSetChild.z -= oldParentPos.z;
+
+		//Set its new position with the parent as (0,0,0)
+		childT->setPosition((childPos.x + toSetChild.x), (childPos.y + toSetChild.y), (childPos.z + toSetChild.z));
+	}
+
+	(*position_) = toSet;
 }
 
-void Transform::setDimensions(float x, float y, float z){
+void Transform::setDimensions(float x, float y, float z) {
 	KVector3 toAdd = { x, y, z };
 	(*dimensions_) = toAdd;
 }
 
-void Transform::setDimensions(float d){
+void Transform::setDimensions(float d) {
 	KVector3 toAdd = { d, d, d };
 	(*dimensions_) = toAdd;
 }
@@ -73,12 +113,45 @@ void Transform::setRotation(float x, float y, float z) {
 	(*rotation_) = toAdd;
 }
 
-void Transform::setScale(float x, float y, float z){
-	KVector3 toAdd = { x, y, z };
-	(*scale_) = toAdd;
+void Transform::setScale(float x, float y, float z) {
+	KVector3 toSet = { x, y, z };
+
+	std::vector<Entity*> children = entity->getChildren();
+
+	for (auto c : children) {
+
+		//Data for the calculation
+		Transform* childT = c->getComponent<Transform>();
+
+		KVector3 childScale = childT->getScale();
+
+		KVector3 oldParentScale = getScale();
+
+		KVector3 toSetChild = toSet;
+
+		//Get the diference between new pos and oldPos
+		toSetChild.x -= oldParentScale.x;
+		toSetChild.y -= oldParentScale.y;
+		toSetChild.z -= oldParentScale.z;
+
+		//Set its new position with the parent as (0,0,0)
+		childT->setScale((childScale.x + toSetChild.x), (childScale.y + toSetChild.y), (childScale.z + toSetChild.z));
+	}
+
+	RigidBody* rb = entity->getComponent<RigidBody>();
+	if (rb) {
+		rb->syncScale();
+	}
+
+	MeshRenderer* mR = entity->getComponent<MeshRenderer>();
+	if (mR) {
+		mR->syncScale();
+	}
+
+	(*scale_) = toSet;
 }
 
-void Transform::setScale(float n){
+void Transform::setScale(float n) {
 	KVector3 toAdd = { n, n, n };
 	(*scale_) = toAdd;
 }
@@ -104,7 +177,7 @@ void Transform::debug()
 	setScale(0.2, 0.2, 0.2);
 }
 
-void Transform::update(){
+void Transform::update() {
 	//printf("world girar object = %f,%f,%f\n", float(rotation_->x), float(rotation_->y), float(rotation_->z));
 	//printf("world pos object  = %f,%f,%f\n",  float(position_->x), float(position_->y), float(position_->z));
 	//printf("________\n");
