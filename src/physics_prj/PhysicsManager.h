@@ -9,7 +9,6 @@ class btVector3;
 class btTransform;
 class btRigidBody;
 class btDynamicsWorld;
-class CollisionLayers;
 
 enum class ColliderType {
 	CT_BOX,
@@ -23,9 +22,9 @@ enum class BodyType {
 	BT_DYNAMIC,
 };
 
-struct KVector3;
-
 namespace K_Engine {
+	class CollisionLayers;
+	struct KVector3;
 	class DynamicsWorld;
 
 	class PhysicsManager {
@@ -41,7 +40,7 @@ namespace K_Engine {
 		/// </summary>
 		/// <returns></returns>
 		static PhysicsManager* GetInstance();
-		
+
 		/// <summary>
 		/// Initialize the static manager instance.
 		/// </summary>

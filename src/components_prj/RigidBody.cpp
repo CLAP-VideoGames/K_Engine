@@ -11,83 +11,85 @@
 #include <physics_prj/CollisionListener.h>
 #include <btBulletDynamicsCommon.h>
 
-//Required
-std::string RigidBody::name = "RigidBody";
+namespace K_Engine {
+	//Required
+	std::string RigidBody::name = "RigidBody";
 
-RigidBody::RigidBody(Entity* e) : Component("RigidBody", e) {
-	name = id;
-}
+	RigidBody::RigidBody(Entity* e) : Component("RigidBody", e) {
+		name = id;
+	}
 
-RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group) : Component("RigidBody", e) {
-	name = id;
-	type_ = type;
-	bType_ = bType;
-	mass_ = mass;
-	friction_ = 0.3;
-	restitution_ = 0.1f;
+	RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group) : Component("RigidBody", e) {
+		name = id;
+		type_ = type;
+		bType_ = bType;
+		mass_ = mass;
+		friction_ = 0.3;
+		restitution_ = 0.1f;
 
-	group_ = group;
-	mask_ = mask;
-}
+		group_ = group;
+		mask_ = mask;
+	}
 
-RigidBody::~RigidBody() {
+	RigidBody::~RigidBody() {
 
-}
+	}
 
-std::string RigidBody::GetId() {
-	return name;
-}
+	std::string RigidBody::GetId() {
+		return name;
+	}
 
-void RigidBody::setTrigger(bool value) {
-	isTrigger = value;
-}
+	void RigidBody::setTrigger(bool value) {
+		isTrigger = value;
+	}
 
-//In both of this methods 0=x 1=y 2=z
-void RigidBody::setRotConstraints(int i, bool value) {
-	rotationConstraints[i] = value;
-}
-void RigidBody::setPosConstraints(int i, bool value) {
-	positionConstraints[i] = value;
-}
+	//In both of this methods 0=x 1=y 2=z
+	void RigidBody::setRotConstraints(int i, bool value) {
+		rotationConstraints[i] = value;
+	}
+	void RigidBody::setPosConstraints(int i, bool value) {
+		positionConstraints[i] = value;
+	}
 
-void RigidBody::setRestitution(float value) {
-	restitution_ = value;
-}
+	void RigidBody::setRestitution(float value) {
+		restitution_ = value;
+	}
 
-void RigidBody::setFriction(float value) {
-	friction_ = value;
-}
+	void RigidBody::setFriction(float value) {
+		friction_ = value;
+	}
 
-void RigidBody::start() {
-	transformRf_ = entity->getComponent<Transform>();
-	world_ = K_Engine::PhysicsManager::GetInstance()->getWorld();
+	void RigidBody::start() {
+		transformRf_ = entity->getComponent<Transform>();
+		world_ = K_Engine::PhysicsManager::GetInstance()->getWorld();
 
-	btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
-	KVector3 dimensions = transformRf_->getDimensions();
-	KVector3 scale = transformRf_->getScale();
-	btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-	btVector3 dimensions_ = { (btScalar)dimensions.x, (btScalar)dimensions.y, (btScalar)dimensions.z };
-	rb = world_->addRigidBody(type_, *btTransform_, dimensions_, scale_, bType_, mass_, restitution_, friction_, group_, mask_);
-}
+		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
+		KVector3 dimensions = transformRf_->getDimensions();
+		KVector3 scale = transformRf_->getScale();
+		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
+		btVector3 dimensions_ = { (btScalar)dimensions.x, (btScalar)dimensions.y, (btScalar)dimensions.z };
+		rb = world_->addRigidBody(type_, *btTransform_, dimensions_, scale_, bType_, mass_, restitution_, friction_, group_, mask_);
+	}
 
-void RigidBody::update() {
-	btVector3 pos = rb->getWorldTransform().getOrigin();
-	btScalar y;
-	btScalar z;
-	btScalar x;
-	rb->getWorldTransform().getRotation().getEulerZYX(z, y, x);
+	void RigidBody::update() {
+		btVector3 pos = rb->getWorldTransform().getOrigin();
+		btScalar y;
+		btScalar z;
+		btScalar x;
+		rb->getWorldTransform().getRotation().getEulerZYX(z, y, x);
 
-	//set new position
-	transformRf_->setPosition(pos.x(), pos.y(), pos.z());
-	transformRf_->setRotation(x, y, z);
-}
+		//set new position
+		transformRf_->setPosition(pos.x(), pos.y(), pos.z());
+		transformRf_->setRotation(x, y, z);
+	}
 
-void RigidBody::debug() {
+	void RigidBody::debug() {
 
-}
+	}
 
-void RigidBody::syncScale() {
-	KVector3 scale = transformRf_->getScale();
-	btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-	world_->scaleCollisionShape(rb, scale_);
+	void RigidBody::syncScale() {
+		KVector3 scale = transformRf_->getScale();
+		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
+		world_->scaleCollisionShape(rb, scale_);
+	}
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <string>
 #ifndef _DEBUG
 #include <windows.h>
 #endif
@@ -29,11 +30,9 @@
 #include <utils_prj/KVector3.h>
 #include <utils_prj/KMath.h>
 
-//Temporary
-#include <iostream>
-#include <string>
-
 #define DELTA_TIME 33
+
+//using namespace K_Engine;
 
 #ifdef _DEBUG
 int main() {
@@ -94,20 +93,20 @@ int main() {
 			inputMan->setDeathZones(5000, 0);
 
 			// Component Manager initialisation(Como "Lectura de un mapa")
-			ComponentManager::Init("K_EngineComponents");
-			ComponentManager* compMan = ComponentManager::GetInstance();
+			K_Engine::ComponentManager::Init("K_EngineComponents");
+			K_Engine::ComponentManager* compMan = K_Engine::ComponentManager::GetInstance();
 
 			//Initialization of the base components
-			compMan->add<Transform>();
-			compMan->add<MeshRenderer>();
-			compMan->add<RigidBody>();
-			compMan->add<AudioSource>();
+			compMan->add<K_Engine::Transform>();
+			compMan->add<K_Engine::MeshRenderer>();
+			compMan->add<K_Engine::RigidBody>();
+			compMan->add<K_Engine::AudioSource>();
 
 			int playerCollidesWith = physicsMan->getLayerValue(platformLayer);
 			//Configurations Scope
-			EntityManager* entMan = new EntityManager(); // Entity Manager
-			Entity* player = entMan->addEntity();
-			Transform* t = player->addComponent<Transform>(); t->setDimensions(3.0f);
+			K_Engine::EntityManager* entMan = new K_Engine::EntityManager(); // Entity Manager
+			K_Engine::Entity* player = entMan->addEntity();
+			K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setDimensions(3.0f);
 			{
 				t->setPosition(3, 3, 0);
 				ColliderType boxType = ColliderType::CT_SPHERE;
@@ -116,15 +115,15 @@ int main() {
 				//RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
 				//r->setFriction(0.6f);
 				//r->setRestitution(1.2f);
-				MeshRenderer* m = player->addComponent<MeshRenderer>();
+				K_Engine::MeshRenderer* m = player->addComponent<K_Engine::MeshRenderer>();
 				m->setMesh("sphere.mesh");
 				m->setMaterial("K_Engine/PrototypeBlue");
 				m->debug();
 			}
 
-			Entity* playerChild = entMan->addEntity();
+			K_Engine::Entity* playerChild = entMan->addEntity();
 			{
-				Transform* t = playerChild->addComponent<Transform>(); t->setDimensions(1.0f);
+				K_Engine::Transform* t = playerChild->addComponent<K_Engine::Transform>(); t->setDimensions(1.0f);
 				t->setPosition(7, 7, 0);
 				//t->setRotation(0, 0, 10);
 				ColliderType boxType = ColliderType::CT_SPHERE;
@@ -133,7 +132,7 @@ int main() {
 				//RigidBody* r = playerChild->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
 				//r->setFriction(0.6f);
 				//r->setRestitution(1.2f);
-				MeshRenderer* m = playerChild->addComponent<MeshRenderer>();
+				K_Engine::MeshRenderer* m = playerChild->addComponent<K_Engine::MeshRenderer>();
 				m->setMesh("sphere.mesh");
 				m->setMaterial("K_Engine/PrototypeBlue");
 				m->debug();
@@ -143,15 +142,15 @@ int main() {
 			int platformCollidesWith = physicsMan->getLayerValue(playerLayer);
 			//Configurations Scope
 			{
-				Entity* platform = entMan->addEntity();
-				Transform* t = platform->addComponent<Transform>(); t->setDimensions(5.f, 1.0f, 5.f);
+				K_Engine::Entity* platform = entMan->addEntity();
+				K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setDimensions(5.f, 1.0f, 5.f);
 				t->setPosition(-2.8, 0.f, 0);
 				t->setRotation(0, 0, -45);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType = BodyType::BT_STATIC;
-				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f, physicsMan->getLayerValue(platformLayer), platformCollidesWith);
+				K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, physicsMan->getLayerValue(platformLayer), platformCollidesWith);
 				r->setRestitution(0.8f);
-				MeshRenderer* m = platform->addComponent<MeshRenderer>();
+				K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
 				m->setMesh("cube.mesh");
 				m->setMaterial("K_Engine/PrototypeOrange");
 			}
@@ -159,15 +158,15 @@ int main() {
 			int futureCollidesWith = physicsMan->getLayerValue(playerLayer);
 			//Configurations Scope
 			{
-				Entity* platform = entMan->addEntity();
-				Transform* t = platform->addComponent<Transform>(); t->setDimensions(5.f, 1.0f, 5.f);
+				K_Engine::Entity* platform = entMan->addEntity();
+				K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setDimensions(5.f, 1.0f, 5.f);
 				t->setPosition(2.8, 0.f, 0);
 				t->setRotation(0, 0, 45);
 				ColliderType boxType = ColliderType::CT_BOX;
 				BodyType bodyType = BodyType::BT_STATIC;
-				RigidBody* r = platform->addComponent<RigidBody>(boxType, bodyType, 0.0f, physicsMan->getLayerValue(platformLayer), futureCollidesWith);
+				K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, physicsMan->getLayerValue(platformLayer), futureCollidesWith);
 				r->setRestitution(0.8f);
-				MeshRenderer* m = platform->addComponent<MeshRenderer>();
+				K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
 				m->setMesh("cube.mesh");
 				m->setMaterial("K_Engine/PrototypeOrange");
 			}
@@ -197,7 +196,7 @@ int main() {
 						&& !inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE));
 						
 					if (inputMan->isKeyDown(K_Engine::SCANCODE_0)) {
-						KVector3 scal = t->getScale();
+						K_Engine::KVector3 scal = t->getScale();
 						t->setScale(3,3,3);
 					}
 					//Physics update

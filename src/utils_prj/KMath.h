@@ -2,10 +2,9 @@
 #ifndef KMATH_H
 #define KMATH_H
 
-class KVector3;
 
 namespace K_Engine {
-
+	class KVector3;
 	namespace KMath {
 		const double PI = 3.1415926;
 		/// <summary>
