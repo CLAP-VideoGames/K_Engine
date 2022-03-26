@@ -12,7 +12,6 @@
 #include "UIScrollBar.h"
 #include "UISlider.h"
 
-
 using namespace CEGUI;
 using namespace std;
 
