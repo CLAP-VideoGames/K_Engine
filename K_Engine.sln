@@ -19,13 +19,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sound_prj", "projects\sound
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "script_prj", "projects\script_prj\script_prj.vcxproj", "{EE611059-7605-4AAF-98CB-E86483C16841}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "main_prj", "projects\main_prj\main_prj.vcxproj", "{13782BD1-F17B-404C-8FD2-AB4963933197}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "components_prj", "projects\components_prj\components_prj.vcxproj", "{38FD53CD-827C-40FB-AB72-EE6BFA739A3B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scene_prj", "projects\scene_prj\scene_prj.vcxproj", "{949A8C38-05F4-49D0-A68E-955BD0704007}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log_prj", "projects\log_prj\log_prj.vcxproj", "{DFC9A446-2E67-405A-A322-2FA068D46ABA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "engine_prj", "projects\engine_prj\engine_prj.vcxproj", "{13782BD1-F17B-404C-8FD2-AB4963933197}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +65,6 @@ Global
 		{EE611059-7605-4AAF-98CB-E86483C16841}.Debug|x64.Build.0 = Debug|x64
 		{EE611059-7605-4AAF-98CB-E86483C16841}.Release|x64.ActiveCfg = Release|x64
 		{EE611059-7605-4AAF-98CB-E86483C16841}.Release|x64.Build.0 = Release|x64
-		{13782BD1-F17B-404C-8FD2-AB4963933197}.Debug|x64.ActiveCfg = Debug|x64
-		{13782BD1-F17B-404C-8FD2-AB4963933197}.Debug|x64.Build.0 = Debug|x64
-		{13782BD1-F17B-404C-8FD2-AB4963933197}.Release|x64.ActiveCfg = Release|x64
-		{13782BD1-F17B-404C-8FD2-AB4963933197}.Release|x64.Build.0 = Release|x64
 		{38FD53CD-827C-40FB-AB72-EE6BFA739A3B}.Debug|x64.ActiveCfg = Debug|x64
 		{38FD53CD-827C-40FB-AB72-EE6BFA739A3B}.Debug|x64.Build.0 = Debug|x64
 		{38FD53CD-827C-40FB-AB72-EE6BFA739A3B}.Release|x64.ActiveCfg = Release|x64
@@ -81,6 +77,10 @@ Global
 		{DFC9A446-2E67-405A-A322-2FA068D46ABA}.Debug|x64.Build.0 = Debug|x64
 		{DFC9A446-2E67-405A-A322-2FA068D46ABA}.Release|x64.ActiveCfg = Release|x64
 		{DFC9A446-2E67-405A-A322-2FA068D46ABA}.Release|x64.Build.0 = Release|x64
+		{13782BD1-F17B-404C-8FD2-AB4963933197}.Debug|x64.ActiveCfg = Debug|x64
+		{13782BD1-F17B-404C-8FD2-AB4963933197}.Debug|x64.Build.0 = Debug|x64
+		{13782BD1-F17B-404C-8FD2-AB4963933197}.Release|x64.ActiveCfg = Release|x64
+		{13782BD1-F17B-404C-8FD2-AB4963933197}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
