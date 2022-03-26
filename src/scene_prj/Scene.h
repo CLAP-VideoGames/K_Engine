@@ -4,9 +4,9 @@
 
 #include <string>
 
-class EntityManager;
-
 namespace K_Engine {
+	class EntityManager;
+
 	class Scene {
 	public:
 		//Creates the entityManager of our scene
@@ -19,10 +19,14 @@ namespace K_Engine {
 		virtual void init();
 
 		//Update is called once per frame
-		virtual void update();
+		void update();
+
+		//Update is called once per frame
+		void fixedUpdate();
+
+		void debug();
 
 	private:
-
 		//In charge of keeping track of the entities of the scene
 		EntityManager* entMan;
 	};

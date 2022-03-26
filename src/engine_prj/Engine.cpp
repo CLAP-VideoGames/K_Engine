@@ -10,15 +10,17 @@
 
 #include <physics_prj/PhysicsManager.h>
 #include <physics_prj/CollisionLayers.h>
+
 #include <render_prj/RenderManager.h>
 #include <sound_prj/AudioManager.h>
 #include <input_prj/InputManager.h>
 #include <ui_prj/UIManager.h>
+#include <scene_prj/SceneManager.h>
 
-#include <ecs_prj/EntityManager.h>
+// DELETE
+#include <scene_prj/Scene.h>
+
 #include <ecs_prj/ComponentManager.h>
-#include <ecs_prj/Entity.h>
-
 #include <components_prj/Transform.h>
 #include <components_prj/RigidBody.h>
 #include <components_prj/MeshRenderer.h>
@@ -28,7 +30,7 @@
 #include <utils_prj/KVector3.h>
 #include <utils_prj/KMath.h>
 
-#define DELTA_TIME 1.0/60.0
+#define DELTA_TIME 33 // 33 ms = 1/60 s
 
 namespace K_Engine {
 	Engine::Engine(std::string n) {
@@ -44,7 +46,8 @@ namespace K_Engine {
 			K_Engine::UIManager::Init(name + "UI") &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::InputManager::Init() &&
-			K_Engine::ComponentManager::Init(name + "Components");
+			K_Engine::ComponentManager::Init(name + "Components") && 
+			K_Engine::SceneManager::Init(name + "Components");
 
 		// if something goes wrong, we exit initialization
 		if (!success) return false;
@@ -56,6 +59,7 @@ namespace K_Engine {
 		audioMan = K_Engine::AudioManager::GetInstance();
 		inputMan = K_Engine::InputManager::GetInstance();
 		compMan = K_Engine::ComponentManager::GetInstance();
+		sceneMan = K_Engine::SceneManager::GetInstance();
 	}
 
 	void Engine::setup()
@@ -80,9 +84,6 @@ namespace K_Engine {
 
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		debug();
-
-		// start components
-		entMan->start();
 	}
 
 	void Engine::run()
@@ -103,18 +104,19 @@ namespace K_Engine {
 				run = (!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B)
 					&& !inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE));
 
-				if (inputMan->isKeyDown(K_Engine::SCANCODE_0)) {
+				/*if (inputMan->isKeyDown(K_Engine::SCANCODE_0)) {
 					K_Engine::KVector3 scal = t->getScale();
 					t->setScale(3, 3, 3);
-				}
+				}*/
 
 				//Physics update
-				entMan->fixedUpdate();
+				sceneMan->fixedUpdateScene();
 				physicsMan->update();
 				accFrameTime -= DELTA_TIME;
 			}
+
 			//Regular update for the entities
-			entMan->update();
+			sceneMan->updateScene();
 			uiMan->update();
 			renderMan->render();
 		}
@@ -122,9 +124,13 @@ namespace K_Engine {
 
 	bool Engine::shutdown()
 	{
-		delete entMan;
+		sceneMan = nullptr;
+		renderMan = nullptr; physicsMan = nullptr;
+		uiMan = nullptr; audioMan = nullptr;
+		inputMan = nullptr; compMan = nullptr;
 
-		return K_Engine::AudioManager::Shutdown() &&
+		return K_Engine::SceneManager::Shutdown() && 
+			K_Engine::AudioManager::Shutdown() &&
 			K_Engine::UIManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
@@ -142,87 +148,8 @@ namespace K_Engine {
 		//uiMan->addButton("BUTTON", std::pair<float, float>(0.5, 0.5), td::pair<float, float>(0.3, 0.1));
 		//uiMan->exampleUI();
 
-		entMan = new K_Engine::EntityManager(); // Entity Manager
-
-		// example scene (pending of development)
-		std::string playerLayer = "Player";
-		std::string nothingLayer = "Nothing";
-		std::string platformLayer = "Platform";
-
-		int playerCollidesWith = physicsMan->getLayerValue(platformLayer);
-		//Configurations Scope
-		K_Engine::Entity* player = entMan->addEntity();
-		t = player->addComponent<K_Engine::Transform>(); t->setDimensions(3.0f);
-		{
-			t->setPosition(3, 3, 0);
-			ColliderType boxType = ColliderType::CT_SPHERE;
-			BodyType bodyType = BodyType::BT_DYNAMIC;
-			float mass = 1.0f;
-			//RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
-			//r->setFriction(0.6f);
-			//r->setRestitution(1.2f);
-			K_Engine::MeshRenderer* m = player->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("sphere.mesh");
-			m->setMaterial("K_Engine/PrototypeBlue");
-			m->debug();
-		}
-
-		K_Engine::Entity* playerChild = entMan->addEntity();
-		{
-			K_Engine::Transform* t = playerChild->addComponent<K_Engine::Transform>(); t->setDimensions(1.0f);
-			t->setPosition(7, 7, 0);
-			//t->setRotation(0, 0, 10);
-			ColliderType boxType = ColliderType::CT_SPHERE;
-			BodyType bodyType = BodyType::BT_DYNAMIC;
-			float mass = 1.0f;
-			//RigidBody* r = playerChild->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
-			//r->setFriction(0.6f);
-			//r->setRestitution(1.2f);
-			K_Engine::MeshRenderer* m = playerChild->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("sphere.mesh");
-			m->setMaterial("K_Engine/PrototypeBlue");
-			m->debug();
-		}
-		player->addChild(playerChild);
-
-		int platformCollidesWith = physicsMan->getLayerValue(playerLayer);
-		//Configurations Scope
-		{
-			K_Engine::Entity* platform = entMan->addEntity();
-			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setDimensions(5.f, 1.0f, 5.f);
-			t->setPosition(-2.8, 0.f, 0);
-			t->setRotation(0, 0, -45);
-			ColliderType boxType = ColliderType::CT_BOX;
-			BodyType bodyType = BodyType::BT_STATIC;
-			K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, physicsMan->getLayerValue(platformLayer), platformCollidesWith);
-			r->setRestitution(0.8f);
-			K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("cube.mesh");
-			m->setMaterial("K_Engine/PrototypeOrange");
-		}
-
-		int futureCollidesWith = physicsMan->getLayerValue(playerLayer);
-		{
-			K_Engine::Entity* platform = entMan->addEntity();
-			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setDimensions(5.f, 1.0f, 5.f);
-			t->setPosition(2.8, 0.f, 0);
-			t->setRotation(0, 0, 45);
-			ColliderType boxType = ColliderType::CT_BOX;
-			BodyType bodyType = BodyType::BT_STATIC;
-			K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, physicsMan->getLayerValue(platformLayer), futureCollidesWith);
-			r->setRestitution(0.8f);
-			K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("cube.mesh");
-			m->setMaterial("K_Engine/PrototypeOrange");
-		}
-
-		{
-			Entity* audio = entMan->addEntity();
-			AudioSource* a = audio->addComponent<AudioSource>();
-			//a->playSong("./assets/sounds/samba_UCM.ogg");
-			a->playSoundEffect("./assets/sounds/clap.wav", -1);
-			a->setGeneralVolume(35);
-			a->stopOneSoundEffect("./assets/sounds/clap.wav");
-		}
+		Scene* exampleScene = new Scene();
+		exampleScene->debug();
+		sceneMan->pushScene(exampleScene);
 	}
 }

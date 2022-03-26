@@ -2,18 +2,22 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
+#include <string>
 #include <stack>
+#include <memory>
 
 namespace K_Engine {
 	class Scene;
 
 	class SceneManager {
 	public:
-		//Default constructor
 		SceneManager();
-
-		//Clears the scene stack
 		~SceneManager();
+
+		static SceneManager* GetInstance();
+
+		static bool Init(std::string n);
+		static bool Shutdown();
 
 		//Allows the user to pop the scenes stack
 		void popScene();
@@ -33,12 +37,21 @@ namespace K_Engine {
 		void updateScene();
 
 		/// <summary>
+		/// called once per frame, it calls the actual scene fixed update
+		/// </summary>
+		void fixedUpdateScene();
+
+		/// <summary>
 		/// returns the top of the scene stack
 		/// </summary>
 		/// <returns></returns>
 		Scene* currentScene();
 
 	private:
+		static std::unique_ptr<SceneManager> instance;
+
+		std::string name;
+
 		std::stack<Scene*> scenes;
 	};
 }

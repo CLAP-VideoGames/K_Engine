@@ -14,14 +14,9 @@ namespace K_Engine {
 
 	bool ComponentManager::Init(std::string n)
 	{
-		try {
-			instance.reset(new ComponentManager());
+		instance.reset(new ComponentManager());
 
-			instance.get()->name = n;
-		}
-		catch (const std::exception&) {
-			return false;
-		}
+		instance.get()->name = n;
 
 		return true;
 	}

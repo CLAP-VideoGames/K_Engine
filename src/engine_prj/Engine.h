@@ -11,10 +11,7 @@ namespace K_Engine {
 	class AudioManager;
 	class InputManager;
 	class ComponentManager;
-
-	// THIS SHOULD DELETED, PERIOD (when we develop the SceneManager)
-	class EntityManager;
-	class Transform;
+	class SceneManager;
 
 	class Engine
 	{
@@ -36,12 +33,9 @@ namespace K_Engine {
 		K_Engine::AudioManager* audioMan;
 		K_Engine::InputManager* inputMan;
 		K_Engine::ComponentManager* compMan;
+		K_Engine::SceneManager* sceneMan;
 
 		// Debug section
-		
-		// THIS SHOULD DELETED, PERIOD (when we develop the SceneManager)
-		K_Engine::EntityManager* entMan;
-		K_Engine::Transform* t;
 
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		void debug();

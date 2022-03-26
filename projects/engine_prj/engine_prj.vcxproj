@@ -110,6 +110,9 @@
     <ProjectReference Include="..\render_prj\render_prj.vcxproj">
       <Project>{3cdee0e0-bdc9-49de-ba43-3ad704f5537b}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\scene_prj\scene_prj.vcxproj">
+      <Project>{949a8c38-05f4-49d0-a68e-955bd0704007}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\sound_prj\sound_prj.vcxproj">
       <Project>{06ce32e3-a5e2-4bbf-8d9a-f20b9e847284}</Project>
     </ProjectReference>

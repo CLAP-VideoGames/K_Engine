@@ -3,15 +3,34 @@
 #include <scene_prj/Scene.h>
 
 namespace K_Engine {
+	std::unique_ptr<SceneManager> SceneManager::instance = nullptr;
+
 	SceneManager::SceneManager() = default;
 
-	SceneManager::~SceneManager()
+	SceneManager::~SceneManager() = default;
+
+	SceneManager* SceneManager::GetInstance() {
+		return instance.get();
+	}
+
+	bool SceneManager::Init(std::string n) {
+		instance.reset(new SceneManager());
+
+		instance.get()->name = n;
+
+		return true;
+	}
+
+	bool SceneManager::Shutdown()
 	{
-		while (!scenes.empty())
-		{
-			delete scenes.top();
-			scenes.pop();
+		while (!instance.get()->scenes.empty()) {
+			delete instance.get()->scenes.top();
+			instance.get()->scenes.pop();
 		}
+
+		instance.reset(nullptr);
+
+		return true;
 	}
 
 	void SceneManager::popScene()
@@ -33,6 +52,11 @@ namespace K_Engine {
 	void SceneManager::updateScene()
 	{
 		scenes.top()->update();
+	}
+
+	void SceneManager::fixedUpdateScene()
+	{
+		scenes.top()->fixedUpdate();
 	}
 
 	Scene* SceneManager::currentScene()

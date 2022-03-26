@@ -101,6 +101,7 @@ namespace K_Engine {
 
 	private:
 		static std::unique_ptr<PhysicsManager> instance;
+
 		btVector3* gravity;
 		btDynamicsWorld* btWorld;
 		DynamicsWorld* dynamicsWorld_;

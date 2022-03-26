@@ -86,8 +86,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\components_prj\components_prj.vcxproj">
+      <Project>{38fd53cd-827c-40fb-ab72-ee6bfa739a3b}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ecs_prj\ecs_prj.vcxproj">
       <Project>{a9c79538-c953-45eb-9232-435d0fbba7e2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\physics_prj\physics_prj.vcxproj">
+      <Project>{2e4034b9-ad29-44c6-8f44-9b90c6e64e6c}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
