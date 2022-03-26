@@ -19,13 +19,24 @@ void Entity::update()
 	for (auto c : components) {
 		//Update is called before physics update so the physics uses the information from the last update
 		c.second->update();
+	}
+
+	//Update for the entity children
+	for (auto c : children) {
+		c->update();
+	}
+}
+
+void Entity::fixedUpdate()
+{
+	for (auto c : components) {
 
 		c.second->physicsUpdate();
 	}
 
 	//Update for the entity children
 	for (auto c : children) {
-		c->update();
+		c->fixedUpdate();
 	}
 }
 

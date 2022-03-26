@@ -24,6 +24,9 @@ public:
 	//where every entity is updated
 	void update();
 
+	//where the physics
+	void fixedUpdate();
+
 	//where every component calls it start method
 	//WE MUST CALL THIS AFTER THE INIT OF THIS SINGLETON AND AFTER THE READ OF THE MAP
 	//JOSEDA LEE AQUI SI NO FUNICONA 

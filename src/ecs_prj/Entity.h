@@ -85,6 +85,9 @@ public:
 	//This method updates our entity and is called once per frame
 	void update();
 
+	//This method updates components with physics
+	void fixedUpdate();
+
 	//To know when to destroy our entity
 	bool destroyed() { return toDestroy; }
 

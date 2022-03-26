@@ -200,13 +200,14 @@ int main() {
 						KVector3 scal = t->getScale();
 						t->setScale(3,3,3);
 					}
-
-					uiMan->update();
-					entMan->update();
+					//Physics update
+					entMan->fixedUpdate();
 					physicsMan->update();
 					accFrameTime -= DELTA_TIME;
 				}
-
+				//Regular update for the entities
+				entMan->update();
+				uiMan->update();
 				renderMan->render();
 			}
 

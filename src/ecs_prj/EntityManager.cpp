@@ -35,9 +35,21 @@ void EntityManager::update()
 	}
 }
 
+void EntityManager::fixedUpdate()
+{
+	//The same as above but for physics
+	for (int i = 0; i < entities.size(); i++) {
+		auto e = entities[i];
+		//if it has to be destoyed, we destroy it
+		if (e->destroyed()) {
+			delete e;
+			entities.erase(entities.begin() + i);
+		}//If it is active, we update its physics
+		else if (e->isActive())e->fixedUpdate();
+	}
+}
+
 void EntityManager::start()
 {
-	for (auto e : entities) {
-		e->start();
-	}
+	for (auto e : entities) e->start();
 }
