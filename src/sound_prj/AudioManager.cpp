@@ -73,9 +73,10 @@ namespace K_Engine {
 		// Load and set volume
 		loadWAV(path);
 		Mix_VolumeChunk(wav, vol);
-		int channel = locateAudioFile(path);
+		int channel = locateAudioFile(path, true); // Returns the channel it's located, if it's a new channel, it will return -1
 
-		if (channel == -1)
+
+		if (channel == -1 )
 		{
 			// Gets the first empty channel and assign the audio file to that channel, and starts playing
 			if (Mix_PlayChannel(-1, wav, loop) == -1)
@@ -117,7 +118,8 @@ namespace K_Engine {
 		// If channel = -1, then all channels will be paused
 		// If channel = -1, then all channels will be resumed
 		// If channel exists and it's not paused, then it will be resumed
-		if (channel == -1 || (Mix_GetChunk(channel) != nullptr && !Mix_Paused(channel)))
+		// If channel = -2, then the channel doesn't exist
+		if (channel != -2 && channel == -1 || (Mix_GetChunk(channel) != nullptr && !Mix_Paused(channel)))
 		{
 			Mix_Pause(channel);
 		}
@@ -146,7 +148,8 @@ namespace K_Engine {
 		// Resume an especific WAV if it's paused
 		// If channel = -1, then all channels will be resumed
 		// If channel exists and it's paused, then it will be resumed
-		if (channel == -1 || (Mix_GetChunk(channel) != nullptr && Mix_Paused(channel)))
+		// If channel = -2, then the channel doesn't exist
+		if (channel != -2 && channel == -1 || (Mix_GetChunk(channel) != nullptr && Mix_Paused(channel)))
 		{
 			Mix_Resume(channel);
 		}
@@ -174,7 +177,8 @@ namespace K_Engine {
 	{
 		// If channel = -1, then all channels will be stopped
 		// If the channel don't have a Mix_Chunk, then it's empty
-		if (channel == -1 || Mix_GetChunk(channel) != nullptr)
+		// If channel = -2, then the channel doesn't exist
+		if (channel != -2 && channel == -1  || Mix_GetChunk(channel) != nullptr)
 		{
 			Mix_HaltChannel(channel);
 		}
@@ -202,31 +206,27 @@ namespace K_Engine {
 
 	//-------------------------------------------------------------------------------
 	
-	int AudioManager::locateAudioFile(const char* path)
+	/// <summary>
+	/// Returns the channel is located depending on the file name
+	/// If it doesn't exist, if we want to add it, we insert the audio file name and its channel assigned. Else, we'll return a non-existent channel
+	/// </summary>
+	int AudioManager::locateAudioFile(const char* path, bool add)
 	{
-		int channelsOccupied = Mix_AllocateChannels(-1); // Returns how many channels are being used
-		int i = 0;
-		Mix_Chunk* file = Mix_LoadWAV(path);
+		std::unordered_map<std::string, int>::iterator it = AudioAndChannel.find(path);
 
-		if (!file)
-			std::cout << "file sound could not be loaded to be checked \n";
-
-		Mix_Chunk* aux = Mix_GetChunk(i);
-
-		// Checks, channel by channel, if there's already a channel with the same audio file
-		while (i <= channelsOccupied && file != aux)
+		if (it == AudioAndChannel.end() && add)
 		{
-			i++;
-			aux = Mix_GetChunk(i);
-		}
-
-		if (i > channelsOccupied)
-		{
+			AudioAndChannel.insert({ path,lastChannel });
+			lastChannel++;
 			return -1;
+		}
+		else if (it != AudioAndChannel.end())
+		{
+			return it->second;
 		}
 		else
 		{
-			return i;
+			return -2;
 		}
 	}
 

@@ -13,28 +13,26 @@ namespace K_Engine {
 		~AudioSource();
 		static std::string GetId();
 
+		// Play Audio
 		void playSong(const char* path);
 		void playSoundEffect(const char* path, int nLoop);
 
+		// Volume
 		int getMusicVolume();
 		int getEffectVolume();
 		void setGeneralVolume(int vol);
 		void setMusicVolume(int vol);
 		void setEffectVolume(int vol);
 
+		// All Audio
 		void stopAudio();
 		void pauseAudio();
 		void resumeAudio();
 
+		// One specific sound effect
 		void stopOneSoundEffect(const char* path);
 		void pauseOneSoundEffect(const char* path);
 		void resumeOneSoundEffect(const char* path);
-
-		// void stopSoundEffect // Parar X efecto de sonido en especifico (Aplicable para play,pause y resume)
-		//virtual void debug();
-		//virtual void update();
-		//virtual void onEnable();
-		//virtual void onDisable();
 
 	private:
 

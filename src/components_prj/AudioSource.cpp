@@ -105,18 +105,27 @@ namespace K_Engine {
 		audioM->resumeWAV(-1);
 	}
 
+	/// <summary>
+	/// Stop the sound effect we introduce (if it doesn't exist, it will write an error message, but won't stop the program)
+	/// </summary>
 	void AudioSource::stopOneSoundEffect(const char* path)
 	{
-		audioM->stopWAV(audioM->locateAudioFile(path));
+		audioM->stopWAV(audioM->locateAudioFile(path,false));
 	}
 
+	/// <summary>
+	/// Pause the sound effect we introduce (if it doesn't exist, it will write an error message, but won't stop the program)
+	/// </summary>
 	void AudioSource::pauseOneSoundEffect(const char* path)
 	{
-		audioM->pauseWAV(audioM->locateAudioFile(path));
+		audioM->pauseWAV(audioM->locateAudioFile(path,false));
 	}
 
+	/// <summary>
+	/// Resume the sound effect we introduce (if it doesn't exist or it's not paused, it will write an error message, but won't stop the program)
+	/// </summary>
 	void AudioSource::resumeOneSoundEffect(const char* path)
 	{
-		audioM->resumeWAV(audioM->locateAudioFile(path));
+		audioM->resumeWAV(audioM->locateAudioFile(path,false));
 	}
 }

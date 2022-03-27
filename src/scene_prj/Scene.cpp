@@ -112,12 +112,19 @@ namespace K_Engine {
 		}
 
 		{
-			Entity* audio = entMan->addEntity();
+			/*Entity* audio = entMan->addEntity();
 			AudioSource* a = audio->addComponent<AudioSource>();
 			//a->playSong("./assets/sounds/samba_UCM.ogg");
 			a->playSoundEffect("./assets/sounds/clap.wav", -1);
-			a->setGeneralVolume(35);
+			a->playSoundEffect("./assets/sounds/crash.wav", -1);
+			a->playSoundEffect("./assets/sounds/accordion.wav", -1);
+			a->setGeneralVolume(75);
 			a->stopOneSoundEffect("./assets/sounds/clap.wav");
+			a->playSoundEffect("./assets/sounds/clap.wav", -1);
+			a->pauseOneSoundEffect("./assets/sounds/clap.wav");
+			a->resumeOneSoundEffect("./assets/sounds/clap.wav");
+			a->resumeOneSoundEffect("./assets/sounds/accordion.wav");*/
+
 		}
 
 		entMan->start();

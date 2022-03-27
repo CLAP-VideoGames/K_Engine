@@ -6,7 +6,7 @@ typedef struct _Mix_Music Mix_Music;
 class Mix_Chunk;
 
 #include <memory>
-
+#include <unordered_map>
 namespace K_Engine {
 	class AudioManager {
 	public:
@@ -35,10 +35,14 @@ namespace K_Engine {
 		void setVolumeWAV(int channel, int vol);
 		void setVolumeMUS(int vol);
 
-		int locateAudioFile(const char* path);
+		int locateAudioFile(const char* path,bool add);
 
 	private:
 		static std::unique_ptr<AudioManager> instance;
+		
+		// Organize all audio files and its asigned channel
+		std::unordered_map<std::string, int> AudioAndChannel;
+		int lastChannel = 0;
 
 		// Wav file
 		Mix_Chunk* wav = nullptr; 
