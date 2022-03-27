@@ -13,7 +13,7 @@ namespace K_Engine {
 		Scene();
 
 		//Deletes the entityManager of our scene
-		~Scene();
+		virtual ~Scene();
 
 		//Init is called once when the Scene is push on top of the scenes stack
 		virtual void init();
@@ -26,7 +26,7 @@ namespace K_Engine {
 
 		void debug();
 
-	private:
+	protected:
 		//In charge of keeping track of the entities of the scene
 		EntityManager* entMan;
 	};

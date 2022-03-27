@@ -3,8 +3,12 @@
 #define ENGINE_H
 
 #include <string>
+#include <windows.h>
 
 namespace K_Engine {
+	class Scene;
+	typedef Scene* (*SceneLoad)();
+
 	class RenderManager;
 	class PhysicsManager;
 	class UIManager;
@@ -34,6 +38,11 @@ namespace K_Engine {
 		K_Engine::InputManager* inputMan;
 		K_Engine::ComponentManager* compMan;
 		K_Engine::SceneManager* sceneMan;
+
+		HMODULE game;
+		SceneLoad load;
+
+		bool loadGame();
 
 		// Debug section
 

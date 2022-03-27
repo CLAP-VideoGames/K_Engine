@@ -17,6 +17,8 @@
 #include <ui_prj/UIManager.h>
 #include <scene_prj/SceneManager.h>
 
+#define DEVELOPMENT
+
 // DELETE
 #include <scene_prj/Scene.h>
 
@@ -40,8 +42,18 @@ namespace K_Engine {
 	Engine::~Engine() = default;
 
 	bool Engine::init() {
+		bool success;
+
+#ifndef DEVELOPMENT
+		// load game dll
+		success = loadGame();
+
+		// if something goes wrong, we exit initialization
+		if (!success) return false;
+#endif
+
 		// initialisation of all sub-engines
-		bool success = K_Engine::RenderManager::Init(name + "Render") &&
+		success = K_Engine::RenderManager::Init(name + "Render") &&
 			K_Engine::PhysicsManager::Init(20, { 0, -9.8, 0 }) &&
 			K_Engine::UIManager::Init(name + "UI") &&
 			K_Engine::AudioManager::Init() &&
@@ -82,8 +94,13 @@ namespace K_Engine {
 		compMan->add<K_Engine::RigidBody>();
 		compMan->add<K_Engine::AudioSource>();
 
+#ifdef DEVELOPMENT
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		debug();
+#endif
+#ifndef DEVELOPMENT
+		sceneMan->pushScene(load());
+#endif
 	}
 
 	void Engine::run()
@@ -124,6 +141,10 @@ namespace K_Engine {
 
 	bool Engine::shutdown()
 	{
+#ifndef DEVELOPMENT
+		FreeLibrary(game);
+#endif
+
 		sceneMan = nullptr;
 		renderMan = nullptr; physicsMan = nullptr;
 		uiMan = nullptr; audioMan = nullptr;
@@ -134,6 +155,20 @@ namespace K_Engine {
 			K_Engine::UIManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
+	}
+
+	bool Engine::loadGame()
+	{
+#ifndef _DEBUG
+		HMODULE game = LoadLibrary(TEXT("./game.dll"));
+#endif // !_DEBUG
+#ifdef _DEBUG
+		game = LoadLibrary(TEXT("./game_d.dll"));
+#endif // !_DEBUG
+
+		load = (SceneLoad)GetProcAddress(game, "loadScene");
+
+		return load != nullptr;
 	}
 
 	void Engine::debug()
