@@ -29,19 +29,32 @@ namespace K_Engine {
 		return instance.get();
 	}
 
-	void LogManager::addLog(std::string mess, logType ty) {
-		log l; l.message = mess; l.type = ty;
+	// Adds a log to the log registry
+	void LogManager::addLog(std::string msg, logType ty) {
+		log l; l.message = msg; l.type = ty;
 		reg.push_back(l);
 	}
 
+	// Prints the type of the log and its message
 	void LogManager::printLog() {
 		for (log l : reg) {
-			std::cout << l.type << " - " << l.message << "\n";
+			std::string type;
+			switch (l.type)
+			{
+			case info:
+				type = "INFO";
+				break;
+			case error:
+				type = "ERROR";
+				break;
+			}
+			std::cout << type << " - " << l.message << "\n";
 		}
 
-		// it'd be cool to create a txt file with the whole log but my mister piskas pisko paskas told not to for the time being
+		// maybe we could create a txt file with the whole log
 	}
 
+	// Clears the log registry
 	void LogManager::clearLog() {
 		reg.clear();
 	}

@@ -16,6 +16,7 @@
 #include <input_prj/InputManager.h>
 #include <ui_prj/UIManager.h>
 #include <scene_prj/SceneManager.h>
+#include <log_prj/LogManager.h>
 
 #define DEVELOPMENT
 
@@ -58,8 +59,9 @@ namespace K_Engine {
 			K_Engine::UIManager::Init(name + "UI") &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::InputManager::Init() &&
-			K_Engine::ComponentManager::Init(name + "Components") && 
-			K_Engine::SceneManager::Init(name + "Components");
+			K_Engine::ComponentManager::Init(name + "Components") &&
+			K_Engine::SceneManager::Init(name + "Components") &&
+			K_Engine::LogManager::Init();
 
 		// if something goes wrong, we exit initialization
 		if (!success) return false;
@@ -72,6 +74,7 @@ namespace K_Engine {
 		inputMan = K_Engine::InputManager::GetInstance();
 		compMan = K_Engine::ComponentManager::GetInstance();
 		sceneMan = K_Engine::SceneManager::GetInstance();
+		logMan = K_Engine::LogManager::GetInstance();
 	}
 
 	void Engine::setup()

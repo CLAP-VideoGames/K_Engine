@@ -16,6 +16,7 @@ namespace K_Engine {
 	class InputManager;
 	class ComponentManager;
 	class SceneManager;
+	class LogManager;
 
 	class Engine
 	{
@@ -38,6 +39,7 @@ namespace K_Engine {
 		K_Engine::InputManager* inputMan;
 		K_Engine::ComponentManager* compMan;
 		K_Engine::SceneManager* sceneMan;
+		K_Engine::LogManager* logMan;
 
 		HMODULE game;
 		SceneLoad load;

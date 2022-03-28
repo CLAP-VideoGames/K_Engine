@@ -20,7 +20,7 @@ namespace K_Engine {
 		static bool Init();
 		static bool Shutdown();
 
-		void addLog(std::string mess, logType ty);
+		void addLog(std::string msg, logType ty);
 
 		void printLog();
 
