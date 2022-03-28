@@ -126,6 +126,12 @@ namespace K_Engine {
 		//Array of constrains for traslation in x y z
 		bool positionConstraints[3]{ false, false, false };
 
+		//Callbacks
+		bool colisionando = false;
+		void launchEnterCallbacks(void* entity);
+		void launchStayCallbacks(void* entity);
+		void launchExitCallbacks(void* entity);
+
 		//Collision filtering
 		int group_;
 		int mask_;

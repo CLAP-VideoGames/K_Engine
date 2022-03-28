@@ -99,6 +99,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\utils_prj\checkML.h" />
+    <ClInclude Include="..\..\src\utils_prj\CollisionCallbacks.h" />
     <ClInclude Include="..\..\src\utils_prj\KMath.h" />
     <ClInclude Include="..\..\src\utils_prj\KTimer.h" />
     <ClInclude Include="..\..\src\utils_prj\KVector3.h" />

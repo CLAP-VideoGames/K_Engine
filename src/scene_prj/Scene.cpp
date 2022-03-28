@@ -49,13 +49,13 @@ namespace K_Engine {
 		K_Engine::Entity* player = entMan->addEntity();
 		K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setDimensions(3.0f);
 		{
-			t->setPosition(3, 3, 0);
+			t->setPosition(3, 6, 0);
 			ColliderType boxType = ColliderType::CT_SPHERE;
 			BodyType bodyType = BodyType::BT_DYNAMIC;
 			float mass = 1.0f;
-			//RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerValue(playerLayer), playerCollidesWith);
-			//r->setFriction(0.6f);
-			//r->setRestitution(1.2f);
+			RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, K_Engine::PhysicsManager::GetInstance()->getLayerValue(playerLayer), playerCollidesWith);
+			r->setFriction(0.6f);
+			r->setRestitution(1.2f);
 			K_Engine::MeshRenderer* m = player->addComponent<K_Engine::MeshRenderer>();
 			m->setMesh("sphere.mesh");
 			m->setMaterial("K_Engine/PrototypeBlue");

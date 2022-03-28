@@ -6,7 +6,13 @@
 #include <physics_prj/PhysicsManager.h>
 #include <utils_prj/KVector3.h>
 
+#include <iostream>
+#include "utils_prj/CollisionCallbacks.h"
+
 namespace K_Engine {
+
+	using Callback = void (*)(void);
+
 	struct DynamicsWorld::CollisionCallBack : btOverlapFilterCallback {
 		virtual bool needBroadphaseCollision(btBroadphaseProxy* proxy0, btBroadphaseProxy* proxy1) const {
 			bool collides = (proxy0->m_collisionFilterGroup & proxy1->m_collisionFilterMask) != 0;
@@ -17,12 +23,104 @@ namespace K_Engine {
 		}
 	};
 
+	/// <summary>
+	/// Custom OnCollisionEnter
+	/// </summary>
+	/// <param name="manifold"></param>
+	void CallbackEnter(btPersistentManifold* const& manifold) {
+
+		// Call OnCollisionEnter and OnTriggerEnter of both objects
+		void* userData0 = manifold->getBody0()->getUserPointer();
+		void* userData1 = manifold->getBody1()->getUserPointer();
+
+		// Si son entidades llamamos a sus callbacks respectivos
+		if (userData0 != nullptr && userData1 != nullptr) {
+			CollisionInfo* c0 = (CollisionInfo*)userData0;
+			CollisionInfo* c1 = (CollisionInfo*)userData1;
+
+			if (c0->collisionEnter != nullptr) {
+				c0->collisionEnter(c1->entity_);
+			}
+
+			if (c1->collisionEnter != nullptr) {
+				c1->collisionEnter(c0->entity_);
+			}
+		}
+
+
+	}
+
+	/// <summary>
+	/// Custom OnCollisionStay
+	/// </summary>
+	/// <param name="cp"></param>
+	/// <param name="colObj0Wrap"></param>
+	/// <param name="partId0"></param>
+	/// <param name="index0"></param>
+	/// <param name="colObj1Wrap"></param>
+	/// <param name="partId1"></param>
+	/// <param name="index1"></param>
+	/// <returns></returns>
+	bool CallbackStay(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1) {
+
+		// Call OnCollisionStay and OnTriggerStay of both objects
+		void* userData0 = colObj0Wrap->getCollisionObject()->getUserPointer();
+		void* userData1 = colObj1Wrap->getCollisionObject()->getUserPointer();
+
+		// Si son entidades llamamos a sus callbacks respectivos
+		if (userData0 != nullptr && userData1 != nullptr) {
+			CollisionInfo* c0 = (CollisionInfo*)userData0;
+			CollisionInfo* c1 = (CollisionInfo*)userData1;
+
+			if (c0->collisionStay != nullptr) {
+				c0->collisionStay(c1->entity_);
+			}
+
+			if (c1->collisionStay != nullptr) {
+				c1->collisionStay(c0->entity_);
+			}
+		}
+
+		return false;
+	}
+
+	/// <summary>
+	/// Custom OnCollisionExit
+	/// </summary>
+	/// <param name="manifold"></param>
+	void CallbackExit(btPersistentManifold* const& manifold) {
+
+		// Call OnCollisionExit and OnTriggerExit of both objects
+		void* userData0 = manifold->getBody0()->getUserPointer();
+		void* userData1 = manifold->getBody1()->getUserPointer();
+
+		// Si son entidades llamamos a sus callbacks respectivos
+		if (userData0 != nullptr && userData1 != nullptr) {
+			CollisionInfo* c0 = (CollisionInfo*)userData0;
+			CollisionInfo* c1 = (CollisionInfo*)userData1;
+
+			if (c0->collisionExit != nullptr) {
+				c0->collisionExit(c1->entity_);
+			}
+
+			if (c1->collisionExit != nullptr) {
+				c1->collisionExit(c0->entity_);
+			}
+		}
+	}
+
 	DynamicsWorld::DynamicsWorld(btVector3 const& gravity) {
 		//Bullet initialisation.
 		///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
 		mCollisionConfig.reset(new btDefaultCollisionConfiguration());
 		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
 		mDispatcher.reset(new btCollisionDispatcher(mCollisionConfig.get()));
+
+		//Callbacks
+		gContactStartedCallback = CallbackEnter;
+		gContactAddedCallback = CallbackStay;
+		gContactEndedCallback = CallbackExit;
+
 		///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
 		mSolver.reset(new btSequentialImpulseConstraintSolver());
 		///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
@@ -72,7 +170,7 @@ namespace K_Engine {
 	}
 
 	btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const& size, BodyType bT, float mass, float restitution, float friction,
-		int group, int mask, CollisionListener* colList) {
+		int group, int mask, CollisionInfo* colision, CollisionListener* colList) {
 		btDefaultMotionState* state = new btDefaultMotionState(transform);
 		btCollisionShape* cs = NULL;
 		switch (ct) {
@@ -106,8 +204,10 @@ namespace K_Engine {
 		btWorld_->addRigidBody(rb, group, mask);
 
 		//Adding personal data
-		if (colList != nullptr)
-			rb->setUserPointer(colList);
+		if (colision->collisionEnter != nullptr)
+			rb->setUserPointer(colision);
+
+		rb->setCollisionFlags(rb->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 
 		return rb;
 	}

@@ -11,6 +11,9 @@
 #include <physics_prj/CollisionListener.h>
 #include <btBulletDynamicsCommon.h>
 
+#include <iostream>
+#include "utils_prj/CollisionCallbacks.h"
+
 namespace K_Engine {
 	//Required
 	std::string RigidBody::name = "RigidBody";
@@ -68,7 +71,20 @@ namespace K_Engine {
 		KVector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 		btVector3 dimensions_ = { (btScalar)dimensions.x, (btScalar)dimensions.y, (btScalar)dimensions.z };
-		rb = world_->addRigidBody(type_, *btTransform_, dimensions_, scale_, bType_, mass_, restitution_, friction_, group_, mask_);
+		K_Engine::CollisionInfo* colision = new K_Engine::CollisionInfo(this->entity,
+			//Collision Enter Callback
+			[=](void* other) {
+				this->launchEnterCallbacks(other);
+			},
+			//Collision Stay Callback
+				[=](void* other) {
+				this->launchStayCallbacks(other);
+			},
+				//Collision Exit Callback
+				[=](void* other) {
+				this->launchExitCallbacks(other);
+			});
+		rb = world_->addRigidBody(type_, *btTransform_, dimensions_, scale_, bType_, mass_, restitution_, friction_, group_, mask_, colision);
 	}
 
 	void RigidBody::update() {
@@ -91,5 +107,32 @@ namespace K_Engine {
 		KVector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 		world_->scaleCollisionShape(rb, scale_);
+	}
+
+	void RigidBody::launchEnterCallbacks(void* entity)
+	{
+		Entity* otherEntity = (Entity*)entity;
+		colisionando = true;
+		/*std::cout << "Entro\n";*/
+
+
+	}
+
+	void RigidBody::launchStayCallbacks(void* entity)
+	{
+		Entity* otherEntity = (Entity*)entity;
+		if (colisionando) {
+			/*std::cout << "Estoy\n";*/
+
+		}
+	}
+
+	void RigidBody::launchExitCallbacks(void* entity)
+	{
+		Entity* otherEntity = (Entity*)entity;
+		colisionando = false;
+		/*std::cout << "Salgo\n";*/
+
+
 	}
 }

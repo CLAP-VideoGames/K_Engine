@@ -25,6 +25,7 @@ enum class BodyType;
 
 namespace K_Engine {
 	class CollisionListener;
+	struct CollisionInfo;
 
 	class DynamicsWorld {
 	private:
@@ -72,7 +73,7 @@ namespace K_Engine {
 		/// <param name="mask">Which mask belongs the body</param>
 		/// <param name="colList">Collision Listener</param>
 		/// <returns>reference to the rigidbody</returns>
-		btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const& scale, BodyType bodyType, float mass, float restitution, float friction, int group, int mask, CollisionListener* colList = nullptr);
+		btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const& scale, BodyType bodyType, float mass, float restitution, float friction, int group, int mask, CollisionInfo* colision, CollisionListener* colList = nullptr);
 
 		/// <summary>
 		/// Creates a box collider given its size in each axis and dimensions
