@@ -11,21 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\ui_prj\UIComponent.cpp" />
-    <ClCompile Include="..\..\src\ui_prj\UIManager.cpp" />
-    <ClCompile Include="..\..\src\ui_prj\UIScrollbar.cpp" />
-    <ClCompile Include="..\..\src\ui_prj\UISlider.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\src\ui_prj\UIComponent.h" />
-    <ClInclude Include="..\..\src\ui_prj\UIManager.h" />
-    <ClInclude Include="..\..\src\ui_prj\UIScrollBar.h" />
-    <ClInclude Include="..\..\src\ui_prj\UISlider.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\render_prj\render_prj.vcxproj">
       <Project>{3cdee0e0-bdc9-49de-ba43-3ad704f5537b}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\ui_prj\UiElement.cpp" />
+    <ClCompile Include="..\..\src\ui_prj\UIManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\ui_prj\UiElement.h" />
+    <ClInclude Include="..\..\src\ui_prj\UIManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -78,7 +74,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies/ogre/src/Components/Overlay/include;$(SolutionDir)src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,10 +83,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
-      <AdditionalDependencies>CEGUIBase-0_d.lib;CEGUICommonDialogs-0_d.lib;CEGUICoreWindowRendererSet_d.lib;CEGUIExpatParser_d.lib;CEGUIOgreRenderer-0_d.lib;CEGUIOpenGLRenderer-0_d.lib;CEGUISILLYImageCodec_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Codec_Assimp_d.lib;Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL3Plus_d.lib;RenderSystem_GL_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -101,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\cegui\build\cegui\include;$(SolutionDir)dependencies\cegui\src\samples\common\include\;$(SolutionDir)dependencies\cegui\src\cegui\include\;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,8 +106,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>CEGUIBase-0.lib;CEGUICommonDialogs-0.lib;CEGUICoreWindowRendererSet.lib;CEGUIExpatParser.lib;CEGUIOgreRenderer-0.lib;CEGUIOpenGLRenderer-0.lib;CEGUISILLYImageCodec.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Codec_Assimp.lib;Codec_STBI.lib;OgreGLSupport.lib;OgreMain.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;OgreTerrain.lib;OgreVolume.lib;Plugin_BSPSceneManager.lib;Plugin_OctreeSceneManager.lib;Plugin_OctreeZone.lib;Plugin_ParticleFX.lib;Plugin_PCZSceneManager.lib;RenderSystem_GL.lib;RenderSystem_GL3Plus.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\Release\</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
