@@ -31,7 +31,9 @@ namespace K_Engine {
 	bool ScriptManager::Init(std::string name)
 	{
 		try {
-			instance->name = name;
+			instance.reset(new ScriptManager());
+
+			instance.get()->n = name;
 			//New state for Lua
 			instance.get()->luaState = luaL_newstate();
 			luaL_openlibs(instance.get()->luaState); // load default Lua libs
@@ -97,13 +99,24 @@ void ScriptManager::registerClassesandFunctions(lua_State* L)
     //ECS
     //UI
     //LUA
+	
     getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
-		
+		.addStaticFunction("getInstance", &ScriptManager::GetInstance)
+		.addFunction("createPlayer", &ScriptManager::createPlayer)
         .endClass();
 }
 
 	bool ScriptManager::reloadLuaScript(const std::string& luafile)
 	{
-		return checkLua(luaState, luaL_dofile(luaState, luafile.c_str()));
+		std::string file = SCRIPTS_FILE_PATH + luafile + ".lua";
+		return checkLua(luaState, luaL_dofile(luaState, file.c_str()));
 	}
+
+	void ScriptManager::createPlayer(std::string name, float x, float y)
+	{
+		x_ = x; y_ = y;
+		cout << "Player: " << name << "\nIn Position: " << x_ << ", "<< y_ << endl;
+	}
+
+
 }

@@ -28,21 +28,26 @@ namespace K_Engine {
 
         luabridge::LuaRef getLuaClass(const std::string& c_name);
 
+        void registerClassesandFunctions(lua_State* L);
+        //Reload Lua Script
+        bool reloadLuaScript(const std::string& luafile);
     private:
         static std::unique_ptr<ScriptManager> instance;
-        std::string name;
+        std::string n;
 
         lua_State* luaState;
         std::map<std::string, luabridge::LuaRef> classes_;
+
+        float x_, y_;
 
         //Clean LuaStack top
         static void clean();
         //Check lua scripting
         bool checkLua(lua_State* L, int r);
         //Clases y funciones de otros proyectos
-        void registerClassesandFunctions(lua_State* L);
-        //Reload Lua Script
-        bool reloadLuaScript(const std::string& luafile);
+
+        //Test
+        void createPlayer(std::string name, float x, float y);
     };
 }
 
