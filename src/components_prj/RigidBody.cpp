@@ -22,7 +22,7 @@ namespace K_Engine {
 		name = id;
 	}
 
-	RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group) : Component("RigidBody", e) {
+	RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group, bool isTrigger) : Component("RigidBody", e) {
 		name = id;
 		type_ = type;
 		bType_ = bType;
@@ -30,6 +30,7 @@ namespace K_Engine {
 		friction_ = 0.3;
 		restitution_ = 0.1f;
 
+		isTrigger_ = isTrigger;
 		group_ = group;
 		mask_ = mask;
 	}
@@ -84,7 +85,7 @@ namespace K_Engine {
 				[=](void* other) {
 				this->launchExitCallbacks(other);
 			});
-		rb = world_->addRigidBody(type_, *btTransform_, dimensions_, scale_, bType_, mass_, restitution_, friction_, group_, mask_, colision);
+		rb = world_->addRigidBody(type_, *btTransform_, dimensions_, scale_, bType_, mass_, restitution_, friction_, group_, mask_, isTrigger_, colision);
 	}
 
 	void RigidBody::update() {

@@ -170,7 +170,7 @@ namespace K_Engine {
 	}
 
 	btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const& size, BodyType bT, float mass, float restitution, float friction,
-		int group, int mask, CollisionInfo* colision, CollisionListener* colList) {
+		int group, int mask, bool isTrigger, CollisionInfo* colision, CollisionListener* colList) {
 		btDefaultMotionState* state = new btDefaultMotionState(transform);
 		btCollisionShape* cs = NULL;
 		switch (ct) {
@@ -206,8 +206,11 @@ namespace K_Engine {
 		//Adding personal data
 		if (colision->collisionEnter != nullptr)
 			rb->setUserPointer(colision);
-
-		rb->setCollisionFlags(rb->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
+		
+		if (isTrigger)
+			rb->setCollisionFlags(rb->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+		else
+			rb->setCollisionFlags(rb->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 
 		return rb;
 	}

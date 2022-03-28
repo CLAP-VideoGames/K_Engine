@@ -37,7 +37,7 @@ namespace K_Engine {
 		/// <param name="mass">Mass value</param>
 		/// <param name="mask_">Layer which belongs to</param>
 		/// <param name="group_">With which layers collides</param>
-		RigidBody(Entity* e, ColliderType type_, BodyType bType_, float mass, int mask_ = 1, int group_ = 1);
+		RigidBody(Entity* e, ColliderType type_, BodyType bType_, float mass, int mask_ = 1, int group_ = 1, bool isTrigger_ = false);
 		~RigidBody();
 
 		//Required method for the component name
@@ -131,6 +131,9 @@ namespace K_Engine {
 		void launchEnterCallbacks(void* entity);
 		void launchStayCallbacks(void* entity);
 		void launchExitCallbacks(void* entity);
+
+		//Defines if the RigidBody is a trigger or not
+		bool isTrigger_ = false;
 
 		//Collision filtering
 		int group_;
