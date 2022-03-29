@@ -2,17 +2,17 @@
 #include "RigidBody.h"
 #include "MeshRenderer.h"
 #include <ecs_prj/Entity.h>
-#include <utils_prj/KVector3.h>
+#include <utils_prj/Vector3.h>
 
 namespace K_Engine {
 	std::string Transform::name = "Transform";
 
 	Transform::Transform(Entity* e) : Component("Transform", e)
 	{
-		position_ = new KVector3{ 0, 0, 0 };
-		rotation_ = new KVector3{ 0, 0, 0 };
-		scale_ = new KVector3{ 1, 1, 1 };
-		dimensions_ = new KVector3{ 1, 1, 1 };
+		position_ = new Vector3{ 0, 0, 0 };
+		rotation_ = new Vector3{ 0, 0, 0 };
+		scale_ = new Vector3{ 1, 1, 1 };
+		dimensions_ = new Vector3{ 1, 1, 1 };
 	}
 
 	Transform::~Transform() {
@@ -29,7 +29,7 @@ namespace K_Engine {
 
 	void Transform::translate(float x, float y, float z)
 	{
-		KVector3 toAdd = { x, y, z };
+		Vector3 toAdd = { x, y, z };
 		std::vector<Entity*> children = entity->getChildren();
 
 		for (auto c : children) {
@@ -44,12 +44,12 @@ namespace K_Engine {
 	}
 
 	void Transform::rotate(float x, float y, float z) {
-		KVector3 toAdd = { x, y, z };
+		Vector3 toAdd = { x, y, z };
 		(*rotation_) += toAdd;
 	}
 
 	void Transform::scale(float x, float y, float z) {
-		KVector3 toAdd = { x, y, z };
+		Vector3 toAdd = { x, y, z };
 		(*scale_) += toAdd;
 
 
@@ -72,7 +72,7 @@ namespace K_Engine {
 	}
 
 	void Transform::setPosition(float x, float y, float z) {
-		KVector3 toSet = { x, y, z };
+		Vector3 toSet = { x, y, z };
 
 		std::vector<Entity*> children = entity->getChildren();
 
@@ -81,11 +81,11 @@ namespace K_Engine {
 			//Data for the calculation
 			Transform* childT = c->getComponent<Transform>();
 
-			KVector3 childPos = childT->getPosition();
+			Vector3 childPos = childT->getPosition();
 
-			KVector3 oldParentPos = getPosition();
+			Vector3 oldParentPos = getPosition();
 
-			KVector3 toSetChild = toSet;
+			Vector3 toSetChild = toSet;
 
 			//Get the diference between new pos and oldPos
 			toSetChild.x -= oldParentPos.x;
@@ -100,22 +100,22 @@ namespace K_Engine {
 	}
 
 	void Transform::setDimensions(float x, float y, float z) {
-		KVector3 toAdd = { x, y, z };
+		Vector3 toAdd = { x, y, z };
 		(*dimensions_) = toAdd;
 	}
 
 	void Transform::setDimensions(float d) {
-		KVector3 toAdd = { d, d, d };
+		Vector3 toAdd = { d, d, d };
 		(*dimensions_) = toAdd;
 	}
 
 	void Transform::setRotation(float x, float y, float z) {
-		KVector3 toAdd = { x, y, z };
+		Vector3 toAdd = { x, y, z };
 		(*rotation_) = toAdd;
 	}
 
 	void Transform::setScale(float x, float y, float z) {
-		KVector3 toSet = { x, y, z };
+		Vector3 toSet = { x, y, z };
 
 		std::vector<Entity*> children = entity->getChildren();
 
@@ -124,11 +124,11 @@ namespace K_Engine {
 			//Data for the calculation
 			Transform* childT = c->getComponent<Transform>();
 
-			KVector3 childScale = childT->getScale();
+			Vector3 childScale = childT->getScale();
 
-			KVector3 oldParentScale = getScale();
+			Vector3 oldParentScale = getScale();
 
-			KVector3 toSetChild = toSet;
+			Vector3 toSetChild = toSet;
 
 			//Get the diference between new pos and oldPos
 			toSetChild.x -= oldParentScale.x;
@@ -153,7 +153,7 @@ namespace K_Engine {
 	}
 
 	void Transform::setScale(float n) {
-		KVector3 toSet = { n, n, n };
+		Vector3 toSet = { n, n, n };
 
 		std::vector<Entity*> children = entity->getChildren();
 
@@ -162,11 +162,11 @@ namespace K_Engine {
 			//Data for the calculation
 			Transform* childT = c->getComponent<Transform>();
 
-			KVector3 childScale = childT->getScale();
+			Vector3 childScale = childT->getScale();
 
-			KVector3 oldParentScale = getScale();
+			Vector3 oldParentScale = getScale();
 
-			KVector3 toSetChild = toSet;
+			Vector3 toSetChild = toSet;
 
 			//Get the diference between new pos and oldPos
 			toSetChild.x -= oldParentScale.x;
@@ -190,19 +190,19 @@ namespace K_Engine {
 		(*scale_) = toSet;
 	}
 
-	KVector3 Transform::getPosition() const {
+	Vector3 Transform::getPosition() const {
 		return *position_;
 	}
 
-	KVector3  Transform::getRotation()const {
+	Vector3  Transform::getRotation()const {
 		return *rotation_;
 	}
 
-	KVector3  Transform::getScale() const {
+	Vector3  Transform::getScale() const {
 		return *scale_;
 	}
 
-	KVector3 Transform::getDimensions() const {
+	Vector3 Transform::getDimensions() const {
 		return *dimensions_;
 	}
 

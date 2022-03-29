@@ -4,7 +4,7 @@
 
 #include <ecs_prj/Entity.h>
 
-#include <utils_prj/KVector3.h>
+#include <utils_prj/Vector3.h>
 
 #include <physics_prj/PhysicsManager.h>
 #include <physics_prj/DynamicsWorld.h>
@@ -68,8 +68,8 @@ namespace K_Engine {
 		world_ = K_Engine::PhysicsManager::GetInstance()->getWorld();
 
 		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
-		KVector3 dimensions = transformRf_->getDimensions();
-		KVector3 scale = transformRf_->getScale();
+		Vector3 dimensions = transformRf_->getDimensions();
+		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 		btVector3 dimensions_ = { (btScalar)dimensions.x, (btScalar)dimensions.y, (btScalar)dimensions.z };
 		K_Engine::CollisionInfo* colision = new K_Engine::CollisionInfo(this->entity,
@@ -105,7 +105,7 @@ namespace K_Engine {
 	}
 
 	void RigidBody::syncScale() {
-		KVector3 scale = transformRf_->getScale();
+		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 		world_->scaleCollisionShape(rb, scale_);
 	}

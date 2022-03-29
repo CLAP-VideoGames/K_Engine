@@ -9,7 +9,7 @@
 
 #include <components_prj/Transform.h>
 
-#include <utils_prj/KVector3.h>
+#include <utils_prj/Vector3.h>
 
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
@@ -59,7 +59,7 @@ namespace K_Engine {
 		}
 	}
 
-	Ogre::Quaternion MeshRenderer::EulerToQuaternion(KVector3 const& rot) {
+	Ogre::Quaternion MeshRenderer::EulerToQuaternion(Vector3 const& rot) {
 		Ogre::Matrix3 mx;
 		mx.FromEulerAnglesYXZ(Ogre::Radian(rot.y), Ogre::Radian(rot.x), Ogre::Radian(rot.z));
 		Ogre::Quaternion result(mx);
@@ -75,25 +75,25 @@ namespace K_Engine {
 
 	void MeshRenderer::syncScale() {
 		transformRf = entity->getComponent<Transform>();
-		KVector3 scaleT = transformRf->getScale();
+		Vector3 scaleT = transformRf->getScale();
 
 		mNode->scale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
 	}
 
 	void MeshRenderer::syncDimensions() {
 		transformRf = entity->getComponent<Transform>();
-		KVector3 scaleT = transformRf->getDimensions();
+		Vector3 scaleT = transformRf->getDimensions();
 
 		mNode->setScale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
 	}
 
 	void MeshRenderer::syncPosition() {
-		KVector3 pos = transformRf->getPosition();
+		Vector3 pos = transformRf->getPosition();
 		mNode->setPosition(Ogre::Vector3(pos.x, pos.y, pos.z));
 	}
 
 	void MeshRenderer::syncRotation() {
-		KVector3 rot = transformRf->getRotation();
+		Vector3 rot = transformRf->getRotation();
 		Ogre::Vector3 axis = { Ogre::Real(rot.x), Ogre::Real(rot.y), Ogre::Real(rot.z) };
 		Ogre::Quaternion q = EulerToQuaternion(rot);
 		mNode->setOrientation(q);

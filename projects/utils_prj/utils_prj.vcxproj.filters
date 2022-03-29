@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\utils_prj\KVector3.h">
+    <ClInclude Include="..\..\src\utils_prj\Vector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\utils_prj\checkML.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\utils_prj\KTimer.h">
+    <ClInclude Include="..\..\src\utils_prj\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\utils_prj\KMath.h">
+    <ClInclude Include="..\..\src\utils_prj\Math.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\utils_prj\CollisionCallbacks.h">
@@ -32,13 +32,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\utils_prj\KVector3.cpp">
+    <ClCompile Include="..\..\src\utils_prj\Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\utils_prj\KTimer.cpp">
+    <ClCompile Include="..\..\src\utils_prj\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\utils_prj\KMath.cpp">
+    <ClCompile Include="..\..\src\utils_prj\Math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

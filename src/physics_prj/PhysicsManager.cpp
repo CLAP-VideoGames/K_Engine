@@ -5,7 +5,7 @@
 
 #include <physics_prj/DynamicsWorld.h>
 #include <physics_prj/CollisionLayers.h>
-#include <utils_prj/KVector3.h>
+#include <utils_prj/Vector3.h>
 
 namespace K_Engine {
 	std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
@@ -18,7 +18,7 @@ namespace K_Engine {
 		return instance.get();
 	}
 
-	bool PhysicsManager::Init(int step, const KVector3& gravity = KVector3(0, -9.8f, 0)) {
+	bool PhysicsManager::Init(int step, const Vector3& gravity = Vector3(0, -9.8f, 0)) {
 		instance.reset(new PhysicsManager());
 		btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 		return instance.get()->initWorld(step, grav_);
@@ -78,7 +78,7 @@ namespace K_Engine {
 		proxy->m_collisionFilterMask = getLayerValue(name);
 	}
 
-	btTransform* PhysicsManager::createTransform(KVector3 const& position, KVector3 const& rotation) {
+	btTransform* PhysicsManager::createTransform(Vector3 const& position, Vector3 const& rotation) {
 		btVector3 pos = { (btScalar)position.x, (btScalar)position.y, (btScalar)position.z };
 		btVector3 rot = { (btScalar)btRadians(rotation.x), (btScalar)btRadians(rotation.y), (btScalar)btRadians(rotation.z) };
 
@@ -90,7 +90,7 @@ namespace K_Engine {
 		return tr;
 	}
 
-	void PhysicsManager::changeGravity(KVector3 const& gravity) {
+	void PhysicsManager::changeGravity(Vector3 const& gravity) {
 		btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 
 		if (this->gravity != nullptr) *this->gravity = grav_;

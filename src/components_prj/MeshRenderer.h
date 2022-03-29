@@ -12,7 +12,7 @@ namespace Ogre {
 
 namespace K_Engine {
 	class Transform;
-	class KVector3;
+	class Vector3;
 	/*
 	* MeshRender is the component used to add diferent model to our entities
 	* It takes the information of the model position scale and rotation from transform
@@ -36,7 +36,7 @@ namespace K_Engine {
 		void setMaterial(std::string nMaterial);
 		void setMesh(std::string mesh);
 
-		Ogre::Quaternion EulerToQuaternion(KVector3 const& rot);
+		Ogre::Quaternion EulerToQuaternion(Vector3 const& rot);
 		void syncScale();
 
 	private:

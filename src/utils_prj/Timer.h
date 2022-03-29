@@ -1,12 +1,12 @@
 #pragma once
-#ifndef CUSTOMTIMER_H
-#define CUSTOMTIMER_H
+#ifndef TIMER_H
+#define TIMER_H
 
 namespace K_Engine {
-	class KTimer {
+	class Timer {
 	public:
-		KTimer();
-		~KTimer();
+		Timer();
+		~Timer();
 
 		/// <summary>
 		/// Resets the timer to its initial value
@@ -33,4 +33,4 @@ namespace K_Engine {
 		unsigned int pauseTime;
 	};
 }
-#endif // CUSTOMTIMER_H
+#endif //TIMER_H
