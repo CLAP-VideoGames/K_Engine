@@ -54,6 +54,12 @@ namespace K_Engine {
 		//You add a component to an entity
 		virtual void debug();
 
+		virtual void onCollisionEnter(Entity* collision) {};
+
+		virtual void onCollisionStay(Entity* collision) {};
+
+		virtual void onCollisionExit(Entity* collision) {};
+
 		//Active/Deactivate our component 
 		void setActive(bool a);
 

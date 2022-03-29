@@ -116,7 +116,11 @@ namespace K_Engine {
 		colisionando = true;
 		/*std::cout << "Entro\n";*/
 
+		std::vector<Component*> components;
 
+		for (auto c : components) {
+			c->onCollisionEnter(otherEntity);
+		}
 	}
 
 	void RigidBody::launchStayCallbacks(void* entity)
@@ -126,6 +130,12 @@ namespace K_Engine {
 			/*std::cout << "Estoy\n";*/
 
 		}
+
+		std::vector<Component*> components;
+
+		for (auto c : components) {
+			c->onCollisionStay(otherEntity);
+		}
 	}
 
 	void RigidBody::launchExitCallbacks(void* entity)
@@ -134,6 +144,11 @@ namespace K_Engine {
 		colisionando = false;
 		/*std::cout << "Salgo\n";*/
 
+		std::vector<Component*> components;
+
+		for (auto c : components) {
+			c->onCollisionExit(otherEntity);
+		}
 
 	}
 }
