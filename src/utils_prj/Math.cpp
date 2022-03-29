@@ -2,7 +2,7 @@
 
 #include <time.h>
 #include <stdlib.h>
-
+#include <math.h>
 #include <utils_prj/Vector3.h>
 
 namespace K_Engine {
@@ -28,5 +28,11 @@ namespace K_Engine {
 
 	float Math::lerpPrecise(float a, float b, float t) {
 		return a * (1 - t) + b * t;
+	}
+	float Math::squareRoot(float n){
+		return sqrt(n);
+	}
+	float Math::powOf(float base, float power){
+		return pow(base, power);
 	}
 }

@@ -1,7 +1,7 @@
 #include "Vector3.h"
 
 #include <cassert> 
-#include <math.h>
+#include "Math.h"
 
 namespace K_Engine {
 	Vector3::Vector3() : x(0), y(0), z(0) {};
@@ -58,7 +58,7 @@ namespace K_Engine {
 
 	float Vector3::getMagnitude()
 	{
-		return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+		return Math::squareRoot(Math::powOf(x, 2) + Math::powOf(y, 2) + Math::powOf(z, 2));
 	}
 
 	Vector3 Vector3::normalized()
