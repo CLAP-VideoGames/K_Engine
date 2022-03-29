@@ -29,9 +29,9 @@
 #include <components_prj/MeshRenderer.h>
 #include <components_prj/AudioSource.h>
 
-#include <utils_prj/KTimer.h>
-#include <utils_prj/KVector3.h>
-#include <utils_prj/KMath.h>
+#include <utils_prj/Timer.h>
+#include <utils_prj/Vector3.h>
+#include <utils_prj/Math.h>
 
 #define DELTA_TIME 33 // 33 ms = 1/60 s
 
@@ -109,7 +109,7 @@ namespace K_Engine {
 	void Engine::run()
 	{
 		// Timer for main loop
-		K_Engine::KTimer timer = K_Engine::KTimer();
+		K_Engine::Timer timer = K_Engine::Timer();
 
 		bool run = true; // time --> miliseconds
 		unsigned int accFrameTime = 0, currTime = timer.currTime();
@@ -125,7 +125,7 @@ namespace K_Engine {
 					&& !inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE));
 
 				/*if (inputMan->isKeyDown(K_Engine::SCANCODE_0)) {
-					K_Engine::KVector3 scal = t->getScale();
+					K_Engine::Vector3 scal = t->getScale();
 					t->setScale(3, 3, 3);
 				}*/
 

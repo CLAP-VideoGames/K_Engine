@@ -8,7 +8,7 @@
 
 
 namespace K_Engine {
-	class KVector3;
+	class Vector3;
 
 	/*
 	* The Transform component is used to store information about our entity
@@ -69,20 +69,20 @@ namespace K_Engine {
 		/// <summary>
 		/// Gets the entity world position
 		/// </summary>
-		KVector3 getPosition() const;
+		Vector3 getPosition() const;
 		/// <summary>
 		/// Gets the entity world rotation
 		/// </summary>
 		/// <returns></returns>
-		KVector3 getRotation() const;
+		Vector3 getRotation() const;
 		/// <summary>
 		/// Gets entity scale. It's ownself, relative to it.
 		/// </summary>
-		KVector3 getScale() const;
+		Vector3 getScale() const;
 		/// <summary>
 		/// Gets the entity size
 		/// </summary>
-		KVector3 getDimensions() const;
+		Vector3 getDimensions() const;
 
 		/// <summary>
 		/// Custom method for debugging.
@@ -99,10 +99,10 @@ namespace K_Engine {
 
 		//Arrays initialized to default values
 		// x y z axis, in that order of our 3 main information arrays
-		KVector3* position_;
-		KVector3* rotation_;
-		KVector3* scale_;
-		KVector3* dimensions_;
+		Vector3* position_;
+		Vector3* rotation_;
+		Vector3* scale_;
+		Vector3* dimensions_;
 	};
 }
 #endif // TRANSFORM_H

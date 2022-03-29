@@ -4,7 +4,7 @@
 
 #include <physics_prj/CollisionListener.h>
 #include <physics_prj/PhysicsManager.h>
-#include <utils_prj/KVector3.h>
+#include <utils_prj/Vector3.h>
 
 #include <iostream>
 #include "utils_prj/CollisionCallbacks.h"

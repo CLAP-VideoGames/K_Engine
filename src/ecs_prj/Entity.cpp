@@ -2,7 +2,7 @@
 
 #include <ecs_prj/Component.h>
 #include <components_prj/Transform.h>
-#include <utils_prj/KVector3.h>
+#include <utils_prj/Vector3.h>
 
 namespace K_Engine {
 	Entity::Entity()

@@ -1,11 +1,11 @@
 #pragma once
-#ifndef KMATH_H
-#define KMATH_H
+#ifndef MATH_H
+#define MATH_H
 
 
 namespace K_Engine {
-	class KVector3;
-	namespace KMath {
+	class Vector3;
+	namespace Math {
 		const double PI = 3.1415926;
 		/// <summary>
 		/// Initialize a random seed
@@ -36,7 +36,7 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="min">min value included</param>
 		/// <param name="max">max value included</param>
-		static KVector3 random_vector(KVector3 const& min, KVector3 const& max);
+		static Vector3 random_vector(Vector3 const& min, Vector3 const& max);
 
 		/// <summary>
 		/// Interpolates a to b given a t factor
@@ -47,4 +47,4 @@ namespace K_Engine {
 		static float lerpPrecise(float a, float b, float t);
 	}
 }
-#endif // KMATH_H
+#endif //MATH_H

@@ -24,7 +24,7 @@ enum class BodyType {
 
 namespace K_Engine {
 	class CollisionLayers;
-	struct KVector3;
+	struct Vector3;
 	class DynamicsWorld;
 
 	class PhysicsManager {
@@ -47,7 +47,7 @@ namespace K_Engine {
 		/// <param name="step">Number of physics steps by second</param>
 		/// <param name="gravity">Gravity of the world</param>
 		/// <returns>if has been succesful the initialization</returns>
-		static bool Init(int step, const KVector3& gravity);
+		static bool Init(int step, const Vector3& gravity);
 
 		/// <summary>
 		/// Realease the world and all its objects.
@@ -74,13 +74,13 @@ namespace K_Engine {
 		/// <param name="position"></param>
 		/// <param name="rotation"></param>
 		/// <returns>reference to the created transform</returns>
-		btTransform* createTransform(KVector3 const& position, KVector3 const& rotation);
+		btTransform* createTransform(Vector3 const& position, Vector3 const& rotation);
 
 		/// <summary>
 		/// Change the gravity of the physic world.
 		/// </summary>
 		/// <param name="grav"></param>
-		void changeGravity(KVector3 const& grav);
+		void changeGravity(Vector3 const& grav);
 
 		/// <summary>
 		/// Returns a reference to the physics world.

@@ -1,26 +1,26 @@
-#include "KTimer.h"
+#include "Timer.h"
 
 #include <SDL_timer.h>
 
 namespace K_Engine {
-	KTimer::KTimer(){
+	Timer::Timer(){
 		reset();
 	}
 
-	KTimer::~KTimer() = default;
+	Timer::~Timer() = default;
 
-	void KTimer::reset()
+	void Timer::reset()
 	{
 		startTime = SDL_GetTicks();
 		paused = false;
 	}
 
-	unsigned int KTimer::currTime() const
+	unsigned int Timer::currTime() const
 	{
 		return paused ? pauseTime - startTime : SDL_GetTicks() - startTime;
 	}
 
-	void KTimer::pause()
+	void Timer::pause()
 	{
 		if (!paused) {
 			paused = true;
@@ -28,7 +28,7 @@ namespace K_Engine {
 		}
 	}
 
-	void KTimer::resume()
+	void Timer::resume()
 	{
 		if (paused) {
 			startTime += (SDL_GetTicks() - pauseTime);
