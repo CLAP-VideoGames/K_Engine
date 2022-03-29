@@ -22,10 +22,6 @@ echo Removing Bullet build...
 if exist %BULLET_BUILD_DIR% rmdir /s /q %BULLET_BUILD_DIR%
 echo Bullet build succesfully removed
 
-echo Removing CEGUI build...
-if exist %CEGUI_BUILD_DIR% rmdir /s /q %CEGUI_BUILD_DIR%
-echo CEGUI build succesfully removed
-
 echo Removing CEGUI dependencies build...
 if exist %CEGUI_DEP_BUILD_DIR% rmdir /s /q %CEGUI_DEP_BUILD_DIR%
 if exist %CEGUI_SRC_DEP_BUILD_DIR% rmdir /s /q %CEGUI_SRC_DEP_BUILD_DIR%
@@ -42,4 +38,5 @@ echo Lua build succesfully removed
 :: Remove all dynamic libraries
 echo Removing all dynamic libraries...
 del /s .\exe\*.dll 1>nul
+del /s .\exe\*.log 1>nul
 echo Dynamic libraries build succesfully removed

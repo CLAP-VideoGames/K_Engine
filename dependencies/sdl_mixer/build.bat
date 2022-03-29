@@ -35,10 +35,10 @@ echo SDL_mixer build succesfully generated
 :: Build OGRE library
 echo Compiling SDL_mixer library...
 
-:: same dll ???
 msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release
 
+:: Rename all debug files
 set CURR_DIR=%cd%
 cd %SDL_MIXER_DBG_BIN_SOL%
 ren SDL2_mixer.* SDL2_mixer_d.*
@@ -49,7 +49,6 @@ echo SDL_mixer library compiled
 goto end
 
 :done
-
 :: Confirmation message
 echo SDL_mixer already built and compiled
 

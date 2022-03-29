@@ -18,8 +18,7 @@ echo Lua compiled
 goto end
 
 :done
-
 :: Confirmation message
-echo Lua already compiled
+echo Lua already built and compiled
 
 :end

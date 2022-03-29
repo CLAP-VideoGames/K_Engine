@@ -24,7 +24,7 @@ echo Generating Bullet build...
 
 echo Bullet build succesfully generated
 
-:: Build OGRE library
+:: Build Bullet library
 echo Compiling Bullet library...
 
 msbuild %BULLET_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
@@ -35,7 +35,6 @@ echo Bullet library compiled
 goto end
 
 :done
-
 :: Confirmation message
 echo Bullet already built and compiled
 
