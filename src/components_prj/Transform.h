@@ -6,7 +6,6 @@
 
 #include <ecs_prj/Component.h>
 
-
 namespace K_Engine {
 	class KVector3;
 
@@ -15,7 +14,7 @@ namespace K_Engine {
 	* This component is the place from where rigidBody and meshRenderer take the information
 	* To use physics and to render our entities
 	*/
-	class Transform : public Component
+	class __declspec(dllexport) Transform : public Component
 	{
 	public:
 		/// <summary>

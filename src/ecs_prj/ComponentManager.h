@@ -22,8 +22,7 @@ namespace K_Engine {
 	* of external and base component for our games, we add external components
 	* to the engine using the Add method.
 	*/
-	class ComponentManager
-	{
+	class __declspec(dllexport) ComponentManager {
 	public:
 		//Default Constructor to avoid problems in the future
 		ComponentManager();

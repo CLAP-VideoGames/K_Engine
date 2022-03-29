@@ -14,9 +14,7 @@ namespace K_Engine {
 	*Our class Entity starts with only a Transform Component, which contains the rotation, position and scale of our entity
 	*You can alterate you entitys with the following methods
 	*/
-	class Entity
-	{
-
+	class __declspec(dllexport) Entity {
 	public:
 		Entity();
 		~Entity();

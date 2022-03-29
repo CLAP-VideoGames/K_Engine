@@ -19,7 +19,7 @@ namespace K_Engine {
 	/// <summary>
 	/// This componentn provides to the entity a physic behaviour. 
 	/// </summary>
-	class RigidBody : public Component
+	class __declspec(dllexport) RigidBody : public Component
 	{
 	public:
 		/// <summary>

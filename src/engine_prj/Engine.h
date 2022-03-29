@@ -7,7 +7,8 @@
 
 namespace K_Engine {
 	class Scene;
-	typedef Scene* (*SceneLoad)();
+	class Engine;
+	typedef Scene* (*SceneLoad)(Engine *);
 
 	class RenderManager;
 	class PhysicsManager;
@@ -18,8 +19,7 @@ namespace K_Engine {
 	class SceneManager;
 	class LogManager;
 
-	class Engine
-	{
+	class __declspec(dllexport) Engine {
 	public:
 		Engine(std::string n);
 		~Engine();
@@ -28,6 +28,14 @@ namespace K_Engine {
 		void setup();
 		void run();
 		bool shutdown();
+
+		K_Engine::RenderManager* getRenderManager();
+		K_Engine::PhysicsManager* getPhysicsManager();
+		K_Engine::UIManager* getUIManager();
+		K_Engine::AudioManager* getAudioManager();
+		K_Engine::InputManager* getInputManager();
+		K_Engine::ComponentManager* getComponentManager();
+		K_Engine::SceneManager* getSceneManager();
 
 	private:
 		std::string name;
@@ -52,5 +60,4 @@ namespace K_Engine {
 		void debug();
 	};
 }
-
 #endif // ENGINE_H

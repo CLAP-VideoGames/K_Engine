@@ -26,8 +26,7 @@ namespace K_Engine {
 	///		static std::string myVariable; (You can name it whatever you want but name is pretty descriptive)
 	/// }
 	/// </summary>
-	class Component
-	{
+	class __declspec(dllexport) Component {
 	public:
 		~Component();
 

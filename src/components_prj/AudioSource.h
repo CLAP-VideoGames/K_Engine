@@ -6,7 +6,7 @@
 
 namespace K_Engine {
 	class AudioManager;
-	class AudioSource : public Component
+	class __declspec(dllexport) AudioSource : public Component
 	{
 	public:
 		AudioSource(Entity* e);

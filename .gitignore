@@ -360,3 +360,4 @@ dependencies/cegui/src/dependencies/
 *.exe
 *.dll
 *.lib
+*.exp

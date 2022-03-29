@@ -11,8 +11,7 @@ namespace K_Engine {
 	* This class is in charge of having track of our entitys and updating them
 	* also erasing them when necesary
 	*/
-	class EntityManager
-	{
+	class __declspec(dllexport) EntityManager {
 	public:
 		EntityManager();
 

@@ -144,20 +144,21 @@ namespace K_Engine {
 
 	bool Engine::shutdown()
 	{
-#ifndef DEVELOPMENT
-		FreeLibrary(game);
-#endif
-
-		sceneMan = nullptr;
-		renderMan = nullptr; physicsMan = nullptr;
-		uiMan = nullptr; audioMan = nullptr;
-		inputMan = nullptr; compMan = nullptr;
-
-		return K_Engine::SceneManager::Shutdown() && 
+		bool success = K_Engine::SceneManager::Shutdown() &&
 			K_Engine::AudioManager::Shutdown() &&
 			K_Engine::UIManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
+
+		sceneMan = nullptr; renderMan = nullptr; physicsMan = nullptr;
+		uiMan = nullptr; audioMan = nullptr;
+		inputMan = nullptr; compMan = nullptr;
+
+#ifndef DEVELOPMENT
+		FreeLibrary(game);
+#endif
+
+		return success;
 	}
 
 	bool Engine::loadGame()
@@ -172,6 +173,41 @@ namespace K_Engine {
 		load = (SceneLoad)GetProcAddress(game, "loadScene");
 
 		return load != nullptr;
+	}
+
+	K_Engine::RenderManager* Engine::getRenderManager()
+	{
+		return renderMan;
+	}
+
+	K_Engine::PhysicsManager* Engine::getPhysicsManager()
+	{
+		return physicsMan;
+	}
+
+	K_Engine::UIManager* Engine::getUIManager()
+	{
+		return uiMan;
+	}
+
+	K_Engine::AudioManager* Engine::getAudioManager()
+	{
+		return audioMan;
+	}
+
+	K_Engine::InputManager* Engine::getInputManager()
+	{
+		return inputMan;
+	}
+
+	K_Engine::ComponentManager* Engine::getComponentManager()
+	{
+		return compMan;
+	}
+
+	K_Engine::SceneManager* Engine::getSceneManager()
+	{
+		return sceneMan;
 	}
 
 	void Engine::debug()

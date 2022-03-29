@@ -17,7 +17,7 @@ namespace K_Engine {
 	* MeshRender is the component used to add diferent model to our entities
 	* It takes the information of the model position scale and rotation from transform
 	*/
-	class MeshRenderer : public Component
+	class __declspec(dllexport) MeshRenderer : public Component
 	{
 	public:
 		MeshRenderer(Entity* e);
