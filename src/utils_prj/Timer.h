@@ -27,6 +27,9 @@ namespace K_Engine {
 		/// </summary>
 		void resume();
 
+
+		static float deltaTime;
+
 	private:
 		bool paused;
 		unsigned int startTime;

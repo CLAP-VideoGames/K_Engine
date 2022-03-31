@@ -31,11 +31,16 @@ namespace K_Engine {
 		virtual void start();
 		virtual void update();
 
+		//Setters
 		void setVisible(bool value);
 
 		void setMaterial(std::string nMaterial);
 		void setMesh(std::string mesh);
 
+		//Getters
+		Ogre::SceneNode* getOgreNode();
+		Ogre::Entity* getOgreEntity();
+		
 		Ogre::Quaternion EulerToQuaternion(Vector3 const& rot);
 		void syncScale();
 

@@ -59,6 +59,16 @@ namespace K_Engine {
 		}
 	}
 
+	Ogre::SceneNode* MeshRenderer::getOgreNode()
+	{
+		return mNode;
+	}
+
+	Ogre::Entity* MeshRenderer::getOgreEntity()
+	{
+		return mEntity;
+	}
+
 	Ogre::Quaternion MeshRenderer::EulerToQuaternion(Vector3 const& rot) {
 		Ogre::Matrix3 mx;
 		mx.FromEulerAnglesYXZ(Ogre::Radian(rot.y), Ogre::Radian(rot.x), Ogre::Radian(rot.z));
