@@ -70,10 +70,6 @@ namespace K_Engine {
 		/// Gets entity scale. It's ownself, relative to it.
 		/// </summary>
 		Vector3 getScale() const;
-		/*/// <summary>
-		/// Gets the entity size
-		/// </summary>
-		Vector3 getDimensions() const;*/
 
 		/// <summary>
 		/// Custom method for debugging.

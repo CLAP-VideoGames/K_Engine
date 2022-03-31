@@ -70,7 +70,7 @@ namespace K_Engine {
 		transformRf_ = entity->getComponent<Transform>();
 		world_ = K_Engine::PhysicsManager::GetInstance()->getWorld();
 
-		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
+		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), *offsetCenter_, transformRf_->getRotation());
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->x, (btScalar)dimensions_->x };
@@ -98,7 +98,7 @@ namespace K_Engine {
 		rb->getWorldTransform().getRotation().getEulerZYX(z, y, x);
 
 		//set new position
-		transformRf_->setPosition(pos.x(), pos.y(), pos.z());
+		transformRf_->setPosition(pos.x() - offsetCenter_->x, pos.y() - offsetCenter_->y, pos.z() - offsetCenter_->z);
 		transformRf_->setRotation(x, y, z);
 	}
 

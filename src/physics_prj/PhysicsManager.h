@@ -74,7 +74,7 @@ namespace K_Engine {
 		/// <param name="position"></param>
 		/// <param name="rotation"></param>
 		/// <returns>reference to the created transform</returns>
-		btTransform* createTransform(Vector3 const& position, Vector3 const& rotation);
+		btTransform* createTransform(Vector3 const& position, Vector3 const& offset, Vector3 const& rotation);
 
 		/// <summary>
 		/// Change the gravity of the physic world.

@@ -96,20 +96,21 @@ namespace K_Engine {
 
 		/// <summary>
 		/// Sets dimensions to the physics body. It's alien to the renderer size, but is still attached to
-		/// its scale
+		/// its scale. Keep in mind that it's relative to its rotation.
 		/// </summary>
 		/// <param name="dimen">Dimensionsfvector</param>
 		void setDimensions(Vector3 const& dimen);
 
 		/// <summary>
 		/// Sets dimensions to the physics body. It's alien to the renderer size, but is still attached to
-		/// its scale
+		/// its scale.Keep in mind that it's relative to its rotation.
 		/// </summary>
 		/// <param name="dimen">Dimensions factor for all axis</param>
 		void setDimensions(float d);
 
 		/// <summary>
-		/// Sets a distance from the Transform position. This will be the real physic position
+		/// Sets a distance from the Transform position. This will be the real physic position.
+		/// Keep in mind that it is NOT relative to its rotation.
 		/// </summary>
 		void setOffset(Vector3 const& value);
 

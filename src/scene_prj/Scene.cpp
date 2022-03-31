@@ -12,6 +12,8 @@
 #include <components_prj/RigidBody.h>
 #include <components_prj/AudioSource.h>
 
+#include <utils_prj/Vector3.h>
+
 namespace K_Engine {
 	Scene::Scene()
 	{
@@ -47,9 +49,9 @@ namespace K_Engine {
 		int playerCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer);
 		//SPHERE
 		K_Engine::Entity* player = entMan->addEntity();
-		K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setScale(3.0f);
 		{
-			t->setPosition(-2, 8, 0);
+			K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setScale(3.0f);
+			t->setPosition(0.5f, 8, 0);
 			ColliderType boxType = ColliderType::CT_SPHERE;
 			BodyType bodyType = BodyType::BT_DYNAMIC;
 			float mass = 1.0f;
@@ -83,7 +85,6 @@ namespace K_Engine {
 
 		//PLATFORM ROTATED
 		int platformCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(playerLayer);
-		//Configurations Scope
 		{
 			K_Engine::Entity* platform = entMan->addEntity();
 			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setScale(5.f, 1.0f, 5.f);
@@ -97,23 +98,25 @@ namespace K_Engine {
 			m->setMesh("cube.mesh");
 			m->setMaterial("K_Engine/PrototypeOrange");
 		}
+		
 		//WALL
 		int futureCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(playerLayer);
 		{
 			K_Engine::Entity* platform = entMan->addEntity();
 			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setScale(5.f, 1.0f, 5.f);
-			t->setPosition(5.8, -0.5f, 0);
+			t->setPosition(5.8, 1.5f, 0);
 			t->setRotation(0, 0, 90);
 			ColliderType boxType = ColliderType::CT_BOX;
 			BodyType bodyType = BodyType::BT_STATIC;
 			K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), futureCollidesWith);
+			r->setDimensions({ 0.2, 1, 1 });
+			r->setOffset({ 0, -1.0/*0*/, 0});
 			r->setRestitution(0.8f);
 			K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
 			m->setMesh("cube.mesh");
 			m->setMaterial("K_Engine/PrototypeGrey");
 		}
 		//GROUND
-		futureCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(playerLayer);
 		{
 			K_Engine::Entity* platform = entMan->addEntity();
 			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setScale(20.f, 1.0f, 20.f);

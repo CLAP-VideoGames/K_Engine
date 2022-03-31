@@ -78,13 +78,14 @@ namespace K_Engine {
 		proxy->m_collisionFilterMask = getLayerID(name);
 	}
 
-	btTransform* PhysicsManager::createTransform(Vector3 const& position, Vector3 const& rotation) {
+	btTransform* PhysicsManager::createTransform(Vector3 const& position, Vector3 const& offset, Vector3 const& rotation) {
 		btVector3 pos = { (btScalar)position.x, (btScalar)position.y, (btScalar)position.z };
+		btVector3 off = { (btScalar)offset.x, (btScalar)offset.y, (btScalar)offset.z };
 		btVector3 rot = { (btScalar)btRadians(rotation.x), (btScalar)btRadians(rotation.y), (btScalar)btRadians(rotation.z) };
 
 		btTransform* tr = new btTransform();
 		tr->setIdentity();
-		tr->setOrigin(pos);
+		tr->setOrigin(pos + off);
 		//tr->setBasis()
 		tr->setRotation(btQuaternion(rot.x(), rot.y(), rot.z()));
 		return tr;
