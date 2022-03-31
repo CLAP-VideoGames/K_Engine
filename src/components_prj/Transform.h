@@ -45,14 +45,6 @@ namespace K_Engine {
 		/// </summary>
 		void setPosition(float x, float y, float z);
 		/// <summary>
-		/// Sets the entity to a new size given its axis values
-		/// </summary>
-		void setDimensions(float x, float y, float z);
-		/// <summary>
-		/// Sets the entity to a new size given a global value for all its axis.
-		/// </summary>
-		void setDimensions(float d);
-		/// <summary>
 		/// Sets the entity to a new rotaion
 		/// </summary>
 		void setRotation(float x, float y, float z);
@@ -78,10 +70,10 @@ namespace K_Engine {
 		/// Gets entity scale. It's ownself, relative to it.
 		/// </summary>
 		Vector3 getScale() const;
-		/// <summary>
+		/*/// <summary>
 		/// Gets the entity size
 		/// </summary>
-		Vector3 getDimensions() const;
+		Vector3 getDimensions() const;*/
 
 		/// <summary>
 		/// Custom method for debugging.

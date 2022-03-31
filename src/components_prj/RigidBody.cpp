@@ -33,6 +33,9 @@ namespace K_Engine {
 		isTrigger_ = isTrigger;
 		group_ = group;
 		mask_ = mask;
+
+		dimensions_ = new Vector3(1, 1, 1); //By default
+		offsetCenter_ = new Vector3(0, 0, 0); //By default no offset
 	}
 
 	RigidBody::~RigidBody() {
@@ -68,10 +71,9 @@ namespace K_Engine {
 		world_ = K_Engine::PhysicsManager::GetInstance()->getWorld();
 
 		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), transformRf_->getRotation());
-		Vector3 dimensions = transformRf_->getDimensions();
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-		btVector3 dimensions_ = { (btScalar)dimensions.x, (btScalar)dimensions.y, (btScalar)dimensions.z };
+		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->x, (btScalar)dimensions_->x };
 		K_Engine::CollisionInfo* colision = new K_Engine::CollisionInfo(this->entity,
 			//Collision Enter Callback
 			[=](void* other) {
@@ -85,7 +87,7 @@ namespace K_Engine {
 				[=](void* other) {
 				this->launchExitCallbacks(other);
 			});
-		rb = world_->addRigidBody(type_, *btTransform_, dimensions_, scale_, bType_, mass_, restitution_, friction_, group_, mask_, isTrigger_, colision);
+		rb = world_->addRigidBody(type_, *btTransform_, dimensions, scale_, bType_, mass_, restitution_, friction_, group_, mask_, isTrigger_, colision);
 	}
 
 	void RigidBody::update() {
@@ -108,6 +110,19 @@ namespace K_Engine {
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 		world_->scaleCollisionShape(rb, scale_);
+	}
+
+	void RigidBody::setDimensions(Vector3 const& toAdd) {
+		(*dimensions_) = toAdd;
+	}
+
+	void RigidBody::setDimensions(float d) {
+		Vector3 toAdd = { d, d, d };
+		(*dimensions_) = toAdd;
+	}
+
+	void RigidBody::setOffset(Vector3 const& distance) {
+		(*offsetCenter_) = distance;
 	}
 
 	void RigidBody::launchEnterCallbacks(void* entity)

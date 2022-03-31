@@ -99,16 +99,6 @@ namespace K_Engine {
 		(*position_) = toSet;
 	}
 
-	void Transform::setDimensions(float x, float y, float z) {
-		Vector3 toAdd = { x, y, z };
-		(*dimensions_) = toAdd;
-	}
-
-	void Transform::setDimensions(float d) {
-		Vector3 toAdd = { d, d, d };
-		(*dimensions_) = toAdd;
-	}
-
 	void Transform::setRotation(float x, float y, float z) {
 		Vector3 toAdd = { x, y, z };
 		(*rotation_) = toAdd;
@@ -202,9 +192,9 @@ namespace K_Engine {
 		return *scale_;
 	}
 
-	Vector3 Transform::getDimensions() const {
-		return *dimensions_;
-	}
+	//Vector3 Transform::getDimensions() const {
+	//	return *dimensions_;
+	//}
 
 	void Transform::debug()
 	{

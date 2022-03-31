@@ -75,7 +75,7 @@ namespace K_Engine {
 	void PhysicsManager::changeCollisionFiltering(btRigidBody* rb, int group, std::string name) {
 		btBroadphaseProxy* proxy = rb->getBroadphaseProxy();
 		proxy->m_collisionFilterGroup = group;
-		proxy->m_collisionFilterMask = getLayerValue(name);
+		proxy->m_collisionFilterMask = getLayerID(name);
 	}
 
 	btTransform* PhysicsManager::createTransform(Vector3 const& position, Vector3 const& rotation) {
@@ -101,7 +101,7 @@ namespace K_Engine {
 		return dynamicsWorld_;
 	}
 
-	int PhysicsManager::getLayerValue(std::string name) const {
+	int PhysicsManager::getLayerID(std::string name) const {
 		return colLayers_->getLayer(name);
 	}
 

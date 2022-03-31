@@ -91,7 +91,7 @@ namespace K_Engine {
 		/// Returns the value of the mask
 		/// </summary>
 		/// <param name="name">Key name</param>
-		int getLayerValue(std::string name) const;
+		int getLayerID(std::string name) const;
 
 		/// <summary>
 		/// Adds a new layer to the world. It can be accesed by its name.

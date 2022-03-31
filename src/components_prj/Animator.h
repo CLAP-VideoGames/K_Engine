@@ -5,14 +5,14 @@
 #include <ecs_prj/Component.h>
 #include <map>
 
-namespace K_Engine {
+namespace Ogre {
+	class AnimationState;
+	class AnimationStateSet;
+	class SceneNode;
+	class Entity;
+}
 
-	namespace Ogre {
-		class AnimationState;
-		class AnimationStateSet;
-		class SceneNode;
-		class Entity;
-	}
+namespace K_Engine {
 
 	class MeshRenderer;
 	class Transform;

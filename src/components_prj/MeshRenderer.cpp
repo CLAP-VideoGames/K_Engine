@@ -32,7 +32,7 @@ namespace K_Engine {
 	void MeshRenderer::start() {
 		transformRf = entity->getComponent<Transform>();
 		mNode->showBoundingBox(true);
-		syncDimensions();
+		syncScale();
 	}
 
 	void MeshRenderer::update() {
@@ -88,13 +88,6 @@ namespace K_Engine {
 		Vector3 scaleT = transformRf->getScale();
 
 		mNode->scale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
-	}
-
-	void MeshRenderer::syncDimensions() {
-		transformRf = entity->getComponent<Transform>();
-		Vector3 scaleT = transformRf->getDimensions();
-
-		mNode->setScale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
 	}
 
 	void MeshRenderer::syncPosition() {

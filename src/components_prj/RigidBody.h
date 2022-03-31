@@ -16,6 +16,7 @@ enum class BodyType;
 namespace K_Engine {
 	class DynamicsWorld;
 	class Transform;
+	struct Vector3;
 	/// <summary>
 	/// This componentn provides to the entity a physic behaviour. 
 	/// </summary>
@@ -93,6 +94,25 @@ namespace K_Engine {
 		/// </summary>
 		void syncScale();
 
+		/// <summary>
+		/// Sets dimensions to the physics body. It's alien to the renderer size, but is still attached to
+		/// its scale
+		/// </summary>
+		/// <param name="dimen">Dimensionsfvector</param>
+		void setDimensions(Vector3 const& dimen);
+
+		/// <summary>
+		/// Sets dimensions to the physics body. It's alien to the renderer size, but is still attached to
+		/// its scale
+		/// </summary>
+		/// <param name="dimen">Dimensions factor for all axis</param>
+		void setDimensions(float d);
+
+		/// <summary>
+		/// Sets a distance from the Transform position. This will be the real physic position
+		/// </summary>
+		void setOffset(Vector3 const& value);
+
 	private:
 		//Reference to transform Component
 		Transform* transformRf_ = nullptr;
@@ -138,6 +158,11 @@ namespace K_Engine {
 		//Collision filtering
 		int group_;
 		int mask_;
+
+		//Dimensions of the actual body
+		Vector3* dimensions_;
+		//Offset from the transform point. 
+		Vector3* offsetCenter_;
 	};
 }
 #endif RIGIDBODY_H
