@@ -56,7 +56,7 @@ namespace K_Engine {
 		// initialisation of all sub-engines
 		success = K_Engine::RenderManager::Init(name + "Render") &&
 			K_Engine::PhysicsManager::Init(20, { 0, -9.8, 0 }) &&
-			/*K_Engine::UIManager::Init(name + "UI") &&*/
+			//K_Engine::UIManager::Init(name + "UI") &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::InputManager::Init() &&
 			K_Engine::ComponentManager::Init(name + "Components") &&
@@ -114,10 +114,10 @@ namespace K_Engine {
 		bool run = true; // time --> miliseconds
 		unsigned int accFrameTime = 0, currTime = timer.currTime();
 		while (run) {
-			unsigned int frame = timer.currTime() - currTime;
-			currTime += frame;
+			unsigned int frameTime = timer.currTime() - currTime;
+			currTime += frameTime;
 
-			accFrameTime += frame;
+			accFrameTime += frameTime;
 			while (accFrameTime >= DELTA_TIME) {
 				inputMan->update();
 
@@ -130,7 +130,7 @@ namespace K_Engine {
 				}*/
 
 				//Physics update
-				sceneMan->fixedUpdateScene();
+				sceneMan->fixedUpdateScene(DELTA_TIME);
 				physicsMan->update();
 				accFrameTime -= DELTA_TIME;
 			}
@@ -150,8 +150,9 @@ namespace K_Engine {
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
 
-		sceneMan = nullptr; renderMan = nullptr; physicsMan = nullptr;
-		/*uiMan = nullptr;*/ audioMan = nullptr;
+		sceneMan = nullptr; renderMan = nullptr; 
+		physicsMan = nullptr; //uiMan = nullptr; 
+		audioMan = nullptr;
 		inputMan = nullptr; compMan = nullptr;
 
 #ifndef DEVELOPMENT

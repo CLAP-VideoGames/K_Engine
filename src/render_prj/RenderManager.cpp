@@ -23,6 +23,7 @@
 #include <OgreTextureManager.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreGpuProgramManager.h>
+#include <OgreLogManager.h>
 
 #include <render_prj/Camera.h>
 
@@ -51,7 +52,8 @@ namespace K_Engine {
 			instance.get()->initResources();
 			instance.get()->initScene();
 		}
-		catch (const std::exception&) {
+		catch (Ogre::Exception& e) {
+			Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
 			return false;
 		}
 

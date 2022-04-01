@@ -22,7 +22,7 @@ namespace K_Engine {
 		return c;
 	}
 
-	void EntityManager::update()
+	void EntityManager::update(int frameTime)
 	{
 		//The basic cycle of every entity
 		for (int i = 0; i < entities.size(); i++) {
@@ -32,11 +32,11 @@ namespace K_Engine {
 				delete e;
 				entities.erase(entities.begin() + i);
 			}//If it is active, we update it
-			else if (e->isActive())e->update();
+			else if (e->isActive())e->update(frameTime);
 		}
 	}
 
-	void EntityManager::fixedUpdate()
+	void EntityManager::fixedUpdate(int deltaTime)
 	{
 		//The same as above but for physics
 		for (int i = 0; i < entities.size(); i++) {
@@ -46,7 +46,7 @@ namespace K_Engine {
 				delete e;
 				entities.erase(entities.begin() + i);
 			}//If it is active, we update its physics
-			else if (e->isActive())e->fixedUpdate();
+			else if (e->isActive())e->fixedUpdate(deltaTime);
 		}
 	}
 

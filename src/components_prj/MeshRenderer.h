@@ -29,7 +29,7 @@ namespace K_Engine {
 		virtual void debug();
 
 		virtual void start();
-		virtual void update();
+		virtual void update(int frameTime);
 
 		//Setters
 		void setVisible(bool value);

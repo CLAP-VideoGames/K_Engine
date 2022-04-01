@@ -49,14 +49,14 @@ namespace K_Engine {
 		pushScene(newS);
 	}
 
-	void SceneManager::updateScene()
+	void SceneManager::updateScene(int frameTime)
 	{
-		scenes.top()->update();
+		scenes.top()->update(frameTime);
 	}
 
-	void SceneManager::fixedUpdateScene()
+	void SceneManager::fixedUpdateScene(int deltaTime)
 	{
-		scenes.top()->fixedUpdate();
+		scenes.top()->fixedUpdate(deltaTime);
 	}
 
 	Scene* SceneManager::currentScene()

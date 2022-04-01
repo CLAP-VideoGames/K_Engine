@@ -36,16 +36,13 @@ namespace K_Engine {
 		ogreEntity_ = mesh_->getOgreEntity();
 
 		// Recogemos todos los estados que traiga la malla
-		//animStatesMap_ = ogreEntity_->getAllAnimationStates();
+		animStatesMap_ = ogreEntity_->getAllAnimationStates();
 	}
 
-	void Animator::update()
+	void Animator::update(int frameTime)
 	{
-		//Actualizar delta time
-		float dt;
-
 		// Actualizamos la animacion actual
-		//currentState_->animation->addTime(dt);
+		currentState_->animation->addTime(frameTime);
 
 		// Miramos si hay que cambiar de estado de animacion
 		manageAnimTransitions();
@@ -68,7 +65,7 @@ namespace K_Engine {
 			// Si alguna de las transiciones desde el anyState estan a true cambiamos el estado
 			if (t.second->cond)
 			{
-				//currentState_->animation = animStatesMap_->getAnimationState(t.second->nextState);
+				currentState_->animation = animStatesMap_->getAnimationState(t.second->nextState);
 				return; // cortamos el metodo
 			}
 		}
@@ -79,7 +76,7 @@ namespace K_Engine {
 			// Si alguna de las transiciones desde el currentState estan a true cambiamos el estado
 			if (t.second->cond)
 			{
-				//currentState_->animation = animStatesMap_->getAnimationState(t.second->nextState);
+				currentState_->animation = animStatesMap_->getAnimationState(t.second->nextState);
 				return; // cortamos el metodo
 			}
 		}

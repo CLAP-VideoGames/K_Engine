@@ -81,11 +81,17 @@ namespace K_Engine {
 		//This mehtos is used to set our Entity to active or unactive
 		void setActive(bool a) { active = a; }
 
-		//This method updates our entity and is called once per frame
-		void update();
+		/// <summary>
+		/// This method updates our entity and is called once per frame, requires time between frames
+		/// </summary>
+		/// <param name="collision"></param>
+		void update(int frameTime);
 
-		//This method updates components with physics
-		void fixedUpdate();
+		/// <summary>
+		/// This method updates components with physics, requires fixed deltaTime
+		/// </summary>
+		/// <param name="collision"></param>
+		void fixedUpdate(int deltaTime);
 
 		//To know when to destroy our entity
 		bool destroyed() { return toDestroy; }

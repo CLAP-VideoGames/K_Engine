@@ -32,14 +32,14 @@ namespace K_Engine {
 		void changeScene(Scene* newS);
 
 		/// <summary>
-		/// called once per frame, it calls the actual scene update
+		/// called once per frame, it calls the actual scene update, requires time between frames
 		/// </summary>
-		void updateScene();
+		void updateScene(int frameTime);
 
 		/// <summary>
-		/// called once per frame, it calls the actual scene fixed update
+		/// called once per frame, it calls the actual scene fixed update, requires fixed deltaTime
 		/// </summary>
-		void fixedUpdateScene();
+		void fixedUpdateScene(int deltaTime);
 
 		/// <summary>
 		/// returns the top of the scene stack

@@ -90,7 +90,7 @@ namespace K_Engine {
 		rb = world_->addRigidBody(type_, *btTransform_, dimensions, scale_, bType_, mass_, restitution_, friction_, group_, mask_, isTrigger_, colision);
 	}
 
-	void RigidBody::update() {
+	void RigidBody::update(int frameTime) {
 		btVector3 pos = rb->getWorldTransform().getOrigin();
 		btScalar y;
 		btScalar z;

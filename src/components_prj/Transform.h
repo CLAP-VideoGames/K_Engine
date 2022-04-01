@@ -79,7 +79,7 @@ namespace K_Engine {
 		/// <summary>
 		/// It's called every frame of the game.
 		/// </summary>
-		virtual void update();
+		virtual void update(int frameTime);
 
 	private:
 		static std::string name;

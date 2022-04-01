@@ -27,14 +27,14 @@ namespace K_Engine {
 
 	void Scene::init() {};
 
-	void Scene::update() 
+	void Scene::update(int frameTime) 
 	{
-		entMan->update();
+		entMan->update(frameTime);
 	};
 
-	void Scene::fixedUpdate()
+	void Scene::fixedUpdate(int deltaTime)
 	{
-		entMan->fixedUpdate();
+		entMan->fixedUpdate(deltaTime);
 	}
 
 	void Scene::debug()

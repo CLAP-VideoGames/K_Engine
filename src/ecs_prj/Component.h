@@ -30,20 +30,32 @@ namespace K_Engine {
 	public:
 		~Component();
 
-		//awake is called every time the component is activated
+		/// <summary>
+		/// awake is called every time the component is activated
+		/// </summary>
+		/// <param name="collision"></param>
 		virtual void awake();
 
-		//start is called once the game starts
+		/// <summary>
+		/// start is called once the game starts
+		/// </summary>
+		/// <param name="collision"></param>
 		virtual void start();
 
 		//onEnable is called every time the component is enabled
 		virtual void onEnable();
-
-		//update is called every frame of the game
-		virtual void update();
-
-		//physicsUpdate is called before update and it calls everyPhysic we need
-		virtual void physicsUpdate();
+		/// <summary>
+		/// Update requires time between frames
+		///update is called every frame of the game
+		/// </summary>
+		/// <param name="t"></param>
+		virtual void update(int deltaTime);
+		/// <summary>
+		/// PhysicsUpdate is called before update and it calls everyPhysic we need
+		/// PhysicsUpdate specific use for physics, requires fixed deltaTime
+		/// </summary>
+		/// <param name="deltaTime"></param>
+		virtual void physicsUpdate(int deltaTime);
 
 		//onDisable is called every time the component is disabled
 		virtual void onDisable();

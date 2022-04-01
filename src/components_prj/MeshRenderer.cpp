@@ -35,7 +35,7 @@ namespace K_Engine {
 		syncScale();
 	}
 
-	void MeshRenderer::update() {
+	void MeshRenderer::update(int frameTime) {
 		syncPosition();
 		syncRotation();
 	}

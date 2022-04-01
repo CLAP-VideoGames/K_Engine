@@ -15,29 +15,29 @@ namespace K_Engine {
 
 	Entity::~Entity() = default;
 
-	void Entity::update()
+	void Entity::update(int frameTime)
 	{
 		for (auto c : components) {
 			//Update is called before physics update so the physics uses the information from the last update
-			c.second->update();
+			c.second->update(frameTime);
 		}
 
 		//Update for the entity children
 		for (auto c : children) {
-			c->update();
+			c->update(frameTime);
 		}
 	}
 
-	void Entity::fixedUpdate()
+	void Entity::fixedUpdate(int deltaTime)
 	{
 		for (auto c : components) {
 
-			c.second->physicsUpdate();
+			c.second->physicsUpdate(deltaTime);
 		}
 
 		//Update for the entity children
 		for (auto c : children) {
-			c->fixedUpdate();
+			c->fixedUpdate(deltaTime);
 		}
 	}
 

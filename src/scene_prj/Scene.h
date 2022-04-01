@@ -19,10 +19,10 @@ namespace K_Engine {
 		virtual void init();
 
 		//Update is called once per frame
-		void update();
+		void update(int frameTime);
 
 		//Update is called once per frame
-		void fixedUpdate();
+		void fixedUpdate(int deltaTime);
 
 		void debug();
 

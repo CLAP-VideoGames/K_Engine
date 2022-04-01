@@ -22,10 +22,10 @@ namespace K_Engine {
 		Entity* addEntity();
 
 		//where every entity is updated
-		void update();
+		void update(int frameTime);
 
 		//where the physics
-		void fixedUpdate();
+		void fixedUpdate(int deltaTime);
 
 		//where every component calls it start method
 		//WE MUST CALL THIS AFTER THE INIT OF THIS SINGLETON AND AFTER THE READ OF THE MAP

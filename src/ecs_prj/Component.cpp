@@ -21,10 +21,10 @@ namespace K_Engine {
 	void Component::start() {};
 
 	void Component::onEnable() {};
-
-	void Component::update() {};
-
-	void Component::physicsUpdate() {}
+	
+	void Component::update(int frameTime) {};
+	
+	void Component::physicsUpdate(int deltaTime) {}
 
 	void Component::onDisable() {};
 
