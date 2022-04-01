@@ -47,6 +47,7 @@ namespace K_Engine {
 		std::string platformLayer = "Platform";
 
 		int playerCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer);
+
 		//SPHERE
 		K_Engine::Entity* player = entMan->addEntity();
 		{
@@ -116,6 +117,7 @@ namespace K_Engine {
 			m->setMesh("cube.mesh");
 			m->setMaterial("K_Engine/PrototypeGrey");
 		}
+
 		//GROUND
 		{
 			K_Engine::Entity* platform = entMan->addEntity();

@@ -121,6 +121,18 @@ namespace K_Engine {
 		(*dimensions_) = toAdd;
 	}
 
+	void RigidBody::addForce(Vector3 const& value){
+		//rb.for
+	}
+	
+	void RigidBody::addImpulse(Vector3 const& value) {
+
+	}
+
+	void RigidBody::addExplosionForce(Vector3 const& value){
+
+	}
+
 	void RigidBody::setOffset(Vector3 const& distance) {
 		(*offsetCenter_) = distance;
 	}
