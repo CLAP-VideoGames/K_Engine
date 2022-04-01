@@ -4,8 +4,6 @@
 #include <iostream>
 #include <string>
 
-#include <CEGUI/CEGUI.h>
-#include <CEGUI/Window.h>
 
 
 UIComponent::UIComponent(CEGUI::WindowManager* winMngr, CEGUI::DefaultWindow* mRoot, std::string& schemeName, Vector2 pos_, Vector2 size_, std::string name_): pos(pos_), size(size_), name(name_)

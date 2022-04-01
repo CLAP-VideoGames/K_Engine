@@ -8,6 +8,7 @@
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 #include <OgreVector.h>
+#include <OgreViewport.h>
 
 namespace K_Engine {
 	Camera::Camera()
@@ -22,7 +23,8 @@ namespace K_Engine {
 		mCameraNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
 		mCameraNode->attachObject(mCamera);
 
-		K_Engine::RenderManager::GetInstance()->getRenderWindow()->addViewport(mCamera);
+		Ogre::Viewport* vp = K_Engine::RenderManager::GetInstance()->getRenderWindow()->addViewport(mCamera);
+		vp->setBackgroundColour(Ogre::ColourValue(0.5, 0.5, 0.5, 1.0));
 	}
 
 	Camera::~Camera() = default;
