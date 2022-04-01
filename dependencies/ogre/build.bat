@@ -31,8 +31,6 @@ echo Generating OGRE and SDL2 build...
 
 echo OGRE and SDL2 build succesfully generated
 
-pause
-
 :: Build OGRE library
 echo Compiling OGRE library...
 
@@ -40,8 +38,6 @@ msbuild %OGRE_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 msbuild %OGRE_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release 
 
 echo OGRE library compiled
-
-pause
 
 :: Build SDL2 library
 echo Compiling SDL2 library...
