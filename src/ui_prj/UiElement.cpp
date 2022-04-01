@@ -50,20 +50,32 @@ std::pair<int, int> UiElement::getSize()
 
 void UiElement::loadElementType(std::string const& overlayName)
 {
-	Ogre::Overlay* overlay = Ogre::OverlayManager::getSingletonPtr()->create(overlayName);
+	Ogre::Overlay* overlay = Ogre::OverlayManager::getSingletonPtr()->create("WAZAAAAAAAAAAA");
+	overlay->setScale(1.0, 1.0);
+
+	//panel->setFontName("DejaVu/SerifCondensedItalic");
+
+	Ogre::OverlayContainer* container = static_cast<Ogre::OverlayContainer*>
+		(Ogre::OverlayManager::getSingletonPtr()->createOverlayElement("Panel", "Moto"));
+	container->setMetricsMode(Ogre::GMM_PIXELS);
+	container->setDimensions(1080.0, 720.0);
+	container->setPosition(0.0, 0.0);
+	container->show();
+
+	overlay->add2D(container);
+
 
 	Ogre::TextAreaOverlayElement* panel = static_cast<Ogre::TextAreaOverlayElement*>(//Type		ID
 		Ogre::OverlayManager::getSingletonPtr()->createOverlayElement(overlayName, "MotoMoto"));
-
 	panel->setPosition(0.1, 0.5);
-	panel->setDimensions(0.5, 0.5);
+	panel->setMetricsMode(Ogre::GMM_PIXELS);
+	panel->setDimensions(500.0, 500.0);
 	panel->setCaption(Ogre::DisplayString("Hola bo dia"));
 
-	//panel->setFontName("Jura-Light");
+	container->addChild(panel);
+
+	panel->show();
 
 
-	//// Show the overlay
 	overlay->show();
 }
-
-
