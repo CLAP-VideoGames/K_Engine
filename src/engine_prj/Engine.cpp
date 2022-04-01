@@ -14,7 +14,7 @@
 #include <render_prj/RenderManager.h>
 #include <sound_prj/AudioManager.h>
 #include <input_prj/InputManager.h>
-#include <ui_prj/UIManager.h>
+//#include <ui_prj/UIManager.h>
 #include <scene_prj/SceneManager.h>
 #include <log_prj/LogManager.h>
 
@@ -56,7 +56,7 @@ namespace K_Engine {
 		// initialisation of all sub-engines
 		success = K_Engine::RenderManager::Init(name + "Render") &&
 			K_Engine::PhysicsManager::Init(20, { 0, -9.8, 0 }) &&
-			K_Engine::UIManager::Init(name + "UI") &&
+			/*K_Engine::UIManager::Init(name + "UI") &&*/
 			K_Engine::AudioManager::Init() &&
 			K_Engine::InputManager::Init() &&
 			K_Engine::ComponentManager::Init(name + "Components") &&
@@ -69,7 +69,7 @@ namespace K_Engine {
 		// acquisition of sub-engine's instances
 		renderMan = K_Engine::RenderManager::GetInstance();
 		physicsMan = K_Engine::PhysicsManager::GetInstance();
-		uiMan = K_Engine::UIManager::GetInstance();
+		//uiMan = K_Engine::UIManager::GetInstance();
 		audioMan = K_Engine::AudioManager::GetInstance();
 		inputMan = K_Engine::InputManager::GetInstance();
 		compMan = K_Engine::ComponentManager::GetInstance();
@@ -137,7 +137,7 @@ namespace K_Engine {
 
 			//Regular update for the entities
 			sceneMan->updateScene();
-			uiMan->update();
+			//uiMan->update();
 			renderMan->render();
 		}
 	}
@@ -146,12 +146,12 @@ namespace K_Engine {
 	{
 		bool success = K_Engine::SceneManager::Shutdown() &&
 			K_Engine::AudioManager::Shutdown() &&
-			K_Engine::UIManager::Shutdown() &&
+			//K_Engine::UIManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
 
 		sceneMan = nullptr; renderMan = nullptr; physicsMan = nullptr;
-		uiMan = nullptr; audioMan = nullptr;
+		/*uiMan = nullptr;*/ audioMan = nullptr;
 		inputMan = nullptr; compMan = nullptr;
 
 #ifndef DEVELOPMENT
@@ -185,10 +185,10 @@ namespace K_Engine {
 		return physicsMan;
 	}
 
-	K_Engine::UIManager* Engine::getUIManager()
+	/*K_Engine::UIManager* Engine::getUIManager()
 	{
 		return uiMan;
-	}
+	}*/
 
 	K_Engine::AudioManager* Engine::getAudioManager()
 	{
@@ -213,7 +213,7 @@ namespace K_Engine {
 	void Engine::debug()
 	{
 		// ui debug
-		uiMan->debug();
+		//uiMan->debug();
 
 		//uiMan->createSlider(std::pair<float, float>(0.2f, 0.2f), std::pair<float, float>(0.1f, 0.1f));
 		//uiMan->createScrollbar(std::pair<float, float>(0.7f, 0.7f), std::pair<float, float>(0.1f, 0.1f));

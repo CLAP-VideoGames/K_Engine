@@ -25,7 +25,7 @@ copy .\dependencies\ogre\build\bin\release\RenderSystem_GL.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\debug\RenderSystem_GL_d.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\Codec_STBI.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\debug\Codec_STBI_d.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\bin\debug\Codec_Assimp.dll %EXE_DIR% 1>nul
+copy .\dependencies\ogre\build\bin\release\Codec_Assimp.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\zlib.dll %EXE_DIR% 1>nul
 
 echo OGRE .dlls succesfully copied to engine

@@ -12,7 +12,7 @@ namespace K_Engine {
 
 	class RenderManager;
 	class PhysicsManager;
-	class UIManager;
+	//class UIManager;
 	class AudioManager;
 	class InputManager;
 	class ComponentManager;
@@ -31,7 +31,7 @@ namespace K_Engine {
 
 		K_Engine::RenderManager* getRenderManager();
 		K_Engine::PhysicsManager* getPhysicsManager();
-		K_Engine::UIManager* getUIManager();
+		//K_Engine::UIManager* getUIManager();
 		K_Engine::AudioManager* getAudioManager();
 		K_Engine::InputManager* getInputManager();
 		K_Engine::ComponentManager* getComponentManager();
@@ -42,7 +42,7 @@ namespace K_Engine {
 
 		K_Engine::RenderManager* renderMan;
 		K_Engine::PhysicsManager* physicsMan;
-		K_Engine::UIManager* uiMan;
+		//K_Engine::UIManager* uiMan;
 		K_Engine::AudioManager* audioMan;
 		K_Engine::InputManager* inputMan;
 		K_Engine::ComponentManager* compMan;
