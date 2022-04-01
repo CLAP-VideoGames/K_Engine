@@ -35,8 +35,8 @@ echo SDL_mixer build succesfully generated
 :: Build OGRE library
 echo Compiling SDL_mixer library...
 
-msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release
+if %RELEASE_ENGINE% == false msbuild %SDL_MIXER_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 
 :: Rename all debug files
 set CURR_DIR=%cd%

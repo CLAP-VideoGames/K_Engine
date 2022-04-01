@@ -27,8 +27,8 @@ echo Bullet build succesfully generated
 :: Build Bullet library
 echo Compiling Bullet library...
 
-msbuild %BULLET_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 msbuild %BULLET_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release 
+if %RELEASE_ENGINE% == false msbuild %BULLET_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 
 echo Bullet library compiled
 

@@ -34,16 +34,16 @@ echo OGRE and SDL2 build succesfully generated
 :: Build OGRE library
 echo Compiling OGRE library...
 
-msbuild %OGRE_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 msbuild %OGRE_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release 
+if %RELEASE_ENGINE% == false msbuild %OGRE_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 
 echo OGRE library compiled
 
 :: Build SDL2 library
 echo Compiling SDL2 library...
 
-msbuild %SDL2_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 msbuild %SDL2_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Release 
+if %RELEASE_ENGINE% == false msbuild %SDL2_BUILD_SOL% /t:ALL_BUILD /p:platform=x64 /p:configuration=Debug
 
 echo SDL2 library compiled
 
