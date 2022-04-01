@@ -114,6 +114,12 @@ namespace K_Engine {
 		/// </summary>
 		void setOffset(Vector3 const& value);
 
+		void addForce(Vector3 const& value);
+
+		void addImpulse(Vector3 const& value);
+
+		void addExplosionForce(Vector3 const& value);
+
 	private:
 		//Reference to transform Component
 		Transform* transformRf_ = nullptr;
