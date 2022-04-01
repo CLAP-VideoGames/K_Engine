@@ -74,7 +74,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies/ogre/src/Components/Overlay/include;$(SolutionDir)src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies/ogre/src/Components/Overlay/include;$(SolutionDir)dependencies/ogre/src/Components/Overlay/include;$(SolutionDir)src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies/ogre/src/Components/Overlay/include;$(SolutionDir)src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
