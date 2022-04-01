@@ -8,7 +8,7 @@
 namespace K_Engine {
 	class Scene;
 	class Engine;
-	typedef Scene* (*SceneLoad)(Engine *);
+	typedef Scene* (*SceneLoad)();
 
 	class RenderManager;
 	class PhysicsManager;
