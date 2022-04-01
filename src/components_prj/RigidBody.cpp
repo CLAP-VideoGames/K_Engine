@@ -38,9 +38,7 @@ namespace K_Engine {
 		offsetCenter_ = new Vector3(0, 0, 0); //By default no offset
 	}
 
-	RigidBody::~RigidBody() {
-
-	}
+	RigidBody::~RigidBody() = default;
 
 	std::string RigidBody::GetId() {
 		return name;

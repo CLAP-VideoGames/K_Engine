@@ -9,7 +9,7 @@ namespace K_Engine {
 	/// <summary>
 	/// Manager for collision layers
 	/// </summary>
-	class CollisionLayers
+	class  __declspec(dllexport) CollisionLayers
 	{
 	public:
 		CollisionLayers();

@@ -5,7 +5,7 @@
 #include <functional>
 
 namespace K_Engine {
-	struct CollisionInfo {
+	struct  __declspec(dllexport) CollisionInfo {
 		void* entity_;
 		std::function<void(void*)> collisionEnter;
 		std::function<void(void*)> collisionStay;
@@ -15,6 +15,4 @@ namespace K_Engine {
 			: entity_(entity), collisionEnter(collisionEnter0), collisionStay(collisionStay0), collisionExit(collisionExit0) {};
 	};
 }
-
-
 #endif // COLLISIONCALLBACKS_H

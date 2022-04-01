@@ -22,8 +22,7 @@ namespace K_Engine {
 		delete dimensions_; dimensions_ = nullptr;
 	}
 
-	std::string Transform::GetId()
-	{
+	std::string Transform::GetId() {
 		return name;
 	}
 

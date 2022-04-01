@@ -3,7 +3,7 @@
 #define VECTOR_H
 
 namespace K_Engine {
-	struct Vector3 {
+	struct  __declspec(dllexport) Vector3 {
 	public:
 		double x, y, z;
 

@@ -23,7 +23,11 @@ namespace K_Engine {
 		mNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	}
 
-	MeshRenderer::~MeshRenderer() {}
+	MeshRenderer::~MeshRenderer() = default;
+
+	std::string MeshRenderer::GetId() {
+		return name;
+	}
 
 	void MeshRenderer::debug() {
 		K_Engine::RenderManager::GetInstance()->getCamera()->setAnchor(mNode);

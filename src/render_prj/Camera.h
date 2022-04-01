@@ -13,7 +13,7 @@ namespace Ogre {
 }
 
 namespace K_Engine {
-	class Camera {
+	class  __declspec(dllexport) Camera {
 	public:
 		Camera();
 		~Camera();

@@ -24,7 +24,7 @@ namespace K_Engine {
 		~MeshRenderer();
 
 		//Required method for the component name
-		static std::string GetId() { return name; }
+		static std::string GetId();
 
 		virtual void debug();
 

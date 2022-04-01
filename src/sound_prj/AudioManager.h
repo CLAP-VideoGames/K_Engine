@@ -8,7 +8,7 @@ class Mix_Chunk;
 #include <memory>
 #include <unordered_map>
 namespace K_Engine {
-	class AudioManager {
+	class  __declspec(dllexport) AudioManager {
 	public:
 		AudioManager();
 		~AudioManager();

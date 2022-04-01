@@ -4,7 +4,7 @@
 
 
 namespace K_Engine {
-	class Vector3;
+	class  __declspec(dllexport) Vector3;
 	namespace Math {
 		const double PI = 3.1415926;
 		/// <summary>

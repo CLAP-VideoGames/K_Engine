@@ -7,7 +7,7 @@
 namespace K_Engine {
 	class EntityManager;
 
-	class Scene {
+	class  __declspec(dllexport) Scene {
 	public:
 		//Creates the entityManager of our scene
 		Scene();

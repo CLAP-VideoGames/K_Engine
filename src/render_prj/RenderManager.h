@@ -21,7 +21,7 @@ class SDL_Window;
 namespace K_Engine {
 	class Camera;
 
-	class RenderManager {
+	class  __declspec(dllexport) RenderManager {
 	public:
 		RenderManager();
 		~RenderManager();

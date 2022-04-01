@@ -3,7 +3,7 @@
 #define TIMER_H
 
 namespace K_Engine {
-	class Timer {
+	class  __declspec(dllexport) Timer {
 	public:
 		Timer();
 		~Timer();

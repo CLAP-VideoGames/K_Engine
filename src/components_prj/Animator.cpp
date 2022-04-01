@@ -18,12 +18,9 @@ namespace K_Engine {
 		name = id; 
 	}
 
-	Animator::~Animator()
-	{
-	}
+	Animator::~Animator() = default;
 
-	std::string Animator::GetId()
-	{
+	std::string Animator::GetId() {
 		return name;
 	}
 

@@ -8,7 +8,7 @@
 
 
 namespace K_Engine {
-	class LogManager {
+	class  __declspec(dllexport) LogManager {
 	public:
 		enum logType { info, error };
 

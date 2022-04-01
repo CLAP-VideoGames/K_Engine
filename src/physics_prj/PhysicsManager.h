@@ -27,7 +27,7 @@ namespace K_Engine {
 	struct Vector3;
 	class DynamicsWorld;
 
-	class PhysicsManager {
+	class  __declspec(dllexport) PhysicsManager {
 	public:
 		struct CollisionCallBack;
 

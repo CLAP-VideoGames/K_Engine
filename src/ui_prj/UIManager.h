@@ -13,7 +13,7 @@ namespace Ogre {
 }
 
 namespace K_Engine {
-	class UIManager {
+	class  __declspec(dllexport) UIManager {
 	public:
 		UIManager();
 		~UIManager();

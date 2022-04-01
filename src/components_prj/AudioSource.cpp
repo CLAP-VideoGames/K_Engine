@@ -13,7 +13,7 @@ namespace K_Engine {
 		musicVolume = effectVolume = 50;
 	}
 
-	AudioSource::~AudioSource() {}
+	AudioSource::~AudioSource() = default;
 
 	std::string AudioSource::GetId() {
 		return name;

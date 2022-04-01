@@ -16,7 +16,7 @@ namespace luabridge {
 typedef struct lua_State lua_State;
 
 namespace K_Engine {
-    class ScriptManager {
+    class  __declspec(dllexport) ScriptManager {
     public:
         ScriptManager();
         ~ScriptManager();

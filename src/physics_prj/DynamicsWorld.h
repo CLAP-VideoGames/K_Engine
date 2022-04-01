@@ -27,7 +27,7 @@ namespace K_Engine {
 	class CollisionListener;
 	struct CollisionInfo;
 
-	class DynamicsWorld {
+	class  __declspec(dllexport) DynamicsWorld {
 	private:
 		std::unique_ptr<btCollisionConfiguration> mCollisionConfig;
 		std::unique_ptr<btCollisionDispatcher> mDispatcher;

@@ -7,7 +7,7 @@ class btManifoldPoint;
 /// It doesnt work
 /// </summary>
 namespace K_Engine {
-	class CollisionListener {
+	class  __declspec(dllexport) CollisionListener {
 	public:
 		CollisionListener(void(*p_)(void*, void* other, const btManifoldPoint& mnf), void* listener) : p(p_), obj(listener) {};
 		~CollisionListener() {};

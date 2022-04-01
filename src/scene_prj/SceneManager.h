@@ -9,7 +9,7 @@
 namespace K_Engine {
 	class Scene;
 
-	class SceneManager {
+	class  __declspec(dllexport) SceneManager {
 	public:
 		SceneManager();
 		~SceneManager();
