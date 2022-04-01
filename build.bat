@@ -3,10 +3,11 @@
 title Engine_Build
 
 :: Release compiling boolean
-set RELEASE_ENGINE=true
+set RELEASE_ENGINE=false
 
 :: Directory variables
 set CURRENT_WORKING_DIR=%cd%
+set SOL_DIR=.\K_Engine.sln
 set EXE_DIR=.\exe\
 set DEPENDENCIES_DIR=.\dependencies\
 
@@ -61,4 +62,8 @@ if %RELEASE_ENGINE% == falsecopy .\dependencies\lua\sol\bin\Debug\lua_d.dll %EXE
 
 echo Lua .dlls succesfully copied to engine
 
+:: Change engine project properties
+
 :: Build engine dll & exe
+@REM msbuild %SOL_DIR% /t:engine_prj /p:platform=x64 /p:configuration=Release 
+@REM if %RELEASE_ENGINE% == false msbuild %SOL_DIR% /t:engine_prj /p:platform=x64 /p:configuration=Debug
