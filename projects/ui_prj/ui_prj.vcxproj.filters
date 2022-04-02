@@ -21,12 +21,18 @@
     <ClCompile Include="..\..\src\ui_prj\UiElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ui_prj\UiText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ui_prj\UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ui_prj\UiElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ui_prj\UiText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

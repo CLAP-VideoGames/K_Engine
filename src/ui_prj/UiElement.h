@@ -7,12 +7,20 @@
 namespace Ogre {
 	class Overlay;
 	class OverlayContainer;
+	class OverlayManager;
 }
 
+enum Metrics{Pixels, WindowRelative};
+
+
+/// <summary>
+/// Parent class for every UiElement like button or Text,
+/// Default metrics is WindowRelative
+/// </summary>
 class UiElement
 {
 public:
-	UiElement();
+	UiElement(Ogre::OverlayManager* man);
 	~UiElement();
 
 	/// <summary>
@@ -31,11 +39,28 @@ public:
 
 	std::pair<int, int> getSize();
 
-	void loadElementType(std::string const& overlayName);
+	//Virtual because some elements dont use the generic class OverlayContainer
+	// for example: TextArea, so we need to use othe kind of element 
+	virtual void setPosition(int x, int y);
+	virtual void setSize(int w, int h);
 
-private:
+
+	/// <summary>
+	/// Pixels make setPosition and setDimesions work with PIxels
+	/// and WindowRelative makest it relative to the window
+	/// </summary>
+	/// <param name="metrics"></param>
+	void setMetrics(Metrics m);
+protected:
+
 
 	Ogre::Overlay* overlay_;
 	Ogre::OverlayContainer* element_;
+	Ogre::OverlayManager* oveMngr_;
+
+
+	//Information for the user
+	std::pair<int, int> size;
+	std::pair<int, int> position;
 };
 #endif

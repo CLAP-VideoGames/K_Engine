@@ -18,10 +18,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\ui_prj\UiElement.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UIManager.cpp" />
+    <ClCompile Include="..\..\src\ui_prj\UiText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ui_prj\UiElement.h" />
     <ClInclude Include="..\..\src\ui_prj\UIManager.h" />
+    <ClInclude Include="..\..\src\ui_prj\UiText.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

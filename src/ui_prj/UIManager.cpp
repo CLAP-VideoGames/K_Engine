@@ -1,5 +1,6 @@
 ﻿#include "UIManager.h"
 #include "UiElement.h"
+#include "UiText.h"
 
 #include <iostream>
 #include <string>
@@ -58,33 +59,45 @@ namespace K_Engine {
 
         try
         {
-            Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
-                oveMngr_->createOverlayElement("Panel", "PanelName"));
-            panel->setMetricsMode(Ogre::GMM_PIXELS);
-            panel->setPosition(10, 10);
-            panel->setDimensions(500, 150);
-            panel->setMaterialName("DefaultButton");
+            ceguiElements.push_back(new UiText("Wazaaaa", "Hola, bo dia"));
 
-            Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(
-                oveMngr_->createOverlayElement("TextArea", "TextAreaName"));
-            textArea->setMetricsMode(Ogre::GMM_PIXELS);
-            textArea->setPosition(50, 50);
-            textArea->setDimensions(200, 200);
-            textArea->setCaption("U.C.M : Panda de Simios!");
-            textArea->setCharHeight(40);
-            textArea->setFontName("MyFont");
-            textArea->setColourBottom(Ogre::ColourValue(0.03, 0.05, 0.03));
-            textArea->setColourTop(Ogre::ColourValue(0.9, 0.95, 0.95));
+            UiText* malos = new UiText("Wachon", "Hola, malos dias todos lod dias");
 
-            // Create an overlay, and add the panel
-            Ogre::Overlay* overlay = oveMngr_->create("OverlayName");
-            overlay->add2D(panel);
+            ceguiElements.push_back(malos);
 
-            // Add the text area to the panel
-            panel->addChild(textArea);
+            malos->setPosition(100,100);
 
-            // Show the overlay
-            overlay->show();
+            malos->setText("Cago en la virgen");
+
+            malos->setSize(10, 10);
+
+            //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
+            //    oveMngr_->createOverlayElement("Panel", "PanelName"));
+            //panel->setMetricsMode(Ogre::GMM_PIXELS);
+            //panel->setPosition(10, 10);
+            //panel->setDimensions(500, 150);
+            //panel->setMaterialName("DefaultButton");
+
+            //Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(
+            //    oveMngr_->createOverlayElement("TextArea", "TextAreaName"));
+            //textArea->setMetricsMode(Ogre::GMM_PIXELS);
+            //textArea->setPosition(50, 50);
+            //textArea->setDimensions(200, 200);
+            //textArea->setCaption("U.C.M : Panda de Simios!");
+            //textArea->setCharHeight(40);
+            //textArea->setFontName("MyFont");
+            //textArea->setColourBottom(Ogre::ColourValue(0.03, 0.05, 0.03));
+            //textArea->setColourTop(Ogre::ColourValue(0.9, 0.95, 0.95));
+
+            //// Create an overlay, and add the panel
+            //Ogre::Overlay* overlay = oveMngr_->create("OverlayName");
+            //overlay->add2D(panel);
+
+            //// Add the text area to the panel
+            //panel->addChild(textArea);
+
+            //// Show the overlay
+            //overlay->show();
         }
         catch (Ogre::Exception& e) {
             Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
@@ -100,13 +113,7 @@ namespace K_Engine {
 
     UiElement* UIManager::addUiElement(std::string elementType)
     {
-        UiElement* newElement = new UiElement();
-
-        newElement->loadElementType(elementType);
-
-        ceguiElements.push_back(newElement);
-
-        return newElement;
+        return new UiElement(Ogre::OverlayManager::getSingletonPtr());
     }
 
 
