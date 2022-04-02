@@ -1,0 +1,20 @@
+ overlay MenuUI
+{
+    overlay_element Menu/PlayButton Panel
+    {
+        left 0.35
+        top 0.4
+        width 0.3
+        height 0.15
+        overlay_element PlayButton/Texto TextArea
+        {
+            caption PLAY
+            colour 0.53 0.53 0.53
+            font_name chillerFont
+            char_height	0.1
+            top 0.03
+            horz_align center
+            alignment center
+        }
+    }
+}

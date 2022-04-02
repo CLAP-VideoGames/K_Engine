@@ -18,13 +18,14 @@ namespace K_Engine {
 		return instance.get();
 	}
 
-	bool PhysicsManager::Init(int step, const Vector3& gravity = Vector3(0, -9.8f, 0)) {
+	bool PhysicsManager::Init(std::string n, const Vector3& gravity = Vector3(0, -9.8f, 0)) {
 		instance.reset(new PhysicsManager());
+		instance.get()->name = n;
 		btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
-		return instance.get()->initWorld(step, grav_);
+		return instance.get()->initWorld(grav_);
 	}
 
-	bool PhysicsManager::initWorld(int step, btVector3 const& gravity) {
+	bool PhysicsManager::initWorld(btVector3 const& gravity) {
 		bool succeed = true;
 		try {
 			colLayers_ = new CollisionLayers();

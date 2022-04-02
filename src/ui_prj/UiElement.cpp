@@ -8,7 +8,7 @@
 
 UiElement::UiElement()
 {
-	overlay = nullptr;
+	overlay_ = nullptr;
 }
 
 UiElement::~UiElement()
@@ -18,18 +18,18 @@ UiElement::~UiElement()
 
 void UiElement::show()
 {
-	overlay->show();
+	overlay_->show();
 }
 
 void UiElement::hide()
 {
-	overlay->hide();
+	overlay_->hide();
 }
 
 std::pair<int, int> UiElement::getPosition()
 {
-	double x = static_cast<double>(overlay->getChild("")->getLeft());
-	double y = static_cast<double>(overlay->getChild("")->getTop());
+	double x = static_cast<double>(overlay_->getChild("")->getLeft());
+	double y = static_cast<double>(overlay_->getChild("")->getTop());
 
 	Ogre::RenderTarget* wnd = K_Engine::RenderManager::GetInstance()->getRenderWindow();
 
@@ -39,8 +39,8 @@ std::pair<int, int> UiElement::getPosition()
 
 std::pair<int, int> UiElement::getSize()
 {
-	double x = static_cast<double>(overlay->getChild("")->getWidth());
-	double y = static_cast<double>(overlay->getChild("")->getHeight());
+	double x = static_cast<double>(overlay_->getChild("")->getWidth());
+	double y = static_cast<double>(overlay_->getChild("")->getHeight());
 
 	Ogre::RenderTarget* wnd = K_Engine::RenderManager::GetInstance()->getRenderWindow();
 
@@ -64,7 +64,7 @@ void UiElement::loadElementType(std::string const& overlayName)
 
 	overlay->add2D(container);
 
-
+	//_textArea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingletonPtr()->getOverlayElement(textAreaName));
 	Ogre::TextAreaOverlayElement* panel = static_cast<Ogre::TextAreaOverlayElement*>(//Type		ID
 		Ogre::OverlayManager::getSingletonPtr()->createOverlayElement(overlayName, "MotoMoto"));
 	panel->setPosition(0.1, 0.5);

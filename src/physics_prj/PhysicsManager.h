@@ -47,7 +47,7 @@ namespace K_Engine {
 		/// <param name="step">Number of physics steps by second</param>
 		/// <param name="gravity">Gravity of the world</param>
 		/// <returns>if has been succesful the initialization</returns>
-		static bool Init(int step, const Vector3& gravity);
+		static bool Init(std::string n, const Vector3& gravity);
 
 		/// <summary>
 		/// Realease the world and all its objects.
@@ -107,6 +107,8 @@ namespace K_Engine {
 		DynamicsWorld* dynamicsWorld_;
 		CollisionLayers* colLayers_;
 
+		std::string name;
+
 		/// <summary>
 		/// Initialize the world with the given parameters
 		/// </summary>
@@ -114,7 +116,7 @@ namespace K_Engine {
 		/// <param name="step"></param>
 		/// <param name="gravity"></param>
 		/// <returns></returns>
-		bool initWorld(int step, const btVector3& gravity);
+		bool initWorld(const btVector3& gravity);
 
 		/// <summary>
 		/// Realease the world and all its objects.

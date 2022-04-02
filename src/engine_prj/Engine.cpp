@@ -12,9 +12,9 @@
 #include <physics_prj/CollisionLayers.h>
 
 #include <render_prj/RenderManager.h>
+#include <ui_prj/UIManager.h>
 #include <sound_prj/AudioManager.h>
 #include <input_prj/InputManager.h>
-//#include <ui_prj/UIManager.h>
 #include <scene_prj/SceneManager.h>
 #include <log_prj/LogManager.h>
 
@@ -55,13 +55,13 @@ namespace K_Engine {
 
 		// initialisation of all sub-engines
 		success = K_Engine::RenderManager::Init(name + "Render") &&
-			K_Engine::PhysicsManager::Init(20, { 0, -9.8, 0 }) &&
-			//K_Engine::UIManager::Init(name + "UI") &&
+			K_Engine::PhysicsManager::Init(name + "Physics", { 0, -9.8, 0 }) &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::InputManager::Init() &&
 			K_Engine::ComponentManager::Init(name + "Components") &&
-			K_Engine::SceneManager::Init(name + "Components") &&
-			K_Engine::LogManager::Init();
+			K_Engine::SceneManager::Init(name + "Scene") &&
+			K_Engine::LogManager::Init() && 
+			K_Engine::UIManager::Init(name + "UI");
 
 		// if something goes wrong, we exit initialization
 		if (!success) return false;
@@ -69,7 +69,7 @@ namespace K_Engine {
 		// acquisition of sub-engine's instances
 		renderMan = K_Engine::RenderManager::GetInstance();
 		physicsMan = K_Engine::PhysicsManager::GetInstance();
-		//uiMan = K_Engine::UIManager::GetInstance();
+		uiMan = K_Engine::UIManager::GetInstance();
 		audioMan = K_Engine::AudioManager::GetInstance();
 		inputMan = K_Engine::InputManager::GetInstance();
 		compMan = K_Engine::ComponentManager::GetInstance();
@@ -186,10 +186,10 @@ namespace K_Engine {
 		return physicsMan;
 	}
 
-	/*K_Engine::UIManager* Engine::getUIManager()
+	K_Engine::UIManager* Engine::getUIManager()
 	{
 		return uiMan;
-	}*/
+	}
 
 	K_Engine::AudioManager* Engine::getAudioManager()
 	{
@@ -214,7 +214,7 @@ namespace K_Engine {
 	void Engine::debug()
 	{
 		// ui debug
-		//uiMan->debug();
+		uiMan->debug();
 
 		//uiMan->createSlider(std::pair<float, float>(0.2f, 0.2f), std::pair<float, float>(0.1f, 0.1f));
 		//uiMan->createScrollbar(std::pair<float, float>(0.7f, 0.7f), std::pair<float, float>(0.1f, 0.1f));

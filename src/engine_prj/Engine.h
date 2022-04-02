@@ -18,6 +18,7 @@ namespace K_Engine {
 	class ComponentManager;
 	class SceneManager;
 	class LogManager;
+	class UIManager;
 
 	class __declspec(dllexport) Engine {
 	public:
@@ -31,7 +32,7 @@ namespace K_Engine {
 
 		K_Engine::RenderManager* getRenderManager();
 		K_Engine::PhysicsManager* getPhysicsManager();
-		//K_Engine::UIManager* getUIManager();
+		K_Engine::UIManager* getUIManager();
 		K_Engine::AudioManager* getAudioManager();
 		K_Engine::InputManager* getInputManager();
 		K_Engine::ComponentManager* getComponentManager();
@@ -42,12 +43,12 @@ namespace K_Engine {
 
 		K_Engine::RenderManager* renderMan;
 		K_Engine::PhysicsManager* physicsMan;
-		//K_Engine::UIManager* uiMan;
 		K_Engine::AudioManager* audioMan;
 		K_Engine::InputManager* inputMan;
 		K_Engine::ComponentManager* compMan;
 		K_Engine::SceneManager* sceneMan;
 		K_Engine::LogManager* logMan;
+		K_Engine::UIManager* uiMan;
 
 		HMODULE game;
 		SceneLoad load;

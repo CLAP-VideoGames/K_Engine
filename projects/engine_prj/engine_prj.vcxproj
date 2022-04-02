@@ -119,6 +119,9 @@
     <ProjectReference Include="..\sound_prj\sound_prj.vcxproj">
       <Project>{06ce32e3-a5e2-4bbf-8d9a-f20b9e847284}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ui_prj\ui_prj.vcxproj">
+      <Project>{c822419e-fa7d-4d61-93e6-8600be86d638}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\utils_prj\utils_prj.vcxproj">
       <Project>{6722d8bc-01d9-41b8-a846-738d35a52e27}</Project>
     </ProjectReference>

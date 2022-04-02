@@ -25,7 +25,6 @@ public:
 	/// </summary>
 	void hide();
 
-
 	void setMaterial(std::string const& materialName);
 
 	std::pair<int, int> getPosition();
@@ -36,8 +35,7 @@ public:
 
 private:
 
-	Ogre::Overlay* overlay;
-	
-	Ogre::OverlayContainer* element;
+	Ogre::Overlay* overlay_;
+	Ogre::OverlayContainer* element_;
 };
 #endif

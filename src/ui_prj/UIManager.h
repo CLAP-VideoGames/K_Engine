@@ -8,8 +8,10 @@
 class UiElement;
 
 namespace Ogre {
-	class OverlaySystem;
 	class Image;
+	class OverlaySystem;
+	class OverlayManager;
+	class Overlay;
 }
 
 namespace K_Engine {
@@ -35,7 +37,10 @@ namespace K_Engine {
 
 		std::vector<UiElement*> ceguiElements;
 
-		Ogre::OverlaySystem* overSystem;
+		Ogre::OverlaySystem* overSystem_;
+		Ogre::OverlayManager* oveMngr_;
+		Ogre::Overlay* overlayElement_;
+
 
 		void cleanElements();
 	};
