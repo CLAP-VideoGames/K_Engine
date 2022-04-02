@@ -14,6 +14,8 @@ namespace Ogre {
 	class SceneManager;
 	class FileSystemLayer;
 	class RenderTarget;
+	class OverlaySystem;
+	class OverlayManager;
 }
 
 class SDL_Window;
@@ -61,6 +63,9 @@ namespace K_Engine {
 
 		void closeContext();
 		void closeWindow();
+
+		Ogre::OverlaySystem* overSystem_;
+		Ogre::OverlayManager* overlayMngr_;
 	};
 }
 #endif // RENDERMANAGER_H

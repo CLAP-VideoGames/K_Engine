@@ -5,6 +5,8 @@
 #include <string>
 
 #include <render_prj/RenderManager.h>
+#include <OgreLogManager.h>
+
 #include <OgreOverlaySystem.h>
 #include <OgreOverlayManager.h>
 #include <OgreSceneManager.h>
@@ -37,10 +39,10 @@ namespace K_Engine {
 
             instance.get()->name = n;
 
-            instance.get()->overSystem_ = new Ogre::OverlaySystem();
+            //instance.get()->overSystem_ = new Ogre::OverlaySystem();
             instance.get()->oveMngr_ = Ogre::OverlayManager::getSingletonPtr();
-            K_Engine::RenderManager::GetInstance()->getSceneManager()
-                ->addRenderQueueListener(instance.get()->overSystem_);
+            //K_Engine::RenderManager::GetInstance()->getSceneManager()
+            //    ->addRenderQueueListener(instance.get()->overSystem_);
 
         }
         catch (const std::exception&) {
@@ -53,56 +55,41 @@ namespace K_Engine {
     void UIManager::debug()
     {
         //addUiElement("TextArea");
-        // Create an overlay
 
-        Ogre::Overlay* overlay = oveMngr_->create("OverlayName");
+        try
+        {
+            Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
+                oveMngr_->createOverlayElement("Panel", "PanelName"));
+            panel->setMetricsMode(Ogre::GMM_PIXELS);
+            panel->setPosition(10, 10);
+            panel->setDimensions(500, 150);
+            panel->setMaterialName("DefaultButton");
 
-        // Create a panel
-        Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(oveMngr_->createOverlayElement("Panel", "PanelName"));
-        panel->setPosition(0.0, 0.0);
-        panel->setDimensions(0.1, 0.1);
-        panel->setMaterialName("BaseWhite");
-        // Add the panel to the overlay
-        overlay->add2D(panel);
+            Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(
+                oveMngr_->createOverlayElement("TextArea", "TextAreaName"));
+            textArea->setMetricsMode(Ogre::GMM_PIXELS);
+            textArea->setPosition(50, 50);
+            textArea->setDimensions(200, 200);
+            textArea->setCaption("U.C.M : Panda de Simios!");
+            textArea->setCharHeight(40);
+            textArea->setFontName("MyFont");
+            textArea->setColourBottom(Ogre::ColourValue(0.03, 0.05, 0.03));
+            textArea->setColourTop(Ogre::ColourValue(0.9, 0.95, 0.95));
 
-        // Show the overlay
-        overlay->show();
+            // Create an overlay, and add the panel
+            Ogre::Overlay* overlay = oveMngr_->create("OverlayName");
+            overlay->add2D(panel);
 
-        // Create a panel
-        //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
-        //    oveMngr_->createOverlayElement("Panel", "PanelName"));
-        //panel->setMetricsMode(Ogre::GMM_PIXELS);
-        //panel->setPosition(10, 10);
-        //panel->setDimensions(100, 100);
-        ////panel->setMaterialName("MaterialName"); // Optional background material
+            // Add the text area to the panel
+            panel->addChild(textArea);
 
-        //Ogre::FontPtr pFont = Ogre::FontManager::getSingletonPtr()->create("MyFont", "Mission 1 : Deliver Tom");
-        //pFont->setType(Ogre::FT_TRUETYPE);
-        //pFont->setSource("batang.ttf");
-        //pFont->setTrueTypeSize(16);
-        //pFont->load();
-
-        //// Create a text area
-        //Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(
-        //    oveMngr_->createOverlayElement("TextArea", "TextAreaName"));
-        //textArea->setMetricsMode(Ogre::GMM_PIXELS);
-        //textArea->setPosition(0, 0);
-        //textArea->setDimensions(100, 100);
-        //textArea->setCaption("Hello, World!");
-        //textArea->setCharHeight(16);
-        //textArea->setFontName("MyFont");
-        //textArea->setColourBottom(Ogre::ColourValue(0.3, 0.5, 0.3));
-        //textArea->setColourTop(Ogre::ColourValue(0.5, 0.7, 0.5));
-
-        //// Create an overlay, and add the panel
-        //Ogre::Overlay* overlay = oveMngr_->create("OverlayName");
-        //overlay->add2D(panel);
-
-        //// Add the text area to the panel
-        //panel->addChild(textArea);
-
-        //// Show the overlay
-        //overlay->show();
+            // Show the overlay
+            overlay->show();
+        }
+        catch (Ogre::Exception& e) {
+            Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
+        }
+        // Create a text area
     }
 
     void UIManager::update()

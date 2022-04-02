@@ -1,0 +1,7 @@
+MyFont
+{
+    type         truetype
+    source       batang.ttf
+    size         26
+    resolution   72
+}
