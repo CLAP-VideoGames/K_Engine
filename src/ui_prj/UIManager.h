@@ -18,6 +18,7 @@ namespace K_Engine {
 	class UiElement;
 	class UiProgressBar;
 	class UiText;
+	class UiImage;
 
 	class  __declspec(dllexport) UIManager {
 	public:
@@ -42,6 +43,8 @@ namespace K_Engine {
 		UiProgressBar* addProgressBar(std::string overlayName);
 
 		UiText* addText(std::string overlayName, std::string text);
+
+		UiImage* addImage(std::string overlayName, std::string imageName);
 
 	private:
 		static std::unique_ptr<UIManager> instance;

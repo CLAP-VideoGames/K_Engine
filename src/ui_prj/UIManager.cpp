@@ -2,6 +2,7 @@
 #include "UiElement.h"
 #include "UiText.h"
 #include "UiProgressBar.h"
+#include "UiImage.h"
 
 #include <iostream>
 #include <string>
@@ -119,6 +120,14 @@ namespace K_Engine {
         return t;
     }
 
+    UiImage* UIManager::addImage(std::string overlayName, std::string imageName)
+    {
+        UiImage* i = new UiImage(overlayName, imageName);
+
+        ceguiElements.push_back(i);
+
+        return i;
+    }
 
     /*************************************************************************
         Cleans up resources allocated in the initialiseSample call.
