@@ -60,9 +60,6 @@ namespace K_Engine {
 
         try
         {
-            UiProgressBar* p = new UiProgressBar("Wazaaa");
-
-            ceguiElements.push_back(p);
 
             //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
             //    oveMngr_->createOverlayElement("Panel", "PanelName"));
@@ -104,9 +101,13 @@ namespace K_Engine {
         
     }
 
-    UiElement* UIManager::addUiElement(std::string elementType)
+    UiProgressBar* UIManager::addProgressBar(std::string overlayName)
     {
-        return new UiElement(Ogre::OverlayManager::getSingletonPtr());
+        UiProgressBar* p = new UiProgressBar(overlayName);
+
+        ceguiElements.push_back(p);
+
+        return p;
     }
 
 

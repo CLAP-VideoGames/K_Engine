@@ -6,6 +6,7 @@
 class UiProgressBar : public UiElement
 {
 public:
+
 	UiProgressBar(std::string overlayName);
 	~UiProgressBar();
 

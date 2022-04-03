@@ -29,7 +29,12 @@ namespace K_Engine {
 
 		void update();
 
-		UiElement* addUiElement(std::string elementType);
+		/// <summary>
+		/// Adds a progressBar to your scene with its default values
+		/// </summary>
+		/// <param name="overlayName">This is the name ogre will recognice you elemtn</param>
+		/// <returns></returns>
+		UiProgressBar* addProgressBar(std::string overlayName);
 
 	private:
 		static std::unique_ptr<UIManager> instance;

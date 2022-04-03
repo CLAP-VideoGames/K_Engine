@@ -16,7 +16,7 @@ UiText::UiText(std::string overlayName, std::string text_) : UiElement(Ogre::Ove
 
     //Initialization of everything that ogre needs to show something
     Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
-        oveMngr_->createOverlayElement("Panel", "PanelName" + elemtnNumber));
+        oveMngr_->createOverlayElement("Panel", "PanelText" + elemtnNumber));
     panel->setMetricsMode(Ogre::GMM_PIXELS);
     panel->setPosition(defaultX, defaultY);
     panel->setDimensions(defaultWidth, defaultWidth);

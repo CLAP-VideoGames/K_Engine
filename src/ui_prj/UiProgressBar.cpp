@@ -13,7 +13,7 @@ UiProgressBar::UiProgressBar(std::string overlayName) : UiElement(Ogre::OverlayM
     //Initialization of everything that ogre needs to show something
     //Default settings
     element_ = static_cast<Ogre::OverlayContainer*>(
-        oveMngr_->createOverlayElement("Panel", "PanelName" + elemtnNumber));
+        oveMngr_->createOverlayElement("Panel", "ProgressBar" + elemtnNumber));
     element_->setMetricsMode(Ogre::GMM_PIXELS);
     element_->setPosition(defaultX, defaultY);
     element_->setDimensions(defaultWidth, defaultHeight);
