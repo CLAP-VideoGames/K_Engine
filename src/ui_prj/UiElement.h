@@ -51,6 +51,10 @@ public:
 	/// </summary>
 	/// <param name="metrics"></param>
 	void setMetrics(Metrics m);
+
+	//For input based UI
+	virtual void update(){};
+
 protected:
 
 

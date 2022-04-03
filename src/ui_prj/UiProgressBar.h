@@ -1,4 +1,6 @@
 #pragma once
+#ifndef UIPROGRESSBAR_H
+#define UIPROGRESSBAR_H
 #include "UiElement.h"
 
 class UiProgressBar : public UiElement
@@ -20,3 +22,4 @@ private:
 	float maximumProgresion = 100;
 
 };
+#endif
