@@ -2,6 +2,8 @@
 #include "UiElement.h"
 #include "UiText.h"
 #include "UiProgressBar.h"
+#include "UiImage.h"
+#include "UiButton.h"
 
 #include <iostream>
 #include <string>
@@ -60,9 +62,6 @@ namespace K_Engine {
 
         try
         {
-            UiProgressBar* p = new UiProgressBar("Wazaaa");
-
-            ceguiElements.push_back(p);
 
             //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
             //    oveMngr_->createOverlayElement("Panel", "PanelName"));
@@ -91,6 +90,8 @@ namespace K_Engine {
 
             //// Show the overlay
             //overlay->show();
+
+            addButton("Button", "DefaultButton");
         }
         catch (Ogre::Exception& e) {
             Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
@@ -100,15 +101,45 @@ namespace K_Engine {
 
     void UIManager::update()
     {
-        
-        
+        for (int i = 0; i < ceguiElements.size(); i++)
+            ceguiElements[i]->update();
     }
 
-    UiElement* UIManager::addUiElement(std::string elementType)
+    UiProgressBar* UIManager::addProgressBar(std::string overlayName)
     {
-        return new UiElement(Ogre::OverlayManager::getSingletonPtr());
+        UiProgressBar* p = new UiProgressBar(overlayName);
+
+        ceguiElements.push_back(p);
+
+        return p;
     }
 
+    UiText* UIManager::addText(std::string overlayName, std::string text)
+    {
+        UiText* t = new UiText(overlayName, text);
+
+        ceguiElements.push_back(t);
+
+        return t;
+    }
+
+    UiImage* UIManager::addImage(std::string overlayName, std::string imageName)
+    {
+        UiImage* i = new UiImage(overlayName, imageName);
+
+        ceguiElements.push_back(i);
+
+        return i;
+    }
+
+    UiButton* UIManager::addButton(std::string overlayName, std::string imageName)
+    {
+        UiButton* b = new UiButton(overlayName, imageName);
+
+        ceguiElements.push_back(b);
+
+        return b;
+    }
 
     /*************************************************************************
         Cleans up resources allocated in the initialiseSample call.

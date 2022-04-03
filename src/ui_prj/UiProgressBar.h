@@ -1,22 +1,31 @@
 #pragma once
+#ifndef UIPROGRESSBAR_H
+#define UIPROGRESSBAR_H
 #include "UiElement.h"
 
-class UiProgressBar : public UiElement
-{
-public:
-	UiProgressBar(std::string overlayName);
-	~UiProgressBar();
+namespace K_Engine {
 
-	void setProgress(float prog);
-	void setMaxProgress(float maximum);
+	class UiProgressBar : public UiElement
+	{
+	public:
 
-	float getProgress();
+		UiProgressBar(std::string overlayName);
+		~UiProgressBar();
 
-private:
-	
-	//Starts full progresion
-	float progresion = 100;
+		void setProgress(float prog);
+		void setMaxProgress(float maximum);
 
-	float maximumProgresion = 100;
+		float getProgress();
 
-};
+	private:
+
+		//Starts full progresion
+		float progresion = 100;
+
+		float maximumProgresion = 100;
+
+	};
+}
+
+
+#endif

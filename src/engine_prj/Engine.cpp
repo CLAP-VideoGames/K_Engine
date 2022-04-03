@@ -139,7 +139,7 @@ namespace K_Engine {
 
 			//Regular update for the entities
 			sceneMan->updateScene(DELTA_TIME);
-			//uiMan->update();
+			uiMan->update();
 			renderMan->render();
 		}
 	}

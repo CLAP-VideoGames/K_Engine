@@ -1,16 +1,35 @@
 #pragma once
+#ifndef UISLIDER_H
+#define UISLIDER_H
+#include "UiElement.h"
+#include "Rectangle.h"
 
-#ifndef _UI_SLIDER_H
-#define _UI_SLIDER_H
-#include "UIComponent.h"
+namespace K_Engine {
+	class InputManager;
 
-class UISlider :public UIComponent
-{
-private:
-	float value;
-public:
-	UISlider(CEGUI::WindowManager* winMngr, CEGUI::DefaultWindow* mRoot, std::string& schemeName, Vector2 pos_, Vector2 size_, std::string name_, float v);
-	virtual ~UISlider() {};
-};
+	class UiSlider : public UiElement
+	{
+	public:
+		UiSlider(std::string overlayName);
+		~UiSlider();
 
+		void setProgress(float prog);
+		void setMaxProgress(float maximum);
+
+		float getProgress();
+
+		virtual void update();
+
+	private:
+
+		//Starts full progresion
+		float progresion = 100;
+
+		float maximumProgresion = 100;
+
+		InputManager* inputMan;
+
+		Rectangle inputArea;
+	};
+}
 #endif
