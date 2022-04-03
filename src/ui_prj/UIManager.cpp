@@ -110,6 +110,15 @@ namespace K_Engine {
         return p;
     }
 
+    UiText* UIManager::addText(std::string overlayName, std::string text)
+    {
+        UiText* t = new UiText(overlayName, text);
+
+        ceguiElements.push_back(t);
+
+        return t;
+    }
+
 
     /*************************************************************************
         Cleans up resources allocated in the initialiseSample call.

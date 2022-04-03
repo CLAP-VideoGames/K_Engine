@@ -4,57 +4,61 @@
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
 
-static int numberOfBars = 0;
+namespace K_Engine {
+    static int numberOfBars = 0;
 
-UiProgressBar::UiProgressBar(std::string overlayName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
-{
-    std::string elemtnNumber = std::to_string(numberOfBars);
+    UiProgressBar::UiProgressBar(std::string overlayName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    {
+        std::string elemtnNumber = std::to_string(numberOfBars);
 
-    //Initialization of everything that ogre needs to show something
-    //Default settings
-    element_ = static_cast<Ogre::OverlayContainer*>(
-        oveMngr_->createOverlayElement("Panel", "ProgressBar" + elemtnNumber));
-    element_->setMetricsMode(Ogre::GMM_PIXELS);
-    element_->setPosition(defaultX, defaultY);
-    element_->setDimensions(defaultWidth, defaultHeight);
+        //Initialization of everything that ogre needs to show something
+        //Default settings
+        element_ = static_cast<Ogre::OverlayContainer*>(
+            oveMngr_->createOverlayElement("Panel", "ProgressBar" + elemtnNumber));
+        element_->setMetricsMode(Ogre::GMM_PIXELS);
+        element_->setPosition(defaultX, defaultY);
+        element_->setDimensions(defaultWidth, defaultHeight);
 
-    //DefaultMaterial
-    element_->setMaterialName("DefaultButton");
+        //DefaultMaterial
+        element_->setMaterialName("DefaultButton");
 
-    // Create an overlay, and add the panel
-    overlay_ = oveMngr_->create(overlayName);
-    overlay_->add2D(element_);
+        // Create an overlay, and add the panel
+        overlay_ = oveMngr_->create(overlayName);
+        overlay_->add2D(element_);
 
-    // Show the overlay
-    overlay_->show();
+        // Show the overlay
+        overlay_->show();
 
-    numberOfBars++;
+        numberOfBars++;
 
-    size = std::pair<int, int>(500, 150);
+        size = std::pair<int, int>(500, 150);
+    }
+
+    UiProgressBar::~UiProgressBar()
+    {
+
+    }
+
+    void UiProgressBar::setProgress(float prog)
+    {
+        if (prog <= maximumProgresion)  progresion = prog;
+        else progresion = maximumProgresion;
+
+
+        std::pair<int, int> oldSize = getSize();
+
+        setSize(oldSize.first * (prog / maximumProgresion), oldSize.second);
+    }
+
+    void UiProgressBar::setMaxProgress(float maximum)
+    {
+        maximumProgresion = maximum;
+    }
+
+    float UiProgressBar::getProgress()
+    {
+        return progresion;
+    }
 }
 
-UiProgressBar::~UiProgressBar()
-{
 
-}
-
-void UiProgressBar::setProgress(float prog)
-{
-    if (prog <= maximumProgresion)  progresion = prog;
-    else progresion = maximumProgresion;
-  
-
-    std::pair<int, int> oldSize = getSize();
-    
-    setSize(oldSize.first * (prog/maximumProgresion), oldSize.second);
-}
-
-void UiProgressBar::setMaxProgress(float maximum)
-{
-    maximumProgresion = maximum;
-}
-
-float UiProgressBar::getProgress()
-{
-    return progresion;
-}

@@ -3,24 +3,29 @@
 #define UIPROGRESSBAR_H
 #include "UiElement.h"
 
-class UiProgressBar : public UiElement
-{
-public:
+namespace K_Engine {
 
-	UiProgressBar(std::string overlayName);
-	~UiProgressBar();
+	class UiProgressBar : public UiElement
+	{
+	public:
 
-	void setProgress(float prog);
-	void setMaxProgress(float maximum);
+		UiProgressBar(std::string overlayName);
+		~UiProgressBar();
 
-	float getProgress();
+		void setProgress(float prog);
+		void setMaxProgress(float maximum);
 
-private:
-	
-	//Starts full progresion
-	float progresion = 100;
+		float getProgress();
 
-	float maximumProgresion = 100;
+	private:
 
-};
+		//Starts full progresion
+		float progresion = 100;
+
+		float maximumProgresion = 100;
+
+	};
+}
+
+
 #endif

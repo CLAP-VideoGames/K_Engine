@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-class UiElement;
 
 namespace Ogre {
 	class Image;
@@ -15,8 +14,14 @@ namespace Ogre {
 }
 
 namespace K_Engine {
+
+	class UiElement;
+	class UiProgressBar;
+	class UiText;
+
 	class  __declspec(dllexport) UIManager {
 	public:
+
 		UIManager();
 		~UIManager();
 
@@ -35,6 +40,8 @@ namespace K_Engine {
 		/// <param name="overlayName">This is the name ogre will recognice you elemtn</param>
 		/// <returns></returns>
 		UiProgressBar* addProgressBar(std::string overlayName);
+
+		UiText* addText(std::string overlayName, std::string text);
 
 	private:
 		static std::unique_ptr<UIManager> instance;

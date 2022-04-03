@@ -10,67 +10,71 @@ namespace Ogre {
 	class OverlayManager;
 }
 
-enum Metrics{Pixels, WindowRelative};
 
 
-/// <summary>
-/// Parent class for every UiElement like button or Text,
-/// Default metrics is WindowRelative
-/// </summary>
-class UiElement
-{
-public:
-	UiElement(Ogre::OverlayManager* man);
-	~UiElement();
+namespace K_Engine {
 
+	enum Metrics{Pixels, WindowRelative};
 	/// <summary>
-	/// Shows the overlay
+	/// Parent class for every UiElement like button or Text,
+	/// Default metrics is WindowRelative
 	/// </summary>
-	void show();
+	
+	class UiElement
+	{
+	public:
+		UiElement(Ogre::OverlayManager* man);
+		~UiElement();
 
-	/// <summary>
-	/// Hides the overlay
-	/// </summary>
-	void hide();
+		/// <summary>
+		/// Shows the overlay
+		/// </summary>
+		void show();
 
-	void setMaterial(std::string const& materialName);
+		/// <summary>
+		/// Hides the overlay
+		/// </summary>
+		void hide();
 
-	std::pair<int, int> getPosition();
+		void setMaterial(std::string const& materialName);
 
-	std::pair<int, int> getSize();
+		std::pair<int, int> getPosition();
 
-	//Virtual because some elements dont use the generic class OverlayContainer
-	// for example: TextArea, so we need to use othe kind of element 
-	virtual void setPosition(int x, int y);
-	virtual void setSize(int w, int h);
+		std::pair<int, int> getSize();
 
-
-	/// <summary>
-	/// Pixels make setPosition and setDimesions work with PIxels
-	/// and WindowRelative makest it relative to the window
-	/// </summary>
-	/// <param name="metrics"></param>
-	void setMetrics(Metrics m);
-
-	//For input based UI
-	virtual void update(){};
-
-protected:
+		//Virtual because some elements dont use the generic class OverlayContainer
+		// for example: TextArea, so we need to use othe kind of element 
+		virtual void setPosition(int x, int y);
+		virtual void setSize(int w, int h);
 
 
-	Ogre::Overlay* overlay_;
-	Ogre::OverlayContainer* element_;
-	Ogre::OverlayManager* oveMngr_;
+		/// <summary>
+		/// Pixels make setPosition and setDimesions work with PIxels
+		/// and WindowRelative makest it relative to the window
+		/// </summary>
+		/// <param name="metrics"></param>
+		void setMetrics(Metrics m);
 
-	int defaultWidth = 500;
-	int defaultHeight = 150;
+		//For input based UI
+		virtual void update() {};
 
-	int defaultX = 10;
-	int defaultY = 10;
+	protected:
 
-	//Information for the user
-	std::pair<int, int> size;
-	std::pair<int, int> position;
 
-};
+		Ogre::Overlay* overlay_;
+		Ogre::OverlayContainer* element_;
+		Ogre::OverlayManager* oveMngr_;
+
+		int defaultWidth = 500;
+		int defaultHeight = 150;
+
+		int defaultX = 10;
+		int defaultY = 10;
+
+		//Information for the user
+		std::pair<int, int> size;
+		std::pair<int, int> position;
+
+	};
+}
 #endif
