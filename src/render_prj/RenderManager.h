@@ -6,7 +6,8 @@
 #include <memory>
 
 namespace Ogre {
-	class Root;
+	class Root; 
+	class Light;
 	class Camera;
 	class Viewport;
 	class SceneNode;
@@ -23,6 +24,12 @@ class SDL_Window;
 namespace K_Engine {
 	class Camera;
 
+	enum class LightType {
+		POINT,
+		DIRECTIONAL, 
+		SPOTLIGHT
+	};
+
 	class  __declspec(dllexport) RenderManager {
 	public:
 		RenderManager();
@@ -35,7 +42,7 @@ namespace K_Engine {
 
 		void render();
 
-		void exampleScene();
+		Ogre::Light* createLight(LightType lType);
 
 		Ogre::Root* getRoot();
 		Ogre::SceneManager* getSceneManager();

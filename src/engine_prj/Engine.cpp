@@ -28,6 +28,7 @@
 #include <components_prj/RigidBody.h>
 #include <components_prj/MeshRenderer.h>
 #include <components_prj/AudioSource.h>
+#include <components_prj/Light.h>
 
 #include <utils_prj/Timer.h>
 #include <utils_prj/Vector3.h>
@@ -96,6 +97,7 @@ namespace K_Engine {
 		compMan->add<K_Engine::MeshRenderer>();
 		compMan->add<K_Engine::RigidBody>();
 		compMan->add<K_Engine::AudioSource>();
+		compMan->add<K_Engine::Light>();
 
 #ifdef DEVELOPMENT
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE

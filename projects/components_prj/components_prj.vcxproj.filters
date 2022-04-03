@@ -30,6 +30,9 @@
     <ClCompile Include="..\..\src\components_prj\Animator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\components_prj\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\components_prj\MeshRenderer.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\components_prj\Animator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components_prj\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
