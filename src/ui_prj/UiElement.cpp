@@ -9,6 +9,10 @@
 UiElement::UiElement(Ogre::OverlayManager* man)
 {
 	oveMngr_ = man;
+
+	size = std::pair<int, int>(defaultWidth, defaultHeight);
+
+	position = std::pair<int, int>(defaultX, defaultY);
 }
 
 UiElement::~UiElement()

@@ -1,6 +1,7 @@
 ﻿#include "UIManager.h"
 #include "UiElement.h"
 #include "UiText.h"
+#include "UiProgressBar.h"
 
 #include <iostream>
 #include <string>
@@ -59,17 +60,9 @@ namespace K_Engine {
 
         try
         {
-            ceguiElements.push_back(new UiText("Wazaaaa", "Hola, bo dia"));
+            UiProgressBar* p = new UiProgressBar("Wazaaa");
 
-            UiText* malos = new UiText("Wachon", "Hola, malos dias todos lod dias");
-
-            ceguiElements.push_back(malos);
-
-            malos->setPosition(100,100);
-
-            malos->setText("Cago en la virgen");
-
-            malos->setSize(10, 10);
+            ceguiElements.push_back(p);
 
             //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
             //    oveMngr_->createOverlayElement("Panel", "PanelName"));

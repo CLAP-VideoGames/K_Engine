@@ -58,9 +58,15 @@ protected:
 	Ogre::OverlayContainer* element_;
 	Ogre::OverlayManager* oveMngr_;
 
+	int defaultWidth = 500;
+	int defaultHeight = 150;
+
+	int defaultX = 10;
+	int defaultY = 10;
 
 	//Information for the user
 	std::pair<int, int> size;
 	std::pair<int, int> position;
+
 };
 #endif

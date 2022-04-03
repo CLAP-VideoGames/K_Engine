@@ -18,8 +18,8 @@ UiText::UiText(std::string overlayName, std::string text_) : UiElement(Ogre::Ove
     Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
         oveMngr_->createOverlayElement("Panel", "PanelName" + elemtnNumber));
     panel->setMetricsMode(Ogre::GMM_PIXELS);
-    panel->setPosition(10, 10);
-    panel->setDimensions(500, 150);
+    panel->setPosition(defaultX, defaultY);
+    panel->setDimensions(defaultWidth, defaultWidth);
 
     textArea = static_cast<Ogre::TextAreaOverlayElement*>(
         oveMngr_->createOverlayElement("TextArea", "TextAreaName" + elemtnNumber));
@@ -29,6 +29,7 @@ UiText::UiText(std::string overlayName, std::string text_) : UiElement(Ogre::Ove
     textArea->setDimensions(20, 20);
     textArea->setCaption(text);
     textArea->setCharHeight(40);
+    //Default font
     textArea->setFontName("MyFont");
     textArea->setColourBottom(Ogre::ColourValue(0.03, 0.05, 0.03));
     textArea->setColourTop(Ogre::ColourValue(0.9, 0.95, 0.95));
