@@ -14,7 +14,7 @@ namespace K_Engine {
 		int y;
 	} Point;
 
-	bool PointInRectangle(const Point* p, const Rectangle* r)
+	inline bool PointInRect(const Point* p, const Rectangle* r)
 	{
 		return ((p->x >= r->x) && (p->x < (r->x + r->w)) &&
 			(p->y >= r->y) && (p->y < (r->y + r->h))) ? true : false;

@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\input_prj\input_prj.vcxproj">
+      <Project>{ea8304f0-b9dc-4d9f-94d0-106a28f1665e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\log_prj\log_prj.vcxproj">
       <Project>{dfc9a446-2e67-405a-a322-2fa068d46aba}</Project>
     </ProjectReference>
@@ -19,6 +22,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\ui_prj\UiButton.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UiElement.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UiImage.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UIManager.cpp" />
@@ -28,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ui_prj\Rectangle.h" />
+    <ClInclude Include="..\..\src\ui_prj\UiButton.h" />
     <ClInclude Include="..\..\src\ui_prj\UiElement.h" />
     <ClInclude Include="..\..\src\ui_prj\UiImage.h" />
     <ClInclude Include="..\..\src\ui_prj\UIManager.h" />

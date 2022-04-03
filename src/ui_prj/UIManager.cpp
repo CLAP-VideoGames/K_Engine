@@ -3,6 +3,7 @@
 #include "UiText.h"
 #include "UiProgressBar.h"
 #include "UiImage.h"
+#include "UiButton.h"
 
 #include <iostream>
 #include <string>
@@ -89,6 +90,8 @@ namespace K_Engine {
 
             //// Show the overlay
             //overlay->show();
+
+            addButton("Button", "DefaultButton");
         }
         catch (Ogre::Exception& e) {
             Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
@@ -98,8 +101,8 @@ namespace K_Engine {
 
     void UIManager::update()
     {
-        
-        
+        for (int i = 0; i < ceguiElements.size(); i++)
+            ceguiElements[i]->update();
     }
 
     UiProgressBar* UIManager::addProgressBar(std::string overlayName)
@@ -127,6 +130,15 @@ namespace K_Engine {
         ceguiElements.push_back(i);
 
         return i;
+    }
+
+    UiButton* UIManager::addButton(std::string overlayName, std::string imageName)
+    {
+        UiButton* b = new UiButton(overlayName, imageName);
+
+        ceguiElements.push_back(b);
+
+        return b;
     }
 
     /*************************************************************************

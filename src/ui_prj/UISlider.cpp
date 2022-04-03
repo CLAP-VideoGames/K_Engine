@@ -78,7 +78,7 @@ namespace K_Engine {
         pointer.y = pointPos.second;
         
 
-        if (PointInRectangle(&pointer, &inputArea)) {
+        if (PointInRect(&pointer, &inputArea)) {
             std::cout << "A";
             //auto g = K_Engine::LogManager::GetInstance();
             //g->addLog("mecagoenlaputamadredelaputadetumadre", K_Engine::LogManager::info);

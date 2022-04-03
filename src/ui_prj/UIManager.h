@@ -19,6 +19,7 @@ namespace K_Engine {
 	class UiProgressBar;
 	class UiText;
 	class UiImage;
+	class UiButton;
 
 	class  __declspec(dllexport) UIManager {
 	public:
@@ -46,6 +47,13 @@ namespace K_Engine {
 
 		UiImage* addImage(std::string overlayName, std::string imageName);
 
+		/// <summary>
+		/// Adds a button to your scene with its default values and the specified image
+		/// </summary>
+		/// <param name="overlayName">This is the name ogre will recognice you elemtn</param>
+		/// <param name="imageName"> This is the name of the material that will appear for the button</param>
+		/// <returns></returns>
+		UiButton* addButton(std::string overlayName, std::string imageName);
 	private:
 		static std::unique_ptr<UIManager> instance;
 		std::string name;

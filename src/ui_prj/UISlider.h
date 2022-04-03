@@ -1,4 +1,6 @@
 #pragma once
+#ifndef UISLIDER_H
+#define UISLIDER_H
 #include "UiElement.h"
 #include "Rectangle.h"
 
@@ -16,7 +18,7 @@ namespace K_Engine {
 
 		float getProgress();
 
-		void update();
+		virtual void update();
 
 	private:
 
@@ -30,3 +32,4 @@ namespace K_Engine {
 		Rectangle inputArea;
 	};
 }
+#endif
