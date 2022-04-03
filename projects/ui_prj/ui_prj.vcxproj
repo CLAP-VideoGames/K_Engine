@@ -19,12 +19,14 @@
     <ClCompile Include="..\..\src\ui_prj\UiElement.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UIManager.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UiProgressBar.cpp" />
+    <ClCompile Include="..\..\src\ui_prj\UISlider.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UiText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ui_prj\UiElement.h" />
     <ClInclude Include="..\..\src\ui_prj\UIManager.h" />
     <ClInclude Include="..\..\src\ui_prj\UiProgressBar.h" />
+    <ClInclude Include="..\..\src\ui_prj\UISlider.h" />
     <ClInclude Include="..\..\src\ui_prj\UiText.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -78,7 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies/ogre/src/Components/Overlay/include;$(SolutionDir)dependencies/ogre/src/Components/Overlay/include;$(SolutionDir)src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\SDL-main\include;$(SolutionDir)dependencies\ogre\src\Components\Overlay\include;$(SolutionDir)src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,10 +89,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
-      <AdditionalDependencies>Codec_Assimp_d.lib;Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL3Plus_d.lib;RenderSystem_GL_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Codec_Assimp_d.lib;Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL3Plus_d.lib;RenderSystem_GL_d.lib;SDL2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\$(Configuration)\;$(SolutionDir)dependencies\ogre\build\SDL-build\$(Configuration)\</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -101,7 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies/ogre/src/Components/Overlay/include;$(SolutionDir)src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\SDL-main\include;$(SolutionDir)dependencies\ogre\src\Components\Overlay\include;$(SolutionDir)src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,8 +112,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Codec_Assimp.lib;Codec_STBI.lib;OgreGLSupport.lib;OgreMain.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;OgreTerrain.lib;OgreVolume.lib;Plugin_BSPSceneManager.lib;Plugin_OctreeSceneManager.lib;Plugin_OctreeZone.lib;Plugin_ParticleFX.lib;Plugin_PCZSceneManager.lib;RenderSystem_GL.lib;RenderSystem_GL3Plus.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\Release\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Codec_Assimp.lib;Codec_STBI.lib;OgreGLSupport.lib;OgreMain.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;OgreTerrain.lib;OgreVolume.lib;Plugin_BSPSceneManager.lib;Plugin_OctreeSceneManager.lib;Plugin_OctreeZone.lib;Plugin_ParticleFX.lib;Plugin_PCZSceneManager.lib;RenderSystem_GL.lib;RenderSystem_GL3Plus.lib;SDL2.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\$(Configuration)\;$(SolutionDir)dependencies\ogre\build\SDL-build\$(Configuration)\</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
