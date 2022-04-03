@@ -50,6 +50,9 @@
     <ClInclude Include="..\..\src\ui_prj\UISlider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\ui_prj\Rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\ui_prj\UiImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>

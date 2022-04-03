@@ -1,5 +1,6 @@
 #pragma once
 #include "UiElement.h"
+#include "Rectangle.h"
 
 namespace K_Engine {
 	class InputManager;
@@ -26,5 +27,6 @@ namespace K_Engine {
 
 		InputManager* inputMan;
 
+		Rectangle inputArea;
 	};
 }

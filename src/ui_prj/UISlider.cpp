@@ -1,9 +1,11 @@
 #include "UiSlider.h"
+//#include "log_prj/LogManager.h"
 #include <OgreOverlayContainer.h>
 #include <OgreOverlayManager.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
 #include <input_prj/InputManager.h>
+#include <iostream>
 
 namespace K_Engine {
 
@@ -37,6 +39,10 @@ namespace K_Engine {
 
         inputMan = K_Engine::InputManager::GetInstance();
         
+        inputArea.h = size.second;
+        inputArea.w = size.first;
+        inputArea.x = position.first;
+        inputArea.y = position.second;
     }
 
     UiSlider::~UiSlider()
@@ -66,10 +72,17 @@ namespace K_Engine {
     }
 
     void UiSlider::update() {
-        /*if (inputMan->getLeftMouseButtonPressed() && (inputMan->getMousePos())) {
-            
-            setProgress()
-        }*/
+        Point pointer;
+        auto pointPos = inputMan->getMousePos();
+        pointer.x = pointPos.first;
+        pointer.y = pointPos.second;
+        
+
+        if (PointInRectangle(&pointer, &inputArea)) {
+            std::cout << "A";
+            //auto g = K_Engine::LogManager::GetInstance();
+            //g->addLog("mecagoenlaputamadredelaputadetumadre", K_Engine::LogManager::info);
+        }
 
     }
 }
