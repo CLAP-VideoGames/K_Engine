@@ -32,6 +32,8 @@ namespace K_Engine {
 		/// </summary>
 		virtual void start();
 
+		void changeType(LightType type);
+
 		void setVisible(bool visible);
 		bool isVisible();
 
@@ -59,6 +61,8 @@ namespace K_Engine {
 
 		// spotlight parameters
 		float innerAngle, outerAngle;
+
+		void setSpotlightParameters(float inAng, float outAng);
 	};
 }
 #endif // LIGHT_H

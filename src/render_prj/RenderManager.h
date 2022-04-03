@@ -23,6 +23,7 @@ class SDL_Window;
 
 namespace K_Engine {
 	class Camera;
+	class Vector3;
 
 	enum class LightType {
 		POINT,
@@ -42,6 +43,7 @@ namespace K_Engine {
 
 		void render();
 
+		void setAmbientLight(Vector3 light);
 		Ogre::Light* createLight(LightType lType);
 
 		Ogre::Root* getRoot();

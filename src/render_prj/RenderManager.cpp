@@ -30,6 +30,8 @@
 
 #include <render_prj/Camera.h>
 
+#include <utils_prj/Vector3.h>
+
 using namespace Ogre;
 using namespace std;
 
@@ -81,6 +83,11 @@ namespace K_Engine {
 		mCamera->update();
 
 		mRoot->renderOneFrame();
+	}
+
+	void RenderManager::setAmbientLight(Vector3 light)
+	{
+		mSM->setAmbientLight(Ogre::ColourValue(light.x, light.y, light.z));
 	}
 
 	Ogre::Light* RenderManager::createLight(LightType lType)
@@ -229,23 +236,19 @@ namespace K_Engine {
 		}
 	}
 
-	Ogre::Root* RenderManager::getRoot()
-	{
+	Ogre::Root* RenderManager::getRoot() {
 		return mRoot;
 	}
 
-	Ogre::SceneManager* RenderManager::getSceneManager()
-	{
+	Ogre::SceneManager* RenderManager::getSceneManager() {
 		return mSM;
 	}
 
-	Ogre::RenderTarget* RenderManager::getRenderWindow()
-	{
+	Ogre::RenderTarget* RenderManager::getRenderWindow() {
 		return mRenderWin;
 	}
 
-	Camera* RenderManager::getCamera()
-	{
+	Camera* RenderManager::getCamera() {
 		return mCamera;
 	}
 }

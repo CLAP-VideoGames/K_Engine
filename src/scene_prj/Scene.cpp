@@ -153,11 +153,15 @@ namespace K_Engine {
 		}
 
 		//LIGHT
+		Light* lComp;
 		{
 			Entity* light = entMan->addEntity();
-			Light* a = light->addComponent<Light>(LightType::SPOTLIGHT, true);
+			lComp = light->addComponent<Light>(LightType::SPOTLIGHT, true);
 		}
 
 		entMan->start();
+
+		lComp->changeType(LightType::DIRECTIONAL);
+		lComp->setVisible(true);
 	}
 }

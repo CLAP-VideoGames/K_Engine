@@ -2,6 +2,7 @@
 
 #include <render_prj/RenderManager.h>
 #include <ecs_prj/Entity.h>
+#include <utils_prj/Vector3.h>
 
 #include <OgreLight.h>
 #include <OgreSceneNode.h>
@@ -35,12 +36,21 @@ namespace K_Engine {
 
 		mLight->setDiffuseColour(0, 1, 1);
 		mLight->setSpecularColour(1, 0, 0);
-		mLight->setCastShadows(true);
+		//mLight->setCastShadows(true);
 
-		if (type == LightType::SPOTLIGHT) {
-			mLight->setSpotlightInnerAngle(Ogre::Radian(Ogre::Degree(0)));
-			mLight->setSpotlightOuterAngle(Ogre::Radian(Ogre::Degree(40)));
-		}
+		if (type == LightType::SPOTLIGHT)
+			setSpotlightParameters(0, 45);
+
+		K_Engine::RenderManager::GetInstance()->setAmbientLight({ 0.1, 0.1, 0.1 });
+	}
+
+	void Light::changeType(LightType newType)
+	{
+		type = newType;
+		mLight->setType((Ogre::Light::LightTypes)type);
+
+		if (type == LightType::SPOTLIGHT)
+			setSpotlightParameters(0, 45);
 	}
 
 	void Light::setVisible(bool visib) {
@@ -50,5 +60,11 @@ namespace K_Engine {
 
 	bool Light::isVisible() {
 		return visible;
+	}
+
+	void Light::setSpotlightParameters(float inAng, float outAng)
+	{
+		mLight->setSpotlightInnerAngle(Ogre::Radian(Ogre::Degree(inAng)));
+		mLight->setSpotlightOuterAngle(Ogre::Radian(Ogre::Degree(outAng)));
 	}
 }
