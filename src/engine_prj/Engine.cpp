@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-#define DEVELOPMENT
+//#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -83,6 +83,9 @@ namespace K_Engine {
 		// input setup
 		inputMan->setDeathZones(5000, 0);
 
+		// ui setup
+		uiMan->debug();
+
 		// base components setup
 		K_Engine::Registry::registerComponents();
 
@@ -136,12 +139,12 @@ namespace K_Engine {
 	{
 		bool success = K_Engine::SceneManager::Shutdown() &&
 			K_Engine::AudioManager::Shutdown() &&
-			//K_Engine::UIManager::Shutdown() &&
+			K_Engine::UIManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
 
 		sceneMan = nullptr; renderMan = nullptr; 
-		physicsMan = nullptr; //uiMan = nullptr; 
+		physicsMan = nullptr; uiMan = nullptr; 
 		audioMan = nullptr;
 		inputMan = nullptr; compMan = nullptr;
 
@@ -204,9 +207,7 @@ namespace K_Engine {
 
 	void Engine::debug()
 	{
-		// ui debug
-		uiMan->debug();
-
+		
 		//uiMan->createSlider(std::pair<float, float>(0.2f, 0.2f), std::pair<float, float>(0.1f, 0.1f));
 		//uiMan->createScrollbar(std::pair<float, float>(0.7f, 0.7f), std::pair<float, float>(0.1f, 0.1f));
 		//uiMan->addText("Hola", std::pair<float, float>(0, 0));
