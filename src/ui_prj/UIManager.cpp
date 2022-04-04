@@ -4,6 +4,7 @@
 #include "UiProgressBar.h"
 #include "UiImage.h"
 #include "UiButton.h"
+#include "UiScrollBar.h"
 
 #include <iostream>
 #include <string>
@@ -91,7 +92,8 @@ namespace K_Engine {
             //// Show the overlay
             //overlay->show();
 
-            addButton("Button", "DefaultButton");
+            //addButton("Button", "DefaultButton");
+            addScrollBar("ScrollBar", 1, 100);
         }
         catch (Ogre::Exception& e) {
             Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
@@ -139,6 +141,14 @@ namespace K_Engine {
         ceguiElements.push_back(b);
 
         return b;
+    }
+
+    UiScrollBar* UIManager::addScrollBar(std::string overlayName, int upper, int lower) {
+        UiScrollBar* s = new UiScrollBar(overlayName, upper, lower);
+        
+        ceguiElements.push_back(s);
+
+        return s;
     }
 
     /*************************************************************************

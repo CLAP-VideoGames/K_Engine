@@ -20,6 +20,7 @@ namespace K_Engine {
 	class UiText;
 	class UiImage;
 	class UiButton;
+	class UiScrollBar;
 
 	class  __declspec(dllexport) UIManager {
 	public:
@@ -54,6 +55,16 @@ namespace K_Engine {
 		/// <param name="imageName"> This is the name of the material that will appear for the button</param>
 		/// <returns></returns>
 		UiButton* addButton(std::string overlayName, std::string imageName);
+
+		/// <summary>
+		/// Adds a scrollbar to your scene with its default values and the specified limits
+		/// </summary>
+		/// <param name="overlayName">This is the name ogre will recognice you elemtn</param>
+		/// <param name="upper"> This is the upper limit that the scrollbar will take in consideration when moving</param>
+		/// <param name="lower"> This is the lower limit that the scrollbar will take in consideration when moving</param>
+		/// <returns></returns>
+		UiScrollBar* addScrollBar(std::string overlayName, int upper, int lower);
+
 	private:
 		static std::unique_ptr<UIManager> instance;
 		std::string name;

@@ -26,6 +26,8 @@ namespace K_Engine {
 
 		int upperLimit, lowerLimit;
 		int distance;
+
+		bool pressed = false;
 	};
 }
 

@@ -37,15 +37,15 @@ namespace K_Engine {
         //Setup default size relative to the total distance
         distance = lower - upper;
         if (distance / 10 > 0) {
-            setSize(50, distance / 10);
+            element_->setDimensions(20, distance / 10);
         }
-        else setSize(50, distance);
+        else  element_->setDimensions(20, distance);
 
         //Setup the input area rectangle
-        inputArea.h = size.second;
-        inputArea.w = size.first;
-        inputArea.x = position.first;
-        inputArea.y = position.second;
+        inputArea.h = element_->getHeight();
+        inputArea.w = element_->getWidth();
+        inputArea.x = element_->getLeft();
+        inputArea.y = element_->getTop();
     }
 
     UiScrollBar::~UiScrollBar()
@@ -56,21 +56,34 @@ namespace K_Engine {
     //Returns the percentage of the scrollbar that is left above the scrollbar itself
     //this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
     double UiScrollBar::getRelativePos() {
-        return (((double)distance - (double)getPosition().second) / (double)distance) * 100;
+        return (((double)distance - (double)position.second) / (double)distance) * 100;
     }
 
     //Sets the position according to mouse input and pos
     void UiScrollBar::update() {
-        if (inputMan->getLeftMouseButtonPressed())
-        {
-            Point pointer;
-            auto pointPos = inputMan->getMousePos();
-            pointer.x = pointPos.first;
-            pointer.y = pointPos.second;
+        Point pointer;
+        auto pointPos = inputMan->getMousePos();
+        pointer.x = pointPos.first;
+        pointer.y = pointPos.second;
 
+        if (!pressed && inputMan->getLeftMouseButtonPressed())
+        {
             if (PointInRect(&pointer, &inputArea)) {
-                if (getPosition().second > upperLimit && getPosition().second < lowerLimit) {
-                    setPosition(pointer.x, pointer.y);
+                pressed = true;
+            }
+        }
+
+        if (pressed) {
+            if (!inputMan->getLeftMouseButtonPressed()) {
+                pressed = false;
+            }
+            else {
+                auto y = element_->getTop();
+                if (y > upperLimit && y < lowerLimit) {
+                    if (pointer.y > upperLimit && pointer.y < lowerLimit) {
+                        element_->setTop(pointer.y);
+                        inputArea.y = pointer.y;
+                    }
                 }
             }
         }
