@@ -68,6 +68,9 @@ namespace K_Engine {
 		if (m == Pixels) element_->setMetricsMode(Ogre::GMM_PIXELS);
 		else if (m == WindowRelative) element_->setMetricsMode(Ogre::GMM_RELATIVE);
 	}
+
+	void UiElement::setRenderOrder(int z)
+	{
+		overlay_->setZOrder(z);
+	}
 }
-
-

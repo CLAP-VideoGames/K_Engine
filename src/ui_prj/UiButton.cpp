@@ -8,57 +8,71 @@
 
 namespace K_Engine {
 
-    UiButton::UiButton(std::string overlayName, std::string imageName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
-    {
-        //Initialization of everything that ogre needs to show something
-        //Default settings
-        element_ = static_cast<Ogre::OverlayContainer*>(
-            oveMngr_->createOverlayElement("Panel", "Button"));
-        element_->setMetricsMode(Ogre::GMM_PIXELS);
-        element_->setPosition(defaultX, defaultY);
-        element_->setDimensions(defaultWidth, defaultHeight);
+	static int numberButtons = 0;
 
-        //DefaultMaterial
-        element_->setMaterialName(imageName);
+	UiButton::UiButton(std::string overlayName, std::string imageName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+	{
+		//Initialization of everything that ogre needs to show something
+		//Default settings
+		std::string numOfElements = std::to_string(numberButtons);
 
-        // Create an overlay, and add the panel
-        overlay_ = oveMngr_->create(overlayName);
-        overlay_->add2D(element_);
+		element_ = static_cast<Ogre::OverlayContainer*>(
+			oveMngr_->createOverlayElement("Panel", "Button" + numOfElements));
+		element_->setMetricsMode(Ogre::GMM_PIXELS);
+		element_->setPosition(defaultX, defaultY);
+		element_->setDimensions(defaultWidth, defaultHeight);
 
-        // Show the overlay
-        overlay_->show();
+		//DefaultMaterial
+		element_->setMaterialName(imageName);
 
-        size = std::pair<int, int>(400, 150);
+		// Create an overlay, and add the panel
+		overlay_ = oveMngr_->create(overlayName);
+		overlay_->add2D(element_);
 
-        inputMan = K_Engine::InputManager::GetInstance();
+		// Show the overlay
+		overlay_->show();
 
-        inputArea.h = size.second;
-        inputArea.w = size.first;
-        inputArea.x = position.first;
-        inputArea.y = position.second;
-    }
+		size = std::pair<int, int>(400, 150);
 
-    UiButton::~UiButton()
-    {
+		inputMan = K_Engine::InputManager::GetInstance();
 
-    }
+		inputArea.h = element_->getHeight();
+		inputArea.w = element_->getWidth();
+		inputArea.x = element_->getLeft();
+		inputArea.y = element_->getTop();
 
-    void UiButton::update() {
-        if (inputMan->getLeftMouseButtonPressed())
-        {
-            Point pointer;
-            auto pointPos = inputMan->getMousePos();
-            pointer.x = pointPos.first;
-            pointer.y = pointPos.second;
+		numberButtons++;
+	}
 
-            if (PointInRect(&pointer, &inputArea)) {
-                //std::cout << "Button Pressed \n";
-                pressed_ = true;
-                //auto g = K_Engine::LogManager::GetInstance();
-                //g->addLog("mecagoenlaputamadredelaputadetumadre", K_Engine::LogManager::info);
-            }
-            else pressed_ = false;
-        }
-        else pressed_ = false;
-    }
+	UiButton::~UiButton()
+	{
+
+	}
+
+	void UiButton::update() {
+
+		inputArea.h = element_->getHeight();
+		inputArea.w = element_->getWidth();
+		inputArea.x = element_->getLeft();
+		inputArea.y = element_->getTop();
+
+		Point pointer;
+		auto pointPos = inputMan->getMousePos();
+		pointer.x = pointPos.first;
+		pointer.y = pointPos.second;
+
+		pressed_ = false;
+
+		if (PointInRect(&pointer, &inputArea)) {
+			
+			if (inputMan->getLeftMouseButtonPressed()) {
+				pressed_ = true;
+
+				setMaterial("ButtonApretado");
+			}
+			else setMaterial("TestButtonAmongus");
+		}
+		else setMaterial("TestButton");
+		
+	}
 }

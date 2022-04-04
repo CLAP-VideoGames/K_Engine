@@ -69,7 +69,7 @@ namespace K_Engine {
 		static std::unique_ptr<UIManager> instance;
 		std::string name;
 
-		std::vector<UiElement*> ceguiElements;
+		std::vector<UiElement*> notCeguiElements;
 
 		Ogre::OverlaySystem* overSystem_;
 		Ogre::OverlayManager* oveMngr_;

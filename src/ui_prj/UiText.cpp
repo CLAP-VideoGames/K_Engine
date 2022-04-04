@@ -33,8 +33,8 @@ namespace K_Engine {
         textArea->setCharHeight(40);
         //Default font
         textArea->setFontName("MyFont");
-        textArea->setColourBottom(Ogre::ColourValue(0.03, 0.05, 0.03));
-        textArea->setColourTop(Ogre::ColourValue(0.9, 0.95, 0.95));
+        textArea->setColourBottom(Ogre::ColourValue(0.00, 0.00, 0.00));
+        textArea->setColourTop(Ogre::ColourValue(0.0, 0.0, 0.0));
 
         // Create an overlay, and add the panel
         overlay_ = oveMngr_->create(overlayName);

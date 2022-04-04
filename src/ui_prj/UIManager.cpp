@@ -63,6 +63,33 @@ namespace K_Engine {
 
         try
         {
+            UiProgressBar* pG = addProgressBar("A");
+            notCeguiElements[0]->setPosition(10, 680);
+            notCeguiElements[0]->setSize(300, 25);
+            pG->setMaterial("GreenDefaultProgressBar");
+            pG->setProgress(50);
+            pG->setRenderOrder(100);
+
+            UiProgressBar* p = addProgressBar("B");
+            notCeguiElements[1]->setPosition(10, 680);
+            notCeguiElements[1]->setSize(300, 25);
+            p->setMaterial("DefaultProgressBar");
+            p->setRenderOrder(50);
+
+            addScrollBar("C", 1, 100);
+            notCeguiElements[2]->setRenderOrder(500);
+
+
+            addText("D", "Fino senhores");
+            notCeguiElements[3]->setPosition(135,10);
+
+            addImage("E", "Fino");
+
+
+            addButton("F", "TestButton");
+            notCeguiElements[5]->setPosition(950, 5);
+            notCeguiElements[5]->setSize(100, 100);
+
 
             //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
             //    oveMngr_->createOverlayElement("Panel", "PanelName"));
@@ -93,7 +120,6 @@ namespace K_Engine {
             //overlay->show();
 
             //addButton("Button", "DefaultButton");
-            addScrollBar("ScrollBar", 1, 100);
         }
         catch (Ogre::Exception& e) {
             Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
@@ -103,15 +129,15 @@ namespace K_Engine {
 
     void UIManager::update()
     {
-        for (int i = 0; i < ceguiElements.size(); i++)
-            ceguiElements[i]->update();
+        for (int i = 0; i < notCeguiElements.size(); i++)
+            notCeguiElements[i]->update();
     }
 
     UiProgressBar* UIManager::addProgressBar(std::string overlayName)
     {
         UiProgressBar* p = new UiProgressBar(overlayName);
 
-        ceguiElements.push_back(p);
+        notCeguiElements.push_back(p);
 
         return p;
     }
@@ -120,7 +146,7 @@ namespace K_Engine {
     {
         UiText* t = new UiText(overlayName, text);
 
-        ceguiElements.push_back(t);
+        notCeguiElements.push_back(t);
 
         return t;
     }
@@ -129,7 +155,7 @@ namespace K_Engine {
     {
         UiImage* i = new UiImage(overlayName, imageName);
 
-        ceguiElements.push_back(i);
+        notCeguiElements.push_back(i);
 
         return i;
     }
@@ -138,7 +164,7 @@ namespace K_Engine {
     {
         UiButton* b = new UiButton(overlayName, imageName);
 
-        ceguiElements.push_back(b);
+        notCeguiElements.push_back(b);
 
         return b;
     }
@@ -146,7 +172,7 @@ namespace K_Engine {
     UiScrollBar* UIManager::addScrollBar(std::string overlayName, int upper, int lower) {
         UiScrollBar* s = new UiScrollBar(overlayName, upper, lower);
         
-        ceguiElements.push_back(s);
+        notCeguiElements.push_back(s);
 
         return s;
     }
@@ -169,7 +195,7 @@ namespace K_Engine {
 
     void UIManager::cleanElements()
     {
-        for (UiElement* c : ceguiElements) {
+        for (UiElement* c : notCeguiElements) {
             delete c;
         }
     }

@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\src\ui_prj\UiImage.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UIManager.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UiProgressBar.cpp" />
+    <ClCompile Include="..\..\src\ui_prj\UIScrollbar.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UISlider.cpp" />
     <ClCompile Include="..\..\src\ui_prj\UiText.cpp" />
   </ItemGroup>
@@ -37,6 +38,7 @@
     <ClInclude Include="..\..\src\ui_prj\UiImage.h" />
     <ClInclude Include="..\..\src\ui_prj\UIManager.h" />
     <ClInclude Include="..\..\src\ui_prj\UiProgressBar.h" />
+    <ClInclude Include="..\..\src\ui_prj\UIScrollBar.h" />
     <ClInclude Include="..\..\src\ui_prj\UISlider.h" />
     <ClInclude Include="..\..\src\ui_prj\UiText.h" />
   </ItemGroup>

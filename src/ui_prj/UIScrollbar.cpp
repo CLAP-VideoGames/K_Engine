@@ -46,6 +46,7 @@ namespace K_Engine {
         inputArea.w = element_->getWidth();
         inputArea.x = element_->getLeft();
         inputArea.y = element_->getTop();
+
     }
 
     UiScrollBar::~UiScrollBar()
@@ -61,6 +62,12 @@ namespace K_Engine {
 
     //Sets the position according to mouse input and pos
     void UiScrollBar::update() {
+        //Setup the input area rectangle
+        inputArea.h = element_->getHeight();
+        inputArea.w = element_->getWidth();
+        inputArea.x = element_->getLeft();
+        inputArea.y = element_->getTop();
+
         Point pointer;
         auto pointPos = inputMan->getMousePos();
         pointer.x = pointPos.first;

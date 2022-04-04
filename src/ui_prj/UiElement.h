@@ -58,6 +58,12 @@ namespace K_Engine {
 		//For input based UI
 		virtual void update() {};
 
+		/// <summary>
+		/// Bigger z is closer to the camera
+		/// </summary>
+		/// <param name="z"></param>
+		void setRenderOrder(int z);
+
 	protected:
 
 
