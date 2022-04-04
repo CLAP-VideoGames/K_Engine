@@ -86,12 +86,13 @@ namespace K_Engine {
 		// base components setup
 		K_Engine::Registry::registerComponents();
 
+#ifndef DEVELOPMENT
+		registerGameComponents();
+		sceneMan->pushScene(loadScene());
+#endif
 #ifdef DEVELOPMENT
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		debug();
-#endif
-#ifndef DEVELOPMENT
-		sceneMan->pushScene(load());
 #endif
 	}
 
@@ -125,7 +126,7 @@ namespace K_Engine {
 			}
 
 			//Regular update for the entities
-			sceneMan->updateScene(DELTA_TIME);
+			sceneMan->updateScene(frameTime);
 			uiMan->update();
 			renderMan->render();
 		}
@@ -160,9 +161,10 @@ namespace K_Engine {
 		game = LoadLibrary(TEXT("./game_d.dll"));
 #endif // !_DEBUG
 
-		load = (SceneLoad)GetProcAddress(game, "loadScene");
+		loadScene = (SceneLoad)GetProcAddress(game, "loadScene");
+		registerGameComponents = (GameComponents)GetProcAddress(game, "registerComponents");
 
-		return load != nullptr;
+		return loadScene != nullptr || registerGameComponents != nullptr;
 	}
 
 	K_Engine::RenderManager* Engine::getRenderManager()
