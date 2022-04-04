@@ -170,7 +170,7 @@ namespace K_Engine {
 		return isMouseButtonEvent_;
 	}
 
-	std::pair<INT32, INT32>& InputManager::getMousePos() {
+	std::pair<int, int> InputManager::getMousePos() {
 		return mousePos_;
 	}
 

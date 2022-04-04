@@ -7,12 +7,12 @@
 
 namespace K_Engine {
 	class Scene;
-	class Engine;
 	typedef Scene* (*SceneLoad)();
+	typedef void (*GameComponents)();
 
 	class RenderManager;
 	class PhysicsManager;
-	//class UIManager;
+	class UIManager;
 	class AudioManager;
 	class InputManager;
 	class ComponentManager;
@@ -51,12 +51,12 @@ namespace K_Engine {
 		K_Engine::UIManager* uiMan;
 
 		HMODULE game;
-		SceneLoad load;
+		SceneLoad loadScene;
+		GameComponents registerGameComponents;
 
 		bool loadGame();
 
 		// Debug section
-
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		void debug();
 	};

@@ -1,33 +1,25 @@
 #include "Engine.h"
 
+//#define DEVELOPMENT
+
 #include <stdio.h>
 #include <iostream>
-
-//Just for testing
-// this should be on the render project, before the SDL.h,
-// but since it's here I put it there temporarily
-#include <OgreLogManager.h>
 
 #include <physics_prj/PhysicsManager.h>
 #include <physics_prj/CollisionLayers.h>
 
 #include <render_prj/RenderManager.h>
-#include <ui_prj/UIManager.h>
 #include <sound_prj/AudioManager.h>
 #include <input_prj/InputManager.h>
 #include <scene_prj/SceneManager.h>
 #include <log_prj/LogManager.h>
-
-#define DEVELOPMENT
+#include <ui_prj/UIManager.h>
 
 // DELETE
 #include <scene_prj/Scene.h>
 
 #include <ecs_prj/ComponentManager.h>
-#include <components_prj/Transform.h>
-#include <components_prj/RigidBody.h>
-#include <components_prj/MeshRenderer.h>
-#include <components_prj/AudioSource.h>
+#include <components_prj/ComponentRegistry.h>
 
 #include <utils_prj/Timer.h>
 #include <utils_prj/Vector3.h>
@@ -91,18 +83,19 @@ namespace K_Engine {
 		// input setup
 		inputMan->setDeathZones(5000, 0);
 
-		// base components setup
-		compMan->add<K_Engine::Transform>();
-		compMan->add<K_Engine::MeshRenderer>();
-		compMan->add<K_Engine::RigidBody>();
-		compMan->add<K_Engine::AudioSource>();
+		// ui setup
+		uiMan->debug();
 
+		// base components setup
+		K_Engine::Registry::registerComponents();
+
+#ifndef DEVELOPMENT
+		registerGameComponents();
+		sceneMan->pushScene(loadScene());
+#endif
 #ifdef DEVELOPMENT
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		debug();
-#endif
-#ifndef DEVELOPMENT
-		sceneMan->pushScene(load());
 #endif
 	}
 
@@ -136,8 +129,8 @@ namespace K_Engine {
 			}
 
 			//Regular update for the entities
-			sceneMan->updateScene(DELTA_TIME);
-			//uiMan->update();
+			sceneMan->updateScene(frameTime);
+			uiMan->update();
 			renderMan->render();
 		}
 	}
@@ -146,12 +139,12 @@ namespace K_Engine {
 	{
 		bool success = K_Engine::SceneManager::Shutdown() &&
 			K_Engine::AudioManager::Shutdown() &&
-			//K_Engine::UIManager::Shutdown() &&
+			K_Engine::UIManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
 
 		sceneMan = nullptr; renderMan = nullptr; 
-		physicsMan = nullptr; //uiMan = nullptr; 
+		physicsMan = nullptr; uiMan = nullptr; 
 		audioMan = nullptr;
 		inputMan = nullptr; compMan = nullptr;
 
@@ -171,9 +164,10 @@ namespace K_Engine {
 		game = LoadLibrary(TEXT("./game_d.dll"));
 #endif // !_DEBUG
 
-		load = (SceneLoad)GetProcAddress(game, "loadScene");
+		loadScene = (SceneLoad)GetProcAddress(game, "loadScene");
+		registerGameComponents = (GameComponents)GetProcAddress(game, "registerComponents");
 
-		return load != nullptr;
+		return loadScene != nullptr || registerGameComponents != nullptr;
 	}
 
 	K_Engine::RenderManager* Engine::getRenderManager()
@@ -213,9 +207,7 @@ namespace K_Engine {
 
 	void Engine::debug()
 	{
-		// ui debug
-		uiMan->debug();
-
+		
 		//uiMan->createSlider(std::pair<float, float>(0.2f, 0.2f), std::pair<float, float>(0.1f, 0.1f));
 		//uiMan->createScrollbar(std::pair<float, float>(0.7f, 0.7f), std::pair<float, float>(0.1f, 0.1f));
 		//uiMan->addText("Hola", std::pair<float, float>(0, 0));

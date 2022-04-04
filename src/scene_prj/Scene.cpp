@@ -7,10 +7,13 @@
 #include <physics_prj/PhysicsManager.h>
 #include <physics_prj/CollisionLayers.h>
 
+#include <render_prj/RenderManager.h>
+
 #include <components_prj/Transform.h>
 #include <components_prj/MeshRenderer.h>
 #include <components_prj/RigidBody.h>
 #include <components_prj/AudioSource.h>
+#include <components_prj/Light.h>
 
 #include <utils_prj/Vector3.h>
 
@@ -147,6 +150,12 @@ namespace K_Engine {
 			a->resumeOneSoundEffect("./assets/sounds/clap.wav");
 			a->resumeOneSoundEffect("./assets/sounds/accordion.wav");*/
 
+		}
+
+		//LIGHT
+		{
+			Entity* light = entMan->addEntity();
+			Light* lComp = light->addComponent<Light>(LightType::SPOTLIGHT, true);
 		}
 
 		entMan->start();

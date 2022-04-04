@@ -100,6 +100,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\components_prj\Animator.cpp" />
     <ClCompile Include="..\..\src\components_prj\AudioSource.cpp" />
+    <ClCompile Include="..\..\src\components_prj\Light.cpp" />
     <ClCompile Include="..\..\src\components_prj\MeshRenderer.cpp" />
     <ClCompile Include="..\..\src\components_prj\RigidBody.cpp" />
     <ClCompile Include="..\..\src\components_prj\Transform.cpp" />
@@ -107,6 +108,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\components_prj\Animator.h" />
     <ClInclude Include="..\..\src\components_prj\AudioSource.h" />
+    <ClInclude Include="..\..\src\components_prj\ComponentRegistry.h" />
+    <ClInclude Include="..\..\src\components_prj\Light.h" />
     <ClInclude Include="..\..\src\components_prj\MeshRenderer.h" />
     <ClInclude Include="..\..\src\components_prj\RigidBody.h" />
     <ClInclude Include="..\..\src\components_prj\Transform.h" />

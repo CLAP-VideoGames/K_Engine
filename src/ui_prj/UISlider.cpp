@@ -1,20 +1,88 @@
-#include "UISlider.h"
-#include "UIManager.h"
+#include "UiSlider.h"
+//#include "log_prj/LogManager.h"
+#include <OgreOverlayContainer.h>
+#include <OgreOverlayManager.h>
+#include <OgreTextAreaOverlayElement.h>
+#include <OgreOverlay.h>
+#include <input_prj/InputManager.h>
+#include <iostream>
 
-#include <CEGUI/CEGUI.h>
+namespace K_Engine {
 
-UISlider::UISlider(CEGUI::WindowManager* winMngr, CEGUI::DefaultWindow* mRoot, std::string& schemeName, Vector2 pos_, Vector2 size_, std::string name_, float v)
-	: UIComponent(winMngr, mRoot, schemeName, pos_,size_, name_), value(v)
-{
-    //Creation from the scheme
-    uiWindow = (CEGUI::Slider*)winMngr->createWindow(schemeName + "/Slider");
+    static int numberOfBars = 0;
 
-    //Adding as a child so we see it
-    mRoot->addChild(uiWindow);
+    UiSlider::UiSlider(std::string overlayName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    {
+        std::string elemtnNumber = std::to_string(numberOfBars);
 
-    //Position
-    uiWindow->setPosition(CEGUI::UVector2(cegui_reldim(pos.first), cegui_reldim(pos.second)));
+        //Initialization of everything that ogre needs to show something
+        //Default settings
+        element_ = static_cast<Ogre::OverlayContainer*>(
+            oveMngr_->createOverlayElement("Panel", "Slider" + elemtnNumber));
+        element_->setMetricsMode(Ogre::GMM_PIXELS);
+        element_->setPosition(defaultX, defaultY);
+        element_->setDimensions(defaultWidth, defaultHeight);
 
-    //You cannot change the size of a text in CEGUI for some reason
-    uiWindow->setSize(CEGUI::USize(cegui_reldim(size.first), cegui_reldim(size.second)));
+        //DefaultMaterial
+        element_->setMaterialName("DefaultButton");
+
+        // Create an overlay, and add the panel
+        overlay_ = oveMngr_->create(overlayName);
+        overlay_->add2D(element_);
+
+        // Show the overlay
+        overlay_->show();
+
+        numberOfBars++;
+
+        size = std::pair<int, int>(500, 150);
+
+        inputMan = K_Engine::InputManager::GetInstance();
+        
+        inputArea.h = size.second;
+        inputArea.w = size.first;
+        inputArea.x = position.first;
+        inputArea.y = position.second;
+    }
+
+    UiSlider::~UiSlider()
+    {
+
+    }
+
+    void UiSlider::setProgress(float prog)
+    {
+        if (prog <= maximumProgresion)  progresion = prog;
+        else progresion = maximumProgresion;
+
+
+        std::pair<int, int> oldSize = getSize();
+
+        setSize(oldSize.first * (prog / maximumProgresion), oldSize.second);
+    }
+
+    void UiSlider::setMaxProgress(float maximum)
+    {
+        maximumProgresion = maximum;
+    }
+
+    float UiSlider::getProgress()
+    {
+        return progresion;
+    }
+
+    void UiSlider::update() {
+        Point pointer;
+        auto pointPos = inputMan->getMousePos();
+        pointer.x = pointPos.first;
+        pointer.y = pointPos.second;
+        
+
+        if (PointInRect(&pointer, &inputArea)) {
+            std::cout << "A";
+            //auto g = K_Engine::LogManager::GetInstance();
+            //g->addLog("mecagoenlaputamadredelaputadetumadre", K_Engine::LogManager::info);
+        }
+
+    }
 }

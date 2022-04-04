@@ -33,7 +33,6 @@ namespace K_Engine {
 
 		//Setters
 		void setVisible(bool value);
-
 		void setMaterial(std::string nMaterial);
 		void setMesh(std::string mesh);
 

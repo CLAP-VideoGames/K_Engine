@@ -1,16 +1,35 @@
 #pragma once
+#ifndef UISCROLLBAR_H
+#define UISCROLLBAR_H
+#include "UiElement.h"
+#include "Rectangle.h"
 
-#ifndef _UI_SCROLLBAR_H
-#define _UI_SCROLLBAR_H
-#include "UIComponent.h"
+namespace K_Engine {
+	class InputManager;
 
-class UIScrollbar :public UIComponent
-{
-private:
-	float value;
-public:
-	UIScrollbar(CEGUI::WindowManager* winMngr, CEGUI::DefaultWindow* mRoot, std::string& schemeName, Vector2 pos_, Vector2 size_, std::string name_, float v);
-	virtual ~UIScrollbar() {};
-};
+	class UiScrollBar : public UiElement
+	{
+	public:
+
+		UiScrollBar(std::string overlayName, int upper, int lower);
+		~UiScrollBar();
+
+		virtual void update();
+
+		double getRelativePos();
+
+	private:
+
+		InputManager* inputMan;
+
+		Rectangle inputArea;
+
+		int upperLimit, lowerLimit;
+		int distance;
+
+		bool pressed = false;
+	};
+}
+
 
 #endif

@@ -30,6 +30,8 @@
 
 #include <render_prj/Camera.h>
 
+#include <utils_prj/Vector3.h>
+
 using namespace Ogre;
 using namespace std;
 
@@ -83,13 +85,14 @@ namespace K_Engine {
 		mRoot->renderOneFrame();
 	}
 
-	void RenderManager::exampleScene() {
-		// finally something to render
-		Ogre::Entity* ent = mSM->createEntity("ogrehead.mesh");
-		Ogre::SceneNode* node = mSM->getRootSceneNode()->createChildSceneNode();
-		float size = 0.2;
-		node->setScale(size, size, size);
-		node->attachObject(ent);
+	void RenderManager::setAmbientLight(Vector3 light)
+	{
+		mSM->setAmbientLight(Ogre::ColourValue(light.x, light.y, light.z));
+	}
+
+	Ogre::Light* RenderManager::createLight(LightType lType)
+	{
+		return mSM->createLight((Ogre::Light::LightTypes)lType);
 	}
 
 	void RenderManager::initRoot()
@@ -166,8 +169,6 @@ namespace K_Engine {
 				"FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		}
 
-			
-
 		// go through all specified resource groups
 		std::string sec, type, arch;
 		Ogre::ConfigFile::SettingsBySection_::const_iterator seci;
@@ -201,16 +202,16 @@ namespace K_Engine {
 		mSM->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 
 		// without light we would just get a black screen    
-		Ogre::Light* light = mSM->createLight("MainLight");
+		/*Ogre::Light* light = mSM->createLight("MainLight");
 		Ogre::SceneNode* lightNode = mSM->getRootSceneNode()->createChildSceneNode();
 		lightNode->setPosition(0, 10, 15);
-		lightNode->attachObject(light);
+		lightNode->attachObject(light);*/
 
 		// We create a camera and assign it to a viewport
 		mCamera = new Camera();
 		mCamera->setNearClipDistance(5);
 		mCamera->setFarClipDistance(10000);
-		mCamera->setCameraPos(-2, 0, 15);
+		mCamera->setCameraPos(-2, 30, 15);
 	}
 
 	void RenderManager::closeContext()
@@ -235,23 +236,19 @@ namespace K_Engine {
 		}
 	}
 
-	Ogre::Root* RenderManager::getRoot()
-	{
+	Ogre::Root* RenderManager::getRoot() {
 		return mRoot;
 	}
 
-	Ogre::SceneManager* RenderManager::getSceneManager()
-	{
+	Ogre::SceneManager* RenderManager::getSceneManager() {
 		return mSM;
 	}
 
-	Ogre::RenderTarget* RenderManager::getRenderWindow()
-	{
+	Ogre::RenderTarget* RenderManager::getRenderWindow() {
 		return mRenderWin;
 	}
 
-	Camera* RenderManager::getCamera()
-	{
+	Camera* RenderManager::getCamera() {
 		return mCamera;
 	}
 }

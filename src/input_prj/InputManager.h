@@ -65,7 +65,7 @@ namespace K_Engine {
 		bool mouseButtonEvent();
 
 		//The actual position of the mouse
-		std::pair<int, int>& getMousePos();
+		std::pair<int, int> getMousePos();
 
 		//return 1, 2, or 3 (left, center and right, repectively)
 		int getMouseButtonState(K_Engine_MouseButton b);

@@ -1,5 +1,10 @@
 ﻿#include "UIManager.h"
 #include "UiElement.h"
+#include "UiText.h"
+#include "UiProgressBar.h"
+#include "UiImage.h"
+#include "UiButton.h"
+#include "UiScrollBar.h"
 
 #include <iostream>
 #include <string>
@@ -58,33 +63,37 @@ namespace K_Engine {
 
         try
         {
-            Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
-                oveMngr_->createOverlayElement("Panel", "PanelName"));
-            panel->setMetricsMode(Ogre::GMM_PIXELS);
-            panel->setPosition(10, 10);
-            panel->setDimensions(500, 150);
-            panel->setMaterialName("DefaultButton");
 
-            Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(
-                oveMngr_->createOverlayElement("TextArea", "TextAreaName"));
-            textArea->setMetricsMode(Ogre::GMM_PIXELS);
-            textArea->setPosition(50, 50);
-            textArea->setDimensions(200, 200);
-            textArea->setCaption("U.C.M : Panda de Simios!");
-            textArea->setCharHeight(40);
-            textArea->setFontName("MyFont");
-            textArea->setColourBottom(Ogre::ColourValue(0.03, 0.05, 0.03));
-            textArea->setColourTop(Ogre::ColourValue(0.9, 0.95, 0.95));
+            //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
+            //    oveMngr_->createOverlayElement("Panel", "PanelName"));
+            //panel->setMetricsMode(Ogre::GMM_PIXELS);
+            //panel->setPosition(10, 10);
+            //panel->setDimensions(500, 150);
+            //panel->setMaterialName("DefaultButton");
 
-            // Create an overlay, and add the panel
-            Ogre::Overlay* overlay = oveMngr_->create("OverlayName");
-            overlay->add2D(panel);
+            //Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(
+            //    oveMngr_->createOverlayElement("TextArea", "TextAreaName"));
+            //textArea->setMetricsMode(Ogre::GMM_PIXELS);
+            //textArea->setPosition(50, 50);
+            //textArea->setDimensions(200, 200);
+            //textArea->setCaption("U.C.M : Panda de Simios!");
+            //textArea->setCharHeight(40);
+            //textArea->setFontName("MyFont");
+            //textArea->setColourBottom(Ogre::ColourValue(0.03, 0.05, 0.03));
+            //textArea->setColourTop(Ogre::ColourValue(0.9, 0.95, 0.95));
 
-            // Add the text area to the panel
-            panel->addChild(textArea);
+            //// Create an overlay, and add the panel
+            //Ogre::Overlay* overlay = oveMngr_->create("OverlayName");
+            //overlay->add2D(panel);
 
-            // Show the overlay
-            overlay->show();
+            //// Add the text area to the panel
+            //panel->addChild(textArea);
+
+            //// Show the overlay
+            //overlay->show();
+
+            //addButton("Button", "DefaultButton");
+            addScrollBar("ScrollBar", 1, 100);
         }
         catch (Ogre::Exception& e) {
             Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
@@ -94,21 +103,53 @@ namespace K_Engine {
 
     void UIManager::update()
     {
-        
-        
+        for (int i = 0; i < ceguiElements.size(); i++)
+            ceguiElements[i]->update();
     }
 
-    UiElement* UIManager::addUiElement(std::string elementType)
+    UiProgressBar* UIManager::addProgressBar(std::string overlayName)
     {
-        UiElement* newElement = new UiElement();
+        UiProgressBar* p = new UiProgressBar(overlayName);
 
-        newElement->loadElementType(elementType);
+        ceguiElements.push_back(p);
 
-        ceguiElements.push_back(newElement);
-
-        return newElement;
+        return p;
     }
 
+    UiText* UIManager::addText(std::string overlayName, std::string text)
+    {
+        UiText* t = new UiText(overlayName, text);
+
+        ceguiElements.push_back(t);
+
+        return t;
+    }
+
+    UiImage* UIManager::addImage(std::string overlayName, std::string imageName)
+    {
+        UiImage* i = new UiImage(overlayName, imageName);
+
+        ceguiElements.push_back(i);
+
+        return i;
+    }
+
+    UiButton* UIManager::addButton(std::string overlayName, std::string imageName)
+    {
+        UiButton* b = new UiButton(overlayName, imageName);
+
+        ceguiElements.push_back(b);
+
+        return b;
+    }
+
+    UiScrollBar* UIManager::addScrollBar(std::string overlayName, int upper, int lower) {
+        UiScrollBar* s = new UiScrollBar(overlayName, upper, lower);
+        
+        ceguiElements.push_back(s);
+
+        return s;
+    }
 
     /*************************************************************************
         Cleans up resources allocated in the initialiseSample call.
