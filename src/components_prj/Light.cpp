@@ -34,14 +34,15 @@ namespace K_Engine {
 		mNode->setPosition(0, 5, 0);
 		mNode->lookAt({ 0, -3, 0 }, Ogre::Node::TransformSpace::TS_WORLD);
 
-		mLight->setDiffuseColour(0, 1, 1);
+		diffuse = Vector3(1, 1, 1);
+		mLight->setDiffuseColour(diffuse.x, diffuse.y, diffuse.z);
 		mLight->setSpecularColour(1, 0, 0);
 		//mLight->setCastShadows(true);
 
 		if (type == LightType::SPOTLIGHT)
 			setSpotlightParameters(0, 45);
 
-		K_Engine::RenderManager::GetInstance()->setAmbientLight({ 0.1, 0.1, 0.1 });
+		K_Engine::RenderManager::GetInstance()->setAmbientLight({ 0.3, 0.3, 0.3 });
 	}
 
 	void Light::changeType(LightType newType)
@@ -51,6 +52,16 @@ namespace K_Engine {
 
 		if (type == LightType::SPOTLIGHT)
 			setSpotlightParameters(0, 45);
+	}
+
+	void K_Engine::Light::changeDiffuse(Vector3 newDiff)
+	{
+		mLight->setDiffuseColour(newDiff.x, newDiff.y, newDiff.z);
+	}
+
+	void K_Engine::Light::restoreDiffuse()
+	{
+		mLight->setDiffuseColour(diffuse.x, diffuse.y, diffuse.z);
 	}
 
 	void Light::setVisible(bool visib) {

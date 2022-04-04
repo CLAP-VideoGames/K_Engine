@@ -2,6 +2,8 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
+#include <utils_prj/Vector3.h>
+
 #include <ecs_prj/Component.h>
 
 namespace Ogre {
@@ -10,8 +12,6 @@ namespace Ogre {
 }
 
 namespace K_Engine {
-	class Vector3;
-
 	enum class LightType;
 
 	class __declspec(dllexport) Light : public Component {
@@ -34,6 +34,9 @@ namespace K_Engine {
 
 		void changeType(LightType type);
 
+		void changeDiffuse(Vector3 newDiff);
+		void restoreDiffuse();
+
 		void setVisible(bool visible);
 		bool isVisible();
 
@@ -53,8 +56,8 @@ namespace K_Engine {
 
 		bool visible;
 
-		/*Vector3 diffuseColor_;
-		Vector3 specularColor_;
+		Vector3 diffuse;
+		/*Vector3 specularColor_;
 		Vector3 direction_;*/
 
 		//float distance_;
