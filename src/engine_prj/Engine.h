@@ -7,12 +7,11 @@
 
 namespace K_Engine {
 	class Scene;
-	class Engine;
 	typedef Scene* (*SceneLoad)();
 
 	class RenderManager;
 	class PhysicsManager;
-	//class UIManager;
+	class UIManager;
 	class AudioManager;
 	class InputManager;
 	class ComponentManager;

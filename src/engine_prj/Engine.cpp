@@ -1,34 +1,25 @@
 #include "Engine.h"
 
+#define DEVELOPMENT
+
 #include <stdio.h>
 #include <iostream>
-
-//Just for testing
-// this should be on the render project, before the SDL.h,
-// but since it's here I put it there temporarily
-#include <OgreLogManager.h>
 
 #include <physics_prj/PhysicsManager.h>
 #include <physics_prj/CollisionLayers.h>
 
 #include <render_prj/RenderManager.h>
-#include <ui_prj/UIManager.h>
 #include <sound_prj/AudioManager.h>
 #include <input_prj/InputManager.h>
 #include <scene_prj/SceneManager.h>
 #include <log_prj/LogManager.h>
-
-#define DEVELOPMENT
+#include <ui_prj/UIManager.h>
 
 // DELETE
 #include <scene_prj/Scene.h>
 
 #include <ecs_prj/ComponentManager.h>
-#include <components_prj/Transform.h>
-#include <components_prj/RigidBody.h>
-#include <components_prj/MeshRenderer.h>
-#include <components_prj/AudioSource.h>
-#include <components_prj/Light.h>
+#include <components_prj/ComponentRegistry.h>
 
 #include <utils_prj/Timer.h>
 #include <utils_prj/Vector3.h>
@@ -93,11 +84,7 @@ namespace K_Engine {
 		inputMan->setDeathZones(5000, 0);
 
 		// base components setup
-		compMan->add<K_Engine::Transform>();
-		compMan->add<K_Engine::MeshRenderer>();
-		compMan->add<K_Engine::RigidBody>();
-		compMan->add<K_Engine::AudioSource>();
-		compMan->add<K_Engine::Light>();
+		K_Engine::Registry::registerComponents();
 
 #ifdef DEVELOPMENT
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE

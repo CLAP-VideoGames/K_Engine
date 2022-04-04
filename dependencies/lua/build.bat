@@ -2,7 +2,7 @@
 
 :: Batch variables
 set LUA_BUILD_SOL=.\sol\lua.sln
-set LUA_DLL_PATH =.\sol\bin\Debug\lua.dll
+set LUA_DLL_PATH =.\sol\bin\Release\lua.dll
 
 :: Make the build directory
 if exist %LUA_DLL_PATH% goto done

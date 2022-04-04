@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\components_prj\Animator.h" />
     <ClInclude Include="..\..\src\components_prj\AudioSource.h" />
+    <ClInclude Include="..\..\src\components_prj\ComponentRegistry.h" />
     <ClInclude Include="..\..\src\components_prj\Light.h" />
     <ClInclude Include="..\..\src\components_prj\MeshRenderer.h" />
     <ClInclude Include="..\..\src\components_prj\RigidBody.h" />

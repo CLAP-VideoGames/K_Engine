@@ -53,5 +53,8 @@
     <ClInclude Include="..\..\src\components_prj\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\components_prj\ComponentRegistry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
