@@ -36,6 +36,9 @@
     <ClCompile Include="..\..\src\ui_prj\UiButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ui_prj\UiScrollBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ui_prj\UIManager.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ui_prj\UiButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ui_prj\UiScrollBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
