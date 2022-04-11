@@ -45,5 +45,8 @@ namespace K_Engine {
 
 		//Scale syincing
 		image_->setSize(image_->getSize().first * transformRf_->getScale().x, image_->getSize().second * transformRf_->getScale().y);
+
+		//ZOrder syncing
+		image_->setRenderOrder(transformRf_->getPosition().z);
 	}
 }

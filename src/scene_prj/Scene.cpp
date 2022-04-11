@@ -16,6 +16,9 @@
 #include <components_prj/Light.h>
 #include <components_prj/Button.h>
 #include <components_prj/Image.h>
+#include <components_prj/ProgressBar.h>
+#include <components_prj/ScrollBar.h>
+#include <components_prj/Text.h>
 
 #include <utils_prj/Vector3.h>
 
@@ -165,15 +168,49 @@ namespace K_Engine {
 			K_Engine::Entity* button = entMan->addEntity();
 			K_Engine::Transform* t = button->addComponent<K_Engine::Transform>();
 			K_Engine::Button* b = button->addComponent<K_Engine::Button>("F", "TestButton", "TestButton", "TestButton");
-			t->setPosition(950, 5, 0);
-			t->setScale(100, 100, 1);
+			t->setPosition(950, 5, 500);
+			t->setScale(100, 100, 30);
 		}
 
 		//UI Image
 		{
 			K_Engine::Entity* image = entMan->addEntity();
 			K_Engine::Transform* t = image->addComponent<K_Engine::Transform>();
-			K_Engine::Image* b = image->addComponent<K_Engine::Image>("E", "Fino");
+			K_Engine::Image* i = image->addComponent<K_Engine::Image>("E", "Fino");
+			t->setPosition(0, 0, 20);
+		}
+
+		////UI Progress Bar 1
+		//{
+		//	K_Engine::Entity* progressBar = entMan->addEntity();
+		//	K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
+		//	K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("A", "GreenDefaultProgressBar");
+		//	t->setPosition(10, 680, 100);
+		//	t->setScale(300, 25, 1);
+		//}
+
+		////UI Progress Bar 2
+		//{
+		//	K_Engine::Entity* progressBar = entMan->addEntity();
+		//	K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
+		//	K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("B", "DefaultProgressBar");
+		//	t->setPosition(10, 680, 50);
+		//	t->setScale(300, 25, 1);
+		//}
+
+		//UI ScrollBar
+		{
+			K_Engine::Entity* scrollBar = entMan->addEntity();
+			K_Engine::Transform* t = scrollBar->addComponent<K_Engine::Transform>();
+			K_Engine::ScrollBar* i = scrollBar->addComponent<K_Engine::ScrollBar>("C", "DefaultButton", 1, 100);
+		}
+
+		//UI Text
+		{
+			K_Engine::Entity* text = entMan->addEntity();
+			K_Engine::Transform* t = text->addComponent<K_Engine::Transform>();
+			K_Engine::Text* i = text->addComponent<K_Engine::Text>("D", "Fino senhores");
+			t->setPosition(135, 10, 50);
 		}
 
 		entMan->start();

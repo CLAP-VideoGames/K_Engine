@@ -49,6 +49,9 @@ namespace K_Engine {
 		//Scale syincing
 		button_->setSize(button_->getSize().first * transformRf_->getScale().x, button_->getSize().second * transformRf_->getScale().y);
 
+		//ZOrder syncing
+		button_->setRenderOrder(transformRf_->getPosition().z);
+
 		//Callback check
 		if (button_->getPressed()) {
 			if (onButtonClick != nullptr) {

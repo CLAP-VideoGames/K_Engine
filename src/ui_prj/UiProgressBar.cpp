@@ -7,7 +7,7 @@
 namespace K_Engine {
     static int numberOfBars = 0;
 
-    UiProgressBar::UiProgressBar(std::string overlayName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    UiProgressBar::UiProgressBar(std::string overlayName, std::string imageName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
     {
         std::string elemtnNumber = std::to_string(numberOfBars);
 
@@ -20,7 +20,7 @@ namespace K_Engine {
         element_->setDimensions(defaultWidth, defaultHeight);
 
         //DefaultMaterial
-        element_->setMaterialName("DefaultButton");
+        element_->setMaterialName(imageName);
 
         // Create an overlay, and add the panel
         overlay_ = oveMngr_->create(overlayName);

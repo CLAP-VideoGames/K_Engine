@@ -8,7 +8,7 @@
 
 namespace K_Engine {
 
-    UiScrollBar::UiScrollBar(std::string overlayName, int upper, int lower) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    UiScrollBar::UiScrollBar(std::string overlayName, std::string imageName, int upper, int lower) : UiElement(Ogre::OverlayManager::getSingletonPtr())
     {
         //Initialization of everything that ogre needs to show something
         //Default settings
@@ -19,7 +19,7 @@ namespace K_Engine {
         element_->setDimensions(defaultWidth, defaultHeight);
 
         //DefaultMaterial
-        element_->setMaterialName("DefaultButton");
+        element_->setMaterialName(imageName);
 
         // Create an overlay, and add the panel
         overlay_ = oveMngr_->create(overlayName);

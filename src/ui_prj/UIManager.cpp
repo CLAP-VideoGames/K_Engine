@@ -63,7 +63,7 @@ namespace K_Engine {
 
         try
         {
-            UiProgressBar* pG = addProgressBar("A");
+            /*UiProgressBar* pG = addProgressBar("A");
             notCeguiElements[0]->setPosition(10, 680);
             notCeguiElements[0]->setSize(300, 25);
             pG->setMaterial("GreenDefaultProgressBar");
@@ -74,14 +74,14 @@ namespace K_Engine {
             notCeguiElements[1]->setPosition(10, 680);
             notCeguiElements[1]->setSize(300, 25);
             p->setMaterial("DefaultProgressBar");
-            p->setRenderOrder(50);
+            p->setRenderOrder(50);*/
 
-            addScrollBar("C", 1, 100);
-            notCeguiElements[2]->setRenderOrder(500);
+            /*addScrollBar("C", 1, 100);
+            notCeguiElements[0]->setRenderOrder(500);*/
 
 
-            addText("D", "Fino senhores");
-            notCeguiElements[3]->setPosition(135,10);
+            /*addText("D", "Fino senhores");
+            notCeguiElements[0]->setPosition(135,10);*/
 
             /*addImage("E", "Fino");*/
 
@@ -133,9 +133,9 @@ namespace K_Engine {
             notCeguiElements[i]->update();
     }
 
-    UiProgressBar* UIManager::addProgressBar(std::string overlayName)
+    UiProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName)
     {
-        UiProgressBar* p = new UiProgressBar(overlayName);
+        UiProgressBar* p = new UiProgressBar(overlayName, imageName);
 
         notCeguiElements.push_back(p);
 
@@ -169,8 +169,8 @@ namespace K_Engine {
         return b;
     }
 
-    UiScrollBar* UIManager::addScrollBar(std::string overlayName, int upper, int lower) {
-        UiScrollBar* s = new UiScrollBar(overlayName, upper, lower);
+    UiScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName,int upper, int lower) {
+        UiScrollBar* s = new UiScrollBar(overlayName, imageName, upper, lower);
         
         notCeguiElements.push_back(s);
 

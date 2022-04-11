@@ -11,7 +11,7 @@ namespace K_Engine {
 	{
 	public:
 
-		UiScrollBar(std::string overlayName, int upper, int lower);
+		UiScrollBar(std::string overlayName, std::string imageName, int upper, int lower);
 		~UiScrollBar();
 
 		virtual void update();

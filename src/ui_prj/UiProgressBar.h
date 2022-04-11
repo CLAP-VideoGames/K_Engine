@@ -9,7 +9,7 @@ namespace K_Engine {
 	{
 	public:
 
-		UiProgressBar(std::string overlayName);
+		UiProgressBar(std::string overlayName, std::string imageName);
 		~UiProgressBar();
 
 		void setProgress(float prog);
