@@ -10,7 +10,7 @@ namespace K_Engine {
 
 	static int numberButtons = 0;
 
-	UiButton::UiButton(std::string overlayName, std::string imageName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+	UiButton::UiButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
 	{
 		//Initialization of everything that ogre needs to show something
 		//Default settings
@@ -42,6 +42,10 @@ namespace K_Engine {
 		inputArea.y = element_->getTop();
 
 		numberButtons++;
+
+		imageName_ = imageName;
+		hoverImageName_ = hoverImageName;
+		pressedImageName_ = pressedImageName;
 	}
 
 	UiButton::~UiButton()
@@ -68,11 +72,11 @@ namespace K_Engine {
 			if (inputMan->getLeftMouseButtonPressed()) {
 				pressed_ = true;
 
-				setMaterial("ButtonApretado");
+				setMaterial(pressedImageName_);
 			}
-			else setMaterial("TestButtonAmongus");
+			else setMaterial(hoverImageName_);
 		}
-		else setMaterial("TestButton");
+		else setMaterial(imageName_);
 		
 	}
 }

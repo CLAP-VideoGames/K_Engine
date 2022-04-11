@@ -11,7 +11,7 @@ namespace K_Engine {
 	{
 	public:
 
-		UiButton(std::string overlayName, std::string imageName);
+		UiButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
 		~UiButton();
 
 		virtual void update();
@@ -24,6 +24,12 @@ namespace K_Engine {
 		InputManager* inputMan;
 
 		Rectangle inputArea;
+
+		std::string imageName_;
+
+		//Extra images for button
+		std::string hoverImageName_;
+		std::string pressedImageName_;
 	};
 }
 

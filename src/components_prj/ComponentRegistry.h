@@ -7,6 +7,8 @@
 #include <components_prj/MeshRenderer.h>
 #include <components_prj/AudioSource.h>
 #include <components_prj/Light.h>
+#include <components_prj/Button.h>
+#include <components_prj/Image.h>
 
 #include <ecs_prj/ComponentManager.h>
 
@@ -20,6 +22,8 @@ namespace K_Engine {
 			compMan->add<K_Engine::RigidBody>();
 			compMan->add<K_Engine::AudioSource>();
 			compMan->add<K_Engine::Light>();
+			compMan->add<K_Engine::Button>();
+			compMan->add<K_Engine::Image>();
 		}
 	}
 }

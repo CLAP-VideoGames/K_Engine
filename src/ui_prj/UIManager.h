@@ -53,8 +53,10 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="overlayName">This is the name ogre will recognice you elemtn</param>
 		/// <param name="imageName"> This is the name of the material that will appear for the button</param>
+		/// /// <param name="hoverImageName">This is the name of the material that will appear when the button is hovered</param>
+		/// <param name="pressedImageName"> This is the name of the material that will appear when the button is pressed</param>
 		/// <returns></returns>
-		UiButton* addButton(std::string overlayName, std::string imageName);
+		UiButton* addButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
 
 		/// <summary>
 		/// Adds a scrollbar to your scene with its default values and the specified limits

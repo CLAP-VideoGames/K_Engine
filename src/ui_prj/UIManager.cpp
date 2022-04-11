@@ -83,12 +83,12 @@ namespace K_Engine {
             addText("D", "Fino senhores");
             notCeguiElements[3]->setPosition(135,10);
 
-            addImage("E", "Fino");
+            /*addImage("E", "Fino");*/
 
 
-            addButton("F", "TestButton");
+            /*addButton("F", "TestButton");
             notCeguiElements[5]->setPosition(950, 5);
-            notCeguiElements[5]->setSize(100, 100);
+            notCeguiElements[5]->setSize(100, 100);*/
 
 
             //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
@@ -160,9 +160,9 @@ namespace K_Engine {
         return i;
     }
 
-    UiButton* UIManager::addButton(std::string overlayName, std::string imageName)
+    UiButton* UIManager::addButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName)
     {
-        UiButton* b = new UiButton(overlayName, imageName);
+        UiButton* b = new UiButton(overlayName, imageName, hoverImageName, pressedImageName);
 
         notCeguiElements.push_back(b);
 

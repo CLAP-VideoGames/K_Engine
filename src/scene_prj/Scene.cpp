@@ -14,6 +14,8 @@
 #include <components_prj/RigidBody.h>
 #include <components_prj/AudioSource.h>
 #include <components_prj/Light.h>
+#include <components_prj/Button.h>
+#include <components_prj/Image.h>
 
 #include <utils_prj/Vector3.h>
 
@@ -156,6 +158,22 @@ namespace K_Engine {
 		{
 			Entity* light = entMan->addEntity();
 			Light* lComp = light->addComponent<Light>(LightType::SPOTLIGHT, true);
+		}
+
+		//UI Button
+		{
+			K_Engine::Entity* button = entMan->addEntity();
+			K_Engine::Transform* t = button->addComponent<K_Engine::Transform>();
+			K_Engine::Button* b = button->addComponent<K_Engine::Button>("F", "TestButton", "TestButton", "TestButton");
+			t->setPosition(950, 5, 0);
+			t->setScale(100, 100, 1);
+		}
+
+		//UI Image
+		{
+			K_Engine::Entity* image = entMan->addEntity();
+			K_Engine::Transform* t = image->addComponent<K_Engine::Transform>();
+			K_Engine::Image* b = image->addComponent<K_Engine::Image>("E", "Fino");
 		}
 
 		entMan->start();
