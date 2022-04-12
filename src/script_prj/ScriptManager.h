@@ -47,7 +47,8 @@ namespace K_Engine {
         //Clases y funciones de otros proyectos
 
         //Test
-        void createPlayer(std::string name, float x, float y);
+        void createPlayerbyAtrib(std::string name, float x, float y);
+        void createPlayerbyObject(luabridge::LuaRef object);
     };
 }
 
