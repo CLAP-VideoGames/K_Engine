@@ -116,6 +116,9 @@
     <ProjectReference Include="..\scene_prj\scene_prj.vcxproj">
       <Project>{949a8c38-05f4-49d0-a68e-955bd0704007}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\script_prj\script_prj.vcxproj">
+      <Project>{ee611059-7605-4aaf-98cb-e86483c16841}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\sound_prj\sound_prj.vcxproj">
       <Project>{06ce32e3-a5e2-4bbf-8d9a-f20b9e847284}</Project>
     </ProjectReference>

@@ -14,6 +14,7 @@
 #include <scene_prj/SceneManager.h>
 #include <log_prj/LogManager.h>
 #include <ui_prj/UIManager.h>
+#include <script_prj/ScriptManager.h>
 
 // DELETE
 #include <scene_prj/Scene.h>
@@ -50,6 +51,7 @@ namespace K_Engine {
 			K_Engine::PhysicsManager::Init(name + "Physics", { 0, -9.8, 0 }) &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::InputManager::Init() &&
+			K_Engine::ScriptManager::Init(name + "Script") &&
 			K_Engine::ComponentManager::Init(name + "Components") &&
 			K_Engine::SceneManager::Init(name + "Scene") &&
 			K_Engine::LogManager::Init() && 
@@ -62,6 +64,7 @@ namespace K_Engine {
 		renderMan = K_Engine::RenderManager::GetInstance();
 		physicsMan = K_Engine::PhysicsManager::GetInstance();
 		uiMan = K_Engine::UIManager::GetInstance();
+		scriptMan = K_Engine::ScriptManager::GetInstance();
 		audioMan = K_Engine::AudioManager::GetInstance();
 		inputMan = K_Engine::InputManager::GetInstance();
 		compMan = K_Engine::ComponentManager::GetInstance();
@@ -139,13 +142,14 @@ namespace K_Engine {
 	{
 		bool success = K_Engine::SceneManager::Shutdown() &&
 			K_Engine::AudioManager::Shutdown() &&
+			K_Engine::ScriptManager::Shutdown() &&
 			K_Engine::UIManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
 
-		sceneMan = nullptr; renderMan = nullptr; 
+		sceneMan = nullptr; renderMan = nullptr;
 		physicsMan = nullptr; uiMan = nullptr; 
-		audioMan = nullptr;
+		audioMan = nullptr; scriptMan = nullptr;
 		inputMan = nullptr; compMan = nullptr;
 
 #ifndef DEVELOPMENT

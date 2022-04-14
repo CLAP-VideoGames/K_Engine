@@ -36,7 +36,7 @@ namespace K_Engine {
         std::string n;
 
         lua_State* luaState;
-        std::map<std::string, luabridge::LuaRef> classes_;
+        std::map<std::string, luabridge::LuaRef*> classes_;
 
         float x_, y_;
 

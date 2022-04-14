@@ -19,6 +19,7 @@ namespace K_Engine {
 	class SceneManager;
 	class LogManager;
 	class UIManager;
+	class ScriptManager;
 
 	class __declspec(dllexport) Engine {
 	public:
@@ -43,6 +44,7 @@ namespace K_Engine {
 
 		K_Engine::RenderManager* renderMan;
 		K_Engine::PhysicsManager* physicsMan;
+		K_Engine::ScriptManager* scriptMan;
 		K_Engine::AudioManager* audioMan;
 		K_Engine::InputManager* inputMan;
 		K_Engine::ComponentManager* compMan;

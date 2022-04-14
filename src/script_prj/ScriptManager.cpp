@@ -95,10 +95,7 @@ namespace K_Engine {
 
 void ScriptManager::registerClassesandFunctions(lua_State* L)
 {
-    //ECS
-    //UI
     //LUA
-	
     getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
 		.addStaticFunction("getInstance", &ScriptManager::GetInstance)
 		.addFunction("createPlayerbyAtrib", &ScriptManager::createPlayerbyAtrib)

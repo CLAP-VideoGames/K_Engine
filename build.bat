@@ -58,7 +58,7 @@ echo SDL_Mixer .dlls succesfully copied to engine
 echo Copying Lua .dlls...
 
 copy .\dependencies\lua\sol\bin\Release\lua.dll %EXE_DIR% 1>nul
-if %RELEASE_ENGINE% == falsecopy .\dependencies\lua\sol\bin\Debug\lua_d.dll %EXE_DIR% 1>nul
+if %RELEASE_ENGINE% == false copy .\dependencies\lua\sol\bin\Debug\lua_d.dll %EXE_DIR% 1>nul
 
 echo Lua .dlls succesfully copied to engine
 
