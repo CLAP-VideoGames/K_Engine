@@ -4,6 +4,7 @@
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
 #include <input_prj/InputManager.h>
+#include <utils_prj/Vector3.h>
 #include <iostream>
 
 namespace K_Engine {
@@ -15,8 +16,7 @@ namespace K_Engine {
         element_ = static_cast<Ogre::OverlayContainer*>(
             oveMngr_->createOverlayElement("Panel", "ScrollBar"));
         element_->setMetricsMode(Ogre::GMM_PIXELS);
-        element_->setPosition(defaultX, defaultY);
-        element_->setDimensions(defaultWidth, defaultHeight);
+        element_->setTop(upper);
 
         //DefaultMaterial
         element_->setMaterialName(imageName);
@@ -36,6 +36,7 @@ namespace K_Engine {
 
         //Setup default size relative to the total distance
         distance = lower - upper;
+        initialDistance = distance;
         if (distance / 10 > 0) {
             element_->setDimensions(20, distance / 10);
         }
@@ -58,6 +59,35 @@ namespace K_Engine {
     //this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
     double UiScrollBar::getRelativePos() {
         return (((double)distance - (double)position.second) / (double)distance) * 100;
+    }
+
+    bool UiScrollBar::getNeedsSync()
+    {
+        return positionNeedsSync;
+    }
+
+    void UiScrollBar::setNeedsSync(bool newState)
+    {
+        positionNeedsSync = newState;
+    }
+
+    void UiScrollBar::updatePosition(Vector3 newPosition)
+    {
+        float previousTopDistance;
+        previousTopDistance = element_->getTop() - upperLimit;
+        upperLimit = newPosition.y;
+        element_->setLeft(newPosition.x);
+        lowerLimit = upperLimit + distance;
+        element_->setTop(previousTopDistance + upperLimit);
+    }
+
+    void UiScrollBar::updateSize(float scale)
+    {
+        element_->setTop((element_->getTop() - upperLimit) / (distance / initialDistance) * scale + upperLimit);
+        element_->setHeight(initialDistance * scale / 10);
+        element_->setWidth(20 * scale);
+        distance = initialDistance * scale;
+        lowerLimit = upperLimit + distance;
     }
 
     //Sets the position according to mouse input and pos
@@ -86,10 +116,10 @@ namespace K_Engine {
             }
             else {
                 auto y = element_->getTop();
-                if (y > upperLimit && y < lowerLimit) {
-                    if (pointer.y > upperLimit && pointer.y < lowerLimit) {
+                if (y >= upperLimit && y <= lowerLimit) {
+                    if (pointer.y >= upperLimit && pointer.y <= lowerLimit) {
                         element_->setTop(pointer.y);
-                        inputArea.y = pointer.y;
+                        positionNeedsSync = true;
                     }
                 }
             }
