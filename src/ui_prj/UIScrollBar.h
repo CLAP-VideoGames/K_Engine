@@ -6,6 +6,7 @@
 
 namespace K_Engine {
 	class InputManager;
+	class Vector3;
 
 	class UiScrollBar : public UiElement
 	{
@@ -18,6 +19,18 @@ namespace K_Engine {
 
 		double getRelativePos();
 
+		/// <summary>
+		/// Determines if the element needs to update their position in the transform
+		/// </summary>
+		/// <returns></returns>
+		bool getNeedsSync();
+
+		void setNeedsSync(bool newState);
+
+		void updatePosition(Vector3 newPosition);
+
+		void updateSize(float scale);
+
 	private:
 
 		InputManager* inputMan;
@@ -25,9 +38,11 @@ namespace K_Engine {
 		Rectangle inputArea;
 
 		int upperLimit, lowerLimit;
+		int initialDistance;
 		int distance;
 
 		bool pressed = false;
+		bool positionNeedsSync = false;
 	};
 }
 

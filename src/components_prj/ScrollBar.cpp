@@ -42,8 +42,14 @@ namespace K_Engine {
 	void ScrollBar::update(int frameTime)
 	{
 		//Position syncing
-		/*Vector3 pos = transformRf_->getPosition();
-		scrollBar_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);*/
+		//Transform actualization if there was a change in position
+		if (scrollBar_->getNeedsSync()) {
+			transformRf_->setPosition(transformRf_->getPosition().x, scrollBar_->getPosition().second, transformRf_->getPosition().z);
+			scrollBar_->setNeedsSync(false);
+		}
+
+		////Element actualization
+		scrollBar_->updatePosition(transformRf_->getPosition());
 
 		//Scale syincing
 		/*scrollBar_->setSize(scrollBar_->getSize().first * transformRf_->getScale().x, scrollBar_->getSize().second * transformRf_->getScale().y);*/
