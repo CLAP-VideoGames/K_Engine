@@ -130,4 +130,50 @@ void ScriptManager::registerClassesandFunctions(lua_State* L)
 		}
 	}
 
+	void ScriptManager::createPlayerbyLecture()
+	{
+		auto table = getTable("player");
+		string name = getParameter<string>(table, "name");
+		float x = getParameter<float>(getMetatable(table, "position"), "x");
+		float y = getParameter<float>(getMetatable(table, "position"), "y");
+		cout << "Player: " << name <<
+			"\nIn Position: " << x << ", "
+			<< y << endl;
+	}
+
+	luabridge::LuaRef ScriptManager::getTable(const std::string& c_name)
+	{
+		try {
+			luabridge::LuaRef table = getGlobal(luaState, c_name.c_str());
+			return table;
+		}
+		catch (std::exception e) {
+			cout << "CanLt get lua table, make sure table is accessible or exist";
+			return NULL;
+		}
+	}
+
+	luabridge::LuaRef ScriptManager::getMetatable(luabridge::LuaRef table, const std::string& c_name)
+	{
+		try{
+		luabridge::LuaRef meta = table[c_name];
+		return meta;
+	}
+		catch (std::exception e) {
+			cout << "CanLt get lua metatable, make sure metatable is accessible or exist";
+			return NULL;
+		}
+	}
+
+	template<class T>
+	T ScriptManager::getParameter(luabridge::LuaRef table, const std::string& parameterName)
+	{
+		try {
+			return table[parameterName].cast<T>();
+		}
+		catch (std::exception e) {
+			cout << "CanLt read parameter, make sure table is properly read and parameter name is correct";
+			return NULL;
+		}
+	}
 }

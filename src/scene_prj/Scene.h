@@ -6,6 +6,7 @@
 
 namespace K_Engine {
 	class EntityManager;
+	class ScriptManager;
 
 	class  __declspec(dllexport) Scene {
 	public:
@@ -29,6 +30,7 @@ namespace K_Engine {
 	protected:
 		//In charge of keeping track of the entities of the scene
 		EntityManager* entMan;
+		ScriptManager* scriptMan;
 	};
 }
 #endif

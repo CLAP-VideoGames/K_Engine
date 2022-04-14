@@ -2,6 +2,7 @@
 
 #include <ecs_prj/EntityManager.h>
 #include <ecs_prj/Entity.h>
+#include <script_prj/ScriptManager.h>
 
 // SOON TO BE DELETED
 #include <physics_prj/PhysicsManager.h>
@@ -47,6 +48,12 @@ namespace K_Engine {
 
 	void Scene::debug()
 	{
+		//Test Lua
+		scriptMan = K_Engine::ScriptManager::GetInstance();
+		scriptMan->reloadLuaScript("test2");
+		scriptMan->createPlayerbyLecture();
+
+
 		entMan = new K_Engine::EntityManager(); // Entity Manager
 
 		// example scene (pending of development)

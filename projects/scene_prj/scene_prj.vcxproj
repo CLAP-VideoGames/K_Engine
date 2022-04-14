@@ -95,6 +95,9 @@
     <ProjectReference Include="..\physics_prj\physics_prj.vcxproj">
       <Project>{2e4034b9-ad29-44c6-8f44-9b90c6e64e6c}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\script_prj\script_prj.vcxproj">
+      <Project>{ee611059-7605-4aaf-98cb-e86483c16841}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\scene_prj\Scene.cpp" />

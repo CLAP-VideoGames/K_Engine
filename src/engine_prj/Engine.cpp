@@ -114,6 +114,7 @@ namespace K_Engine {
 			currTime += frameTime;
 
 			accFrameTime += frameTime;
+
 			while (accFrameTime >= DELTA_TIME) {
 				inputMan->update();
 

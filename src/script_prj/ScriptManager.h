@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SCRIPTMANAGER_H
 #define SCRIPTMANAGER_H
 
@@ -31,6 +31,29 @@ namespace K_Engine {
         void registerClassesandFunctions(lua_State* L);
         //Reload Lua Script
         bool reloadLuaScript(const std::string& luafile);
+
+        //Lectura de tablas
+        luabridge::LuaRef getTable(const std::string& c_name);
+        luabridge::LuaRef getMetatable(luabridge::LuaRef table, const std::string& c_name);
+
+        //Lectura de parametros
+        /// <summary>
+        /// Lectura de un parametro perteneciente a un tabla de Lua
+        /// Una forma adecuada de obtener la tabla es usando getTable o getMetatable si está a un nivel más profundo
+        /// </summary>
+        /// <param name="object"></param>
+        template<class T>
+        T getParameter(luabridge::LuaRef table, const std::string& parameterName);
+
+
+        //Test(Provisional, borrar antes de la entrega final)
+
+        void createPlayerbyAtrib(std::string name, float x, float y);
+        //Lectura de una tabla llamando desde Lua
+        void createPlayerbyObject(luabridge::LuaRef object);
+        //Lectura de una tabla script YA CARGADO sin llamar desde Lua
+        void createPlayerbyLecture();
+
     private:
         static std::unique_ptr<ScriptManager> instance;
         std::string n;
@@ -46,9 +69,6 @@ namespace K_Engine {
         bool checkLua(lua_State* L, int r);
         //Clases y funciones de otros proyectos
 
-        //Test
-        void createPlayerbyAtrib(std::string name, float x, float y);
-        void createPlayerbyObject(luabridge::LuaRef object);
     };
 }
 
