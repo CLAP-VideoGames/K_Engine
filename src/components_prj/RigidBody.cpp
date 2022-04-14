@@ -120,7 +120,10 @@ namespace K_Engine {
 	}
 
 	void RigidBody::addForce(Vector3 const& value){
-		//rb.for
+		btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
+		Vector3 p = transformRf_->getPosition();
+		btVector3 pos = { (btScalar)p.x,(btScalar)p.y,(btScalar)p.z };
+		rb->applyForce(force, pos);
 	}
 	
 	void RigidBody::addImpulse(Vector3 const& value) {
