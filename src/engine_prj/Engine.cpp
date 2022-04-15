@@ -47,7 +47,7 @@ namespace K_Engine {
 #endif
 
 		// initialisation of all sub-engines
-		success = K_Engine::RenderManager::Init(name + "Render") &&
+		success = K_Engine::RenderManager::Init(name) &&
 			K_Engine::PhysicsManager::Init(name + "Physics", { 0, -9.8, 0 }) &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::InputManager::Init() &&
@@ -74,6 +74,9 @@ namespace K_Engine {
 
 	void Engine::setup()
 	{
+		// render setup
+		renderMan->locateResources();
+
 		// physics setup
 		std::string playerLayer = "Player";
 		std::string nothingLayer = "Nothing";

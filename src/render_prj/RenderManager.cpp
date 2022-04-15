@@ -54,7 +54,6 @@ namespace K_Engine {
 
 			instance.get()->initRoot();
 			instance.get()->initWindow();
-			instance.get()->initResources();
 			instance.get()->initScene();
 		}
 		catch (Ogre::Exception& e) {
@@ -111,10 +110,6 @@ namespace K_Engine {
 	void RenderManager::initWindow() {
 		SDL_Init(SDL_INIT_EVERYTHING);
 
-		overSystem_ = new Ogre::OverlaySystem();
-		
-		overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
-
 		int width = 1080, height = 720;
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
 		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
@@ -155,7 +150,7 @@ namespace K_Engine {
 	/// <summary>
 	/// Parsea el archivo resources.cfg para obtener las rutas de los recursos
 	/// </summary>
-	void RenderManager::initResources() {
+	void RenderManager::locateResources() {
 		mFSLayer = new Ogre::FileSystemLayer(name);
 
 		// load resource paths from config file
@@ -164,10 +159,9 @@ namespace K_Engine {
 		std::string resourcesPath = mFSLayer->getConfigFilePath("resources.cfg");
 		if (Ogre::FileSystemLayer::fileExists(resourcesPath))
 			cf.load(resourcesPath);
-		else {
+		else 
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::FileSystemLayer::resolveBundlePath("./assets"),
 				"FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		}
 
 		// go through all specified resource groups
 		std::string sec, type, arch;
@@ -198,7 +192,6 @@ namespace K_Engine {
 	/// </summary>
 	void RenderManager::initScene() {
 		mSM = mRoot->createSceneManager();
-		mSM->addRenderQueueListener(overSystem_);
 		mSM->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 
 		// without light we would just get a black screen    

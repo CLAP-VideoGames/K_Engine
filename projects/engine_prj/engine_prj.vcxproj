@@ -136,8 +136,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\engine_prj\Engine.h" />
     <ClInclude Include="..\..\src\engine_prj\resource.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="resource1.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\engine_prj\engine_prj.rc" />

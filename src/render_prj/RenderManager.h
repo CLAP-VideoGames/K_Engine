@@ -41,8 +41,11 @@ namespace K_Engine {
 		static bool Init(std::string n);
 		static bool Shutdown();
 
+		void locateResources();
+
 		void render();
 
+		// light creation methods
 		void setAmbientLight(Vector3 light);
 		Ogre::Light* createLight(LightType lType);
 
@@ -67,14 +70,11 @@ namespace K_Engine {
 
 		void initRoot();
 		void initWindow();
-		void initResources();
 		void initScene();
+		void preloadResources();
 
 		void closeContext();
 		void closeWindow();
-
-		Ogre::OverlaySystem* overSystem_;
-		Ogre::OverlayManager* overlayMngr_;
 	};
 }
 #endif // RENDERMANAGER_H

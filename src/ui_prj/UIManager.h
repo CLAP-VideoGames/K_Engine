@@ -1,10 +1,10 @@
 #pragma once
 #ifndef UIMANAGER_H
 #define UIMANAGER_H
+
 #include <memory>
 #include <string>
 #include <vector>
-
 
 namespace Ogre {
 	class Image;
@@ -71,14 +71,13 @@ namespace K_Engine {
 
 	private:
 		static std::unique_ptr<UIManager> instance;
+
 		std::string name;
 
 		std::vector<UiElement*> notCeguiElements;
 
 		Ogre::OverlaySystem* overSystem_;
-		Ogre::OverlayManager* oveMngr_;
-		Ogre::Overlay* overlayElement_;
-
+		Ogre::OverlayManager* overlayMngr_;
 
 		void cleanElements();
 	};

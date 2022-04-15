@@ -44,11 +44,10 @@ namespace K_Engine {
 
             instance.get()->name = n;
 
-            //instance.get()->overSystem_ = new Ogre::OverlaySystem();
-            instance.get()->oveMngr_ = Ogre::OverlayManager::getSingletonPtr();
-            //K_Engine::RenderManager::GetInstance()->getSceneManager()
-            //    ->addRenderQueueListener(instance.get()->overSystem_);
-
+            instance.get()->overSystem_ = new Ogre::OverlaySystem();
+            instance.get()->overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
+            // Requires initialization of RenderManager first
+            K_Engine::RenderManager::GetInstance()->getSceneManager()->addRenderQueueListener(instance.get()->overSystem_);
         }
         catch (const std::exception&) {
             return false;
