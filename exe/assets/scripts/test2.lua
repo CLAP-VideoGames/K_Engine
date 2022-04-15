@@ -1,7 +1,9 @@
 
 player = {
     name = "Francisquito Si es",
-    position = { x = 2.90, y = 0.7}
+    entities = {"defaultCamera", "manivela"},
+    position = { x = 2.90, y = 0.7},
+    "hola"
 }
 
 function sumPosition()
