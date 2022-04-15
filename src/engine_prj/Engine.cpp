@@ -95,10 +95,13 @@ namespace K_Engine {
 		// base components setup
 		K_Engine::Registry::registerComponents();
 
+		std::vector<std::string> components = compMan->getAvailableComponents();
+
 #ifndef DEVELOPMENT
 		registerGameComponents();
 		sceneMan->pushScene(loadScene());
 #endif
+		scriptMan->setDataComponents(components);
 #ifdef DEVELOPMENT
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		debug();

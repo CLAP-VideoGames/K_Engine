@@ -21,6 +21,10 @@ namespace K_Engine {
 		return true;
 	}
 
+	std::vector<std::string> ComponentManager::getAvailableComponents(){
+		return std::vector<std::string>(availableComponents.begin(), availableComponents.end());
+	}
+
 	bool ComponentManager::existingComponent(std::string compName)
 	{
 		auto c = availableComponents.find(compName);

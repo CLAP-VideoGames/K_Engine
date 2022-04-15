@@ -59,6 +59,8 @@ namespace K_Engine {
 			return newComponent;
 		}
 
+		std::vector<std::string> getAvailableComponents();
+
 	private:
 		//unique pointer for our instance so we do not have problems of sharing the memory 
 		static std::unique_ptr<ComponentManager> instance;

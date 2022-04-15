@@ -58,4 +58,5 @@ scene = {
     },
 }
 
-entities = {cubo ,suelo ,detalle }
+entities = {"cubo" ,"suelo" ,"detalle" }
+

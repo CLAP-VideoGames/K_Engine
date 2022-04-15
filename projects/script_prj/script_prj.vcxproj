@@ -105,6 +105,14 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\script_prj\ScriptManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\components_prj\components_prj.vcxproj">
+      <Project>{38fd53cd-827c-40fb-ab72-ee6bfa739a3b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ecs_prj\ecs_prj.vcxproj">
+      <Project>{a9c79538-c953-45eb-9232-435d0fbba7e2}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

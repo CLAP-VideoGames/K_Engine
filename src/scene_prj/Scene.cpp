@@ -50,9 +50,8 @@ namespace K_Engine {
 	{
 		//Test Lua
 		scriptMan = K_Engine::ScriptManager::GetInstance();
-		scriptMan->reloadLuaScript("test2");
-		scriptMan->createPlayerbyLecture();
 
+		scriptMan->loadScene("map", entMan);
 
 		entMan = new K_Engine::EntityManager(); // Entity Manager
 
