@@ -8,6 +8,7 @@ namespace K_Engine {
 		int x, y;
 		int w, h;
 	} Rectangle;
+
 	typedef struct Point
 	{
 		int x;
@@ -20,5 +21,4 @@ namespace K_Engine {
 			(p->y >= r->y) && (p->y < (r->y + r->h))) ? true : false;
 	}
 }
-
-#endif
+#endif // RECT_H

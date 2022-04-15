@@ -10,7 +10,8 @@ namespace K_Engine {
 	{
 	public:
 		AudioSource(Entity* e);
-		~AudioSource();
+		virtual ~AudioSource();
+
 		static std::string GetId();
 
 		// Play Audio

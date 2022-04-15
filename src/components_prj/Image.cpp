@@ -1,13 +1,14 @@
 #include "Image.h"
 
-#include <components_prj/Transform.h>
-
 #include <ecs_prj/Entity.h>
+
+#include <components_prj/Transform.h>
 
 #include <ui_prj/UIManager.h>
 #include <ui_prj/UiImage.h>
 
 #include <utils_prj/Vector3.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	//Required
@@ -37,6 +38,7 @@ namespace K_Engine {
 		transformRf_ = entity->getComponent<Transform>();
 		image_ = UIManager::GetInstance()->addImage(overlayName_, imageName_);
 	}
+
 	void Image::update(int frameTime)
 	{
 		//Position syncing

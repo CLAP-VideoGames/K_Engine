@@ -1,8 +1,11 @@
 #include "UiProgressBar.h"
+
 #include <OgreOverlayContainer.h>
 #include <OgreOverlayManager.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
+
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
     static int numberOfBars = 0;

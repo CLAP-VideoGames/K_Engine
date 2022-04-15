@@ -27,7 +27,7 @@ namespace K_Engine {
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
 		ProgressBar(Entity* e, std::string overlayName, std::string imageName, float progress = 100, float maxProgress = 100);
-		~ProgressBar();
+		virtual ~ProgressBar();
 
 		//Required method for the component name
 		static std::string GetId();

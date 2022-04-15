@@ -1,5 +1,10 @@
 #include "MeshRenderer.h"
 
+#include <OgreEntity.h>
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
+#include <OgreQuaternion.h>
+
 #include <components_prj/Transform.h>
 
 #include <ecs_prj/Entity.h>
@@ -10,11 +15,7 @@
 #include <components_prj/Transform.h>
 
 #include <utils_prj/Vector3.h>
-
-#include <OgreEntity.h>
-#include <OgreSceneNode.h>
-#include <OgreSceneManager.h>
-#include <OgreQuaternion.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	std::string MeshRenderer::name = "MeshRenderer";

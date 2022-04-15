@@ -1,8 +1,9 @@
 #pragma once
 #ifndef UISLIDER_H
 #define UISLIDER_H
-#include "UiElement.h"
-#include "Rectangle.h"
+
+#include <ui_prj/Rectangle.h>
+#include <ui_prj/UiElement.h>
 
 namespace K_Engine {
 	class InputManager;
@@ -21,7 +22,6 @@ namespace K_Engine {
 		virtual void update();
 
 	private:
-
 		//Starts full progresion
 		float progresion = 100;
 
@@ -32,4 +32,4 @@ namespace K_Engine {
 		Rectangle inputArea;
 	};
 }
-#endif
+#endif // UISLIDER_H

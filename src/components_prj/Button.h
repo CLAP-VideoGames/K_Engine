@@ -2,9 +2,9 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include <ecs_prj/Component.h>
-
 #include <functional>
+
+#include <ecs_prj/Component.h>
 
 namespace K_Engine {
 	class UIManager;
@@ -31,7 +31,7 @@ namespace K_Engine {
 		/// <param name="hoverImageName">Name of the image to be displayed when the button is hovered</param>
 		/// <param name="pressedImageName">Name of the image to be displayed when the button is pressed</param>
 		Button(Entity* e, std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
-		~Button();
+		virtual ~Button();
 
 		//Required method for the component name
 		static std::string GetId();

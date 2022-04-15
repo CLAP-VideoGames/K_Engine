@@ -19,6 +19,8 @@ class btBoxShape;
 class btSphereShape;
 class btTransform;
 class btCollisionShape;
+class btOverlapFilterCallback;
+class btDefaultMotionState;
 
 enum class ColliderType;
 enum class BodyType;
@@ -34,6 +36,7 @@ namespace K_Engine {
 		std::unique_ptr<btConstraintSolver> mSolver;
 		std::unique_ptr<btBroadphaseInterface> mBroadphase;
 		btAlignedObjectArray<btCollisionShape*>* collisionShapes;
+		btOverlapFilterCallback* filterCallback;
 
 		btDynamicsWorld* btWorld_;
 
@@ -73,7 +76,9 @@ namespace K_Engine {
 		/// <param name="mask">Which mask belongs the body</param>
 		/// <param name="colList">Collision Listener</param>
 		/// <returns>reference to the rigidbody</returns>
-		btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const& scale, BodyType bodyType, float mass, float restitution, float friction, int group, int mask, bool isTrigger, CollisionInfo* colision, CollisionListener* colList = nullptr);
+		btRigidBody* addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, 
+			btVector3 const& scale, BodyType bodyType, float mass, float restitution, float friction, int group, 
+			int mask, bool isTrigger, CollisionInfo* colision);
 
 		/// <summary>
 		/// Creates a box collider given its size in each axis and dimensions

@@ -6,7 +6,6 @@
 #include <memory>
 #include <vector>
 
-
 namespace K_Engine {
 	class  __declspec(dllexport) LogManager {
 	public:

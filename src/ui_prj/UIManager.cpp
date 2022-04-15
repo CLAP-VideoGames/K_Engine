@@ -9,9 +9,7 @@
 #include <iostream>
 #include <string>
 
-#include <render_prj/RenderManager.h>
 #include <OgreLogManager.h>
-
 #include <OgreOverlaySystem.h>
 #include <OgreOverlayManager.h>
 #include <OgreSceneManager.h>
@@ -20,6 +18,10 @@
 #include <OgreOverlayContainer.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreFontManager.h>
+
+#include <render_prj/RenderManager.h>
+
+#include <utils_prj/checkML.h>
 
 using namespace std;
 
@@ -48,6 +50,27 @@ namespace K_Engine {
             instance.get()->overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
             // Requires initialization of RenderManager first
             K_Engine::RenderManager::GetInstance()->getSceneManager()->addRenderQueueListener(instance.get()->overSystem_);
+        }
+        catch (const std::exception&) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /*************************************************************************
+        Cleans up resources allocated in the initialiseSample call.
+    *************************************************************************/
+    bool UIManager::Shutdown()
+    {
+        try {
+            for (size_t i = 0; i < instance.get()->notCeguiElements.size(); i++)
+                delete instance.get()->notCeguiElements[i];
+            instance.get()->notCeguiElements.clear();
+
+            delete instance.get()->overSystem_; instance.get()->overSystem_ = nullptr;
+
+            instance.reset(nullptr);
         }
         catch (const std::exception&) {
             return false;
@@ -174,22 +197,6 @@ namespace K_Engine {
         notCeguiElements.push_back(s);
 
         return s;
-    }
-
-    /*************************************************************************
-        Cleans up resources allocated in the initialiseSample call.
-    *************************************************************************/
-    bool UIManager::Shutdown()
-    {
-        try {
-            instance.reset(nullptr);
-
-        }
-        catch (const std::exception&) {
-            return false;
-        }
-
-        return true;
     }
 
     void UIManager::cleanElements()

@@ -12,6 +12,7 @@ namespace K_Engine {
 		/// Resets the timer to its initial value
 		/// </summary>
 		void reset();
+
 		/// <summary>
 		/// Returns the current value of the timer
 		/// </summary>
@@ -26,9 +27,6 @@ namespace K_Engine {
 		/// Resume the timer
 		/// </summary>
 		void resume();
-
-
-		static float deltaTime;
 
 	private:
 		bool paused;

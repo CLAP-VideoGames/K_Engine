@@ -2,16 +2,16 @@
 
 #include <stdexcept>
 
+#include <utils_prj/checkML.h>
+
 namespace K_Engine {
-	Component::Component(std::string id_ = "unknown", Entity* ent = nullptr)
-	{
+	Component::Component(std::string id_ = "unknown", Entity* ent = nullptr) {
 		enable = true;
 		entity = ent;
 
 		id = id_;
 		if (id == "unknown")
 			throw std::invalid_argument("You must define the id of your component");
-
 	}
 
 	Component::~Component() = default;

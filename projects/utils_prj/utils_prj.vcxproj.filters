@@ -41,5 +41,8 @@
     <ClCompile Include="..\..\src\utils_prj\Math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\utils_prj\CollisionCallbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

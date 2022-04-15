@@ -9,14 +9,17 @@ class btRigidBody;
 class btTransform;
 class btDefaultMotionState;
 
-class RigidBodyState;
 enum class ColliderType;
 enum class BodyType;
 
 namespace K_Engine {
 	class DynamicsWorld;
+	class CollisionInfo;
+
 	class Transform;
+
 	struct Vector3;
+
 	/// <summary>
 	/// This componentn provides to the entity a physic behaviour. 
 	/// </summary>
@@ -39,7 +42,7 @@ namespace K_Engine {
 		/// <param name="mask_">Layer which belongs to</param>
 		/// <param name="group_">With which layers collides</param>
 		RigidBody(Entity* e, ColliderType type_, BodyType bType_, float mass, int mask_ = 1, int group_ = 1, bool isTrigger_ = false);
-		~RigidBody();
+		virtual ~RigidBody();
 
 		//Required method for the component name
 		static std::string GetId();
@@ -121,40 +124,46 @@ namespace K_Engine {
 		void addExplosionForce(Vector3 const& value);
 
 	private:
+		//Required
+		static std::string name;
+		
 		//Reference to transform Component
 		Transform* transformRf_ = nullptr;
 		//Mesh Type of the body
 		ColliderType type_;
 		//Body Physics Type
 		BodyType bType_;
+		
 		//Reference to the world
 		K_Engine::DynamicsWorld* world_ = nullptr;
-		//Boolean to control if the associated trigger is a trigger or not (default is false)
-		bool isTrigger = false;
-		//Mass of the body
-		float mass_;
 		//Reference to bullet rigidbody
 		btRigidBody* rb = nullptr;
 		//Reference to the collision shape of this rigidbody
 		btCollisionShape* rbShape = nullptr;
 		//Reference to the default motion state of this rigidbody
-		RigidBodyState* rbState = nullptr;
+		btDefaultMotionState* rbState = nullptr;
 		//Reference to the physics transform of this rigidbody
 		btTransform* btTransform_ = nullptr;
-		//Required
-		static std::string name;
+		//Info
+		K_Engine::CollisionInfo* collisionInfo = nullptr;
+		
+		//Boolean to control if the associated trigger is a trigger or not (default is false)
+		bool isTrigger = false;
+		//Mass of the body
+		float mass_;
 		//Bounciness factor
 		float restitution_;
 		//Friction factor
 		float friction_;
+		
 		//Array of constrains for rotation in x y z
 		bool rotationConstraints[3]{ false, false, false };
-
 		//Array of constrains for traslation in x y z
 		bool positionConstraints[3]{ false, false, false };
 
 		//Callbacks
 		bool colisionando = false;
+
 		void launchEnterCallbacks(void* entity);
 		void launchStayCallbacks(void* entity);
 		void launchExitCallbacks(void* entity);

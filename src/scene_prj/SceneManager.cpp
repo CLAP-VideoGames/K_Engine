@@ -2,6 +2,8 @@
 
 #include <scene_prj/Scene.h>
 
+#include <utils_prj/checkML.h>
+
 namespace K_Engine {
 	std::unique_ptr<SceneManager> SceneManager::instance = nullptr;
 

@@ -28,7 +28,7 @@ namespace K_Engine {
 	/// </summary>
 	class __declspec(dllexport) Component {
 	public:
-		~Component();
+		virtual ~Component();
 
 		/// <summary>
 		/// awake is called every time the component is activated

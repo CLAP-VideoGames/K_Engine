@@ -2,6 +2,8 @@
 
 #include <ecs_prj/Entity.h>
 
+#include <utils_prj/checkML.h>
+
 namespace K_Engine {
 	EntityManager::EntityManager() = default;
 

@@ -105,6 +105,7 @@
     <ClInclude Include="..\..\src\utils_prj\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\utils_prj\CollisionCallbacks.cpp" />
     <ClCompile Include="..\..\src\utils_prj\Math.cpp" />
     <ClCompile Include="..\..\src\utils_prj\Timer.cpp" />
     <ClCompile Include="..\..\src\utils_prj\Vector3.cpp" />

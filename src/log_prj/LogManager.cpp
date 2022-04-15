@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <utils_prj/checkML.h>
+
 namespace K_Engine {
 	std::unique_ptr<LogManager> LogManager::instance = nullptr;
 

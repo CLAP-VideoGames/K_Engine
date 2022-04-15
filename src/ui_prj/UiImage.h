@@ -1,8 +1,10 @@
 #pragma once
-#include "UiElement.h"
+#ifndef UIIMAGE_H
+#define UIIMAGE_H
+
+#include <ui_prj/UiElement.h>
 
 namespace K_Engine {
-	
 	class UiImage : public UiElement
 	{
 	public:
@@ -12,3 +14,4 @@ namespace K_Engine {
 		void changeMaterial(std::string newImageName);
 	};
 }
+#endif // UIIMAGE_H

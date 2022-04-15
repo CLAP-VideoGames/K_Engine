@@ -1,14 +1,16 @@
 #include "Camera.h"
 
-#include <render_prj/RenderManager.h>
-
-#include <input_prj/InputManager.h>
-
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 #include <OgreVector.h>
 #include <OgreViewport.h>
+
+#include <render_prj/RenderManager.h>
+
+#include <input_prj/InputManager.h>
+
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	Camera::Camera()

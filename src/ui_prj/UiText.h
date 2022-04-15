@@ -2,8 +2,9 @@
 #ifndef UITEXT_H
 #define UITEXT_H
 
-#include "UiElement.h"
 #include <string>
+
+#include <ui_prj/UiElement.h>
 
 namespace Ogre {
 	class TextAreaOverlayElement;
@@ -33,13 +34,8 @@ namespace K_Engine {
 		std::string getText() { return text; }
 
 	private:
-
-
 		std::string text;
 		Ogre::TextAreaOverlayElement* textArea;
-
 	};
 }
-
-
-#endif
+#endif // UITEXT_H

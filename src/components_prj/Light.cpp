@@ -1,12 +1,15 @@
 #include "Light.h"
 
-#include <render_prj/RenderManager.h>
-#include <ecs_prj/Entity.h>
-#include <utils_prj/Vector3.h>
-
 #include <OgreLight.h>
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
+
+#include <render_prj/RenderManager.h>
+
+#include <ecs_prj/Entity.h>
+
+#include <utils_prj/Vector3.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	//Required

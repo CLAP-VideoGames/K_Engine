@@ -22,7 +22,7 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="e">Entity to be attached to</param>
 		Transform(Entity* e);
-		~Transform();
+		virtual ~Transform();
 
 		static std::string GetId();
 

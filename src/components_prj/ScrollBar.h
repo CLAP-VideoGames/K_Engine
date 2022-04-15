@@ -27,7 +27,7 @@ namespace K_Engine {
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
 		ScrollBar(Entity* e, std::string overlayName, std::string imageName, int upperLimit, int lowerLimit);
-		~ScrollBar();
+		virtual ~ScrollBar();
 
 		//Required method for the component name
 		static std::string GetId();

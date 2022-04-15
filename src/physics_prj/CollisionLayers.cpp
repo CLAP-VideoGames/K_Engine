@@ -1,4 +1,5 @@
 #include "CollisionLayers.h"
+
 #include <string>
 #include <unordered_map>
 
@@ -9,9 +10,7 @@ namespace K_Engine {
 		lastPos_ = 1;
 	}
 
-	CollisionLayers::~CollisionLayers() {
-
-	}
+	CollisionLayers::~CollisionLayers() = default;
 
 	bool CollisionLayers::addLayer(std::string name) {
 		if (layers.find(name) != layers.end())

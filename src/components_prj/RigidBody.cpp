@@ -1,18 +1,20 @@
 #include "RigidBody.h"
 
+#include <iostream>
+
+#include <btBulletDynamicsCommon.h>
+
 #include <components_prj/Transform.h>
 
 #include <ecs_prj/Entity.h>
 
-#include <utils_prj/Vector3.h>
-
 #include <physics_prj/PhysicsManager.h>
 #include <physics_prj/DynamicsWorld.h>
 #include <physics_prj/CollisionListener.h>
-#include <btBulletDynamicsCommon.h>
 
-#include <iostream>
-#include "utils_prj/CollisionCallbacks.h"
+#include <utils_prj/Vector3.h>
+#include <utils_prj/CollisionCallbacks.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	//Required
@@ -38,7 +40,15 @@ namespace K_Engine {
 		offsetCenter_ = new Vector3(0, 0, 0); //By default no offset
 	}
 
-	RigidBody::~RigidBody() = default;
+	RigidBody::~RigidBody() {
+		delete dimensions_; delete offsetCenter_; 
+		delete collisionInfo; delete btTransform_;
+		delete rbShape; delete rbState;
+
+		dimensions_ = nullptr; offsetCenter_ = nullptr; 
+		collisionInfo = nullptr; btTransform_ = nullptr;
+		rbShape = nullptr; rbState = nullptr;
+	};
 
 	std::string RigidBody::GetId() {
 		return name;
@@ -52,6 +62,7 @@ namespace K_Engine {
 	void RigidBody::setRotConstraints(int i, bool value) {
 		rotationConstraints[i] = value;
 	}
+
 	void RigidBody::setPosConstraints(int i, bool value) {
 		positionConstraints[i] = value;
 	}
@@ -68,16 +79,18 @@ namespace K_Engine {
 		transformRf_ = entity->getComponent<Transform>();
 		world_ = K_Engine::PhysicsManager::GetInstance()->getWorld();
 
-		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), *offsetCenter_, transformRf_->getRotation());
+		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), 
+			*offsetCenter_, transformRf_->getRotation());
+
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->x, (btScalar)dimensions_->x };
-		K_Engine::CollisionInfo* colision = new K_Engine::CollisionInfo(this->entity,
-			//Collision Enter Callback
-			[=](void* other) {
+		collisionInfo = new K_Engine::CollisionInfo(this->entity,
+				//Collision Enter Callback
+				[=](void* other) {
 				this->launchEnterCallbacks(other);
 			},
-			//Collision Stay Callback
+				//Collision Stay Callback
 				[=](void* other) {
 				this->launchStayCallbacks(other);
 			},
@@ -85,7 +98,8 @@ namespace K_Engine {
 				[=](void* other) {
 				this->launchExitCallbacks(other);
 			});
-		rb = world_->addRigidBody(type_, *btTransform_, dimensions, scale_, bType_, mass_, restitution_, friction_, group_, mask_, isTrigger_, colision);
+		rb = world_->addRigidBody(type_, *btTransform_, dimensions, scale_, bType_, mass_, restitution_, friction_, group_, 
+			mask_, isTrigger_, collisionInfo);
 	}
 
 	void RigidBody::update(int frameTime) {

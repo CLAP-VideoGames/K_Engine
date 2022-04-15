@@ -29,6 +29,7 @@ namespace K_Engine {
 		/// Returns a vector copy normalized
 		/// </summary>
 		Vector3 normalized();
+
 		/// <summary>
 		/// Normalize the current vector
 		/// </summary>

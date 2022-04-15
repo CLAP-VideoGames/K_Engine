@@ -25,6 +25,7 @@
 #include <utils_prj/Timer.h>
 #include <utils_prj/Vector3.h>
 #include <utils_prj/Math.h>
+#include <utils_prj/checkML.h>
 
 #define DELTA_TIME 33 // 33 ms = 1/60 s
 
@@ -49,13 +50,13 @@ namespace K_Engine {
 		// initialisation of all sub-engines
 		success = K_Engine::RenderManager::Init(name) &&
 			K_Engine::PhysicsManager::Init(name + "Physics", { 0, -9.8, 0 }) &&
+			K_Engine::UIManager::Init(name + "UI") &&
 			K_Engine::AudioManager::Init() &&
-			K_Engine::InputManager::Init() &&
 			K_Engine::ScriptManager::Init(name + "Script") &&
-			K_Engine::ComponentManager::Init(name + "Components") &&
+			K_Engine::InputManager::Init() &&
 			K_Engine::SceneManager::Init(name + "Scene") &&
-			K_Engine::LogManager::Init() && 
-			K_Engine::UIManager::Init(name + "UI");
+			K_Engine::ComponentManager::Init(name + "Components") &&
+			K_Engine::LogManager::Init();
 
 		// if something goes wrong, we exit initialization
 		if (!success) return false;
@@ -64,11 +65,11 @@ namespace K_Engine {
 		renderMan = K_Engine::RenderManager::GetInstance();
 		physicsMan = K_Engine::PhysicsManager::GetInstance();
 		uiMan = K_Engine::UIManager::GetInstance();
-		scriptMan = K_Engine::ScriptManager::GetInstance();
 		audioMan = K_Engine::AudioManager::GetInstance();
+		scriptMan = K_Engine::ScriptManager::GetInstance();
 		inputMan = K_Engine::InputManager::GetInstance();
-		compMan = K_Engine::ComponentManager::GetInstance();
 		sceneMan = K_Engine::SceneManager::GetInstance();
+		compMan = K_Engine::ComponentManager::GetInstance();
 		logMan = K_Engine::LogManager::GetInstance();
 	}
 
@@ -147,15 +148,18 @@ namespace K_Engine {
 
 	bool Engine::shutdown()
 	{
-		bool success = K_Engine::SceneManager::Shutdown() &&
-			K_Engine::AudioManager::Shutdown() &&
+		bool success = K_Engine::LogManager::Shutdown() &&
+			K_Engine::ComponentManager::Shutdown() &&
+			K_Engine::SceneManager::Shutdown() &&
+			K_Engine::InputManager::Shutdown() &&
 			K_Engine::ScriptManager::Shutdown() &&
+			K_Engine::AudioManager::Shutdown() &&
 			K_Engine::UIManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
 
 		sceneMan = nullptr; renderMan = nullptr;
-		physicsMan = nullptr; uiMan = nullptr; 
+		physicsMan = nullptr; uiMan = nullptr;
 		audioMan = nullptr; scriptMan = nullptr;
 		inputMan = nullptr; compMan = nullptr;
 
@@ -218,7 +222,7 @@ namespace K_Engine {
 
 	void Engine::debug()
 	{
-		
+
 		//uiMan->createSlider(std::pair<float, float>(0.2f, 0.2f), std::pair<float, float>(0.1f, 0.1f));
 		//uiMan->createScrollbar(std::pair<float, float>(0.7f, 0.7f), std::pair<float, float>(0.1f, 0.1f));
 		//uiMan->addText("Hola", std::pair<float, float>(0, 0));

@@ -21,7 +21,7 @@ namespace K_Engine {
 	{
 	public:
 		MeshRenderer(Entity* e);
-		~MeshRenderer();
+		virtual ~MeshRenderer();
 
 		//Required method for the component name
 		static std::string GetId();

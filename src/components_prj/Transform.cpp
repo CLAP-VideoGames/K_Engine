@@ -1,8 +1,12 @@
 #include "Transform.h"
-#include "RigidBody.h"
-#include "MeshRenderer.h"
+
+#include <components_prj/RigidBody.h>
+#include <components_prj/MeshRenderer.h>
+
 #include <ecs_prj/Entity.h>
+
 #include <utils_prj/Vector3.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	std::string Transform::name = "Transform";

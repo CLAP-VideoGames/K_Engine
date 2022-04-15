@@ -27,7 +27,7 @@ namespace K_Engine {
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="text">Text to display</param>
 		Text(Entity* e, std::string overlayName, std::string text);
-		~Text();
+		virtual ~Text();
 
 		//Required method for the component name
 		static std::string GetId();

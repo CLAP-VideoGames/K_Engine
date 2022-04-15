@@ -5,7 +5,8 @@
 
 #include <SDL.h> 
 #include <SDL_mixer.h>
-#include <fmod.h>
+
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	std::unique_ptr<AudioManager> AudioManager::instance = nullptr;

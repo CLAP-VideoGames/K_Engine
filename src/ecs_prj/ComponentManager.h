@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <unordered_set>
 
+
 namespace K_Engine {
 	//Podemos usar esta clase para administrar que el usuario no pueda añadir componentes
 	//Sin las cosas que queremos que añada
@@ -35,6 +36,7 @@ namespace K_Engine {
 		//Declare here your components when you end programming them
 		//Use Transform as an example
 		static bool Init(std::string n);
+		static bool Shutdown();
 
 		//This method allows the user to add its own components to the engine
 		//This method makes sure that the GetId() method is declared

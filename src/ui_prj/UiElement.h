@@ -10,11 +10,9 @@ namespace Ogre {
 	class OverlayManager;
 }
 
-
-
 namespace K_Engine {
 
-	enum Metrics{Pixels, WindowRelative};
+	enum Metrics{ Pixels, WindowRelative };
 	/// <summary>
 	/// Parent class for every UiElement like button or Text,
 	/// Default metrics is WindowRelative
@@ -83,4 +81,4 @@ namespace K_Engine {
 
 	};
 }
-#endif
+#endif // IUELEMENT_H

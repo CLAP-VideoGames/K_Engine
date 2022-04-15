@@ -1,11 +1,15 @@
 #include "UiSlider.h"
-//#include "log_prj/LogManager.h"
+
+#include <iostream>
+
 #include <OgreOverlayContainer.h>
 #include <OgreOverlayManager.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
+
 #include <input_prj/InputManager.h>
-#include <iostream>
+
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 

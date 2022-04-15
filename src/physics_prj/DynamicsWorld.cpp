@@ -1,13 +1,15 @@
 #include "DynamicsWorld.h"
 
+#include <iostream>
+
 #include <btBulletDynamicsCommon.h>
 
 #include <physics_prj/CollisionListener.h>
 #include <physics_prj/PhysicsManager.h>
-#include <utils_prj/Vector3.h>
 
-#include <iostream>
-#include "utils_prj/CollisionCallbacks.h"
+#include <utils_prj/CollisionCallbacks.h>
+#include <utils_prj/Vector3.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 
@@ -38,16 +40,12 @@ namespace K_Engine {
 			CollisionInfo* c0 = (CollisionInfo*)userData0;
 			CollisionInfo* c1 = (CollisionInfo*)userData1;
 
-			if (c0->collisionEnter != nullptr) {
+			if (c0->collisionEnter != nullptr) 
 				c0->collisionEnter(c1->entity_);
-			}
 
-			if (c1->collisionEnter != nullptr) {
+			if (c1->collisionEnter != nullptr) 
 				c1->collisionEnter(c0->entity_);
-			}
 		}
-
-
 	}
 
 	/// <summary>
@@ -121,16 +119,21 @@ namespace K_Engine {
 		gContactAddedCallback = CallbackStay;
 		gContactEndedCallback = CallbackExit;
 
+#undef new // odio bullet
 		///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
 		mSolver.reset(new btSequentialImpulseConstraintSolver());
+#define new DBG_NEW
+
 		///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
 		mBroadphase.reset(new btDbvtBroadphase());
 
-		btOverlapFilterCallback* filterCallback = new CollisionCallBack();
+		filterCallback = new CollisionCallBack();
 
+#undef new // odio bullet
 		btWorld_ = new btDiscreteDynamicsWorld(mDispatcher.get(), mBroadphase.get(), mSolver.get(), mCollisionConfig.get());
 		btWorld_->setGravity(gravity);
 		btWorld_->getPairCache()->setOverlapFilterCallback(filterCallback);
+#define new DBG_NEW
 
 		collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
 
@@ -156,9 +159,11 @@ namespace K_Engine {
 			(*collisionShapes)[j] = 0;
 			delete shape;
 		}
-
 		collisionShapes->clear();
 		delete collisionShapes; collisionShapes = nullptr;
+
+		// ???
+		delete filterCallback;
 
 		delete btWorld_;
 		//The remaining objects are deleted by themselves as they are unique pointers
@@ -169,9 +174,13 @@ namespace K_Engine {
 		cs->setLocalScaling(scale);
 	}
 
-	btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, btVector3 const& size, BodyType bT, float mass, float restitution, float friction,
-		int group, int mask, bool isTrigger, CollisionInfo* colision, CollisionListener* colList) {
+	btRigidBody* DynamicsWorld::addRigidBody(ColliderType ct, const btTransform& transform, btVector3 const& dimensions, 
+		btVector3 const& size, BodyType bT, float mass, float restitution, float friction,
+		int group, int mask, bool isTrigger, CollisionInfo* colision) {
+#undef new // odio bullet
 		btDefaultMotionState* state = new btDefaultMotionState(transform);
+#define new DBG_NEW
+
 		btCollisionShape* cs = NULL;
 		switch (ct) {
 		case ColliderType::CT_BOX:
@@ -199,9 +208,11 @@ namespace K_Engine {
 		bodyCI.m_restitution = restitution;
 		bodyCI.m_friction = friction;
 
+#undef new // odio bullet
 		//Creation of the body
 		auto rb = new btRigidBody(bodyCI);
 		btWorld_->addRigidBody(rb, group, mask);
+#define new DBG_NEW
 
 		//Adding personal data
 		if (colision->collisionEnter != nullptr)
@@ -216,16 +227,20 @@ namespace K_Engine {
 	}
 
 	btBoxShape* DynamicsWorld::createBoxCollider(btVector3 const& dimensions, btVector3 const& scale) {
+#undef new // odio bullet
 		//Size divided by 2 since it just need the corner points
 		auto shape = new btBoxShape(dimensions / 2.0f);
 		shape->setLocalScaling(scale);
 		return shape;
+#define new DBG_NEW
 	}
 
 	btSphereShape* DynamicsWorld::createSphereCollider(btVector3 const& radius, btVector3 const& scale) {
+#undef new // odio bullet
 		//Size divided by 2 since it just need the corner points
 		auto shape = new btSphereShape(radius.x() / 2);
 		shape->setLocalScaling(scale);
-		return shape;;
+		return shape;
+#define new DBG_NEW
 	}
 }

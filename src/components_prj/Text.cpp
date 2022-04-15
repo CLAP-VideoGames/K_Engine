@@ -8,6 +8,7 @@
 #include <ui_prj/UiText.h>
 
 #include <utils_prj/Vector3.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	//Required

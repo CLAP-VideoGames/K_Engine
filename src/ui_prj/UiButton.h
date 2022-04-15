@@ -1,8 +1,9 @@
 #pragma once
 #ifndef UIBUTTON_H
 #define UIBUTTON_H
-#include "UiElement.h"
-#include "Rectangle.h"
+
+#include <ui_prj/Rectangle.h>
+#include <ui_prj/UiElement.h>
 
 namespace K_Engine {
 	class InputManager;
@@ -32,6 +33,4 @@ namespace K_Engine {
 		std::string pressedImageName_;
 	};
 }
-
-
-#endif
+#endif // UIBUTTON_H

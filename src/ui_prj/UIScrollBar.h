@@ -1,8 +1,9 @@
 #pragma once
 #ifndef UISCROLLBAR_H
 #define UISCROLLBAR_H
-#include "UiElement.h"
-#include "Rectangle.h"
+
+#include <ui_prj/Rectangle.h>
+#include <ui_prj/UiElement.h>
 
 namespace K_Engine {
 	class InputManager;
@@ -11,7 +12,6 @@ namespace K_Engine {
 	class UiScrollBar : public UiElement
 	{
 	public:
-
 		UiScrollBar(std::string overlayName, std::string imageName, int upper, int lower);
 		~UiScrollBar();
 
@@ -32,7 +32,6 @@ namespace K_Engine {
 		void updateSize(float scale);
 
 	private:
-
 		InputManager* inputMan;
 
 		Rectangle inputArea;
@@ -45,6 +44,4 @@ namespace K_Engine {
 		bool positionNeedsSync = false;
 	};
 }
-
-
-#endif
+#endif // UISCROLLBAR_H

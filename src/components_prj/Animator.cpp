@@ -1,14 +1,17 @@
 #include "Animator.h"
-#include <ecs_prj/Entity.h>
 
 #include <OgreCamera.h>
-#include "Transform.h"
-#include "MeshRenderer.h"
 #include <OgreNode.h>
 #include <OgreAnimationState.h>
 #include <OgreEntity.h>
-#include <utils_prj/Timer.h>
 
+#include <ecs_prj/Entity.h>
+
+#include <components_prj/Transform.h>
+#include <components_prj/MeshRenderer.h>
+
+#include <utils_prj/Timer.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	//Required

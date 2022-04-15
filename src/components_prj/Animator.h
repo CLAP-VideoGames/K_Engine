@@ -2,8 +2,9 @@
 #ifndef ANIMATOR_H
 #define ANIMATOR_H
 
-#include <ecs_prj/Component.h>
 #include <map>
+
+#include <ecs_prj/Component.h>
 
 namespace Ogre {
 	class AnimationState;
@@ -37,7 +38,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached to</param>
 		Animator(Entity* e);
 
-		~Animator();
+		virtual ~Animator();
 
 		//Required method for the component name
 		static std::string GetId();
@@ -70,7 +71,6 @@ namespace K_Engine {
 		Ogre::Entity* ogreEntity_;
 		Transform* tr_ = nullptr;
 		MeshRenderer* mesh_ = nullptr;
-
 
 		//Mapa de Ogre con las animaciones de la malla
 		Ogre::AnimationStateSet* animStatesMap_;

@@ -31,6 +31,7 @@
 #include <render_prj/Camera.h>
 
 #include <utils_prj/Vector3.h>
+#include <utils_prj/checkML.h>
 
 using namespace Ogre;
 using namespace std;
@@ -211,6 +212,7 @@ namespace K_Engine {
 	{
 		mRoot->saveConfig();
 
+		delete mCamera; mCamera = nullptr;
 		delete mFSLayer; mFSLayer = nullptr;
 		delete mRoot; mRoot = nullptr;
 	}

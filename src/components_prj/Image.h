@@ -27,7 +27,7 @@ namespace K_Engine {
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
 		Image(Entity* e, std::string overlayName, std::string imageName);
-		~Image();
+		virtual ~Image();
 
 		//Required method for the component name
 		static std::string GetId();

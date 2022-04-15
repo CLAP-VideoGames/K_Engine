@@ -22,38 +22,32 @@
 #include <components_prj/Text.h>
 
 #include <utils_prj/Vector3.h>
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
-	Scene::Scene()
-	{
+	Scene::Scene() {
 		entMan = new EntityManager();
 	}
 
-	Scene::~Scene()
-	{
+	Scene::~Scene() {
 		delete entMan;
 	}
 
 	void Scene::init() {};
 
-	void Scene::update(int frameTime) 
-	{
+	void Scene::update(int frameTime) {
 		entMan->update(frameTime);
 	};
 
-	void Scene::fixedUpdate(int deltaTime)
-	{
+	void Scene::fixedUpdate(int deltaTime) {
 		entMan->fixedUpdate(deltaTime);
 	}
 
-	void Scene::debug()
-	{
+	void Scene::debug() {
 		//Test Lua
 		scriptMan = K_Engine::ScriptManager::GetInstance();
 
 		scriptMan->loadScene("map", entMan);
-
-		entMan = new K_Engine::EntityManager(); // Entity Manager
 
 		// example scene (pending of development)
 		std::string playerLayer = "Player";

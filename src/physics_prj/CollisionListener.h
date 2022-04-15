@@ -3,6 +3,7 @@
 #define COLLISIONMANAGER_H_
 
 class btManifoldPoint;
+
 /// <summary>
 /// It doesnt work
 /// </summary>
