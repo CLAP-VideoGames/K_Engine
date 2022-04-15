@@ -175,8 +175,8 @@ namespace K_Engine {
 			K_Engine::Entity* button = entMan->addEntity();
 			K_Engine::Transform* t = button->addComponent<K_Engine::Transform>();
 			K_Engine::Button* b = button->addComponent<K_Engine::Button>("F", "TestButton", "TestButton", "TestButton");
-			t->setPosition(950, 5, 500);
-			t->setScale(100, 100, 30);
+			t->setPosition(900, 5, 500);
+			t->setScale(0.4, 1, 1);
 		}
 
 		//UI Image

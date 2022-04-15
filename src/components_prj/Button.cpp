@@ -39,15 +39,15 @@ namespace K_Engine {
 	{
 		transformRf_ = entity->getComponent<Transform>();
 		button_ = UIManager::GetInstance()->addButton(overlayName_, imageName_, hoverImageName_, pressedImageName_);
+		//Scale syincing
+		button_->setSize(button_->getSize().first * transformRf_->getScale().x, button_->getSize().second * transformRf_->getScale().y);
 	}
+
 	void Button::update(int frameTime)
 	{
 		//Position syncing
 		Vector3 pos = transformRf_->getPosition();
 		button_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
-
-		//Scale syincing
-		button_->setSize(button_->getSize().first * transformRf_->getScale().x, button_->getSize().second * transformRf_->getScale().y);
 
 		//ZOrder syncing
 		button_->setRenderOrder(transformRf_->getPosition().z);
