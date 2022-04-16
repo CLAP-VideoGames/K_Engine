@@ -109,6 +109,7 @@ namespace K_Engine {
 
 	void Transform::setScale(float x, float y, float z) {
 		Vector3 toSet = { x, y, z };
+		(*scale_) = toSet;
 
 		std::vector<Entity*> children = entity->getChildren();
 
@@ -141,13 +142,11 @@ namespace K_Engine {
 		if (mR) {
 			mR->syncScale();
 		}
-
-		(*scale_) = toSet;
 	}
 
 	void Transform::setScale(float n) {
 		Vector3 toSet = { n, n, n };
-
+		(*scale_) = toSet;
 		std::vector<Entity*> children = entity->getChildren();
 
 		for (auto c : children) {
@@ -179,8 +178,6 @@ namespace K_Engine {
 		if (mR) {
 			mR->syncScale();
 		}
-
-		(*scale_) = toSet;
 	}
 
 	Vector3 Transform::getPosition() const {
@@ -199,12 +196,38 @@ namespace K_Engine {
 	//	return *dimensions_;
 	//}
 
-	void Transform::debug()
-	{
-		setScale(0.2, 0.2, 0.2);
+	void Transform::debug(){
+		test = true;
+		time = timer;
+		times = 0;
+		//setScale(0.2, 0.2, 0.2);
 	}
 
 	void Transform::update(int frameTime) {
+
+		if (test) {
+			if (time <= 0) {
+				time = timer;
+				
+				if (times < limitTimes)
+					times++;
+				else {
+					times = 0;
+					factor *= -1;
+				}
+				float value = 0.01;
+				setScale(scale_->x + value * factor, scale_->y + value * factor, scale_->z + value * factor);
+			}
+			else {
+				time -= frameTime;
+			}
+
+
+
+
+
+		}
+
 		//printf("world girar object = %f,%f,%f\n", float(rotation_->x), float(rotation_->y), float(rotation_->z));
 		//printf("world pos object  = %f,%f,%f\n",  float(position_->x), float(position_->y), float(position_->z));
 		//printf("________\n");

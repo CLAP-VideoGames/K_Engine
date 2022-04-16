@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include <btBulletDynamicsCommon.h>
-
 #include <components_prj/Transform.h>
 
 #include <ecs_prj/Entity.h>
@@ -43,11 +42,11 @@ namespace K_Engine {
 	RigidBody::~RigidBody() {
 		delete dimensions_; delete offsetCenter_; 
 		delete collisionInfo; delete btTransform_;
-		delete rbShape; delete rbState;
+		delete rbState;
 
 		dimensions_ = nullptr; offsetCenter_ = nullptr; 
 		collisionInfo = nullptr; btTransform_ = nullptr;
-		rbShape = nullptr; rbState = nullptr;
+		rbState = nullptr;
 	};
 
 	std::string RigidBody::GetId() {
@@ -121,7 +120,10 @@ namespace K_Engine {
 	void RigidBody::syncScale() {
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-		world_->scaleCollisionShape(rb, scale_);
+		//world_->scaleCollisionShape(rb, scale_);
+		btCollisionShape* rbShape = rb->getCollisionShape();
+		rbShape->setLocalScaling(scale_);
+		world_->getBtWorld()->updateSingleAabb(rb);
 	}
 
 	void RigidBody::setDimensions(Vector3 const& toAdd) {

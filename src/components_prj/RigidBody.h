@@ -138,8 +138,6 @@ namespace K_Engine {
 		K_Engine::DynamicsWorld* world_ = nullptr;
 		//Reference to bullet rigidbody
 		btRigidBody* rb = nullptr;
-		//Reference to the collision shape of this rigidbody
-		btCollisionShape* rbShape = nullptr;
 		//Reference to the default motion state of this rigidbody
 		btDefaultMotionState* rbState = nullptr;
 		//Reference to the physics transform of this rigidbody

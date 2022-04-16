@@ -181,7 +181,7 @@ namespace K_Engine {
 		btDefaultMotionState* state = new btDefaultMotionState(transform);
 #define new DBG_NEW
 
-		btCollisionShape* cs = NULL;
+		btCollisionShape* cs = nullptr;
 		switch (ct) {
 		case ColliderType::CT_BOX:
 			cs = createBoxCollider(dimensions, size);

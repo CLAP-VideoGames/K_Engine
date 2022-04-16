@@ -60,6 +60,7 @@ namespace K_Engine {
 
 	void PhysicsManager::update() {
 		btWorld->stepSimulation(1.f / 60.f, 10);
+
 		//print positions of all objects
 		/*for (int j = btWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
 			btCollisionObject* obj = btWorld->getCollisionObjectArray()[j];

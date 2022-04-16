@@ -61,6 +61,7 @@ namespace K_Engine {
 		{
 			K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setScale(3.0f);
 			t->setPosition(0.5f, 8, 0);
+			t->debug();
 			ColliderType boxType = ColliderType::CT_SPHERE;
 			BodyType bodyType = BodyType::BT_DYNAMIC;
 			float mass = 1.0f;

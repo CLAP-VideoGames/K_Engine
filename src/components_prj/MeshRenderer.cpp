@@ -92,7 +92,8 @@ namespace K_Engine {
 		transformRf = entity->getComponent<Transform>();
 		Vector3 scaleT = transformRf->getScale();
 
-		mNode->scale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
+		//mNode->scale();
+		mNode->setScale(Ogre::Vector3(scaleT[0], scaleT[1], scaleT[2]));
 	}
 
 	void MeshRenderer::syncPosition() {

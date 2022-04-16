@@ -90,6 +90,14 @@ namespace K_Engine {
 		Vector3* rotation_;
 		Vector3* scale_;
 		Vector3* dimensions_;
+
+		//for testing
+		float timer = 10.0;
+		float time;
+		bool test = false; 
+		int times = 0;
+		int limitTimes = 30;
+		int factor = 1;
 	};
 }
 #endif // TRANSFORM_H
