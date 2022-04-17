@@ -55,15 +55,13 @@ namespace K_Engine {
 		/// <summary>
 		/// Rotation restrictions
 		/// </summary>
-		/// <param name="i">Index of each axis. x, y, z respectively</param>
-		/// <param name="value">wheters is blocked or not</param>
-		void setRotConstraints(int i, bool value);
+		/// <param name="newRotConstraints">Rotation constraints to set</param>
+		void setRotConstraints(Vector3 newRotConstraints);
 		/// <summary>
 		/// Position restrictions
 		/// </summary>
-		/// <param name="i">Index of each axis. x, y, z respectively</param>
-		/// <param name="value">wheters is blocked or not</param>
-		void setPosConstraints(int i, bool value);
+		/// <param name="newPosConstraints">Position constraints to set</param>
+		void setPosConstraints(Vector3 newPosConstraints);
 
 		/// <summary>
 		/// Bounciness factor
@@ -155,9 +153,9 @@ namespace K_Engine {
 		float friction_;
 		
 		//Array of constrains for rotation in x y z
-		bool rotationConstraints[3]{ false, false, false };
+		bool rotationConstraints[3]{ true, true, true };
 		//Array of constrains for traslation in x y z
-		bool positionConstraints[3]{ false, false, false };
+		bool positionConstraints[3]{ true, true, true };
 
 		//Callbacks
 		bool colisionando = false;

@@ -58,12 +58,21 @@ namespace K_Engine {
 	}
 
 	//In both of this methods 0=x 1=y 2=z
-	void RigidBody::setRotConstraints(int i, bool value) {
-		rotationConstraints[i] = value;
+	void RigidBody::setRotConstraints(Vector3 newValue) {
+		rotationConstraints[0] = newValue.x;
+		rotationConstraints[1] = newValue.y;
+		rotationConstraints[2] = newValue.z;
+
+		if (rb != nullptr)
+			rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
 	}
 
-	void RigidBody::setPosConstraints(int i, bool value) {
-		positionConstraints[i] = value;
+	void RigidBody::setPosConstraints(Vector3 newValue) {
+		positionConstraints[0] = newValue.x;
+		positionConstraints[1] = newValue.y;
+		positionConstraints[2] = newValue.z;
+		if (rb != nullptr)
+			rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
 	}
 
 	void RigidBody::setRestitution(float value) {
@@ -97,8 +106,13 @@ namespace K_Engine {
 				[=](void* other) {
 				this->launchExitCallbacks(other);
 			});
+
+
 		rb = world_->addRigidBody(type_, *btTransform_, dimensions, scale_, bType_, mass_, restitution_, friction_, group_, 
 			mask_, isTrigger_, collisionInfo);
+
+		rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
+		rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
 	}
 
 	void RigidBody::update(int frameTime) {
