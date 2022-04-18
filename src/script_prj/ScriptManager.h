@@ -18,6 +18,10 @@ typedef struct lua_State lua_State;
 
 namespace K_Engine {
     class EntityManager;
+    class Entity;
+    class ComponentManager;
+    class Component;
+    class PhysicsManager;
 
     class  __declspec(dllexport) ScriptManager {
     public:
@@ -55,8 +59,13 @@ namespace K_Engine {
         void createPlayerbyAtrib(std::string name, float x, float y);
         //Lectura de una tabla llamando desde Lua
         void createPlayerbyObject(luabridge::LuaRef object);
+
+
         //Lectura de una tabla script YA CARGADO sin llamar desde Lua
-        void loadScene(std::string scene, EntityManager* entMan);
+        void loadLuaMap(std::string scene, EntityManager* entMan);
+
+        //Añadir componentes por tablas
+        void addComponentbyTable(Entity* e, const std::string& component, luabridge::LuaRef propert);
 
     private:
         static std::unique_ptr<ScriptManager> instance;

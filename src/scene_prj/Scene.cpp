@@ -47,7 +47,7 @@ namespace K_Engine {
 		//Test Lua
 		scriptMan = K_Engine::ScriptManager::GetInstance();
 
-		scriptMan->loadScene("map", entMan);
+		scriptMan->loadLuaMap("map", entMan);
 
 		// example scene (pending of development)
 		std::string playerLayer = "Player";

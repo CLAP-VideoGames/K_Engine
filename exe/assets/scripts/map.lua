@@ -1,7 +1,7 @@
 scene = {
     cubo = {
         Transform = {
-            position = {  -3.500000 ,1.500000 ,-0.000000 },
+            position = {  -3.500000 ,10.500000 ,-0.000000 },
             rotation = {  0.923880 ,-0.000000 ,0.000000 ,-0.382683 },
             scale = {  1.000000 ,1.000000 ,1.000000 },
         },
@@ -9,8 +9,8 @@ scene = {
             Character
         },
         RigidBody = {
-            Type = Dynamic,
-            Collider = Box,
+            Type = "Dynamic",
+            Collider = "Box",
             Mass = 1.0,
             isTrigger = false
         },
@@ -28,8 +28,8 @@ scene = {
             Map
         },
         RigidBody = {
-            Type = Static,
-             Collider = Box,
+            Type = "Static",
+             Collider = "Box",
              Mass = 1.0,
              isTrigger = false
         },
@@ -47,8 +47,8 @@ scene = {
             Map
         },
         RigidBody = {
-            Type = Static,
-             Collider = Box,
+            Type = "Static",
+             Collider = "Box",
              Mass = 1.0,
              isTrigger = false
         },

@@ -12,6 +12,16 @@ extern "C" {
 #include <lauxlib.h>
 }
 #include <LuaBridge.h>
+//Otros proyectos
+#include <ecs_prj/EntityManager.h>
+#include <ecs_prj/Entity.h>
+#include <ecs_prj/ComponentManager.h>
+#include <physics_prj/PhysicsManager.h>
+#include <components_prj/Transform.h>
+#include <components_prj/RigidBody.h>
+#include <components_prj/MeshRenderer.h>
+#include <components_prj/Animator.h>
+#include <components_prj/AudioSource.h>
 
 #include <utils_prj/checkML.h>
 
@@ -96,14 +106,21 @@ namespace K_Engine {
 	}
 
 	void ScriptManager::registerClassesandFunctions(lua_State* L)
-{
-    //LUA
-    getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
-		.addStaticFunction("getInstance", &ScriptManager::GetInstance)
-		.addFunction("createPlayerbyAtrib", &ScriptManager::createPlayerbyAtrib)
-		.addFunction("createPlayerbyObject", &ScriptManager::createPlayerbyObject)
-        .endClass();
-}
+	{
+		//ECS
+		getGlobalNamespace(luaState).beginClass<EntityManager>("EntityManager")
+			.addFunction("addEntity", &EntityManager::addEntity)
+			.endClass();
+		/*getGlobalNamespace(luaState).beginClass<Entity>("Entity")
+			.addFunction("addComponent", &Entity::addComponent<T>)
+			.endClass();*/
+		//LUA
+		getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
+			.addStaticFunction("getInstance", &ScriptManager::GetInstance)
+			.addFunction("createPlayerbyAtrib", &ScriptManager::createPlayerbyAtrib)
+			.addFunction("createPlayerbyObject", &ScriptManager::createPlayerbyObject)
+			.endClass();
+	}
 
 	bool ScriptManager::reloadLuaScript(const std::string& luafile)
 	{
@@ -132,7 +149,7 @@ namespace K_Engine {
 		}
 	}
 
-	void ScriptManager::loadScene(std::string sceneFile, EntityManager* entMan){
+	void ScriptManager::loadLuaMap(std::string sceneFile, EntityManager* entMan){
 		if (!reloadLuaScript(sceneFile))
 			throw std::string("the scene" + sceneFile + "is not valid\n.");
 
@@ -148,34 +165,56 @@ namespace K_Engine {
 		luabridge::LuaRef scene = getTable("scene");
 		
 		for (size_t i = 0; i < numEntities; i++){
+			Entity* e = entMan->addEntity();
 			luabridge::LuaRef entity = getMetatable(scene, entities[i]);
 			for (size_t j = 0; j < dataComponents.size(); j++){
 				luabridge::LuaRef property = getMetatable(entity, dataComponents[j]);
-
+				string s = dataComponents[j];
 				if (!property.isNil()) {
-
-					int hola = 10;
-					/*CraeateEntity with components;
-					datos1
-					datos2
-					datos3
-					...
-					addComponent(dataComponents[j], ts ...);
-					addComponent(dataComponents[j], datos1, datos2, datos3, ....);
-					*/
+					addComponentbyTable(e, dataComponents[j], property);
 				}
 			}
 			//iterate over extraMembers which are not components
 
 		}
-		
-		
-		/*string name = getParameter<string>(table, "name");
-		float x = getParameter<float>(getMetatable(table, "position"), "x");
-		float y = getParameter<float>(getMetatable(table, "position"), "y");
-		cout << "Player: " << name <<
-			"\nIn Position: " << x << ", "
-			<< y << endl;*/
+	}
+
+	void ScriptManager::addComponentbyTable(Entity* e, const std:: string& component, luabridge::LuaRef propert)
+	{
+		if (component == "Transform") {
+			K_Engine::Transform* t = e->addComponent<K_Engine::Transform>();
+			t->setPosition(getMetatable(propert, "position")[1], getMetatable(propert, "position")[2], getMetatable(propert, "position")[3]);
+			t->setRotation(getMetatable(propert, "rotation")[1], getMetatable(propert, "rotation")[2], getMetatable(propert, "rotation")[3]);
+			t->setScale(getMetatable(propert, "scale")[1], getMetatable(propert, "scale")[2], getMetatable(propert, "scale")[3]);
+		}
+		else if (component == "MeshRenderer") {
+			K_Engine::MeshRenderer* m = e->addComponent<K_Engine::MeshRenderer>();
+			m->setMesh(getParameter<string>(propert, "MeshFile"));
+			m->setMaterial("K_Engine/PrototypeBlue");
+		}
+		else if (component == "RigidBody") {
+			string s = getParameter<string>(propert, "Type");
+			BodyType b;
+			if (s == "Static")
+				b = BodyType::BT_STATIC;
+			else if (s == "Dynamic")
+				b = BodyType::BT_DYNAMIC;
+
+			s = getParameter<string>(propert, "Collider");
+			ColliderType c;
+			if (s == "Box")
+				c = ColliderType::CT_BOX;
+			else if (s == "Hull")
+				c = ColliderType::CT_HULL;
+			else if (s == "Sphere")
+				c = ColliderType::CT_SPHERE;
+			else if (s == "TriMesh")
+				c = ColliderType::CT_TRIMESH;
+
+			K_Engine::RigidBody* rb = e->addComponent<K_Engine::RigidBody>(c, b, getParameter<float>(propert, "Mass"),
+				 K_Engine::PhysicsManager::GetInstance()->getLayerID("Player"), K_Engine::PhysicsManager::GetInstance()->getLayerID("Platform")); //Provisional
+			rb->setTrigger(getParameter<bool>(propert, "isTrigger"));
+		}
 	}
 
 	luabridge::LuaRef ScriptManager::getTable(const std::string& c_name)
