@@ -18,11 +18,11 @@ namespace K_Engine {
 	/// Default metrics is WindowRelative
 	/// </summary>
 	
-	class UiElement
+	class UIElement
 	{
 	public:
-		UiElement(Ogre::OverlayManager* man);
-		virtual ~UiElement();
+		UIElement(Ogre::OverlayManager* man);
+		virtual ~UIElement();
 
 		/// <summary>
 		/// Shows the overlay

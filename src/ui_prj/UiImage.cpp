@@ -1,4 +1,4 @@
-#include "UiImage.h"
+#include "UIImage.h"
 
 #include <OgreOverlayContainer.h>
 #include <OgreOverlayManager.h>
@@ -9,7 +9,7 @@
 namespace K_Engine {
     static int numberOfImages = 0;
 
-    UiImage::UiImage(std::string overlayName, std::string imageName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    UIImage::UIImage(std::string overlayName, std::string imageName) : UIElement(Ogre::OverlayManager::getSingletonPtr())
     {
         std::string elemtnNumber = std::to_string(numberOfImages);
 
@@ -35,10 +35,10 @@ namespace K_Engine {
         size = std::pair<int, int>(500, 150);
     }
 
-    UiImage::~UiImage() = default;
+    UIImage::~UIImage() = default;
 
     // Changes the material of the image, to a new one
-    void UiImage::changeMaterial(std::string newImageName)
+    void UIImage::changeMaterial(std::string newImageName)
     {
         element_->setMaterialName(newImageName);
     }

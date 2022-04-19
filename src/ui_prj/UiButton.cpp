@@ -1,4 +1,4 @@
-#include "UiButton.h"
+#include "UIButton.h"
 
 #include <iostream>
 
@@ -15,7 +15,7 @@ namespace K_Engine {
 
 	static int numberButtons = 0;
 
-	UiButton::UiButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+	UIButton::UIButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : UIElement(Ogre::OverlayManager::getSingletonPtr())
 	{
 		//Initialization of everything that ogre needs to show something
 		//Default settings
@@ -53,9 +53,9 @@ namespace K_Engine {
 		pressedImageName_ = pressedImageName;
 	}
 
-	UiButton::~UiButton() = default;
+	UIButton::~UIButton() = default;
 
-	void UiButton::update() {
+	void UIButton::update() {
 
 		inputArea.h = element_->getHeight();
 		inputArea.w = element_->getWidth();

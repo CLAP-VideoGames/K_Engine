@@ -6,7 +6,7 @@
 
 namespace K_Engine {
 	class UIManager;
-	class UiImage;
+	class UIImage;
 	class Transform;
 	/// <summary>
 	/// This class provides an entity with a UiImage component
@@ -50,7 +50,7 @@ namespace K_Engine {
 		Transform* transformRf_ = nullptr;
 
 		//Image created in UIManager
-		UiImage* image_;
+		UIImage* image_;
 
 		//Basic attributes needed for the image
 		std::string overlayName_;

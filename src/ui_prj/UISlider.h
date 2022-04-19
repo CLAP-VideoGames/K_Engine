@@ -8,11 +8,11 @@
 namespace K_Engine {
 	class InputManager;
 
-	class UiSlider : public UiElement
+	class UISlider : public UIElement
 	{
 	public:
-		UiSlider(std::string overlayName);
-		virtual ~UiSlider();
+		UISlider(std::string overlayName);
+		virtual ~UISlider();
 
 		void setProgress(float prog);
 		void setMaxProgress(float maximum);

@@ -1,4 +1,4 @@
-#include "UiScrollBar.h"
+#include "UIScrollBar.h"
 
 #include <iostream>
 
@@ -14,7 +14,7 @@
 
 namespace K_Engine {
 
-    UiScrollBar::UiScrollBar(std::string overlayName, std::string imageName, int upper, int lower) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    UIScrollBar::UIScrollBar(std::string overlayName, std::string imageName, int upper, int lower) : UIElement(Ogre::OverlayManager::getSingletonPtr())
     {
         //Initialization of everything that ogre needs to show something
         //Default settings
@@ -55,25 +55,25 @@ namespace K_Engine {
 
     }
 
-    UiScrollBar::~UiScrollBar() = default;
+    UIScrollBar::~UIScrollBar() = default;
 
     //Returns the percentage of the scrollbar that is left above the scrollbar itself
     //this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
-    double UiScrollBar::getRelativePos() {
+    double UIScrollBar::getRelativePos() {
         return (((double)distance - (double)position.second) / (double)distance) * 100;
     }
 
-    bool UiScrollBar::getNeedsSync()
+    bool UIScrollBar::getNeedsSync()
     {
         return positionNeedsSync;
     }
 
-    void UiScrollBar::setNeedsSync(bool newState)
+    void UIScrollBar::setNeedsSync(bool newState)
     {
         positionNeedsSync = newState;
     }
 
-    void UiScrollBar::updatePosition(Vector3 newPosition)
+    void UIScrollBar::updatePosition(Vector3 newPosition)
     {
         float previousTopDistance;
         previousTopDistance = element_->getTop() - upperLimit;
@@ -83,7 +83,7 @@ namespace K_Engine {
         element_->setTop(previousTopDistance + upperLimit);
     }
 
-    void UiScrollBar::updateSize(float scale)
+    void UIScrollBar::updateSize(float scale)
     {
         element_->setTop((element_->getTop() - upperLimit) / (distance / initialDistance) * scale + upperLimit);
         element_->setHeight(initialDistance * scale / 10);
@@ -93,7 +93,7 @@ namespace K_Engine {
     }
 
     //Sets the position according to mouse input and pos
-    void UiScrollBar::update() {
+    void UIScrollBar::update() {
         //Setup the input area rectangle
         inputArea.h = element_->getHeight();
         inputArea.w = element_->getWidth();

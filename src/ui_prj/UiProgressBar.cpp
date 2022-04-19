@@ -1,4 +1,4 @@
-#include "UiProgressBar.h"
+#include "UIProgressBar.h"
 
 #include <OgreOverlayContainer.h>
 #include <OgreOverlayManager.h>
@@ -10,7 +10,7 @@
 namespace K_Engine {
     static int numberOfBars = 0;
 
-    UiProgressBar::UiProgressBar(std::string overlayName, std::string imageName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    UIProgressBar::UIProgressBar(std::string overlayName, std::string imageName) : UIElement(Ogre::OverlayManager::getSingletonPtr())
     {
         std::string elemtnNumber = std::to_string(numberOfBars);
 
@@ -37,9 +37,9 @@ namespace K_Engine {
         size = std::pair<int, int>(500, 150);
     }
 
-    UiProgressBar::~UiProgressBar() = default;
+    UIProgressBar::~UIProgressBar() = default;
 
-    void UiProgressBar::setProgress(float prog)
+    void UIProgressBar::setProgress(float prog)
     {
         if (prog <= maximumProgresion)  progresion = prog;
         else progresion = maximumProgresion;
@@ -50,12 +50,12 @@ namespace K_Engine {
         setSize(oldSize.first * (prog / maximumProgresion), oldSize.second);
     }
 
-    void UiProgressBar::setMaxProgress(float maximum)
+    void UIProgressBar::setMaxProgress(float maximum)
     {
         maximumProgresion = maximum;
     }
 
-    float UiProgressBar::getProgress()
+    float UIProgressBar::getProgress()
     {
         return progresion;
     }

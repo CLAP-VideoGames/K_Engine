@@ -16,11 +16,11 @@ namespace K_Engine {
 	/// Our text class, overlayName is the interName ogre will record your overlay
 	/// text_ is the message our text will show
 	/// </summary>
-	class UiText : public UiElement
+	class UIText : public UIElement
 	{
 	public:
-		UiText(std::string overlayName, std::string text_);
-		virtual ~UiText();
+		UIText(std::string overlayName, std::string text_);
+		virtual ~UIText();
 
 		void setText(std::string nText);
 

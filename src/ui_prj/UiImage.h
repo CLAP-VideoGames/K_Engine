@@ -5,11 +5,11 @@
 #include <ui_prj/UiElement.h>
 
 namespace K_Engine {
-	class UiImage : public UiElement
+	class UIImage : public UIElement
 	{
 	public:
-		UiImage(std::string overlayName, std::string imageName);
-		virtual ~UiImage();
+		UIImage(std::string overlayName, std::string imageName);
+		virtual ~UIImage();
 
 		void changeMaterial(std::string newImageName);
 	};

@@ -155,44 +155,44 @@ namespace K_Engine {
             notCeguiElements[i]->update();
     }
 
-    UiProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName)
+    UIProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName)
     {
-        UiProgressBar* p = new UiProgressBar(overlayName, imageName);
+        UIProgressBar* p = new UIProgressBar(overlayName, imageName);
 
         notCeguiElements.push_back(p);
 
         return p;
     }
 
-    UiText* UIManager::addText(std::string overlayName, std::string text)
+    UIText* UIManager::addText(std::string overlayName, std::string text)
     {
-        UiText* t = new UiText(overlayName, text);
+        UIText* t = new UIText(overlayName, text);
 
         notCeguiElements.push_back(t);
 
         return t;
     }
 
-    UiImage* UIManager::addImage(std::string overlayName, std::string imageName)
+    UIImage* UIManager::addImage(std::string overlayName, std::string imageName)
     {
-        UiImage* i = new UiImage(overlayName, imageName);
+        UIImage* i = new UIImage(overlayName, imageName);
 
         notCeguiElements.push_back(i);
 
         return i;
     }
 
-    UiButton* UIManager::addButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName)
+    UIButton* UIManager::addButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName)
     {
-        UiButton* b = new UiButton(overlayName, imageName, hoverImageName, pressedImageName);
+        UIButton* b = new UIButton(overlayName, imageName, hoverImageName, pressedImageName);
 
         notCeguiElements.push_back(b);
 
         return b;
     }
 
-    UiScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName,int upper, int lower) {
-        UiScrollBar* s = new UiScrollBar(overlayName, imageName, upper, lower);
+    UIScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName,int upper, int lower) {
+        UIScrollBar* s = new UIScrollBar(overlayName, imageName, upper, lower);
         
         notCeguiElements.push_back(s);
 
@@ -201,7 +201,7 @@ namespace K_Engine {
 
     void UIManager::cleanElements()
     {
-        for (UiElement* c : notCeguiElements) {
+        for (UIElement* c : notCeguiElements) {
             delete c;
         }
     }

@@ -1,4 +1,4 @@
-#include "UiText.h"
+#include "UIText.h"
 
 #include <OgreOverlayContainer.h>
 #include <OgreOverlayManager.h>
@@ -12,7 +12,7 @@ namespace K_Engine {
     //Number of text so ogre can keep track of every UiElement
     static int numberOfText = 0;
 
-    UiText::UiText(std::string overlayName, std::string text_) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    UIText::UIText(std::string overlayName, std::string text_) : UIElement(Ogre::OverlayManager::getSingletonPtr())
     {
         //Our message
         text = text_;
@@ -53,14 +53,14 @@ namespace K_Engine {
         numberOfText++;
     }
 
-    UiText::~UiText() = default;
+    UIText::~UIText() = default;
 
-    void UiText::setText(std::string nText)
+    void UIText::setText(std::string nText)
     {
         textArea->setCaption(nText);
     }
 
-    void UiText::setSize(int w, int h)
+    void UIText::setSize(int w, int h)
     {
         textArea->setDimensions(w, h);
 
@@ -68,7 +68,7 @@ namespace K_Engine {
         size.second = h;
     }
 
-    void UiText::setPosition(int x, int y)
+    void UIText::setPosition(int x, int y)
     {
         textArea->setPosition(x, y);
 
@@ -76,7 +76,7 @@ namespace K_Engine {
         position.second = y;
     }
 
-    void UiText::setFont(std::string fontName)
+    void UIText::setFont(std::string fontName)
     {
         textArea->setFontName(fontName);
     }

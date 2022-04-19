@@ -1,4 +1,4 @@
-#include "UiSlider.h"
+#include "UISlider.h"
 
 #include <iostream>
 
@@ -15,7 +15,7 @@ namespace K_Engine {
 
     static int numberOfBars = 0;
 
-    UiSlider::UiSlider(std::string overlayName) : UiElement(Ogre::OverlayManager::getSingletonPtr())
+    UISlider::UISlider(std::string overlayName) : UIElement(Ogre::OverlayManager::getSingletonPtr())
     {
         std::string elemtnNumber = std::to_string(numberOfBars);
 
@@ -49,9 +49,9 @@ namespace K_Engine {
         inputArea.y = position.second;
     }
 
-    UiSlider::~UiSlider() = default;
+    UISlider::~UISlider() = default;
 
-    void UiSlider::setProgress(float prog)
+    void UISlider::setProgress(float prog)
     {
         if (prog <= maximumProgresion)  progresion = prog;
         else progresion = maximumProgresion;
@@ -62,17 +62,17 @@ namespace K_Engine {
         setSize(oldSize.first * (prog / maximumProgresion), oldSize.second);
     }
 
-    void UiSlider::setMaxProgress(float maximum)
+    void UISlider::setMaxProgress(float maximum)
     {
         maximumProgresion = maximum;
     }
 
-    float UiSlider::getProgress()
+    float UISlider::getProgress()
     {
         return progresion;
     }
 
-    void UiSlider::update() {
+    void UISlider::update() {
         Point pointer;
         auto pointPos = inputMan->getMousePos();
         pointer.x = pointPos.first;

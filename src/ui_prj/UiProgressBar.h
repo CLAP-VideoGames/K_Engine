@@ -6,11 +6,11 @@
 
 namespace K_Engine {
 
-	class UiProgressBar : public UiElement
+	class UIProgressBar : public UIElement
 	{
 	public:
-		UiProgressBar(std::string overlayName, std::string imageName);
-		virtual ~UiProgressBar();
+		UIProgressBar(std::string overlayName, std::string imageName);
+		virtual ~UIProgressBar();
 
 		void setProgress(float prog);
 		void setMaxProgress(float maximum);

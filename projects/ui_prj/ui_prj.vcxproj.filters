@@ -18,22 +18,22 @@
     <ClCompile Include="..\..\src\ui_prj\UIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui_prj\UiElement.cpp">
+    <ClCompile Include="..\..\src\ui_prj\UIElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui_prj\UiText.cpp">
+    <ClCompile Include="..\..\src\ui_prj\UIText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui_prj\UiProgressBar.cpp">
+    <ClCompile Include="..\..\src\ui_prj\UIProgressBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ui_prj\UISlider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui_prj\UiImage.cpp">
+    <ClCompile Include="..\..\src\ui_prj\UIImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui_prj\UiButton.cpp">
+    <ClCompile Include="..\..\src\ui_prj\UIButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ui_prj\UIScrollbar.cpp">
@@ -44,13 +44,13 @@
     <ClInclude Include="..\..\src\ui_prj\UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui_prj\UiElement.h">
+    <ClInclude Include="..\..\src\ui_prj\UIElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui_prj\UiText.h">
+    <ClInclude Include="..\..\src\ui_prj\UIText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui_prj\UiProgressBar.h">
+    <ClInclude Include="..\..\src\ui_prj\UIProgressBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ui_prj\UISlider.h">
@@ -59,10 +59,10 @@
     <ClInclude Include="..\..\src\ui_prj\Rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui_prj\UiImage.h">
+    <ClInclude Include="..\..\src\ui_prj\UIImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui_prj\UiButton.h">
+    <ClInclude Include="..\..\src\ui_prj\UIButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ui_prj\UIScrollBar.h">

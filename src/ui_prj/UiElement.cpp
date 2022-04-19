@@ -1,4 +1,4 @@
-#include "UiElement.h"
+#include "UIElement.h"
 
 #include <OgreOverlay.h>
 #include <OgreOverlayContainer.h>
@@ -11,7 +11,7 @@
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
-	UiElement::UiElement(Ogre::OverlayManager* man)
+	UIElement::UIElement(Ogre::OverlayManager* man)
 	{
 		oveMngr_ = man;
 
@@ -20,35 +20,35 @@ namespace K_Engine {
 		position = std::pair<int, int>(defaultX, defaultY);
 	}
 
-	UiElement::~UiElement() = default;
+	UIElement::~UIElement() = default;
 
-	void UiElement::show()
+	void UIElement::show()
 	{
 		overlay_->show();
 	}
 
-	void UiElement::hide()
+	void UIElement::hide()
 	{
 		overlay_->hide();
 	}
 
-	void UiElement::setMaterial(std::string const& materialName)
+	void UIElement::setMaterial(std::string const& materialName)
 	{
 		element_->setMaterialName(materialName);
 	}
 
-	std::pair<int, int> UiElement::getPosition()
+	std::pair<int, int> UIElement::getPosition()
 	{
 
 		return position;
 	}
 
-	std::pair<int, int> UiElement::getSize()
+	std::pair<int, int> UIElement::getSize()
 	{
 		return size;
 	}
 
-	void UiElement::setPosition(int x, int y)
+	void UIElement::setPosition(int x, int y)
 	{
 		element_->setPosition(x, y);
 
@@ -56,7 +56,7 @@ namespace K_Engine {
 		position.second = y;
 	}
 
-	void UiElement::setSize(int w, int h)
+	void UIElement::setSize(int w, int h)
 	{
 		element_->setDimensions(w, h);
 
@@ -64,13 +64,13 @@ namespace K_Engine {
 		size.second = h;
 	}
 
-	void UiElement::setMetrics(Metrics m)
+	void UIElement::setMetrics(Metrics m)
 	{
 		if (m == Pixels) element_->setMetricsMode(Ogre::GMM_PIXELS);
 		else if (m == WindowRelative) element_->setMetricsMode(Ogre::GMM_RELATIVE);
 	}
 
-	void UiElement::setRenderOrder(int z)
+	void UIElement::setRenderOrder(int z)
 	{
 		overlay_->setZOrder(z);
 	}

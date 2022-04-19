@@ -8,7 +8,7 @@
 
 namespace K_Engine {
 	class UIManager;
-	class UiButton;
+	class UIButton;
 	class Transform;
 	/// <summary>
 	/// This class provides an entity with a UIButton component
@@ -60,7 +60,7 @@ namespace K_Engine {
 		Transform* transformRf_ = nullptr;
 
 		//Button created in UIManager
-		UiButton* button_;
+		UIButton* button_;
 
 		//Basic attributes needed for the button
 		std::string overlayName_;

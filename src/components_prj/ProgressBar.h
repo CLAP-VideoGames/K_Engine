@@ -6,7 +6,7 @@
 
 namespace K_Engine {
 	class UIManager;
-	class UiProgressBar;
+	class UIProgressBar;
 	class Transform;
 	/// <summary>
 	/// This class provides an entity with a UiProgressBar component
@@ -62,7 +62,7 @@ namespace K_Engine {
 		Transform* transformRf_ = nullptr;
 
 		//ProgressBar created in UIManager
-		UiProgressBar* progressBar_;
+		UIProgressBar* progressBar_;
 
 		//Basic attributes needed for the progress bar
 		std::string overlayName_;

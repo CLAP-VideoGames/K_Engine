@@ -8,12 +8,12 @@
 namespace K_Engine {
 	class InputManager;
 
-	class UiButton : public UiElement
+	class UIButton : public UIElement
 	{
 	public:
 
-		UiButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
-		virtual ~UiButton();
+		UIButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
+		virtual ~UIButton();
 
 		virtual void update();
 

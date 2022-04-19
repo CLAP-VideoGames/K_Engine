@@ -6,7 +6,7 @@
 
 namespace K_Engine {
 	class UIManager;
-	class UiScrollBar;
+	class UIScrollBar;
 	class Transform;
 	/// <summary>
 	/// This class provides an entity with a UiScrollBar component
@@ -50,7 +50,7 @@ namespace K_Engine {
 		Transform* transformRf_ = nullptr;
 
 		//ScrollBar created in UIManager
-		UiScrollBar* scrollBar_;
+		UIScrollBar* scrollBar_;
 
 		//Basic attributes needed for the image
 		std::string overlayName_;

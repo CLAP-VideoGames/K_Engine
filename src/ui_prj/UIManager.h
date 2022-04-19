@@ -15,12 +15,12 @@ namespace Ogre {
 
 namespace K_Engine {
 
-	class UiElement;
-	class UiProgressBar;
-	class UiText;
-	class UiImage;
-	class UiButton;
-	class UiScrollBar;
+	class UIElement;
+	class UIProgressBar;
+	class UIText;
+	class UIImage;
+	class UIButton;
+	class UIScrollBar;
 
 	class  __declspec(dllexport) UIManager {
 	public:
@@ -43,11 +43,11 @@ namespace K_Engine {
 		/// <param name="overlayName">This is the name ogre will recognice you elemtn</param>
 		/// <param name="imageName">This is the name of the image used for the progress bar</param>
 		/// <returns></returns>
-		UiProgressBar* addProgressBar(std::string overlayName, std::string imageName);
+		UIProgressBar* addProgressBar(std::string overlayName, std::string imageName);
 
-		UiText* addText(std::string overlayName, std::string text);
+		UIText* addText(std::string overlayName, std::string text);
 
-		UiImage* addImage(std::string overlayName, std::string imageName);
+		UIImage* addImage(std::string overlayName, std::string imageName);
 
 		/// <summary>
 		/// Adds a button to your scene with its default values and the specified image
@@ -57,7 +57,7 @@ namespace K_Engine {
 		/// /// <param name="hoverImageName">This is the name of the material that will appear when the button is hovered</param>
 		/// <param name="pressedImageName"> This is the name of the material that will appear when the button is pressed</param>
 		/// <returns></returns>
-		UiButton* addButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
+		UIButton* addButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
 
 		/// <summary>
 		/// Adds a scrollbar to your scene with its default values and the specified limits
@@ -67,14 +67,14 @@ namespace K_Engine {
 		/// <param name="upper"> This is the upper limit that the scrollbar will take in consideration when moving</param>
 		/// <param name="lower"> This is the lower limit that the scrollbar will take in consideration when moving</param>
 		/// <returns></returns>
-		UiScrollBar* addScrollBar(std::string overlayName, std::string imageName, int upper, int lower);
+		UIScrollBar* addScrollBar(std::string overlayName, std::string imageName, int upper, int lower);
 
 	private:
 		static std::unique_ptr<UIManager> instance;
 
 		std::string name;
 
-		std::vector<UiElement*> notCeguiElements;
+		std::vector<UIElement*> notCeguiElements;
 
 		Ogre::OverlaySystem* overSystem_;
 		Ogre::OverlayManager* overlayMngr_;
