@@ -157,25 +157,38 @@ namespace K_Engine {
 		//dataComponents.insert(dataComponents.end(), extraMembers.begin(), extraMembers.end());
 
 		std::vector<string> entities;
+
 		luabridge::LuaRef ent = getTable("entities"); /*getMetatable(table, "entities");*/
 		int numEntities = ent.length();
 		for (size_t i = 1; i <= numEntities; i++)
 			entities.push_back(ent[i].cast<string>());
 
 		luabridge::LuaRef scene = getTable("scene");
-		
-		for (size_t i = 0; i < numEntities; i++){
+
+		for (size_t i = 0; i < numEntities; i++) {
 			Entity* e = entMan->addEntity();
 			luabridge::LuaRef entity = getMetatable(scene, entities[i]);
-			for (size_t j = 0; j < dataComponents.size(); j++){
-				luabridge::LuaRef property = getMetatable(entity, dataComponents[j]);
-				string s = dataComponents[j];
-				if (!property.isNil()) {
-					addComponentbyTable(e, dataComponents[j], property);
-				}
-			}
-			//iterate over extraMembers which are not components
 
+			lua_pushnil(entity);  /* first key */
+			int j = 0;
+			//iterates over all components 
+			while (lua_next(entity, j) != 0) {
+				const char* key = lua_tostring(entity, -2);
+				string key_ = key;
+				//Component c = e->addComponentByName(key_); 
+
+				luabridge::LuaRef comp = getMetatable(entity, key);
+				lua_pushnil(comp);
+				int l = 0;
+				while (lua_next(comp, l) != 0) {
+					const char* key_ = lua_tostring(entity, -2);
+					const char* value_ = lua_tostring(entity, -1);
+					int length = comp.length();
+					printf("%s : %s\n", key_, value_);
+					lua_pop(comp, 1);
+				}
+				lua_pop(entity, 1);
+			}
 		}
 	}
 
