@@ -35,10 +35,7 @@ namespace K_Engine {
         size = std::pair<int, int>(500, 150);
     }
 
-    UiImage::~UiImage()
-    {
-
-    }
+    UiImage::~UiImage() = default;
 
     // Changes the material of the image, to a new one
     void UiImage::changeMaterial(std::string newImageName)

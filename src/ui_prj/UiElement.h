@@ -22,7 +22,7 @@ namespace K_Engine {
 	{
 	public:
 		UiElement(Ogre::OverlayManager* man);
-		~UiElement();
+		virtual ~UiElement();
 
 		/// <summary>
 		/// Shows the overlay

@@ -55,10 +55,7 @@ namespace K_Engine {
 
     }
 
-    UiScrollBar::~UiScrollBar()
-    {
-
-    }
+    UiScrollBar::~UiScrollBar() = default;
 
     //Returns the percentage of the scrollbar that is left above the scrollbar itself
     //this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.

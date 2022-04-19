@@ -53,10 +53,7 @@ namespace K_Engine {
 		pressedImageName_ = pressedImageName;
 	}
 
-	UiButton::~UiButton()
-	{
-
-	}
+	UiButton::~UiButton() = default;
 
 	void UiButton::update() {
 

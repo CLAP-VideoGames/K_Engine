@@ -49,10 +49,7 @@ namespace K_Engine {
         inputArea.y = position.second;
     }
 
-    UiSlider::~UiSlider()
-    {
-
-    }
+    UiSlider::~UiSlider() = default;
 
     void UiSlider::setProgress(float prog)
     {

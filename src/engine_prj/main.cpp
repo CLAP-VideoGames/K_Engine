@@ -9,6 +9,7 @@
 #ifdef _DEBUG
 int main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetBreakAlloc(39400); // id of the new we are trying to delete correctly (use it when checkML doesn't work)
 #endif
 #ifndef _DEBUG
 int WINAPI WinMain(HINSTANCE zHInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -16,7 +17,6 @@ int WINAPI WinMain(HINSTANCE zHInstance, HINSTANCE prevInstance, LPSTR lpCmdLine
 
 	K_Engine::Engine engine = K_Engine::Engine("K_Engine");
 
-	if (engine.init()) {
 		try {
 			engine.setup();
 			engine.run();

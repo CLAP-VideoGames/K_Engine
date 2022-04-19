@@ -37,10 +37,7 @@ namespace K_Engine {
         size = std::pair<int, int>(500, 150);
     }
 
-    UiProgressBar::~UiProgressBar()
-    {
-
-    }
+    UiProgressBar::~UiProgressBar() = default;
 
     void UiProgressBar::setProgress(float prog)
     {

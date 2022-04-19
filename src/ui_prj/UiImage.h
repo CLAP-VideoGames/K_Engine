@@ -9,7 +9,7 @@ namespace K_Engine {
 	{
 	public:
 		UiImage(std::string overlayName, std::string imageName);
-		~UiImage();
+		virtual ~UiImage();
 
 		void changeMaterial(std::string newImageName);
 	};

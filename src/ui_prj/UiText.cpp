@@ -53,10 +53,7 @@ namespace K_Engine {
         numberOfText++;
     }
 
-    UiText::~UiText()
-    {
-
-    }
+    UiText::~UiText() = default;
 
     void UiText::setText(std::string nText)
     {

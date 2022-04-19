@@ -20,10 +20,7 @@ namespace K_Engine {
 		position = std::pair<int, int>(defaultX, defaultY);
 	}
 
-	UiElement::~UiElement()
-	{
-
-	}
+	UiElement::~UiElement() = default;
 
 	void UiElement::show()
 	{

@@ -13,7 +13,7 @@ namespace K_Engine {
 	public:
 
 		UiButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
-		~UiButton();
+		virtual ~UiButton();
 
 		virtual void update();
 

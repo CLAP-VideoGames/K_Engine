@@ -12,7 +12,7 @@ namespace K_Engine {
 	{
 	public:
 		UiSlider(std::string overlayName);
-		~UiSlider();
+		virtual ~UiSlider();
 
 		void setProgress(float prog);
 		void setMaxProgress(float maximum);

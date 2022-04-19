@@ -7,7 +7,6 @@
 #include <physics_prj/CollisionLayers.h>
 
 #include <utils_prj/Vector3.h>
-#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	std::unique_ptr<PhysicsManager> PhysicsManager::instance = nullptr;
@@ -31,9 +30,7 @@ namespace K_Engine {
 		bool succeed = true;
 		try {
 			colLayers_ = new CollisionLayers();
-#undef new // odio bullet
 			this->gravity = new btVector3(gravity);
-#define new DBG_NEW
 			dynamicsWorld_ = new DynamicsWorld(gravity);
 			btWorld = dynamicsWorld_->getBtWorld();
 		}
@@ -102,9 +99,7 @@ namespace K_Engine {
 		btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 
 		if (this->gravity != nullptr) *this->gravity = grav_;
-#undef new // odio bullet
 		else this->gravity = new btVector3(grav_);
-#define new DBG_NEW
 	}
 
 	DynamicsWorld* PhysicsManager::getWorld() const {

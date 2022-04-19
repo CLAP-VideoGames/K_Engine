@@ -20,7 +20,7 @@ namespace K_Engine {
 	{
 	public:
 		UiText(std::string overlayName, std::string text_);
-		~UiText();
+		virtual ~UiText();
 
 		void setText(std::string nText);
 
