@@ -48,20 +48,22 @@ namespace K_Engine {
 #endif
 
 		// initialisation of all sub-engines
-		success = K_Engine::RenderManager::Init(name) &&
+		success = K_Engine::LogManager::Init() &&
+			K_Engine::RenderManager::Init(name) &&
 			K_Engine::PhysicsManager::Init(name + "Physics", { 0, -9.8, 0 }) &&
 			K_Engine::UIManager::Init(name + "UI") &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::ScriptManager::Init(name + "Script") &&
 			K_Engine::InputManager::Init() &&
 			K_Engine::SceneManager::Init(name + "Scene") &&
-			K_Engine::ComponentManager::Init(name + "Components") &&
-			K_Engine::LogManager::Init();
+			K_Engine::ComponentManager::Init(name + "Components");
 
 		// if something goes wrong, we exit initialization
-		if (!success) return false;
+		if (!success)
+			return K_Engine::LogManager::GetInstance()->printLog(LogType::FATAL, "Error on engine initialization");
 
 		// acquisition of sub-engine's instances
+		logMan = K_Engine::LogManager::GetInstance();
 		renderMan = K_Engine::RenderManager::GetInstance();
 		physicsMan = K_Engine::PhysicsManager::GetInstance();
 		uiMan = K_Engine::UIManager::GetInstance();
@@ -70,10 +72,11 @@ namespace K_Engine {
 		inputMan = K_Engine::InputManager::GetInstance();
 		sceneMan = K_Engine::SceneManager::GetInstance();
 		compMan = K_Engine::ComponentManager::GetInstance();
-		logMan = K_Engine::LogManager::GetInstance();
+
+		return !logMan->printLog(LogType::INFO, "Engine initialization success");
 	}
 
-	void Engine::setup()
+	bool Engine::setup()
 	{
 		// render setup
 		renderMan->locateResources();
@@ -107,6 +110,8 @@ namespace K_Engine {
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		debug();
 #endif
+
+		return !logMan->printLog(LogType::INFO, "Engine setup success");
 	}
 
 	void Engine::run()
@@ -121,6 +126,8 @@ namespace K_Engine {
 			currTime += frameTime;
 
 			accFrameTime += frameTime;
+
+			logMan->clearLogBuffer();
 
 			while (accFrameTime >= DELTA_TIME) {
 				inputMan->update();
@@ -143,6 +150,8 @@ namespace K_Engine {
 			sceneMan->updateScene(frameTime);
 			uiMan->update();
 			renderMan->render();
+
+			logMan->printLogBuffer();
 		}
 	}
 

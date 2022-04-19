@@ -14,22 +14,22 @@ int main() {
 #ifndef _DEBUG
 int WINAPI WinMain(HINSTANCE zHInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
 #endif
-
 	K_Engine::Engine engine = K_Engine::Engine("K_Engine");
 
+	if (engine.init() && engine.setup()) {
 		try {
-			engine.setup();
 			engine.run();
 		}
 		catch (const std::exception& e) {
-			std::cout << "Error on engine setup or runtime\n";
+			std::cout << "Error on engine runtime\n";
 		}
+		
+		if(!engine.shutdown())
+			std::cout << "Error on engine shutdown\n";
 	}
-	else
-		std::cout << "Error on engine initialisation\n";
+	/*else
+		std::cout << "Error on engine initialisation\n";*/
 
-	if(!engine.shutdown())
-		std::cout << "Error on engine shutdown\n";
 
 	return 0;
 }

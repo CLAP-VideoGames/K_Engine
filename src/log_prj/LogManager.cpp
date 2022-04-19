@@ -14,6 +14,8 @@ namespace K_Engine {
 	bool LogManager::Init() {
 		try {
 			instance.reset(new LogManager());
+
+			instance.get()->logFile.open("k_engine.log");
 		}
 		catch (const std::exception&) {
 			return false;
@@ -23,6 +25,7 @@ namespace K_Engine {
 	}
 
 	bool LogManager::Shutdown() {
+		instance.get()->logFile.close();
 		instance.reset();
 		return true;
 	}
@@ -32,32 +35,37 @@ namespace K_Engine {
 	}
 
 	// Adds a log to the log registry
-	void LogManager::addLog(std::string msg, logType ty) {
-		log l; l.message = msg; l.type = ty;
+	bool LogManager::addLog(LogType ty, std::string msg) {
+		Log l; l.message = msg; l.type = ty;
 		reg.push_back(l);
+
+		return l.type == LogType::FATAL;
 	}
 
 	// Prints the type of the log and its message
-	void LogManager::printLog() {
-		for (log l : reg) {
+	void LogManager::printLogBuffer() {
+		for (Log l : reg) {
 			std::string type;
-			switch (l.type)
-			{
-			case info:
-				type = "INFO";
-				break;
-			case error:
-				type = "ERROR";
-				break;
+			switch (l.type) {
+			case LogType::INFO: type = "INFO "; break;
+			case LogType::WARNING: type = "WARNING "; break;
+			case LogType::FATAL: type = "ERROR "; break;
 			}
-			std::cout << type << " - " << l.message << "\n";
-		}
 
-		// maybe we could create a txt file with the whole log
+			std::cerr << type << " -> " << l.message << "\n";
+			logFile << type << " -> " << l.message << "\n";
+		}
+	}
+
+	bool LogManager::printLog(LogType ty, std::string msg) {
+		bool exec = addLog(ty, msg);
+		printLogBuffer();
+		clearLogBuffer();
+		return exec;
 	}
 
 	// Clears the log registry
-	void LogManager::clearLog() {
+	void LogManager::clearLogBuffer() {
 		reg.clear();
 	}
 }

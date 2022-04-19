@@ -30,6 +30,8 @@
 
 #include <render_prj/Camera.h>
 
+#include <log_prj/LogManager.h>
+
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 
@@ -58,8 +60,8 @@ namespace K_Engine {
 			instance.get()->initScene();
 		}
 		catch (Ogre::Exception& e) {
-			Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
-			return false;
+			//Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.getFullDescription());
 		}
 
 		return true;

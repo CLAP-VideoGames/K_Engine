@@ -27,7 +27,7 @@ namespace K_Engine {
 		~Engine();
 
 		bool init();
-		void setup();
+		bool setup();
 		void run();
 		bool shutdown();
 

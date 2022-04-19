@@ -5,11 +5,13 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <fstream>
 
 namespace K_Engine {
+	enum class LogType { INFO, WARNING, FATAL };
+
 	class  __declspec(dllexport) LogManager {
 	public:
-		enum logType { info, error };
 
 		LogManager();
 		~LogManager();
@@ -19,21 +21,23 @@ namespace K_Engine {
 		static bool Init();
 		static bool Shutdown();
 
-		void addLog(std::string msg, logType ty);
+		bool addLog(LogType ty, std::string msg);
+		void printLogBuffer();
+		bool printLog(LogType ty, std::string msg);
 
-		void printLog();
-
-		void clearLog();
+		void clearLogBuffer();
 
 	private:
 		static std::unique_ptr<LogManager> instance;
 
-		struct log {
+		struct Log {
+			LogType type;
 			std::string message;
-			logType type;
 		};
 
-		std::vector<log> reg;
+		std::vector<Log> reg;
+
+		std::ofstream logFile;
 	};
 }
 
