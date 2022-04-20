@@ -30,7 +30,7 @@ namespace K_Engine {
 		auto iterator= availableComponents.find(name);
 		Component* newComponent = (iterator->second)();
 
-		return new Component();
+		return newComponent;
 	}
 
 	//std::vector<std::string> ComponentManager::getAvailableComponents(){

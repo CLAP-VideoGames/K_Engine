@@ -52,9 +52,6 @@ namespace K_Engine {
 		
 		Component* c = comM->createByName(name);
 
-		//if(availablecom)
-		//std::string compName = getComponentName<T>();
-		 //comM->create<T>(this, args...);
 		c->awake();
 
 		components.emplace(name, c);

@@ -83,7 +83,6 @@ namespace K_Engine {
 
 		//Map to store the current components 
 		std::unordered_map<std::string, Component * (*) () > availableComponents;
-		std::unordered_map<std::string, Component * (*) () > cosas;
 
 		//Not sure if this is going to be useful, but its simple code
 		bool existingComponent(std::string compName);
