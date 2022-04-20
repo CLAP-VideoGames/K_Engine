@@ -100,12 +100,14 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\utils_prj\checkML.h" />
     <ClInclude Include="..\..\src\utils_prj\CollisionCallbacks.h" />
+    <ClInclude Include="..\..\src\utils_prj\K_Map.h" />
     <ClInclude Include="..\..\src\utils_prj\Math.h" />
     <ClInclude Include="..\..\src\utils_prj\Timer.h" />
     <ClInclude Include="..\..\src\utils_prj\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\utils_prj\CollisionCallbacks.cpp" />
+    <ClCompile Include="..\..\src\utils_prj\K_Map.cpp" />
     <ClCompile Include="..\..\src\utils_prj\Math.cpp" />
     <ClCompile Include="..\..\src\utils_prj\Timer.cpp" />
     <ClCompile Include="..\..\src\utils_prj\Vector3.cpp" />

@@ -30,6 +30,9 @@
     <ClInclude Include="..\..\src\utils_prj\CollisionCallbacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\utils_prj\K_Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\utils_prj\Vector3.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\utils_prj\CollisionCallbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils_prj\K_Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
