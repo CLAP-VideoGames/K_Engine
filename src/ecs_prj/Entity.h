@@ -78,6 +78,9 @@ namespace K_Engine {
 			return static_cast<T*>(c);
 		}
 
+		//Template to add any Component to our Entity
+		Component* addComponentByName(std::string name);
+
 		//This mehtos is used to set our Entity to active or unactive
 		void setActive(bool a) { active = a; }
 

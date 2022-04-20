@@ -4,7 +4,7 @@
 
 #include <memory>
 #include <stdexcept>
-#include <unordered_set>
+#include <unordered_map>
 
 
 namespace K_Engine {
@@ -44,8 +44,13 @@ namespace K_Engine {
 		void add() {
 			//throw std::invalid_argument("Your component does not contain a GetId() method, declare it and try again");
 			//The user is not allowed to add a component without an static GetId() method
-			if (!existingComponent(T::GetId()))
-				availableComponents.emplace(T::GetId());
+			/*if (!existingComponent(T::GetId())) {
+				availableComponents.emplace(T::GetId(), new T());
+			}*/
+			//T* reference (T);
+
+			//std::pair<std::string, Component* (*) () > cosa_ = new std::pair<std::string, Component* (*) ()> ("hola", reference);
+			
 		}
 
 		//We can catch an exception here if we want (LOOK AT IT AGAIN)
@@ -61,7 +66,11 @@ namespace K_Engine {
 			return newComponent;
 		}
 
-		std::vector<std::string> getAvailableComponents();
+		//template<typename T>
+		Component* createByName(std::string name);
+
+
+		//std::vector<std::string> getAvailableComponents();
 
 	private:
 		//unique pointer for our instance so we do not have problems of sharing the memory 
@@ -71,7 +80,8 @@ namespace K_Engine {
 		std::string name;
 
 		//Map to store the current components 
-		std::unordered_set<std::string> availableComponents;
+		std::unordered_map<std::string, Component * (*) () > availableComponents;
+		std::unordered_map<std::string, Component * (*) () > cosas;
 
 		//Not sure if this is going to be useful, but its simple code
 		bool existingComponent(std::string compName);

@@ -32,6 +32,9 @@ namespace K_Engine {
 	class __declspec(dllexport) Animator : public Component
 	{
 	public:
+
+		Animator();
+
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>

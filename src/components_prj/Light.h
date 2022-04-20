@@ -16,6 +16,9 @@ namespace K_Engine {
 
 	class __declspec(dllexport) Light : public Component {
 	public:
+
+		Light();
+
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>

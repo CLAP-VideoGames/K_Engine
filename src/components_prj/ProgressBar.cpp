@@ -14,14 +14,14 @@ namespace K_Engine {
 	//Required
 	std::string ProgressBar::name = "ProgressBar";
 
-	K_Engine::ProgressBar::ProgressBar(Entity* e) : Component("ProgressBar", e)
-	{
-		name = id;
+	ProgressBar::ProgressBar() : Component() {
 	}
 
-	ProgressBar::ProgressBar(Entity* e, std::string overlayName, std::string imageName, float progress, float maxProgress) : Component("ProgressBar", e)
+	K_Engine::ProgressBar::ProgressBar(Entity* e) : Component( e){
+	}
+
+	ProgressBar::ProgressBar(Entity* e, std::string overlayName, std::string imageName, float progress, float maxProgress) : Component( e)
 	{
-		name = id;
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 		progress_ = progress;

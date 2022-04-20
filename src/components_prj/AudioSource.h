@@ -9,6 +9,8 @@ namespace K_Engine {
 	class __declspec(dllexport) AudioSource : public Component
 	{
 	public:
+		AudioSource();
+
 		AudioSource(Entity* e);
 		virtual ~AudioSource();
 

@@ -17,6 +17,9 @@ namespace K_Engine {
 	class __declspec(dllexport) Transform : public Component
 	{
 	public:
+
+		Transform();
+
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>

@@ -15,11 +15,14 @@ namespace K_Engine {
 	//Required
 	std::string Light::name = "Light";
 
-	Light::Light(Entity* e) : Component("Light", e) {
-		name = id;
+	Light::Light() : Component() {
+
 	}
 
-	Light::Light(Entity* e, LightType lType, bool enable) : Component("Light", e) {
+	Light::Light(Entity* e) : Component(e) {
+	}
+
+	Light::Light(Entity* e, LightType lType, bool enable) : Component( e) {
 		type = lType;
 		visible = enable;
 	}

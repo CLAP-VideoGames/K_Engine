@@ -16,6 +16,9 @@ namespace K_Engine {
 	class __declspec(dllexport) Button : public Component
 	{
 	public:
+
+		Button();
+
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>

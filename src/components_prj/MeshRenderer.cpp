@@ -20,7 +20,10 @@
 namespace K_Engine {
 	std::string MeshRenderer::name = "MeshRenderer";
 
-	MeshRenderer::MeshRenderer(Entity* e) : Component("MeshRenderer", e) {
+	MeshRenderer::MeshRenderer() : Component() {
+	}
+
+	MeshRenderer::MeshRenderer(Entity* e) : Component(e) {
 		mNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	}
 

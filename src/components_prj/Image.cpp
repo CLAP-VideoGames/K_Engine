@@ -14,14 +14,15 @@ namespace K_Engine {
 	//Required
 	std::string Image::name = "Image";
 
-	K_Engine::Image::Image(Entity* e) : Component("Image", e)
+	Image::Image() : Component()
 	{
-		name = id;
 	}
 
-	Image::Image(Entity* e, std::string overlayName, std::string imageName) : Component("Image", e)
+	K_Engine::Image::Image(Entity* e) : Component( e)
 	{
-		name = id;
+	}
+
+	Image::Image(Entity* e, std::string overlayName, std::string imageName) : Component( e){
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 	}

@@ -46,4 +46,20 @@ namespace K_Engine {
 	void Entity::addChild(Entity* child) {
 		children.push_back(child);
 	}
+
+	Component* Entity::addComponentByName(std::string name) {
+		ComponentManager* comM = ComponentManager::GetInstance();
+		
+		Component* c = comM->createByName(name);
+
+		//if(availablecom)
+		//std::string compName = getComponentName<T>();
+		 //comM->create<T>(this, args...);
+		c->awake();
+
+		components.emplace(name, c);
+
+		return c;
+	}
+
 }

@@ -14,6 +14,8 @@ namespace K_Engine {
 	class __declspec(dllexport) ScrollBar : public Component
 	{
 	public:
+		ScrollBar();
+
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>

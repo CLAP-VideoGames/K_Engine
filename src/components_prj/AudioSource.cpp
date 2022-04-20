@@ -10,10 +10,11 @@ namespace K_Engine {
 	//Required
 	std::string AudioSource::name = "AudioSource";
 
-	AudioSource::AudioSource(Entity* e) : Component("AudioSource", e)
-	{
+	AudioSource::AudioSource(): Component() {
+	}
+
+	AudioSource::AudioSource(Entity* e) : Component(e){
 		audioM = K_Engine::AudioManager::GetInstance();
-		name = id;
 		musicVolume = effectVolume = 50;
 	}
 

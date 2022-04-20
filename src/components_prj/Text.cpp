@@ -14,14 +14,16 @@ namespace K_Engine {
 	//Required
 	std::string Text::name = "Text";
 
-	K_Engine::Text::Text(Entity* e) : Component("Text", e)
+	Text::Text() : Component()
 	{
-		name = id;
 	}
 
-	Text::Text(Entity* e, std::string overlayName, std::string text) : Component("Text", e)
+	K_Engine::Text::Text(Entity* e) : Component( e)
 	{
-		name = id;
+	}
+
+	Text::Text(Entity* e, std::string overlayName, std::string text) : Component(e)
+	{
 		overlayName_ = overlayName;
 		text_ = text;
 	}

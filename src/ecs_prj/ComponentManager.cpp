@@ -1,6 +1,7 @@
 #include "ComponentManager.h"
 
 #include <utils_prj/checkML.h>
+#include <ecs_prj/Component.h>
 
 namespace K_Engine {
 	std::unique_ptr<ComponentManager> ComponentManager::instance = nullptr;
@@ -21,9 +22,20 @@ namespace K_Engine {
 		return true;
 	}
 
-	std::vector<std::string> ComponentManager::getAvailableComponents(){
-		return std::vector<std::string>(availableComponents.begin(), availableComponents.end());
+	Component* ComponentManager::createByName(std::string name) {
+		//We check if the component exists
+		if (!existingComponent(name)) {
+			throw std::invalid_argument("There is no component with that name");
+		}
+		auto iterator= availableComponents.find(name);
+		//Component* newComponent = (iterator->second)();
+
+		return new Component();
 	}
+
+	//std::vector<std::string> ComponentManager::getAvailableComponents(){
+	//	return std::vector<std::string>(availableComponents.begin(), availableComponents.end());
+	//}
 
 	bool ComponentManager::Shutdown() {
 		try {

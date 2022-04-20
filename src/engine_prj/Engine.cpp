@@ -99,7 +99,7 @@ namespace K_Engine {
 		// base components setup
 		K_Engine::Registry::registerComponents();
 
-		std::vector<std::string> components = compMan->getAvailableComponents();
+		std::vector<std::string> components; /*compMan->getAvailableComponents();*/
 
 #ifndef DEVELOPMENT
 		registerGameComponents();

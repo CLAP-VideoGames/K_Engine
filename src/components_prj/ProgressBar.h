@@ -14,6 +14,9 @@ namespace K_Engine {
 	class __declspec(dllexport) ProgressBar : public Component
 	{
 	public:
+
+		ProgressBar();
+
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>

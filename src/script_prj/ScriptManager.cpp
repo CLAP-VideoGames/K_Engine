@@ -174,8 +174,8 @@ namespace K_Engine {
 			//iterates over all components 
 			while (lua_next(entity, j) != 0) {
 				const char* key = lua_tostring(entity, -2);
-				string key_ = key;
-				//Component c = e->addComponentByName(key_); 
+				std::string key_ = key;
+				Component* c = e->addComponentByName("hello"); 
 
 				luabridge::LuaRef comp = getMetatable(entity, key);
 				lua_pushnil(comp);

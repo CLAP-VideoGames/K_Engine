@@ -14,6 +14,9 @@ namespace K_Engine {
 	class __declspec(dllexport) Image : public Component
 	{
 	public:
+
+		Image();
+
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>

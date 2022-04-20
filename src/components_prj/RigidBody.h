@@ -26,6 +26,9 @@ namespace K_Engine {
 	class __declspec(dllexport) RigidBody : public Component
 	{
 	public:
+
+		RigidBody();
+
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>

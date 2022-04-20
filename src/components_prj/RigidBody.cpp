@@ -19,12 +19,13 @@ namespace K_Engine {
 	//Required
 	std::string RigidBody::name = "RigidBody";
 
-	RigidBody::RigidBody(Entity* e) : Component("RigidBody", e) {
-		name = id;
+	RigidBody::RigidBody() : Component() {
 	}
 
-	RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group, bool isTrigger) : Component("RigidBody", e) {
-		name = id;
+	RigidBody::RigidBody(Entity* e) : Component( e) {
+	}
+
+	RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group, bool isTrigger) : Component(e) {
 		type_ = type;
 		bType_ = bType;
 		mass_ = mass;

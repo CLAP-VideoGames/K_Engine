@@ -14,14 +14,15 @@ namespace K_Engine {
 	//Required
 	std::string Button::name = "Button";
 
-	K_Engine::Button::Button(Entity* e) : Component("Button", e)
-	{
-		name = id;
+	Button::Button() : Component(){
+
 	}
 
-	Button::Button(Entity* e, std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : Component("Button", e)
-	{
-		name = id;
+	K_Engine::Button::Button(Entity* e) : Component(e) {
+
+	}
+
+	Button::Button(Entity* e, std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : Component(e){
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 

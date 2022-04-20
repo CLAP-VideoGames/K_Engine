@@ -28,6 +28,11 @@ namespace K_Engine {
 	/// </summary>
 	class __declspec(dllexport) Component {
 	public:
+
+		Component();
+
+		Component(Entity* ent);
+
 		virtual ~Component();
 
 		/// <summary>
@@ -76,12 +81,9 @@ namespace K_Engine {
 
 	protected:
 		//Default string to force the user to give it a diferent id 
-		std::string id;
 		bool enable;
 
 		Entity* entity;
-
-		Component(std::string id, Entity* ent);
 	};
 }
 #endif	// COMPONENT_H

@@ -17,8 +17,12 @@ namespace K_Engine {
 	//Required
 	std::string Animator::name = "Animator";
 
-	Animator::Animator(Entity* e) : Component("Animator", e) {
-		name = id; 
+	Animator::Animator(): Component() {
+
+	}
+
+	Animator::Animator(Entity* e) : Component(e) {
+
 	}
 
 	Animator::~Animator() = default;

@@ -14,14 +14,14 @@ namespace K_Engine {
 	//Required
 	std::string ScrollBar::name = "ScrollBar";
 
-	K_Engine::ScrollBar::ScrollBar(Entity* e) : Component("ScrollBar", e)
-	{
-		name = id;
+	ScrollBar::ScrollBar() : Component() {
 	}
 
-	ScrollBar::ScrollBar(Entity* e, std::string overlayName, std::string imageName, int upperLimit, int lowerLimit) : Component("ScrollBar", e)
+	K_Engine::ScrollBar::ScrollBar(Entity* e) : Component( e){
+	}
+
+	ScrollBar::ScrollBar(Entity* e, std::string overlayName, std::string imageName, int upperLimit, int lowerLimit) : Component(e)
 	{
-		name = id;
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 		upperLimit_ = upperLimit;

@@ -11,8 +11,10 @@
 namespace K_Engine {
 	std::string Transform::name = "Transform";
 
-	Transform::Transform(Entity* e) : Component("Transform", e)
-	{
+	Transform::Transform(): Component() {
+	}
+
+	Transform::Transform(Entity* e) : Component(e){
 		position_ = new Vector3{ 0, 0, 0 };
 		rotation_ = new Vector3{ 0, 0, 0 };
 		scale_ = new Vector3{ 1, 1, 1 };

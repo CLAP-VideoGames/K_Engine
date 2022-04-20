@@ -20,6 +20,8 @@ namespace K_Engine {
 	class __declspec(dllexport) MeshRenderer : public Component
 	{
 	public:
+		MeshRenderer();
+
 		MeshRenderer(Entity* e);
 		virtual ~MeshRenderer();
 
