@@ -28,7 +28,7 @@ namespace K_Engine {
 			throw std::invalid_argument("There is no component with that name");
 		}
 		auto iterator= availableComponents.find(name);
-		//Component* newComponent = (iterator->second)();
+		Component* newComponent = (iterator->second)();
 
 		return new Component();
 	}

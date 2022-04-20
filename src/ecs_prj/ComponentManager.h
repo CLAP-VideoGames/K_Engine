@@ -44,13 +44,8 @@ namespace K_Engine {
 		void add() {
 			//throw std::invalid_argument("Your component does not contain a GetId() method, declare it and try again");
 			//The user is not allowed to add a component without an static GetId() method
-			/*if (!existingComponent(T::GetId())) {
-				availableComponents.emplace(T::GetId(), new T());
-			}*/
-			//T* reference (T);
-
-			//std::pair<std::string, Component* (*) () > cosa_ = new std::pair<std::string, Component* (*) ()> ("hola", reference);
-			
+			if (!existingComponent(T::GetId())) 
+				availableComponents.emplace(T::GetId(), &ComponentManager::createComponent<T>);
 		}
 
 		//We can catch an exception here if we want (LOOK AT IT AGAIN)
@@ -73,6 +68,13 @@ namespace K_Engine {
 		//std::vector<std::string> getAvailableComponents();
 
 	private:
+
+		template<typename T>
+		static Component* createComponent() {
+			return new T();
+		}
+
+
 		//unique pointer for our instance so we do not have problems of sharing the memory 
 		static std::unique_ptr<ComponentManager> instance;
 
