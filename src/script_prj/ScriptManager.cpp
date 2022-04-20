@@ -22,6 +22,7 @@ extern "C" {
 #include <components_prj/MeshRenderer.h>
 #include <components_prj/Animator.h>
 #include <components_prj/AudioSource.h>
+#include <utils_prj/K_Map.h>
 
 #include <utils_prj/checkML.h>
 
@@ -175,18 +176,23 @@ namespace K_Engine {
 			while (lua_next(entity, j) != 0) {
 				const char* key = lua_tostring(entity, -2);
 				std::string key_ = key;
-				Component* c = e->addComponentByName("hello"); 
+				//Creates the component
+				Component* c = e->addComponentByName(key_); 
 
+				K_Map information;
 				luabridge::LuaRef comp = getMetatable(entity, key);
 				lua_pushnil(comp);
 				int l = 0;
 				while (lua_next(comp, l) != 0) {
 					const char* key_ = lua_tostring(entity, -2);
 					const char* value_ = lua_tostring(entity, -1);
+					//Storing the information so the component can initialize
+					information.addPair(key_, value_);
 					int length = comp.length();
 					printf("%s : %s\n", key_, value_);
 					lua_pop(comp, 1);
 				}
+				c->init(&information);//Aqui
 				lua_pop(entity, 1);
 			}
 		}

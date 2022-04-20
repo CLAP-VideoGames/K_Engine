@@ -29,6 +29,8 @@ namespace K_Engine {
 
 		static std::string GetId();
 
+		virtual void init(K_Map* information);
+
 		/// <summary>
 		/// Moves the entity to a new positions relative to the current one.
 		/// </summary>

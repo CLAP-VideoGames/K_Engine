@@ -4,23 +4,27 @@
 
 #include <unordered_map>
 #include <stdexcept>
-#include "Vector3.h"
+#include <string>
+//#include <utils_prj/Vector3.h>
+
 
 namespace K_Engine {
+	struct Vector3;
 	/// <summary>
 	/// The purpose of this class is to store the information from the .lua documents
 	/// and give it to the components so they can get initialized without creating
 	/// any not desireable dependencies
 	/// </summary>
-	class K_Map
+	class __declspec(dllexport) K_Map
 	{
+
 	public:
 		K_Map();
 		~K_Map();
 
 		void addPair(std::string key, std::string value);
 
-		K_Engine::Vector3 valueToVector3(std::string key);
+		Vector3* valueToVector3(std::string key);
 
 		bool valueToBool(std::string key);
 

@@ -6,6 +6,7 @@
 
 namespace K_Engine {
 	class Entity;
+	class K_Map;
 
 	/// <summary>
 	/// You have to specify the id of the component with a string
@@ -46,6 +47,12 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="collision"></param>
 		virtual void start();
+
+		/// <summary>
+		/// Used to initialize via .Lua using scriptManager
+		/// </summary>
+		/// <param name="information"></param>
+		virtual void init(K_Map* information) {};
 
 		//onEnable is called every time the component is enabled
 		virtual void onEnable();

@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include <utils_prj/checkML.h>
+#include <utils_prj/K_Map.h>
 
 namespace K_Engine {
 
@@ -20,7 +20,7 @@ namespace K_Engine {
 
 	void Component::awake() {};
 
-	void Component::start() {};
+	void Component::start() {}
 
 	void Component::onEnable() {};
 	

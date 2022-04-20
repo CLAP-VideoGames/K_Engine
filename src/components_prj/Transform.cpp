@@ -7,6 +7,8 @@
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
+#include <utils_prj/K_Map.h>
+
 
 namespace K_Engine {
 	std::string Transform::name = "Transform";
@@ -30,6 +32,14 @@ namespace K_Engine {
 
 	std::string Transform::GetId() {
 		return name;
+	}
+
+	void Transform::init(K_Map* information)
+	{
+		position_ = information->valueToVector3("position");
+		rotation_ = information->valueToVector3("rotation");
+		scale_ = information->valueToVector3("scale");
+		
 	}
 
 	void Transform::translate(float x, float y, float z)
