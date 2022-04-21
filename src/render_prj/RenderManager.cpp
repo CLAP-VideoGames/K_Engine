@@ -60,11 +60,10 @@ namespace K_Engine {
 			instance.get()->initScene();
 		}
 		catch (Ogre::Exception& e) {
-			//Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
 			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.getFullDescription());
 		}
 
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Render manager initialization success");
 	}
 
 	bool RenderManager::Shutdown() {
@@ -196,12 +195,6 @@ namespace K_Engine {
 	void RenderManager::initScene() {
 		mSM = mRoot->createSceneManager();
 		mSM->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
-
-		// without light we would just get a black screen    
-		/*Ogre::Light* light = mSM->createLight("MainLight");
-		Ogre::SceneNode* lightNode = mSM->getRootSceneNode()->createChildSceneNode();
-		lightNode->setPosition(0, 10, 15);
-		lightNode->attachObject(light);*/
 
 		// We create a camera and assign it to a viewport
 		mCamera = new Camera();

@@ -37,19 +37,24 @@ namespace K_Engine {
 	Engine::~Engine() = default;
 
 	bool Engine::init() {
-		bool success;
+		// init log manager
+		bool success = K_Engine::LogManager::Init();
+		if (!success) // can't print anything if this fails, so we just return 
+			return false;
+		logMan = K_Engine::LogManager::GetInstance();
+
 
 #ifndef DEVELOPMENT
 		// load game dll
 		success = loadGame();
 
 		// if something goes wrong, we exit initialization
-		if (!success) return false;
+		if (!success) 
+			return logMan->printLog(LogType::FATAL, "Error on game data initialization");;
 #endif
 
 		// initialisation of all sub-engines
-		success = K_Engine::LogManager::Init() &&
-			K_Engine::RenderManager::Init(name) &&
+		success = K_Engine::RenderManager::Init(name) &&
 			K_Engine::PhysicsManager::Init(name + "Physics", { 0, -9.8, 0 }) &&
 			K_Engine::UIManager::Init(name + "UI") &&
 			K_Engine::AudioManager::Init() &&
@@ -60,10 +65,9 @@ namespace K_Engine {
 
 		// if something goes wrong, we exit initialization
 		if (!success)
-			return K_Engine::LogManager::GetInstance()->printLog(LogType::FATAL, "Error on engine initialization");
+			return logMan->printLog(LogType::FATAL, "Error on engine initialization");
 
 		// acquisition of sub-engine's instances
-		logMan = K_Engine::LogManager::GetInstance();
 		renderMan = K_Engine::RenderManager::GetInstance();
 		physicsMan = K_Engine::PhysicsManager::GetInstance();
 		uiMan = K_Engine::UIManager::GetInstance();
@@ -73,7 +77,7 @@ namespace K_Engine {
 		sceneMan = K_Engine::SceneManager::GetInstance();
 		compMan = K_Engine::ComponentManager::GetInstance();
 
-		return !logMan->printLog(LogType::INFO, "Engine initialization success");
+		return logMan->printLog(LogType::INFO, "Engine initialization success");
 	}
 
 	bool Engine::setup()
@@ -99,19 +103,21 @@ namespace K_Engine {
 		// base components setup
 		K_Engine::Registry::registerComponents();
 
-		std::vector<std::string> components; /*compMan->getAvailableComponents();*/
 
 #ifndef DEVELOPMENT
 		registerGameComponents();
 		sceneMan->pushScene(loadScene());
 #endif
-		scriptMan->setDataComponents(components);
+
+		// script component data setup
+		scriptMan->setDataComponents(compMan->getAvailableComponents());
+
 #ifdef DEVELOPMENT
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		debug();
 #endif
 
-		return !logMan->printLog(LogType::INFO, "Engine setup success");
+		return logMan->printLog(LogType::INFO, "Engine setup success");
 	}
 
 	void Engine::run()
@@ -181,6 +187,7 @@ namespace K_Engine {
 
 	bool Engine::loadGame()
 	{
+		// game .dll loading
 #ifndef _DEBUG
 		HMODULE game = LoadLibrary(TEXT("./game.dll"));
 #endif // !_DEBUG
@@ -188,10 +195,17 @@ namespace K_Engine {
 		game = LoadLibrary(TEXT("./game_d.dll"));
 #endif // !_DEBUG
 
+		if (game == nullptr)
+			return logMan->addLog(LogType::FATAL, "Game .dll unable to load");
+		logMan->addLog(LogType::FATAL, "Game load success");
+
+		// game functions load
 		loadScene = (SceneLoad)GetProcAddress(game, "loadScene");
 		registerGameComponents = (GameComponents)GetProcAddress(game, "registerComponents");
 
-		return loadScene != nullptr || registerGameComponents != nullptr;
+		if (loadScene != nullptr || registerGameComponents != nullptr)
+			return logMan->addLog(LogType::FATAL, "Game .dll functions unable to load explicitly");
+		return logMan->addLog(LogType::FATAL, "Game functions load success");
 	}
 
 	K_Engine::RenderManager* Engine::getRenderManager()

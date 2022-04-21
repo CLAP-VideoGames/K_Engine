@@ -64,17 +64,9 @@ namespace K_Engine {
 		//template<typename T>
 		Component* createByName(std::string name);
 
-
-		//std::vector<std::string> getAvailableComponents();
+		std::vector<std::string> getAvailableComponents();
 
 	private:
-
-		template<typename T>
-		static Component* createComponent() {
-			return new T();
-		}
-
-
 		//unique pointer for our instance so we do not have problems of sharing the memory 
 		static std::unique_ptr<ComponentManager> instance;
 
@@ -82,10 +74,15 @@ namespace K_Engine {
 		std::string name;
 
 		//Map to store the current components 
-		std::unordered_map<std::string, Component * (*) () > availableComponents;
+		std::unordered_map<std::string, Component* (*)()> availableComponents;
 
 		//Not sure if this is going to be useful, but its simple code
 		bool existingComponent(std::string compName);
+
+		template<typename T>
+		static Component* createComponent() {
+			return new T();
+		}
 	};
 }
 #endif // COMPONENTMANAGER_H

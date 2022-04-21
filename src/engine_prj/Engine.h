@@ -2,8 +2,8 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include <string>
 #include <windows.h>
+#include <string>
 
 namespace K_Engine {
 	class Scene;

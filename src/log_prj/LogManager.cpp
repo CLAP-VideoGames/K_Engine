@@ -39,7 +39,7 @@ namespace K_Engine {
 		Log l; l.message = msg; l.type = ty;
 		reg.push_back(l);
 
-		return l.type == LogType::FATAL;
+		return l.type != LogType::FATAL;
 	}
 
 	// Prints the type of the log and its message
@@ -47,9 +47,9 @@ namespace K_Engine {
 		for (Log l : reg) {
 			std::string type;
 			switch (l.type) {
-			case LogType::INFO: type = "INFO "; break;
-			case LogType::WARNING: type = "WARNING "; break;
-			case LogType::FATAL: type = "ERROR "; break;
+			case LogType::INFO: type = "INFO"; break;
+			case LogType::WARNING: type = "WARNING"; break;
+			case LogType::FATAL: type = "ERROR"; break;
 			}
 
 			std::cerr << type << " -> " << l.message << "\n";

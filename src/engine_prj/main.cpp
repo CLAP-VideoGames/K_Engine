@@ -17,19 +17,9 @@ int WINAPI WinMain(HINSTANCE zHInstance, HINSTANCE prevInstance, LPSTR lpCmdLine
 	K_Engine::Engine engine = K_Engine::Engine("K_Engine");
 
 	if (engine.init() && engine.setup()) {
-		try {
-			engine.run();
-		}
-		catch (const std::exception& e) {
-			std::cout << "Error on engine runtime\n";
-		}
-		
-		if(!engine.shutdown())
-			std::cout << "Error on engine shutdown\n";
+		engine.run();
+		engine.shutdown();
 	}
-	/*else
-		std::cout << "Error on engine initialisation\n";*/
-
 
 	return 0;
 }

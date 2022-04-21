@@ -33,9 +33,14 @@ namespace K_Engine {
 		return newComponent;
 	}
 
-	//std::vector<std::string> ComponentManager::getAvailableComponents(){
-	//	return std::vector<std::string>(availableComponents.begin(), availableComponents.end());
-	//}
+	std::vector<std::string> ComponentManager::getAvailableComponents()
+	{
+		std::vector<std::string> avComp;
+		for (auto it = availableComponents.begin(); it != availableComponents.end(); ++it)
+			avComp.push_back(it->first);
+
+		return avComp;
+	}
 
 	bool ComponentManager::Shutdown() {
 		try {
