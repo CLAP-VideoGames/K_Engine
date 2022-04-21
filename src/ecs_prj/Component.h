@@ -86,6 +86,8 @@ namespace K_Engine {
 		//Active/Deactivate our component 
 		void setActive(bool a);
 
+		void setEntity(Entity* e) { entity = e; };
+
 	protected:
 		//Default string to force the user to give it a diferent id 
 		bool enable;

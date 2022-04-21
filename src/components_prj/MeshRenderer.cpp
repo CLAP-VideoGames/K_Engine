@@ -16,11 +16,13 @@
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
+#include <utils_prj/K_Map.h>
 
 namespace K_Engine {
 	std::string MeshRenderer::name = "MeshRenderer";
 
 	MeshRenderer::MeshRenderer() : Component() {
+		mNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	}
 
 	MeshRenderer::MeshRenderer(Entity* e) : Component(e) {
@@ -41,6 +43,11 @@ namespace K_Engine {
 		transformRf = entity->getComponent<Transform>();
 		mNode->showBoundingBox(true);
 		syncScale();
+	}
+
+	void MeshRenderer::init(K_Map* information)
+	{
+		material = information->value("MeshFile");
 	}
 
 	void MeshRenderer::update(int frameTime) {

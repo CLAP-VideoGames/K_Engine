@@ -31,6 +31,7 @@ namespace K_Engine {
 		virtual void debug();
 
 		virtual void start();
+		virtual void init(K_Map* information);
 		virtual void update(int frameTime);
 
 		//Setters

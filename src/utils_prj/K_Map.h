@@ -30,6 +30,8 @@ namespace K_Engine {
 
 		double valueToNumber(std::string key);
 
+		std::string value(std::string key);
+
 	private:
 
 		/// <summary>

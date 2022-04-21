@@ -14,15 +14,23 @@
 #include <utils_prj/Vector3.h>
 #include <utils_prj/CollisionCallbacks.h>
 #include <utils_prj/checkML.h>
+#include <utils_prj/K_Map.h>
 
 namespace K_Engine {
 	//Required
 	std::string RigidBody::name = "RigidBody";
 
 	RigidBody::RigidBody() : Component() {
+		friction_ = 0.3;
+		restitution_ = 0.1f;
+		group_ = 0;
+		mask_ = 0;
+		dimensions_ = new Vector3(1, 1, 1); //By default
+		offsetCenter_ = new Vector3(0, 0, 0); //By default no offset
 	}
 
 	RigidBody::RigidBody(Entity* e) : Component( e) {
+
 	}
 
 	RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group, bool isTrigger) : Component(e) {
@@ -114,6 +122,25 @@ namespace K_Engine {
 
 		rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
 		rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
+	}
+
+	void RigidBody::init(K_Map* information)
+	{
+		std::string typ = information->value("Type");
+
+		if (typ == "Static") bType_ = BodyType::BT_STATIC;
+		else bType_ = BodyType::BT_DYNAMIC;
+
+		std::string col = information->value("Collider");
+
+		if (col == "Box") type_ = ColliderType::CT_BOX;
+		else if (col == "Sphere") type_ = ColliderType::CT_SPHERE;
+		else if (col == "Trimesh") type_ = ColliderType::CT_TRIMESH;
+		else type_ = ColliderType::CT_HULL;
+
+		mass_ = information->valueToNumber("Mass");
+
+		isTrigger = information->valueToBool("isTrigger");
 	}
 
 	void RigidBody::update(int frameTime) {

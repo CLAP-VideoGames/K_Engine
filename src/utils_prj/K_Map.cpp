@@ -36,6 +36,13 @@ namespace K_Engine {
 		return std::stod(iterator->second);
 	}
 
+	std::string K_Map::value(std::string key)
+	{
+		auto iterator = information.find(key);
+
+		return iterator->second;
+	}
+
 	Vector3* K_Map::valueToVector3(std::string key)
 	{
 		auto iterator = information.find(key);

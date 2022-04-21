@@ -22,13 +22,17 @@ enum class BodyType {
 	BT_DYNAMIC,
 };
 
+
 namespace K_Engine {
+
 	class CollisionLayers;
 	struct Vector3;
 	class DynamicsWorld;
 
 	class  __declspec(dllexport) PhysicsManager {
 	public:
+
+
 		struct CollisionCallBack;
 
 		PhysicsManager();
@@ -98,6 +102,7 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="name">Key name</param>
 		void addLayer(std::string name);
+
 
 	private:
 		static std::unique_ptr<PhysicsManager> instance;

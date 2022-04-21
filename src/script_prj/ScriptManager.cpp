@@ -192,6 +192,7 @@ namespace K_Engine {
 					printf("%s : %s\n", key_, value_);
 					lua_pop(comp, 1);
 				}
+				c->setEntity(e);
 				c->init(&information);//Aqui
 				lua_pop(entity, 1);
 			}
