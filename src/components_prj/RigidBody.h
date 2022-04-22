@@ -126,6 +126,12 @@ namespace K_Engine {
 
 		void addExplosionForce(Vector3 const& value);
 
+		/// <summary>
+		/// Returns the linear velocity of the rigidbody
+		/// </summary>
+		/// <returns></returns>
+		Vector3 getVelocity();
+
 	private:
 		//Required
 		static std::string name;

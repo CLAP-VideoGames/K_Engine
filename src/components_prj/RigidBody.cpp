@@ -192,6 +192,12 @@ namespace K_Engine {
 
 	}
 
+	Vector3 RigidBody::getVelocity()
+	{
+		btVector3 speed = rb->getLinearVelocity();
+		return Vector3((double)speed.x(), (double)speed.y(), (double)speed.z());
+	}
+
 	void RigidBody::setOffset(Vector3 const& distance) {
 		(*offsetCenter_) = distance;
 	}

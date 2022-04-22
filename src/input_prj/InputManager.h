@@ -103,8 +103,8 @@ namespace K_Engine {
 
 		//Esto es para ver que se sigue pulsando
 		bool isMouseButtonHeldDown_;
-		bool isRightMousePressed_;
-		bool isLeftMousePressed_;
+		bool isRightMousePressed_ = false;
+		bool isLeftMousePressed_ = false;
 
 		//Editable deathZone for our joySticks
 		float deathZoneLeftJoy = 3000;
