@@ -47,7 +47,8 @@ namespace K_Engine {
 
 	void MeshRenderer::init(K_Map* information)
 	{
-		material = information->value("MeshFile");
+		meshFile = information->value("MeshFile");
+		//material = information->value("Material");
 	}
 
 	void MeshRenderer::update(int frameTime) {

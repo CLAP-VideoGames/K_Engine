@@ -63,6 +63,7 @@ namespace K_Engine {
 
 		bool visible;		  // visibility of the object
 		std::string material; // name of the object's material
+		std::string meshFile; //name of mesh file 
 
 		// debuggin method to know that our component works as intended
 		void setSinbad();
