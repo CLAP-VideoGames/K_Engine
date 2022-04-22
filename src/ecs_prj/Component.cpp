@@ -36,10 +36,7 @@ namespace K_Engine {
 	{
 		enable = a;
 
-		if (enable) {
-			onEnable();
-			awake();
-		}
+		if (enable)onEnable();
 		else onDisable();
 	}
 }

@@ -26,7 +26,16 @@
 
 namespace K_Engine {
 	Scene::Scene() {
+		//creting the entityManager
 		entMan = new EntityManager();
+		//Initialize through Lua
+		init();
+		//Awake of the entities
+		entMan->awake();
+		//First onEnable
+		entMan->onEnable();
+		//Start of the entites
+		entMan->start();
 	}
 
 	Scene::~Scene() {

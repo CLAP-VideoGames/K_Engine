@@ -158,6 +158,8 @@ namespace K_Engine {
 		//dataComponents.insert(dataComponents.end(), extraMembers.begin(), extraMembers.end());
 
 		std::vector<string> entities;
+		//So we can call awake once they all are initialized
+		std::vector<Component*> luaComponents;
 
 		luabridge::LuaRef ent = getTable("entities"); /*getMetatable(table, "entities");*/
 		int numEntities = ent.length();
@@ -178,6 +180,7 @@ namespace K_Engine {
 				std::string key_ = key;
 				//Creates the component
 				Component* c = e->addComponentByName(key_); 
+				luaComponents.push_back(c);
 
 				K_Map information;
 				luabridge::LuaRef comp = getMetatable(entity, key);
@@ -193,7 +196,7 @@ namespace K_Engine {
 					lua_pop(comp, 1);
 				}
 				c->setEntity(e);
-				c->init(&information);//Aqui
+				c->init(&information);
 				lua_pop(entity, 1);
 			}
 		}

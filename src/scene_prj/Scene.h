@@ -16,7 +16,7 @@ namespace K_Engine {
 		//Deletes the entityManager of our scene
 		virtual ~Scene();
 
-		//Init is called once when the Scene is push on top of the scenes stack
+		//Init is called once when the Scene is created, use this method to load your lua map
 		virtual void init();
 
 		//Update is called once per frame

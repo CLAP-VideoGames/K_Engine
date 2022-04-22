@@ -71,8 +71,6 @@ namespace K_Engine {
 
 			T* c = comM->create<T>(this, args...);
 
-			static_cast<Component*>(c)->awake();
-
 			components.emplace(compName, c);
 
 			return static_cast<T*>(c);
@@ -102,8 +100,15 @@ namespace K_Engine {
 		//To know when to update our entity
 		bool isActive() { return active; }
 
+		//Awake of everyComponent
+		void awake();
+
+		//Enable of everyComponent
+		void onEnable();
+
 		//The start of everyComponent of our entity
 		void start();
+
 
 		//Add an entity to the children vector
 		void addChild(Entity* child);

@@ -27,12 +27,19 @@ namespace K_Engine {
 		//where the physics
 		void fixedUpdate(int deltaTime);
 
+		//First metod called
+		void awake();
+
+		//For the firt time it is called
+		void onEnable();
+
 		//where every component calls it start method
 		//WE MUST CALL THIS AFTER THE INIT OF THIS SINGLETON AND AFTER THE READ OF THE MAP
 		//JOSEDA LEE AQUI SI NO FUNICONA 
 		//DESPUES DEL INTI DE ESTE SINGLETON Y DESPUES DE LA LECTURA DEL MAPA
 		//(sorry caps)
 		void start();
+
 
 	private:
 		//Our entity vector

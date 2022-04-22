@@ -37,7 +37,7 @@ namespace K_Engine {
 		virtual ~Component();
 
 		/// <summary>
-		/// awake is called every time the component is activated
+		/// awake is called once before start
 		/// </summary>
 		/// <param name="collision"></param>
 		virtual void awake();
@@ -88,9 +88,10 @@ namespace K_Engine {
 
 		void setEntity(Entity* e) { entity = e; };
 
-	protected:
 		//Default string to force the user to give it a diferent id 
 		bool enable;
+
+	protected:
 
 		Entity* entity;
 	};

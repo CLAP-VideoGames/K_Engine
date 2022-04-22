@@ -38,6 +38,16 @@ namespace K_Engine {
 			c->fixedUpdate(deltaTime);
 	}
 
+	void Entity::awake()
+	{
+		for (auto e : components) e.second->awake();
+	}
+
+	void Entity::onEnable()
+	{
+		for (auto e : components) if(e.second->enable) e.second->onEnable();
+	}
+
 	void Entity::start() {
 		for (auto e : components) 
 			e.second->start();
@@ -52,7 +62,7 @@ namespace K_Engine {
 		
 		Component* c = comM->createByName(name);
 
-		c->awake();
+		//c->awake();
 
 		components.emplace(name, c);
 
