@@ -84,7 +84,7 @@ namespace K_Engine {
 		return tr;
 	}
 
-	void PhysicsManager::changeGravity(Vector3 const& gravity) {
+	void PhysicsManager::setGravity(Vector3 const& gravity) {
 		btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 
 		if (this->gravity != nullptr) *this->gravity = grav_;
