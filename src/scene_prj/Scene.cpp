@@ -42,7 +42,10 @@ namespace K_Engine {
 		delete entMan;
 	}
 
-	void Scene::init() {};
+	void Scene::init() {
+		scriptMan = K_Engine::ScriptManager::GetInstance();
+		scriptMan->loadLuaMap("map", entMan);
+	}
 
 	void Scene::update(int frameTime) {
 		entMan->update(frameTime);

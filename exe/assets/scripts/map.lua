@@ -12,7 +12,6 @@ scene = {
             isTrigger = "false",
             isEnabled = "false"
         },
-        Enabled =  "false",
         MeshRenderer = {
             MeshFile = "cubo.mesh",
         }

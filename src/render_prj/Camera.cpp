@@ -68,7 +68,8 @@ namespace K_Engine {
 
 	void Camera::update()
 	{
-		debug();
+		//debug();
+		mCameraNode->lookAt(Ogre::Vector3(1.5,1.5,0.0), Ogre::Node::TS_PARENT);
 	}
 
 	Ogre::Camera* Camera::getCamera()
