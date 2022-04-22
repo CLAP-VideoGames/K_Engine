@@ -177,26 +177,49 @@ namespace K_Engine {
 			//iterates over all components 
 			while (lua_next(entity, j) != 0) {
 				const char* key = lua_tostring(entity, -2);
+				const char* value = lua_tostring(entity, -1);
 				std::string key_ = key;
-				//Creates the component
-				Component* c = e->addComponentByName(key_); 
-				luaComponents.push_back(c);
+				std::string value_ = "";
+				if(value != NULL)value_ = value;
 
-				K_Map information;
-				luabridge::LuaRef comp = getMetatable(entity, key);
-				lua_pushnil(comp);
-				int l = 0;
-				while (lua_next(comp, l) != 0) {
-					const char* key_ = lua_tostring(entity, -2);
-					const char* value_ = lua_tostring(entity, -1);
-					//Storing the information so the component can initialize
-					information.addPair(key_, value_);
-					int length = comp.length();
-					printf("%s : %s\n", key_, value_);
-					lua_pop(comp, 1);
+				if (key_ == "Enabled" && value_ == "false") {
+					e->setActive(false);
 				}
-				c->setEntity(e);
-				c->init(&information);
+				else{
+
+					//Creates the component
+					Component* c = e->addComponentByName(key_);
+					luaComponents.push_back(c);
+
+					luabridge::LuaRef comp = getMetatable(entity, key);
+					lua_pushnil(comp);
+
+					K_Map information;
+					int l = 0;
+
+					while (lua_next(comp, l) != 0) {
+						const char* key_ = lua_tostring(entity, -2);
+						const char* value_ = lua_tostring(entity, -1);
+
+						std::string key = key_;
+						std::string value = "";
+
+						if (value_ != NULL)value = value_;
+
+						if (key == "isEnabled" && value == "false")
+							c->setActive(false);
+
+						//Storing the information so the component can initialize
+						information.addPair(key_, value_);
+						int length = comp.length();
+						printf("%s : %s\n", key_, value_);
+						lua_pop(comp, 1);
+					}
+
+					c->setEntity(e);
+					c->init(&information);
+				}
+
 				lua_pop(entity, 1);
 			}
 		}

@@ -9,8 +9,10 @@ scene = {
             Type = "Dynamic",
             Collider = "Box",
             Mass = "1.0",
-            isTrigger = "false"
+            isTrigger = "false",
+            isEnabled = "false"
         },
+        Enabled =  "false",
         MeshRenderer = {
             MeshFile = "cubo.mesh",
         }
