@@ -73,11 +73,11 @@ namespace K_Engine {
 
 			instance.reset(nullptr);
 		}
-		catch (const std::exception&) {
-			return false;
+		catch (Ogre::Exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.getFullDescription());
 		}
 
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Render manager shutdown success");
 	}
 
 	void RenderManager::render() {
@@ -153,12 +153,10 @@ namespace K_Engine {
 	/// Parsea el archivo resources.cfg para obtener las rutas de los recursos
 	/// </summary>
 	void RenderManager::locateResources() {
-		mFSLayer = new Ogre::FileSystemLayer(name);
-
 		// load resource paths from config file
 		Ogre::ConfigFile cf;
 
-		std::string resourcesPath = mFSLayer->getConfigFilePath("resources.cfg");
+		std::string resourcesPath = "./resources.cfg";
 		if (Ogre::FileSystemLayer::fileExists(resourcesPath))
 			cf.load(resourcesPath);
 		else 
@@ -208,7 +206,6 @@ namespace K_Engine {
 		mRoot->saveConfig();
 
 		delete mCamera; mCamera = nullptr;
-		delete mFSLayer; mFSLayer = nullptr;
 		delete mRoot; mRoot = nullptr;
 	}
 

@@ -31,8 +31,6 @@ namespace K_Engine {
 
 	class  __declspec(dllexport) PhysicsManager {
 	public:
-
-
 		struct CollisionCallBack;
 
 		PhysicsManager();
@@ -84,7 +82,7 @@ namespace K_Engine {
 		/// Change the gravity of the physic world.
 		/// </summary>
 		/// <param name="grav"></param>
-		void changeGravity(Vector3 const& grav);
+		void setGravity(Vector3 const& grav);
 
 		/// <summary>
 		/// Returns a reference to the physics world.
@@ -117,17 +115,15 @@ namespace K_Engine {
 		/// <summary>
 		/// Initialize the world with the given parameters
 		/// </summary>
-		/// <param name="numIterations"></param>
-		/// <param name="step"></param>
 		/// <param name="gravity"></param>
 		/// <returns></returns>
-		bool initWorld(const btVector3& gravity);
+		void initWorld(const btVector3& gravity);
 
 		/// <summary>
 		/// Realease the world and all its objects.
 		/// </summary>
 		/// <returns>if has been succesful the shutdown</returns>
-		bool releaseWorld();
+		void releaseWorld();
 	};
 }
 #endif // PHYSICSMANAGER_H

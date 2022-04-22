@@ -61,7 +61,6 @@ namespace K_Engine {
 
 		Ogre::Root* mRoot;
 		Ogre::SceneManager* mSM;
-		Ogre::FileSystemLayer* mFSLayer;
 
 		SDL_Window* mSDLWin;
 		Ogre::RenderWindow* mRenderWin;

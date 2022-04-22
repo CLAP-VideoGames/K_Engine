@@ -6,6 +6,8 @@
 #include <physics_prj/DynamicsWorld.h>
 #include <physics_prj/CollisionLayers.h>
 
+#include <log_prj/LogManager.h>
+
 #include <utils_prj/Vector3.h>
 
 namespace K_Engine {
@@ -20,60 +22,47 @@ namespace K_Engine {
 	}
 
 	bool PhysicsManager::Init(std::string n, const Vector3& gravity = Vector3(0, -9.8f, 0)) {
-		instance.reset(new PhysicsManager());
-		instance.get()->name = n;
-		btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
-		return instance.get()->initWorld(grav_);
+		try {
+			instance.reset(new PhysicsManager());
+
+			instance.get()->name = n;
+			btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
+			instance.get()->initWorld(grav_);
+		}
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
+		}
+
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Physics manager initialization success");
 	}
 
-	bool PhysicsManager::initWorld(btVector3 const& gravity) {
-		bool succeed = true;
+	bool PhysicsManager::Shutdown() {
 		try {
-			colLayers_ = new CollisionLayers();
-			this->gravity = new btVector3(gravity);
-			dynamicsWorld_ = new DynamicsWorld(gravity);
-			btWorld = dynamicsWorld_->getBtWorld();
+			instance.get()->releaseWorld();
+			instance.reset(nullptr);
 		}
-		catch (const std::exception&) {
-			succeed = false;
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
 		}
 
-		return succeed;
-	}
-
-	bool PhysicsManager::releaseWorld() {
-		bool succeed = true;
-		try {
-			delete colLayers_; colLayers_ = nullptr;
-			delete gravity; gravity = nullptr;
-			delete dynamicsWorld_; dynamicsWorld_ = nullptr;
-		}
-		catch (const std::exception&) {
-			succeed = false;
-		}
-
-		return succeed;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Physics manager shutdown success");
 	}
 
 	void PhysicsManager::update() {
 		btWorld->stepSimulation(1.f / 60.f, 10);
+	}
 
-		//print positions of all objects
-		/*for (int j = btWorld->getNumCollisionObjects() - 1; j >= 0; j--) {
-			btCollisionObject* obj = btWorld->getCollisionObjectArray()[j];
-			btRigidBody* body = btRigidBody::upcast(obj);
-			btTransform trans;
-			if (body && body->getMotionState()) {
-				body->getMotionState()->getWorldTransform(trans);
-			}
-			else {
-				trans = obj->getWorldTransform();
-			}
-			btScalar y;
-			btScalar z;
-			btScalar x;
-			trans.getRotation().getEulerZYX(y, x, z);
-		}*/
+	void PhysicsManager::initWorld(btVector3 const& gravity) {
+			colLayers_ = new CollisionLayers();
+			this->gravity = new btVector3(gravity);
+			dynamicsWorld_ = new DynamicsWorld(gravity);
+			btWorld = dynamicsWorld_->getBtWorld();
+	}
+
+	void PhysicsManager::releaseWorld() {
+			delete colLayers_; colLayers_ = nullptr;
+			delete gravity; gravity = nullptr;
+			delete dynamicsWorld_; dynamicsWorld_ = nullptr;
 	}
 
 	void PhysicsManager::changeCollisionFiltering(btRigidBody* rb, int group, std::string name) {
@@ -110,14 +99,7 @@ namespace K_Engine {
 		return colLayers_->getLayer(name);
 	}
 
-	void PhysicsManager::addLayer(std::string name){
+	void PhysicsManager::addLayer(std::string name) {
 		colLayers_->addLayer(name);
 	}
-
-	bool PhysicsManager::Shutdown() {
-		bool exit = instance.get()->releaseWorld();
-		instance.reset(nullptr);
-		return exit;
-	}
-
 }

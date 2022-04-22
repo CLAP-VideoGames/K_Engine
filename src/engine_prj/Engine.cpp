@@ -50,7 +50,7 @@ namespace K_Engine {
 
 		// if something goes wrong, we exit initialization
 		if (!success) 
-			return logMan->printLog(LogType::FATAL, "Error on game data initialization");;
+			return logMan->printLog(LogType::FATAL, "Error on game data initialization");
 #endif
 
 		// initialisation of all sub-engines
@@ -65,7 +65,7 @@ namespace K_Engine {
 
 		// if something goes wrong, we exit initialization
 		if (!success)
-			return logMan->printLog(LogType::FATAL, "Error on engine initialization");
+			return logMan->printLog(LogType::FATAL, "Error on sub-engines initialization");
 
 		// acquisition of sub-engine's instances
 		renderMan = K_Engine::RenderManager::GetInstance();
@@ -102,7 +102,6 @@ namespace K_Engine {
 
 		// base components setup
 		K_Engine::Registry::registerComponents();
-
 
 #ifndef DEVELOPMENT
 		registerGameComponents();
@@ -163,8 +162,7 @@ namespace K_Engine {
 
 	bool Engine::shutdown()
 	{
-		bool success = K_Engine::LogManager::Shutdown() &&
-			K_Engine::ComponentManager::Shutdown() &&
+		bool success = K_Engine::ComponentManager::Shutdown() &&
 			K_Engine::InputManager::Shutdown() &&
 			K_Engine::ScriptManager::Shutdown() &&
 			K_Engine::AudioManager::Shutdown() &&
@@ -172,6 +170,9 @@ namespace K_Engine {
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::SceneManager::Shutdown() && // after PhysicsManager because if not it'd mean runtime error on callbacks
 			K_Engine::RenderManager::Shutdown();
+		
+		if(!success)
+			return logMan->printLog(LogType::WARNING, "Error on sub-modules shutdown");
 
 		sceneMan = nullptr; renderMan = nullptr;
 		physicsMan = nullptr; uiMan = nullptr;
@@ -181,6 +182,11 @@ namespace K_Engine {
 #ifndef DEVELOPMENT
 		FreeLibrary(game);
 #endif
+		if (!success)
+			return logMan->printLog(LogType::WARNING, "Error on game data shutdown");
+
+		logMan->printLog(LogType::INFO, "Engine shutdown success");
+		K_Engine::LogManager::Shutdown(); logMan = nullptr;
 
 		return success;
 	}

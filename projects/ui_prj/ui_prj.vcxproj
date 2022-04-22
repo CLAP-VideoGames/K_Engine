@@ -102,7 +102,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\cegui\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
-      <AdditionalDependencies>Codec_Assimp_d.lib;Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL3Plus_d.lib;RenderSystem_GL_d.lib;SDL2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL3Plus_d.lib;RenderSystem_GL_d.lib;SDL2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\$(Configuration)\;$(SolutionDir)dependencies\ogre\build\SDL-build\$(Configuration)\</AdditionalLibraryDirectories>
