@@ -67,7 +67,7 @@ namespace K_Engine {
 		/// <param name="upper"> This is the upper limit that the scrollbar will take in consideration when moving</param>
 		/// <param name="lower"> This is the lower limit that the scrollbar will take in consideration when moving</param>
 		/// <returns></returns>
-		UIScrollBar* addScrollBar(std::string overlayName, std::string imageName, int upper, int lower);
+		UIScrollBar* addScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower);
 
 	private:
 		static std::unique_ptr<UIManager> instance;

@@ -215,7 +215,7 @@ namespace K_Engine {
 		{
 			K_Engine::Entity* scrollBar = entMan->addEntity();
 			K_Engine::Transform* t = scrollBar->addComponent<K_Engine::Transform>();
-			K_Engine::ScrollBar* i = scrollBar->addComponent<K_Engine::ScrollBar>("C", "DefaultButton", 1, 100);
+			K_Engine::ScrollBar* i = scrollBar->addComponent<K_Engine::ScrollBar>("C", "DefaultButton", 40, 200, 300);
 		}
 
 		//UI Text

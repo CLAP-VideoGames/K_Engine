@@ -191,8 +191,8 @@ namespace K_Engine {
         return b;
     }
 
-    UIScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName,int upper, int lower) {
-        UIScrollBar* s = new UIScrollBar(overlayName, imageName, upper, lower);
+    UIScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower) {
+        UIScrollBar* s = new UIScrollBar(overlayName, imageName, x, upper, lower);
         
         notCeguiElements.push_back(s);
 

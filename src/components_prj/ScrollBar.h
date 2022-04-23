@@ -28,7 +28,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
-		ScrollBar(Entity* e, std::string overlayName, std::string imageName, int upperLimit, int lowerLimit);
+		ScrollBar(Entity* e, std::string overlayName, std::string imageName, int x, int upperLimit, int lowerLimit);
 		virtual ~ScrollBar();
 
 		//Required method for the component name
@@ -57,6 +57,7 @@ namespace K_Engine {
 		//Basic attributes needed for the image
 		std::string overlayName_;
 		std::string imageName_;
+		int x_;
 		int upperLimit_;
 		int lowerLimit_;
 	};
