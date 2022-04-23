@@ -34,7 +34,6 @@ namespace K_Engine {
 		struct CollisionCallBack;
 
 		PhysicsManager();
-
 		~PhysicsManager();
 
 		/// <summary>
@@ -49,7 +48,7 @@ namespace K_Engine {
 		/// <param name="step">Number of physics steps by second</param>
 		/// <param name="gravity">Gravity of the world</param>
 		/// <returns>if has been succesful the initialization</returns>
-		static bool Init(std::string n, const Vector3& gravity);
+		static bool Init(const Vector3& gravity);
 
 		/// <summary>
 		/// Realease the world and all its objects.
@@ -109,8 +108,6 @@ namespace K_Engine {
 		btDynamicsWorld* btWorld;
 		DynamicsWorld* dynamicsWorld_;
 		CollisionLayers* colLayers_;
-
-		std::string name;
 
 		/// <summary>
 		/// Initialize the world with the given parameters

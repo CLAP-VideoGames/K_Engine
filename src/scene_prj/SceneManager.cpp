@@ -2,6 +2,8 @@
 
 #include <scene_prj/Scene.h>
 
+#include <log_prj/LogManager.h>
+
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
@@ -15,54 +17,56 @@ namespace K_Engine {
 		return instance.get();
 	}
 
-	bool SceneManager::Init(std::string n) {
-		instance.reset(new SceneManager());
+	bool SceneManager::Init() {
+		try {
+			instance.reset(new SceneManager());
+		}
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
+		}
 
-		instance.get()->name = n;
-
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Scene manager initialization success");
 	}
 
 	bool SceneManager::Shutdown()
 	{
-		while (!instance.get()->scenes.empty()) {
-			delete instance.get()->scenes.top();
-			instance.get()->scenes.pop();
+		try {
+			while (!instance.get()->scenes.empty()) {
+				delete instance.get()->scenes.top();
+				instance.get()->scenes.pop();
+			}
+
+			instance.reset(nullptr);
+		}
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
 		}
 
-		instance.reset(nullptr);
-
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Scene manager shutdown success");
 	}
 
-	void SceneManager::popScene()
-	{
+	void SceneManager::popScene() {
 		scenes.pop();
 	}
 
-	void SceneManager::pushScene(Scene* newS)
-	{
+	void SceneManager::pushScene(Scene* newS) {
 		scenes.push(newS);
 	}
 
-	void SceneManager::changeScene(Scene* newS)
-	{
+	void SceneManager::changeScene(Scene* newS) {
 		popScene();
 		pushScene(newS);
 	}
 
-	void SceneManager::updateScene(int frameTime)
-	{
+	void SceneManager::updateScene(int frameTime) {
 		scenes.top()->update(frameTime);
 	}
 
-	void SceneManager::fixedUpdateScene(int deltaTime)
-	{
+	void SceneManager::fixedUpdateScene(int deltaTime) {
 		scenes.top()->fixedUpdate(deltaTime);
 	}
 
-	Scene* SceneManager::currentScene()
-	{
+	Scene* SceneManager::currentScene() {
 		return scenes.top();
 	}
 }

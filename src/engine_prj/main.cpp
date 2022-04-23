@@ -14,7 +14,7 @@ int main() {
 #ifndef _DEBUG
 int WINAPI WinMain(HINSTANCE zHInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
 #endif
-	K_Engine::Engine engine = K_Engine::Engine("K_Engine");
+	K_Engine::Engine engine = K_Engine::Engine();
 
 	if (engine.init() && engine.setup()) {
 		engine.run();

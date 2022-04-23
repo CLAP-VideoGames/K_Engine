@@ -3,8 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include <SDL.h> 
 #include <SDL_mixer.h>
+
+#include <log_prj/LogManager.h>
 
 #include <utils_prj/checkML.h>
 
@@ -20,31 +21,30 @@ namespace K_Engine {
 	}
 
 	bool AudioManager::Init() {
-		instance.reset(new AudioManager());
+		try {
+			instance.reset(new AudioManager());
 
-		// Initialize SDL
-		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
-			std::cout << "SDL could not be initialized!\n";
+			instance.get()->initAudio();
+		}
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, SDL_GetError());
+		}
 
-		//Initialize SDL2_mixer
-		if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
-			std::cout << "SDL2_mixer could not be initialized!\n";
-
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Audio manager initialization success");
 	}
 
 	bool AudioManager::Shutdown()
 	{
-		Mix_FreeChunk(instance->wav);
-		Mix_FreeMusic(instance->mus);
+		try {
+			instance.get()->closeAudio();
 
-		Mix_CloseAudio();
+			instance.reset(nullptr);
+		}
+		catch (const std::string e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, SDL_GetError());
+		}
 
-		SDL_Quit();
-
-		instance.reset(nullptr);
-
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Audio manager shutdown success");
 	}
 
 	//-------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ namespace K_Engine {
 		int channel = locateAudioFile(path, true); // Returns the channel it's located, if it's a new channel, it will return -1
 
 
-		if (channel == -1 )
+		if (channel == -1)
 		{
 			// Gets the first empty channel and assign the audio file to that channel, and starts playing
 			if (Mix_PlayChannel(-1, wav, loop) == -1)
@@ -88,7 +88,7 @@ namespace K_Engine {
 			// Gets the channel where it's already located and play it again
 			if (Mix_PlayChannel(channel, wav, loop) == -1)
 				std::cout << "Existing WAV sound could not be played!\n";
-		}		
+		}
 	}
 
 	void AudioManager::playMUS(const char* path, int loop)
@@ -179,7 +179,7 @@ namespace K_Engine {
 		// If channel = -1, then all channels will be stopped
 		// If the channel don't have a Mix_Chunk, then it's empty
 		// If channel = -2, then the channel doesn't exist
-		if (channel != -2 && channel == -1  || Mix_GetChunk(channel) != nullptr)
+		if (channel != -2 && channel == -1 || Mix_GetChunk(channel) != nullptr)
 		{
 			Mix_HaltChannel(channel);
 		}
@@ -206,7 +206,7 @@ namespace K_Engine {
 	}
 
 	//-------------------------------------------------------------------------------
-	
+
 	/// <summary>
 	/// Returns the channel is located depending on the file name
 	/// If it doesn't exist, if we want to add it, we insert the audio file name and its channel assigned. Else, we'll return a non-existent channel
@@ -231,4 +231,18 @@ namespace K_Engine {
 		}
 	}
 
+	void AudioManager::initAudio()
+	{
+		//Initialize SDL2_mixer
+		if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+			throw std::exception("SDL2_mixer could not be initialized");
+	}
+
+	void AudioManager::closeAudio()
+	{
+		Mix_FreeChunk(instance->wav);
+		Mix_FreeMusic(instance->mus);
+
+		Mix_CloseAudio();
+	}
 }

@@ -30,7 +30,7 @@ namespace K_Engine {
 
         static ScriptManager* GetInstance();
 
-        static bool Init(std::string name);
+        static bool Init();
         static bool Shutdown();
 
         luabridge::LuaRef getLuaClass(const std::string& c_name);
@@ -69,7 +69,6 @@ namespace K_Engine {
 
     private:
         static std::unique_ptr<ScriptManager> instance;
-        std::string n;
 
         lua_State* luaState;
         std::map<std::string, luabridge::LuaRef*> classes_;

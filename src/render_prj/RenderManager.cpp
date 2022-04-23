@@ -53,10 +53,8 @@ namespace K_Engine {
 		try {
 			instance.reset(new RenderManager());
 
-			instance.get()->name = n;
-
 			instance.get()->initRoot();
-			instance.get()->initWindow();
+			instance.get()->initWindow(n);
 			instance.get()->initScene();
 		}
 		catch (Ogre::Exception& e) {
@@ -109,12 +107,17 @@ namespace K_Engine {
 	/// <summary>
 	/// Inicializa la raiz
 	/// </summary>
-	void RenderManager::initWindow() {
-		SDL_Init(SDL_INIT_EVERYTHING);
+	void RenderManager::initWindow(std::string n) {
+		name = n;
+
+		if (SDL_Init(SDL_INIT_EVERYTHING))
+			throw SDL_GetError();
 
 		int width = 1080, height = 720;
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
 		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		if(!mSDLWin)
+			throw Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR, SDL_GetError(), "RenderManager");
 
 		/**
 		* Get driver-specific information about a window.
@@ -135,7 +138,8 @@ namespace K_Engine {
 		*/
 		SDL_SysWMinfo wmInfo;
 		SDL_GetVersion(&wmInfo.version);
-		SDL_GetWindowWMInfo(mSDLWin, &wmInfo);
+		if(!SDL_GetWindowWMInfo(mSDLWin, &wmInfo))
+			throw Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR, SDL_GetError(), "RenderManager");
 
 		Ogre::NameValuePairList miscData;
 		miscData["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
@@ -221,6 +225,8 @@ namespace K_Engine {
 			SDL_QuitSubSystem(SDL_INIT_VIDEO);
 			mSDLWin = nullptr;
 		}
+
+		SDL_Quit();
 	}
 
 	Ogre::Root* RenderManager::getRoot() {

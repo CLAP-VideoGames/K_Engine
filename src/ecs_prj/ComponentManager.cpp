@@ -1,7 +1,10 @@
 #include "ComponentManager.h"
 
-#include <utils_prj/checkML.h>
 #include <ecs_prj/Component.h>
+
+#include <log_prj/LogManager.h>
+
+#include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	std::unique_ptr<ComponentManager> ComponentManager::instance = nullptr;
@@ -14,12 +17,28 @@ namespace K_Engine {
 		return instance.get();
 	}
 
-	bool ComponentManager::Init(std::string n) {
-		instance.reset(new ComponentManager());
+	bool ComponentManager::Init() {
+		try {
+			instance.reset(new ComponentManager());
+		}
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
+		}
 
-		instance.get()->name = n;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Component manager initialization success");
+	}
 
-		return true;
+	bool ComponentManager::Shutdown() {
+		try {
+			instance.get()->availableComponents.clear();
+
+			instance.reset(nullptr);
+		}
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
+		}
+
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Component manager shutdown success");
 	}
 
 	Component* ComponentManager::createByName(std::string name) {
@@ -27,7 +46,7 @@ namespace K_Engine {
 		if (!existingComponent(name)) {
 			throw std::invalid_argument("There is no component with that name");
 		}
-		auto iterator= availableComponents.find(name);
+		auto iterator = availableComponents.find(name);
 		Component* newComponent = (iterator->second)();
 
 		return newComponent;
@@ -40,19 +59,6 @@ namespace K_Engine {
 			avComp.push_back(it->first);
 
 		return avComp;
-	}
-
-	bool ComponentManager::Shutdown() {
-		try {
-			instance.get()->availableComponents.clear();
-
-			instance.reset(nullptr);
-		}
-		catch (const std::exception&) {
-			return false;
-		}
-
-		return true;
 	}
 
 	bool ComponentManager::existingComponent(std::string compName) {

@@ -23,7 +23,7 @@ namespace K_Engine {
 
 	class __declspec(dllexport) Engine {
 	public:
-		Engine(std::string n);
+		Engine();
 		~Engine();
 
 		bool init();

@@ -21,11 +21,10 @@ namespace K_Engine {
 		return instance.get();
 	}
 
-	bool PhysicsManager::Init(std::string n, const Vector3& gravity = Vector3(0, -9.8f, 0)) {
+	bool PhysicsManager::Init(const Vector3& gravity = Vector3(0, -9.8f, 0)) {
 		try {
 			instance.reset(new PhysicsManager());
 
-			instance.get()->name = n;
 			btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 			instance.get()->initWorld(grav_);
 		}
@@ -53,16 +52,16 @@ namespace K_Engine {
 	}
 
 	void PhysicsManager::initWorld(btVector3 const& gravity) {
-			colLayers_ = new CollisionLayers();
-			this->gravity = new btVector3(gravity);
-			dynamicsWorld_ = new DynamicsWorld(gravity);
-			btWorld = dynamicsWorld_->getBtWorld();
+		colLayers_ = new CollisionLayers();
+		this->gravity = new btVector3(gravity);
+		dynamicsWorld_ = new DynamicsWorld(gravity);
+		btWorld = dynamicsWorld_->getBtWorld();
 	}
 
 	void PhysicsManager::releaseWorld() {
-			delete colLayers_; colLayers_ = nullptr;
-			delete gravity; gravity = nullptr;
-			delete dynamicsWorld_; dynamicsWorld_ = nullptr;
+		delete colLayers_; colLayers_ = nullptr;
+		delete gravity; gravity = nullptr;
+		delete dynamicsWorld_; dynamicsWorld_ = nullptr;
 	}
 
 	void PhysicsManager::changeCollisionFiltering(btRigidBody* rb, int group, std::string name) {

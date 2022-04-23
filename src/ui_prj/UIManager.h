@@ -31,10 +31,8 @@ namespace K_Engine {
 
 		static UIManager* GetInstance();
 
-		static bool Init(std::string n);
+		static bool Init();
 		static bool Shutdown();
-
-		void debug();
 
 		void update();
 
@@ -74,8 +72,6 @@ namespace K_Engine {
 
 	private:
 		static std::unique_ptr<UIManager> instance;
-
-		std::string name;
 
 		std::vector<UIElement*> notCeguiElements;
 

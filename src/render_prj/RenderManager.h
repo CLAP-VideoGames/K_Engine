@@ -13,10 +13,7 @@ namespace Ogre {
 	class SceneNode;
 	class RenderWindow;
 	class SceneManager;
-	class FileSystemLayer;
 	class RenderTarget;
-	class OverlaySystem;
-	class OverlayManager;
 }
 
 class SDL_Window;
@@ -49,10 +46,10 @@ namespace K_Engine {
 		void setAmbientLight(Vector3 light);
 		Ogre::Light* createLight(LightType lType);
 
+		Camera* getCamera();
 		Ogre::Root* getRoot();
 		Ogre::SceneManager* getSceneManager();
 		Ogre::RenderTarget* getRenderWindow();
-		Camera* getCamera();
 
 	private:
 		static std::unique_ptr<RenderManager> instance;
@@ -68,7 +65,7 @@ namespace K_Engine {
 		Camera* mCamera;
 
 		void initRoot();
-		void initWindow();
+		void initWindow(std::string n);
 		void initScene();
 		void preloadResources();
 

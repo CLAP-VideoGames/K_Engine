@@ -19,8 +19,6 @@ namespace K_Engine {
 		static bool Init();
 		static bool Shutdown();
 
-		void update() {};
-
 		void playWAV(const char* path, int vol,int loop = 0);
 		void playMUS(const char* path, int loop = 0);
 
@@ -36,7 +34,7 @@ namespace K_Engine {
 		void setVolumeWAV(int channel, int vol);
 		void setVolumeMUS(int vol);
 
-		int locateAudioFile(const char* path,bool add);
+		int locateAudioFile(const char* path, bool add);
 
 	private:
 		static std::unique_ptr<AudioManager> instance;
@@ -47,12 +45,14 @@ namespace K_Engine {
 
 		// Wav file
 		Mix_Chunk* wav = nullptr; 
-		
 		// OGG file (MP3 and other files not available)
 		Mix_Music* mus = nullptr;
 		
 		void loadWAV(const char* path);
 		void loadMUS(const char* path);
+
+		void initAudio();
+		void closeAudio();
 	};
 }
 #endif // AUDIOMANAGER_H

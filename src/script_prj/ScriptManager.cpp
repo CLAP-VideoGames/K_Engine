@@ -5,25 +5,29 @@
 #include <iostream>
 
 #include <lua.hpp>
-
 extern "C" {
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
 }
 #include <LuaBridge.h>
+
 //Otros proyectos
 #include <ecs_prj/EntityManager.h>
 #include <ecs_prj/Entity.h>
 #include <ecs_prj/ComponentManager.h>
+
 #include <physics_prj/PhysicsManager.h>
+
 #include <components_prj/Transform.h>
 #include <components_prj/RigidBody.h>
 #include <components_prj/MeshRenderer.h>
 #include <components_prj/Animator.h>
 #include <components_prj/AudioSource.h>
-#include <utils_prj/K_Map.h>
 
+#include <log_prj/LogManager.h>
+
+#include <utils_prj/K_Map.h>
 #include <utils_prj/checkML.h>
 
 using namespace std;
@@ -40,28 +44,25 @@ namespace K_Engine {
 		return instance.get();
 	}
 
-	bool ScriptManager::Init(std::string name)
+	bool ScriptManager::Init()
 	{
 		try {
 			instance.reset(new ScriptManager());
 
-			instance.get()->n = name;
 			//New state for Lua
 			instance.get()->luaState = luaL_newstate();
 			luaL_openlibs(instance.get()->luaState); // load default Lua libs
 
 			//Registro de las funciones
-
-			if (instance.get()->luaState) {
+			if (instance.get()->luaState) 
 				instance.get()->registerClassesandFunctions(instance.get()->luaState);
-			}
 			else throw exception("ERROR: LUA wasn't compile correctly");
 		}
-		catch (const std::exception&) {
-			return false;
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
 		}
 
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Script manager shutdown success");
 	}
 
 	bool ScriptManager::Shutdown()
@@ -70,12 +71,14 @@ namespace K_Engine {
 			instance.get()->classes_.clear();
 			if (instance.get()->luaState)
 				lua_close(instance.get()->luaState);
+
+			instance.reset(nullptr);
 		}
-		catch (const std::exception&) {
-			return false;
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
 		}
 
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Script manager shutdown success");
 	}
 
 	luabridge::LuaRef ScriptManager::getLuaClass(const std::string& c_name)

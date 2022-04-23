@@ -22,6 +22,8 @@
 
 #include <render_prj/RenderManager.h>
 
+#include <log_prj/LogManager.h>
+
 #include <utils_prj/checkML.h>
 
 using namespace std;
@@ -40,23 +42,21 @@ namespace K_Engine {
     /*************************************************************************
         specific initialisation goes here.
     *************************************************************************/
-    bool UIManager::Init(std::string n)
+    bool UIManager::Init()
     {
         try {
             instance.reset(new UIManager());
 
-            instance.get()->name = n;
-
+            // Requires initialization of RenderManager first
             instance.get()->overSystem_ = new Ogre::OverlaySystem();
             instance.get()->overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
-            // Requires initialization of RenderManager first
             K_Engine::RenderManager::GetInstance()->getSceneManager()->addRenderQueueListener(instance.get()->overSystem_);
         }
-        catch (const std::exception&) {
-            return false;
+        catch (Ogre::Exception& e) {
+            return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.getFullDescription());
         }
 
-        return true;
+        return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "UI manager initialization success");
     }
 
     /*************************************************************************
@@ -73,81 +73,11 @@ namespace K_Engine {
 
             instance.reset(nullptr);
         }
-        catch (const std::exception&) {
-            return false;
-        }
-
-        return true;
-    }
-
-    void UIManager::debug()
-    {
-        //addUiElement("TextArea");
-
-        try
-        {
-            /*UiProgressBar* pG = addProgressBar("A");
-            notCeguiElements[0]->setPosition(10, 680);
-            notCeguiElements[0]->setSize(300, 25);
-            pG->setMaterial("GreenDefaultProgressBar");
-            pG->setProgress(50);
-            pG->setRenderOrder(100);
-
-            UiProgressBar* p = addProgressBar("B");
-            notCeguiElements[1]->setPosition(10, 680);
-            notCeguiElements[1]->setSize(300, 25);
-            p->setMaterial("DefaultProgressBar");
-            p->setRenderOrder(50);*/
-
-            /*addScrollBar("C", 1, 100);
-            notCeguiElements[0]->setRenderOrder(500);*/
-
-
-            /*addText("D", "Fino senhores");
-            notCeguiElements[0]->setPosition(135,10);*/
-
-            /*addImage("E", "Fino");*/
-
-
-            /*addButton("F", "TestButton");
-            notCeguiElements[5]->setPosition(950, 5);
-            notCeguiElements[5]->setSize(100, 100);*/
-
-
-            //Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(
-            //    oveMngr_->createOverlayElement("Panel", "PanelName"));
-            //panel->setMetricsMode(Ogre::GMM_PIXELS);
-            //panel->setPosition(10, 10);
-            //panel->setDimensions(500, 150);
-            //panel->setMaterialName("DefaultButton");
-
-            //Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(
-            //    oveMngr_->createOverlayElement("TextArea", "TextAreaName"));
-            //textArea->setMetricsMode(Ogre::GMM_PIXELS);
-            //textArea->setPosition(50, 50);
-            //textArea->setDimensions(200, 200);
-            //textArea->setCaption("U.C.M : Panda de Simios!");
-            //textArea->setCharHeight(40);
-            //textArea->setFontName("MyFont");
-            //textArea->setColourBottom(Ogre::ColourValue(0.03, 0.05, 0.03));
-            //textArea->setColourTop(Ogre::ColourValue(0.9, 0.95, 0.95));
-
-            //// Create an overlay, and add the panel
-            //Ogre::Overlay* overlay = oveMngr_->create("OverlayName");
-            //overlay->add2D(panel);
-
-            //// Add the text area to the panel
-            //panel->addChild(textArea);
-
-            //// Show the overlay
-            //overlay->show();
-
-            //addButton("Button", "DefaultButton");
-        }
         catch (Ogre::Exception& e) {
-            Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
+            return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.getFullDescription());
         }
-        // Create a text area
+
+        return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "UI manager shutdown success");
     }
 
     void UIManager::update()

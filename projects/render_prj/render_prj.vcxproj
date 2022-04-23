@@ -22,12 +22,6 @@
     <ProjectReference Include="..\input_prj\input_prj.vcxproj">
       <Project>{ea8304f0-b9dc-4d9f-94d0-106a28f1665e}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\log_prj\log_prj.vcxproj">
-      <Project>{dfc9a446-2e67-405a-a322-2fa068d46aba}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\utils_prj\utils_prj.vcxproj">
-      <Project>{6722d8bc-01d9-41b8-a846-738d35a52e27}</Project>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

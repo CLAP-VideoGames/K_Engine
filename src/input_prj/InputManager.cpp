@@ -8,6 +8,8 @@
 #include <SDL_keycode.h>
 #include <SDL_gamecontroller.h>
 
+#include <log_prj/LogManager.h>
+
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
@@ -17,32 +19,41 @@ namespace K_Engine {
 
 	InputManager::~InputManager() = default;
 
-	InputManager* InputManager::GetInstance()
-	{
+	InputManager* InputManager::GetInstance() {
 		return instance.get();
 	}
 
 	bool InputManager::Init()
 	{
-		instance.reset(new InputManager());
+		try {
+			instance.reset(new InputManager());
 
-		instance.get()->kbState_ = SDL_GetKeyboardState(0);
-		instance.get()->flush();
+			instance.get()->kbState_ = SDL_GetKeyboardState(0);
+			instance.get()->flush();
 
-		instance.get()->controller = SDL_GameControllerOpen(0);
+			instance.get()->controller = SDL_GameControllerOpen(0);
 
-		Uint32 SDL_system_init = SDL_WasInit(SDL_INIT_EVERYTHING);
-		if (!SDL_system_init)
-			std::cout << "SDL not initialized\n";
+			Uint32 SDL_system_init = SDL_WasInit(SDL_INIT_EVERYTHING);
+			if (!SDL_system_init)
+				throw std::exception("SDL not initialized");
+		}
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
+		}
 
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Input manager initialization success");
 	}
 
 	bool InputManager::Shutdown()
 	{
-		instance.reset(nullptr);
+		try {
+			instance.reset(nullptr);
+		}
+		catch (const std::exception& e) {
+			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
+		}
 
-		return true;
+		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Input manager shutdown success");
 	}
 
 	// clear the state

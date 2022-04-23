@@ -14,9 +14,6 @@
     <ProjectReference Include="..\input_prj\input_prj.vcxproj">
       <Project>{ea8304f0-b9dc-4d9f-94d0-106a28f1665e}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\log_prj\log_prj.vcxproj">
-      <Project>{dfc9a446-2e67-405a-a322-2fa068d46aba}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\render_prj\render_prj.vcxproj">
       <Project>{3cdee0e0-bdc9-49de-ba43-3ad704f5537b}</Project>
     </ProjectReference>

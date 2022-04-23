@@ -16,7 +16,7 @@ namespace K_Engine {
 
 		static SceneManager* GetInstance();
 
-		static bool Init(std::string n);
+		static bool Init();
 		static bool Shutdown();
 
 		//Allows the user to pop the scenes stack
@@ -49,8 +49,6 @@ namespace K_Engine {
 
 	private:
 		static std::unique_ptr<SceneManager> instance;
-
-		std::string name;
 
 		std::stack<Scene*> scenes;
 	};

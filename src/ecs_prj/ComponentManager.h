@@ -35,7 +35,7 @@ namespace K_Engine {
 		//in init we Initialize the base components of our engine
 		//Declare here your components when you end programming them
 		//Use Transform as an example
-		static bool Init(std::string n);
+		static bool Init();
 		static bool Shutdown();
 
 		//This method allows the user to add its own components to the engine
@@ -69,9 +69,6 @@ namespace K_Engine {
 	private:
 		//unique pointer for our instance so we do not have problems of sharing the memory 
 		static std::unique_ptr<ComponentManager> instance;
-
-		//identificator among singletons
-		std::string name;
 
 		//Map to store the current components 
 		std::unordered_map<std::string, Component* (*)()> availableComponents;
