@@ -43,7 +43,7 @@ namespace K_Engine {
 		/// <param name="overlayName">This is the name ogre will recognice you elemtn</param>
 		/// <param name="imageName">This is the name of the image used for the progress bar</param>
 		/// <returns></returns>
-		UIProgressBar* addProgressBar(std::string overlayName, std::string imageName);
+		UIProgressBar* addProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight);
 
 		UIText* addText(std::string overlayName, std::string text);
 

@@ -155,9 +155,9 @@ namespace K_Engine {
             notCeguiElements[i]->update();
     }
 
-    UIProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName)
+    UIProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight)
     {
-        UIProgressBar* p = new UIProgressBar(overlayName, imageName);
+        UIProgressBar* p = new UIProgressBar(overlayName, imageName, x, y, orgWidth, orgHeight);
 
         notCeguiElements.push_back(p);
 

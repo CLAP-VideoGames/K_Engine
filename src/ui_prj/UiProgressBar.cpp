@@ -10,7 +10,7 @@
 namespace K_Engine {
     static int numberOfBars = 0;
 
-    UIProgressBar::UIProgressBar(std::string overlayName, std::string imageName) : UIElement(Ogre::OverlayManager::getSingletonPtr())
+    UIProgressBar::UIProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight) : UIElement(Ogre::OverlayManager::getSingletonPtr())
     {
         std::string elemtnNumber = std::to_string(numberOfBars);
 
@@ -19,8 +19,8 @@ namespace K_Engine {
         element_ = static_cast<Ogre::OverlayContainer*>(
             oveMngr_->createOverlayElement("Panel", "ProgressBar" + elemtnNumber));
         element_->setMetricsMode(Ogre::GMM_PIXELS);
-        element_->setPosition(defaultX, defaultY);
-        element_->setDimensions(defaultWidth, defaultHeight);
+        element_->setPosition(x, y);
+        element_->setDimensions(orgWidth, orgHeight);
 
         //DefaultMaterial
         element_->setMaterialName(imageName);
@@ -34,7 +34,7 @@ namespace K_Engine {
 
         numberOfBars++;
 
-        size = std::pair<int, int>(500, 150);
+        originalSize = std::pair<int, int>(orgWidth, orgHeight);
     }
 
     UIProgressBar::~UIProgressBar() = default;
@@ -44,10 +44,7 @@ namespace K_Engine {
         if (prog <= maximumProgresion)  progresion = prog;
         else progresion = maximumProgresion;
 
-
-        std::pair<int, int> oldSize = getSize();
-
-        setSize(oldSize.first * (prog / maximumProgresion), oldSize.second);
+        setSize(originalSize.first * (prog / maximumProgresion), originalSize.second);
     }
 
     void UIProgressBar::setMaxProgress(float maximum)
