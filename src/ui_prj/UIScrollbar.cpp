@@ -64,7 +64,7 @@ namespace K_Engine {
 	//Returns the percentage of the scrollbar that is left above the scrollbar itself
 	//this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
 	double UIScrollBar::getRelativePos() {
-		return (((double)distance - (double)position.second - (double)upperLimit) / (double)distance) * 100;
+		return (((double)element_->getTop() - (double)upperLimit) / (double)distance) * 100;
 	}
 
 	bool UIScrollBar::getNeedsSync()

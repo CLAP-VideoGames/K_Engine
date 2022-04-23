@@ -5,6 +5,7 @@
 #include "UiImage.h"
 #include "UiButton.h"
 #include "UiScrollBar.h"
+#include "UiSlider.h"
 
 #include <iostream>
 #include <string>
@@ -194,6 +195,14 @@ namespace K_Engine {
     UIScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower) {
         UIScrollBar* s = new UIScrollBar(overlayName, imageName, x, upper, lower);
         
+        notCeguiElements.push_back(s);
+
+        return s;
+    }
+
+    UISlider* UIManager::addSlider(std::string overlayName, std::string imageName, int y, int left, int right) {
+        UISlider* s = new UISlider(overlayName, imageName, y, left, right);
+
         notCeguiElements.push_back(s);
 
         return s;

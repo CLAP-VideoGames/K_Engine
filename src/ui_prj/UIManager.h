@@ -21,6 +21,7 @@ namespace K_Engine {
 	class UIImage;
 	class UIButton;
 	class UIScrollBar;
+	class UISlider;
 
 	class  __declspec(dllexport) UIManager {
 	public:
@@ -68,6 +69,8 @@ namespace K_Engine {
 		/// <param name="lower"> This is the lower limit that the scrollbar will take in consideration when moving</param>
 		/// <returns></returns>
 		UIScrollBar* addScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower);
+
+		UISlider* addSlider(std::string overlayName, std::string imageName, int y, int left, int right);
 
 	private:
 		static std::unique_ptr<UIManager> instance;

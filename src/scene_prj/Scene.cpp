@@ -20,6 +20,7 @@
 #include <components_prj/ProgressBar.h>
 #include <components_prj/ScrollBar.h>
 #include <components_prj/Text.h>
+#include <components_prj/Slider.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
@@ -224,6 +225,13 @@ namespace K_Engine {
 			K_Engine::Transform* t = text->addComponent<K_Engine::Transform>();
 			K_Engine::Text* i = text->addComponent<K_Engine::Text>("D", "Fino senhores");
 			t->setPosition(135, 10, 50);
+		}
+
+		//UI Slider
+		{
+			K_Engine::Entity* slider = entMan->addEntity();
+			K_Engine::Transform* t = slider->addComponent<K_Engine::Transform>();
+			K_Engine::Slider* i = slider->addComponent<K_Engine::Slider>("G", "DefaultButton", 40, 200, 300);
 		}
 
 		entMan->start();
