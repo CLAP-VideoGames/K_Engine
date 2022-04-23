@@ -20,14 +20,12 @@ namespace K_Engine {
 		position_ = new Vector3{ 0, 0, 0 };
 		rotation_ = new Vector3{ 0, 0, 0 };
 		scale_ = new Vector3{ 1, 1, 1 };
-		dimensions_ = new Vector3{ 1, 1, 1 };
 	}
 
 	Transform::~Transform() {
 		delete position_; position_ = nullptr;
 		delete rotation_; rotation_ = nullptr;
 		delete scale_; scale_ = nullptr;
-		delete dimensions_; dimensions_ = nullptr;
 	}
 
 	std::string Transform::GetId() {
@@ -39,7 +37,6 @@ namespace K_Engine {
 		position_ = information->valueToVector3("position");
 		rotation_ = information->valueToVector3("rotation");
 		scale_ = information->valueToVector3("scale");
-		
 	}
 
 	void Transform::translate(float x, float y, float z)

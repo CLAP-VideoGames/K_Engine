@@ -193,6 +193,7 @@ namespace K_Engine {
 			cs->calculateLocalInertia(mass, inertia);
 			break;
 		case BodyType::BT_STATIC:
+			mass = 0.0f;
 			break;
 		}
 
@@ -203,6 +204,9 @@ namespace K_Engine {
 
 		//Creation of the body
 		auto rb = new btRigidBody(bodyCI);
+
+
+
 		btWorld_->addRigidBody(rb, group, mask);
 
 		//Adding personal data

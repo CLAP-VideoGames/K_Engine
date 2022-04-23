@@ -56,11 +56,6 @@ namespace K_Engine {
 	}
 
 	void Scene::debug() {
-		//Test Lua
-		scriptMan = K_Engine::ScriptManager::GetInstance();
-
-		scriptMan->loadLuaMap("map", entMan);
-
 		// example scene (pending of development)
 		std::string playerLayer = "Player";
 		std::string nothingLayer = "Nothing";
@@ -69,90 +64,99 @@ namespace K_Engine {
 		int playerCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer);
 
 		//SPHERE
-		K_Engine::Entity* player = entMan->addEntity();
-		{
-			K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setScale(3.0f);
-			t->setPosition(0.5f, 8, 0);
-			t->debug();
-			ColliderType boxType = ColliderType::CT_SPHERE;
-			BodyType bodyType = BodyType::BT_DYNAMIC;
-			float mass = 1.0f;
-			RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, K_Engine::PhysicsManager::GetInstance()->getLayerID(playerLayer), playerCollidesWith);
-			r->setFriction(0.6f);
-			r->setRestitution(1.2f);
-			K_Engine::MeshRenderer* m = player->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("sphere.mesh");
-			m->setMaterial("K_Engine/PrototypeBlue");
-			m->debug();
-		}
+		//K_Engine::Entity* player = entMan->addEntity();
+		//{
+		//	K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setScale(3.0f);
+		//	t->setPosition(0.5f, 8, 0);
+		//	t->debug();
+		//	ColliderType boxType = ColliderType::CT_SPHERE;
+		//	BodyType bodyType = BodyType::BT_DYNAMIC;
+		//	float mass = 1.0f;
+		//	RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), playerCollidesWith);
+		//	r->setFriction(0.6f);
+		//	r->setRestitution(1.2f);
+		//	K_Engine::MeshRenderer* m = player->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("sphere.mesh");
+		//	m->setMaterial("K_Engine/PrototypeBlue");
+		//	m->debug();
+		//}
 
-		//SPHERE CHILD
-		K_Engine::Entity* playerChild = entMan->addEntity();
-		{
-			K_Engine::Transform* t = playerChild->addComponent<K_Engine::Transform>(); t->setScale(1.0f);
-			t->setPosition(7, 7, 0);
-			//t->setRotation(0, 0, 10);
-			ColliderType boxType = ColliderType::CT_SPHERE;
-			BodyType bodyType = BodyType::BT_DYNAMIC;
-			float mass = 1.0f;
-			//RigidBody* r = playerChild->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerID(playerLayer), playerCollidesWith);
-			//r->setFriction(0.6f);
-			//r->setRestitution(1.2f);
-			K_Engine::MeshRenderer* m = playerChild->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("sphere.mesh");
-			m->setMaterial("K_Engine/PrototypeWhite");
-			//m->debug();
-		}
-		player->addChild(playerChild);
+		////SPHERE CHILD
+		//K_Engine::Entity* playerChild = entMan->addEntity();
+		//{
+		//	K_Engine::Transform* t = playerChild->addComponent<K_Engine::Transform>(); t->setScale(1.0f);
+		//	t->setPosition(7, 7, 0);
+		//	//t->setRotation(0, 0, 10);
+		//	ColliderType boxType = ColliderType::CT_SPHERE;
+		//	BodyType bodyType = BodyType::BT_DYNAMIC;
+		//	float mass = 1.0f;
+		//	//RigidBody* r = playerChild->addComponent<RigidBody>(boxType, bodyType, mass, physicsMan->getLayerID(playerLayer), playerCollidesWith);
+		//	//r->setFriction(0.6f);
+		//	//r->setRestitution(1.2f);
+		//	K_Engine::MeshRenderer* m = playerChild->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("sphere.mesh");
+		//	m->setMaterial("K_Engine/PrototypeWhite");
+		//	//m->debug();
+		//}
+		//player->addChild(playerChild);
 
-		//PLATFORM ROTATED
-		int platformCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(playerLayer);
-		{
-			K_Engine::Entity* platform = entMan->addEntity();
-			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setScale(5.f, 1.0f, 5.f);
-			t->setPosition(-2.8, 0.f, 0);
-			t->setRotation(0, 0, -45);
-			ColliderType boxType = ColliderType::CT_BOX;
-			BodyType bodyType = BodyType::BT_STATIC;
-			K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), platformCollidesWith);
-			r->setRestitution(0.8f);
-			K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("cube.mesh");
-			m->setMaterial("K_Engine/PrototypeOrange");
-		}
-		
-		//WALL
-		int futureCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(playerLayer);
-		{
-			K_Engine::Entity* platform = entMan->addEntity();
-			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setScale(5.f, 1.0f, 5.f);
-			t->setPosition(5.8, 1.5f, 0);
-			t->setRotation(0, 0, 90);
-			ColliderType boxType = ColliderType::CT_BOX;
-			BodyType bodyType = BodyType::BT_STATIC;
-			K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), futureCollidesWith);
-			r->setDimensions({ 0.2, 1, 1 });
-			r->setOffset({ 0, -1.0/*0*/, 0});
-			r->setRestitution(0.8f);
-			K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("cube.mesh");
-			m->setMaterial("K_Engine/PrototypeGrey");
-		}
+		////PLATFORM ROTATED
+		//int platformCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(playerLayer);
+		//{
+		//	K_Engine::Entity* platform = entMan->addEntity();
+		//	K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setScale(5.f, 1.0f, 5.f);
+		//	t->setPosition(-2.8, 0.f, 0);
+		//	t->setRotation(0, 0, -45);
+		//	ColliderType boxType = ColliderType::CT_BOX;
+		//	BodyType bodyType = BodyType::BT_STATIC;
+		//	K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), platformCollidesWith);
+		//	r->setRestitution(0.8f);
+		//	K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("cube.mesh");
+		//	m->setMaterial("K_Engine/PrototypeOrange");
+		//}
+		//
+		////WALL
+		//int futureCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(playerLayer);
+		//{
+		//	K_Engine::Entity* platform = entMan->addEntity();
+		//	K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setScale(5.f, 1.0f, 5.f);
+		//	t->setPosition(5.8, 1.5f, 0);
+		//	t->setRotation(0, 0, 90);
+		//	ColliderType boxType = ColliderType::CT_BOX;
+		//	BodyType bodyType = BodyType::BT_STATIC;
+		//	K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), futureCollidesWith);
+		//	r->setDimensions({ 0.2, 1, 1 });
+		//	r->setOffset({ 0, -1.0/*0*/, 0});
+		//	r->setRestitution(0.8f);
+		//	K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("cube.mesh");
+		//	m->setMaterial("K_Engine/PrototypeGrey");
+		//}
 
-		//GROUND
-		{
-			K_Engine::Entity* platform = entMan->addEntity();
-			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>(); t->setScale(20.f, 1.0f, 20.f);
-			t->setPosition(0, -3.f, 0);
-			t->setRotation(0, 0, 0);
-			ColliderType boxType = ColliderType::CT_BOX;
-			BodyType bodyType = BodyType::BT_STATIC;
-			K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), futureCollidesWith);
-			r->setRestitution(0.8f);
-			K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("cube.mesh");
-			m->setMaterial("K_Engine/PrototypeRed");
-		}
+		////GROUND
+		//{
+		//	K_Engine::Entity* platform = entMan->addEntity();
+		//	K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>();
+		//	t->setPosition(0, -0.5f, 0);
+		//	ColliderType boxType = ColliderType::CT_BOX;
+		//	BodyType bodyType = BodyType::BT_STATIC;
+		//	K_Engine::RigidBody* r = platform->addComponent<K_Engine::RigidBody>(boxType, bodyType, 0.0f, 1, 1);
+		//	r->setDimensions({ 10, 1.69 ,10});
+		//	r->setRestitution(0.8f);
+		//	K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("cubo.mesh");
+		//	m->setMaterial("ground");
+		//}
+
+		////GROUND
+		//{
+		//	K_Engine::Entity* platform = entMan->addEntity();
+		//	K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>();
+		//	t->setScale(0.5f, 0.5f, 0.5f);
+		//	K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("Sinbad.mesh");
+		//}
 
 		{
 			/*Entity* audio = entMan->addEntity();
@@ -173,7 +177,7 @@ namespace K_Engine {
 		//LIGHT
 		{
 			Entity* light = entMan->addEntity();
-			Light* lComp = light->addComponent<Light>(LightType::SPOTLIGHT, true);
+			Light* lComp = light->addComponent<Light>(LightType::DIRECTIONAL, true);
 		}
 
 		//UI Button

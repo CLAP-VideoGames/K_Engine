@@ -94,7 +94,6 @@ namespace K_Engine {
 		Vector3* position_;
 		Vector3* rotation_;
 		Vector3* scale_;
-		Vector3* dimensions_;
 
 		//for testing
 		float timer = 10.0;

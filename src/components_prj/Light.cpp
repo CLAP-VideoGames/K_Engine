@@ -37,18 +37,20 @@ namespace K_Engine {
 		mLight = RenderManager::GetInstance()->createLight(type);
 		mNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		mNode->attachObject(mLight);
-		mNode->setPosition(0, 5, 0);
-		mNode->lookAt({ 0, -3, 0 }, Ogre::Node::TransformSpace::TS_WORLD);
+		mNode->setPosition(0, 4.5, 0);
+		mNode->lookAt({ 0, -1, -1 }, Ogre::Node::TransformSpace::TS_WORLD);
 
-		diffuse = Vector3(1, 1, 1);
+		float factorDiff = 1.0f;
+		diffuse = Vector3(factorDiff, factorDiff, factorDiff);
+
 		mLight->setDiffuseColour(diffuse.x, diffuse.y, diffuse.z);
 		mLight->setSpecularColour(1, 0, 0);
 		//mLight->setCastShadows(true);
 
 		if (type == LightType::SPOTLIGHT)
 			setSpotlightParameters(0, 45);
-
-		K_Engine::RenderManager::GetInstance()->setAmbientLight({ 0.3, 0.3, 0.3 });
+		float ambient = 0.1;
+		K_Engine::RenderManager::GetInstance()->setAmbientLight({ ambient, ambient, ambient });
 	}
 
 	void Light::changeType(LightType newType)

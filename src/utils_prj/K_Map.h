@@ -32,6 +32,8 @@ namespace K_Engine {
 
 		std::string value(std::string key);
 
+		bool hasValue(std::string key);
+
 	private:
 
 		/// <summary>

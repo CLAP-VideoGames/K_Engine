@@ -109,8 +109,6 @@ namespace K_Engine {
 #endif
 
 		// script component data setup
-		scriptMan->setDataComponents(compMan->getAvailableComponents());
-
 #ifdef DEVELOPMENT
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 		debug();

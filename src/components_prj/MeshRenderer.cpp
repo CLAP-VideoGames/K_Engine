@@ -45,11 +45,11 @@ namespace K_Engine {
 		syncScale();
 	}
 
-	void MeshRenderer::init(K_Map* information)
-	{
-		meshFile = information->value("MeshFile");
-		setMesh(meshFile);
-		//material = information->value("Material");
+	void MeshRenderer::init(K_Map* information){
+		setMesh(meshFile = information->value("MeshFile"));
+		if (information->hasValue("Material")) {
+			setMaterial(information->value("Material"));
+		}
 	}
 
 	void MeshRenderer::update(int frameTime) {

@@ -23,8 +23,8 @@ namespace K_Engine {
 	RigidBody::RigidBody() : Component() {
 		friction_ = 0.3;
 		restitution_ = 0.1f;
-		group_ = 0;
-		mask_ = 0;
+		group_ = 1;
+		mask_ = 1;
 		dimensions_ = new Vector3(1, 1, 1); //By default
 		offsetCenter_ = new Vector3(0, 0, 0); //By default no offset
 	}
@@ -101,7 +101,7 @@ namespace K_Engine {
 
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->x, (btScalar)dimensions_->x };
+		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->y, (btScalar)dimensions_->z };
 		collisionInfo = new K_Engine::CollisionInfo(this->entity,
 				//Collision Enter Callback
 				[=](void* other) {
@@ -137,6 +137,8 @@ namespace K_Engine {
 		else if (col == "Sphere") type_ = ColliderType::CT_SPHERE;
 		else if (col == "Trimesh") type_ = ColliderType::CT_TRIMESH;
 		else type_ = ColliderType::CT_HULL;
+
+		dimensions_ = information->valueToVector3("Dimensions");
 
 		mass_ = information->valueToNumber("Mass");
 

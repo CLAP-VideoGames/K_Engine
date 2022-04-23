@@ -198,7 +198,7 @@ namespace K_Engine {
 		mCamera = new Camera();
 		mCamera->setNearClipDistance(5);
 		mCamera->setFarClipDistance(10000);
-		mCamera->setCameraPos(-2, 0, 15);
+		mCamera->setCameraPos(-2, 10, 15);
 	}
 
 	void RenderManager::closeContext()
