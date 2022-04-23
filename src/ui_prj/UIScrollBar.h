@@ -12,7 +12,7 @@ namespace K_Engine {
 	class UIScrollBar : public UIElement
 	{
 	public:
-		UIScrollBar(std::string overlayName, std::string imageName, int upper, int lower);
+		UIScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower);
 		virtual ~UIScrollBar();
 
 		virtual void update();

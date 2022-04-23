@@ -20,10 +20,11 @@ namespace K_Engine {
 	K_Engine::ScrollBar::ScrollBar(Entity* e) : Component( e){
 	}
 
-	ScrollBar::ScrollBar(Entity* e, std::string overlayName, std::string imageName, int upperLimit, int lowerLimit) : Component(e)
+	ScrollBar::ScrollBar(Entity* e, std::string overlayName, std::string imageName, int x, int upperLimit, int lowerLimit) : Component(e)
 	{
 		overlayName_ = overlayName;
 		imageName_ = imageName;
+		x_ = x;
 		upperLimit_ = upperLimit;
 		lowerLimit_ = lowerLimit;
 	}
@@ -38,19 +39,19 @@ namespace K_Engine {
 	void K_Engine::ScrollBar::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		scrollBar_ = UIManager::GetInstance()->addScrollBar(overlayName_, imageName_, upperLimit_, lowerLimit_);
+		scrollBar_ = UIManager::GetInstance()->addScrollBar(overlayName_, imageName_, x_, upperLimit_, lowerLimit_);
 	}
 	void ScrollBar::update(int frameTime)
 	{
 		//Position syncing
 		//Transform actualization if there was a change in position
-		if (scrollBar_->getNeedsSync()) {
-			transformRf_->setPosition(transformRf_->getPosition().x, scrollBar_->getPosition().second, transformRf_->getPosition().z);
-			scrollBar_->setNeedsSync(false);
-		}
+		//if (scrollBar_->getNeedsSync()) {
+		//	transformRf_->setPosition(transformRf_->getPosition().x, scrollBar_->getPosition().second, transformRf_->getPosition().z);
+		//	scrollBar_->setNeedsSync(false);
+		//}
 
-		////Element actualization
-		scrollBar_->updatePosition(transformRf_->getPosition());
+		//////Element actualization
+		//scrollBar_->updatePosition(transformRf_->getPosition());
 
 		//Scale syincing
 		/*scrollBar_->setSize(scrollBar_->getSize().first * transformRf_->getScale().x, scrollBar_->getSize().second * transformRf_->getScale().y);*/

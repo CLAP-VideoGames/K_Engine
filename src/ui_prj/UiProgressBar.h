@@ -9,7 +9,7 @@ namespace K_Engine {
 	class UIProgressBar : public UIElement
 	{
 	public:
-		UIProgressBar(std::string overlayName, std::string imageName);
+		UIProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight);
 		virtual ~UIProgressBar();
 
 		void setProgress(float prog);
@@ -18,6 +18,8 @@ namespace K_Engine {
 		float getProgress();
 
 	private:
+
+		std::pair<int, int> originalSize;
 
 		//Starts full progresion
 		float progresion = 100;

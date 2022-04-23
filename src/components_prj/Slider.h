@@ -1,26 +1,26 @@
 #pragma once
-#ifndef SCROLLBAR_H
-#define SCROLLBAR_H
+#ifndef SLIDER_H
+#define SLIDER_H
 
 #include <ecs_prj/Component.h>
 
 namespace K_Engine {
 	class UIManager;
-	class UIScrollBar;
+	class UISlider;
 	class Transform;
 	/// <summary>
 	/// This class provides an entity with a UiScrollBar component
 	/// </summary>
-	class __declspec(dllexport) ScrollBar : public Component
+	class __declspec(dllexport) Slider : public Component
 	{
 	public:
-		ScrollBar();
+		Slider();
 
 		/// <summary>
 		/// Required to be initialized properly in the Component Manager
 		/// </summary>
 		/// <param name="e">Entity to be attached to</param>
-		ScrollBar(Entity* e);
+		Slider(Entity* e);
 
 		/// <summary>
 		/// Creates a scroll bar with the specified name. The image material must be previously loaded.
@@ -28,8 +28,8 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
-		ScrollBar(Entity* e, std::string overlayName, std::string imageName, int x, int upperLimit, int lowerLimit);
-		virtual ~ScrollBar();
+		Slider(Entity* e, std::string overlayName, std::string imageName, int x, int leftLimit, int rightLimit);
+		virtual ~Slider();
 
 		//Required method for the component name
 		static std::string GetId();
@@ -52,16 +52,16 @@ namespace K_Engine {
 		Transform* transformRf_ = nullptr;
 
 		//ScrollBar created in UIManager
-		UIScrollBar* scrollBar_;
+		UISlider* slider_;
 
 		//Basic attributes needed for the image
 		std::string overlayName_;
 		std::string imageName_;
 		int x_;
-		int upperLimit_;
-		int lowerLimit_;
+		int leftLimit_;
+		int rightLimit_;
 	};
 }
 
 
-#endif SCROLLBAR_H
+#endif SLIDER_H

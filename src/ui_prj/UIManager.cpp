@@ -5,6 +5,7 @@
 #include "UiImage.h"
 #include "UiButton.h"
 #include "UiScrollBar.h"
+#include "UiSlider.h"
 
 #include <iostream>
 #include <string>
@@ -155,9 +156,9 @@ namespace K_Engine {
             notCeguiElements[i]->update();
     }
 
-    UIProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName)
+    UIProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight)
     {
-        UIProgressBar* p = new UIProgressBar(overlayName, imageName);
+        UIProgressBar* p = new UIProgressBar(overlayName, imageName, x, y, orgWidth, orgHeight);
 
         notCeguiElements.push_back(p);
 
@@ -191,9 +192,17 @@ namespace K_Engine {
         return b;
     }
 
-    UIScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName,int upper, int lower) {
-        UIScrollBar* s = new UIScrollBar(overlayName, imageName, upper, lower);
+    UIScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower) {
+        UIScrollBar* s = new UIScrollBar(overlayName, imageName, x, upper, lower);
         
+        notCeguiElements.push_back(s);
+
+        return s;
+    }
+
+    UISlider* UIManager::addSlider(std::string overlayName, std::string imageName, int y, int left, int right) {
+        UISlider* s = new UISlider(overlayName, imageName, y, left, right);
+
         notCeguiElements.push_back(s);
 
         return s;

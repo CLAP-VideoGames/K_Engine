@@ -20,6 +20,7 @@
 #include <components_prj/ProgressBar.h>
 #include <components_prj/ScrollBar.h>
 #include <components_prj/Text.h>
+#include <components_prj/Slider.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
@@ -197,29 +198,29 @@ namespace K_Engine {
 			t->setPosition(0, 0, 20);
 		}
 
-		////UI Progress Bar 1
-		//{
-		//	K_Engine::Entity* progressBar = entMan->addEntity();
-		//	K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
-		//	K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("A", "GreenDefaultProgressBar");
-		//	t->setPosition(10, 680, 100);
-		//	t->setScale(300, 25, 1);
-		//}
+		//UI Progress Bar 1
+		{
+			K_Engine::Entity* progressBar = entMan->addEntity();
+			K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
+			K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("A", "GreenDefaultProgressBar", 200, 100, 500, 150);
+			t->setPosition(10, 680, 100);
+			t->setScale(300, 25, 1);
+		}
 
-		////UI Progress Bar 2
-		//{
-		//	K_Engine::Entity* progressBar = entMan->addEntity();
-		//	K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
-		//	K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("B", "DefaultProgressBar");
-		//	t->setPosition(10, 680, 50);
-		//	t->setScale(300, 25, 1);
-		//}
+		//UI Progress Bar 2
+		{
+			K_Engine::Entity* progressBar = entMan->addEntity();
+			K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
+			K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("B", "DefaultProgressBar", 100, 500, 300, 50);
+			t->setPosition(10, 680, 50);
+			t->setScale(300, 25, 1);
+		}
 
 		//UI ScrollBar
 		{
 			K_Engine::Entity* scrollBar = entMan->addEntity();
 			K_Engine::Transform* t = scrollBar->addComponent<K_Engine::Transform>();
-			K_Engine::ScrollBar* i = scrollBar->addComponent<K_Engine::ScrollBar>("C", "DefaultButton", 1, 100);
+			K_Engine::ScrollBar* i = scrollBar->addComponent<K_Engine::ScrollBar>("C", "DefaultButton", 40, 200, 300);
 		}
 
 		//UI Text
@@ -228,6 +229,13 @@ namespace K_Engine {
 			K_Engine::Transform* t = text->addComponent<K_Engine::Transform>();
 			K_Engine::Text* i = text->addComponent<K_Engine::Text>("D", "Fino senhores");
 			t->setPosition(135, 10, 50);
+		}
+
+		//UI Slider
+		{
+			K_Engine::Entity* slider = entMan->addEntity();
+			K_Engine::Transform* t = slider->addComponent<K_Engine::Transform>();
+			K_Engine::Slider* i = slider->addComponent<K_Engine::Slider>("G", "DefaultButton", 40, 200, 300);
 		}
 
 		entMan->start();

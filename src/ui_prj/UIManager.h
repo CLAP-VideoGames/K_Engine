@@ -21,6 +21,7 @@ namespace K_Engine {
 	class UIImage;
 	class UIButton;
 	class UIScrollBar;
+	class UISlider;
 
 	class  __declspec(dllexport) UIManager {
 	public:
@@ -43,7 +44,7 @@ namespace K_Engine {
 		/// <param name="overlayName">This is the name ogre will recognice you elemtn</param>
 		/// <param name="imageName">This is the name of the image used for the progress bar</param>
 		/// <returns></returns>
-		UIProgressBar* addProgressBar(std::string overlayName, std::string imageName);
+		UIProgressBar* addProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight);
 
 		UIText* addText(std::string overlayName, std::string text);
 
@@ -67,7 +68,9 @@ namespace K_Engine {
 		/// <param name="upper"> This is the upper limit that the scrollbar will take in consideration when moving</param>
 		/// <param name="lower"> This is the lower limit that the scrollbar will take in consideration when moving</param>
 		/// <returns></returns>
-		UIScrollBar* addScrollBar(std::string overlayName, std::string imageName, int upper, int lower);
+		UIScrollBar* addScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower);
+
+		UISlider* addSlider(std::string overlayName, std::string imageName, int y, int left, int right);
 
 	private:
 		static std::unique_ptr<UIManager> instance;
