@@ -138,6 +138,8 @@ namespace K_Engine {
 		else if (col == "Trimesh") type_ = ColliderType::CT_TRIMESH;
 		else type_ = ColliderType::CT_HULL;
 
+		if (dimensions_ != nullptr)
+			delete dimensions_;
 		dimensions_ = information->valueToVector3("Dimensions");
 
 		mass_ = information->valueToNumber("Mass");

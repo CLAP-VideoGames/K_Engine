@@ -48,7 +48,7 @@ namespace K_Engine {
 		/// <param name="step">Number of physics steps by second</param>
 		/// <param name="gravity">Gravity of the world</param>
 		/// <returns>if has been succesful the initialization</returns>
-		static bool Init(const Vector3& gravity);
+		static bool Init();
 
 		/// <summary>
 		/// Realease the world and all its objects.

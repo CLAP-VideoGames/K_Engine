@@ -55,7 +55,7 @@ namespace K_Engine {
 		// initialisation of all sub-engines
 		success = K_Engine::RenderManager::Init(name) &&
 			K_Engine::UIManager::Init() &&
-			K_Engine::PhysicsManager::Init({ 0, -9.8, 0 }) &&
+			K_Engine::PhysicsManager::Init() &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::ScriptManager::Init() &&
 			K_Engine::InputManager::Init() &&

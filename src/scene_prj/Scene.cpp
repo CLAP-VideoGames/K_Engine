@@ -65,22 +65,22 @@ namespace K_Engine {
 		int playerCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer);
 
 		//SPHERE
-		//K_Engine::Entity* player = entMan->addEntity();
-		//{
-		//	K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setScale(3.0f);
-		//	t->setPosition(0.5f, 8, 0);
-		//	t->debug();
-		//	ColliderType boxType = ColliderType::CT_SPHERE;
-		//	BodyType bodyType = BodyType::BT_DYNAMIC;
-		//	float mass = 1.0f;
-		//	RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), playerCollidesWith);
-		//	r->setFriction(0.6f);
-		//	r->setRestitution(1.2f);
-		//	K_Engine::MeshRenderer* m = player->addComponent<K_Engine::MeshRenderer>();
-		//	m->setMesh("sphere.mesh");
-		//	m->setMaterial("K_Engine/PrototypeBlue");
-		//	m->debug();
-		//}
+		/*K_Engine::Entity* player = entMan->addEntity();
+		{
+			K_Engine::Transform* t = player->addComponent<K_Engine::Transform>(); t->setScale(3.0f);
+			t->setPosition(0.5f, 8, 0);
+			t->debug();
+			ColliderType boxType = ColliderType::CT_SPHERE;
+			BodyType bodyType = BodyType::BT_DYNAMIC;
+			float mass = 1.0f;
+			RigidBody* r = player->addComponent<RigidBody>(boxType, bodyType, mass, K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer), playerCollidesWith);
+			r->setFriction(0.6f);
+			r->setRestitution(1.2f);
+			K_Engine::MeshRenderer* m = player->addComponent<K_Engine::MeshRenderer>();
+			m->setMesh("sphere.mesh");
+			m->setMaterial("K_Engine/PrototypeBlue");
+			m->debug();
+		}*/
 
 		////SPHERE CHILD
 		//K_Engine::Entity* playerChild = entMan->addEntity();
