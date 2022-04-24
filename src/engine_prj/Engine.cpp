@@ -54,8 +54,8 @@ namespace K_Engine {
 
 		// initialisation of all sub-engines
 		success = K_Engine::RenderManager::Init(name) &&
-			K_Engine::PhysicsManager::Init({ 0, -9.8, 0 }) &&
 			K_Engine::UIManager::Init() &&
+			K_Engine::PhysicsManager::Init({ 0, -9.8, 0 }) &&
 			K_Engine::AudioManager::Init() &&
 			K_Engine::ScriptManager::Init() &&
 			K_Engine::InputManager::Init() &&
@@ -82,7 +82,8 @@ namespace K_Engine {
 	bool Engine::setup()
 	{
 		// render setup
-		renderMan->locateResources();
+		uiMan->cleanElements();
+		renderMan->locateResources("./resources.cfg");
 
 		// physics setup
 		std::string playerLayer = "Player";
@@ -165,7 +166,7 @@ namespace K_Engine {
 		inputMan = nullptr; compMan = nullptr;
 
 #ifndef DEVELOPMENT
-		FreeLibrary(game);
+		success = closeGame();
 #endif
 		if (!success)
 			return logMan->printLog(LogType::WARNING, "Error on game data shutdown");
@@ -181,10 +182,10 @@ namespace K_Engine {
 		// game .dll loading
 #ifndef _DEBUG
 		game = LoadLibrary(TEXT("./game.dll"));
-#endif // !_DEBUG
+#endif 
 #ifdef _DEBUG
 		game = LoadLibrary(TEXT("./game_d.dll"));
-#endif // !_DEBUG
+#endif 
 
 		if (game == nullptr)
 			return logMan->addLog(LogType::FATAL, "Game .dll unable to load");
@@ -197,6 +198,18 @@ namespace K_Engine {
 		if (loadScene != nullptr || registerGameComponents != nullptr)
 			return logMan->addLog(LogType::FATAL, "One of game .dll functions unable to load explicitly");
 		return logMan->addLog(LogType::FATAL, "Game functions load success");
+	}
+
+	bool Engine::closeGame()
+	{
+		try {
+			FreeLibrary(game);
+		}
+		catch (const std::exception& e) {
+			return false;
+		}
+
+		return true;
 	}
 
 	void Engine::debug()

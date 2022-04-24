@@ -38,7 +38,7 @@ namespace K_Engine {
 		static bool Init(std::string n);
 		static bool Shutdown();
 
-		void locateResources();
+		void locateResources(std::string file);
 
 		void render();
 
@@ -51,6 +51,9 @@ namespace K_Engine {
 		Ogre::SceneManager* getSceneManager();
 		Ogre::RenderTarget* getRenderWindow();
 
+		int windowHeight();
+		int windowWidth();
+		
 	private:
 		static std::unique_ptr<RenderManager> instance;
 
@@ -64,10 +67,11 @@ namespace K_Engine {
 
 		Camera* mCamera;
 
+		int window_height, window_width;
+
 		void initRoot();
 		void initWindow(std::string n);
 		void initScene();
-		void preloadResources();
 
 		void closeContext();
 		void closeWindow();

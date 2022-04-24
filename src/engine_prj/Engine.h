@@ -57,6 +57,7 @@ namespace K_Engine {
 		GameComponents registerGameComponents;
 
 		bool loadGame();
+		bool closeGame();
 
 		// Debug section
 		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE

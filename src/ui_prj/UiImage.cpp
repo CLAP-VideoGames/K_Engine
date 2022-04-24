@@ -32,7 +32,7 @@ namespace K_Engine {
 
         numberOfImages++;
 
-        size = std::pair<int, int>(500, 150);
+        size = std::pair<int, int>(defaultWidth, defaultHeight);
     }
 
     UIImage::~UIImage() = default;

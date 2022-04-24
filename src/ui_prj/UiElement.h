@@ -45,7 +45,6 @@ namespace K_Engine {
 		virtual void setPosition(int x, int y);
 		virtual void setSize(int w, int h);
 
-
 		/// <summary>
 		/// Pixels make setPosition and setDimesions work with PIxels
 		/// and WindowRelative makest it relative to the window
@@ -63,17 +62,16 @@ namespace K_Engine {
 		void setRenderOrder(int z);
 
 	protected:
-
-
 		Ogre::Overlay* overlay_;
 		Ogre::OverlayContainer* element_;
+
 		Ogre::OverlayManager* oveMngr_;
 
 		int defaultWidth = 500;
 		int defaultHeight = 150;
 
-		int defaultX = 10;
-		int defaultY = 10;
+		int defaultX = 0;
+		int defaultY = 0;
 
 		//Information for the user
 		std::pair<int, int> size;

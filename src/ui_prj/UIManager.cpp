@@ -11,11 +11,11 @@
 #include <string>
 
 #include <OgreLogManager.h>
+#include <OgreOverlay.h>
 #include <OgreOverlaySystem.h>
 #include <OgreOverlayManager.h>
-#include <OgreSceneManager.h>
 #include <OgreImage.h>
-#include <OgreOverlay.h>
+#include <OgreSceneManager.h>
 #include <OgreOverlayContainer.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreFontManager.h>
@@ -47,10 +47,8 @@ namespace K_Engine {
         try {
             instance.reset(new UIManager());
 
-            // Requires initialization of RenderManager first
-            instance.get()->overSystem_ = new Ogre::OverlaySystem();
-            instance.get()->overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
-            K_Engine::RenderManager::GetInstance()->getSceneManager()->addRenderQueueListener(instance.get()->overSystem_);
+            instance.get()->initOverlaySystem();
+            instance.get()->preloadingScreen();
         }
         catch (Ogre::Exception& e) {
             return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.getFullDescription());
@@ -138,11 +136,26 @@ namespace K_Engine {
         return s;
     }
 
-    void UIManager::cleanElements()
+    void UIManager::initOverlaySystem()
     {
-        for (UIElement* c : notCeguiElements) {
-            delete c;
-        }
+        // Requires initialization of RenderManager first
+        instance.get()->overSystem_ = new Ogre::OverlaySystem();
+        instance.get()->overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
+
+        renderMan = K_Engine::RenderManager::GetInstance();
+        renderMan->getSceneManager()->addRenderQueueListener(instance.get()->overSystem_);
     }
 
+    void UIManager::preloadingScreen()
+    {
+        renderMan->locateResources("./preload.cfg");
+        UIImage loadScreen("Example", "LoadScreen"); loadScreen.setSize(renderMan->windowWidth(), renderMan->windowHeight());
+        renderMan->render();
+    }
+
+    void UIManager::cleanElements()
+    {
+        for (UIElement* c : notCeguiElements) 
+            delete c;
+    }
 }

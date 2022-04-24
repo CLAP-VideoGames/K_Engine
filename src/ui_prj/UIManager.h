@@ -14,18 +14,27 @@ namespace Ogre {
 }
 
 namespace K_Engine {
-
 	class UIElement;
-	class UIProgressBar;
-	class UIText;
 	class UIImage;
+	class UIText;
 	class UIButton;
-	class UIScrollBar;
 	class UISlider;
+	class UIScrollBar;
+	class UIProgressBar;
+
+	class RenderManager;
+
+	enum class Widget {
+		IMAGE, 
+		TEXT, 
+		BUTTON, 
+		SLIDER, 
+		SCROLL_BAR, 
+		PROGRESS_BAR
+	};
 
 	class  __declspec(dllexport) UIManager {
 	public:
-
 		UIManager();
 		~UIManager();
 
@@ -70,6 +79,8 @@ namespace K_Engine {
 
 		UISlider* addSlider(std::string overlayName, std::string imageName, int y, int left, int right);
 
+		void cleanElements();
+
 	private:
 		static std::unique_ptr<UIManager> instance;
 
@@ -78,7 +89,10 @@ namespace K_Engine {
 		Ogre::OverlaySystem* overSystem_;
 		Ogre::OverlayManager* overlayMngr_;
 
-		void cleanElements();
+		RenderManager* renderMan;
+
+		void initOverlaySystem();
+		void preloadingScreen();
 	};
 }
 #endif // UIMANAGER_H

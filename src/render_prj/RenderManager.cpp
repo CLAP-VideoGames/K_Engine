@@ -78,9 +78,46 @@ namespace K_Engine {
 		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Render manager shutdown success");
 	}
 
+
+	/// <summary>
+	/// Parsea el archivo resources.cfg para obtener las rutas de los recursos
+	/// </summary>
+	void RenderManager::locateResources(std::string file) {
+		// load resource paths from config file
+		Ogre::ConfigFile cf;
+
+		if (Ogre::FileSystemLayer::fileExists(file))
+			cf.load(file);
+		else
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::FileSystemLayer::resolveBundlePath("./assets"),
+				"FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+		// go through all specified resource groups
+		std::string sec, type, arch;
+		Ogre::ConfigFile::SettingsBySection_::const_iterator seci;
+		for (seci = cf.getSettingsBySection().begin(); seci != cf.getSettingsBySection().end(); ++seci) {
+			sec = seci->first;
+			const Ogre::ConfigFile::SettingsMultiMap& settings = seci->second;
+			Ogre::ConfigFile::SettingsMultiMap::const_iterator i;
+
+			// go through all resource paths
+			for (i = settings.begin(); i != settings.end(); i++) {
+				type = i->first;
+				arch = Ogre::FileSystemLayer::resolveBundlePath(i->second);
+				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
+			}
+		}
+
+		sec = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+		const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec);
+
+		//OgreAssert(!genLocs.empty(), ("Resource Group '" + sec + "' must contain at least one entry").c_str());
+
+		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+	}
+
 	void RenderManager::render() {
 		mCamera->update();
-
 		mRoot->renderOneFrame();
 	}
 
@@ -113,9 +150,9 @@ namespace K_Engine {
 		if (SDL_Init(SDL_INIT_EVERYTHING))
 			throw SDL_GetError();
 
-		int width = 1080, height = 720;
+		window_width = 1080, window_height = 720;
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
-		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, flags);
 		if(!mSDLWin)
 			throw Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR, SDL_GetError(), "RenderManager");
 
@@ -144,51 +181,13 @@ namespace K_Engine {
 		Ogre::NameValuePairList miscData;
 		miscData["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
 
-		mRenderWin = mRoot->createRenderWindow(name.c_str(), width, height, false, &miscData);
+		mRenderWin = mRoot->createRenderWindow(name.c_str(), window_width, window_height, false, &miscData);
 
 		mRenderWin->setActive(true);
 		mRenderWin->setVisible(true);
 
 		SDL_SetWindowGrab(mSDLWin, SDL_bool(false));
 		SDL_ShowCursor(true);
-	}
-
-	/// <summary>
-	/// Parsea el archivo resources.cfg para obtener las rutas de los recursos
-	/// </summary>
-	void RenderManager::locateResources() {
-		// load resource paths from config file
-		Ogre::ConfigFile cf;
-
-		std::string resourcesPath = "./resources.cfg";
-		if (Ogre::FileSystemLayer::fileExists(resourcesPath))
-			cf.load(resourcesPath);
-		else 
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::FileSystemLayer::resolveBundlePath("./assets"),
-				"FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-
-		// go through all specified resource groups
-		std::string sec, type, arch;
-		Ogre::ConfigFile::SettingsBySection_::const_iterator seci;
-		for (seci = cf.getSettingsBySection().begin(); seci != cf.getSettingsBySection().end(); ++seci) {
-			sec = seci->first;
-			const Ogre::ConfigFile::SettingsMultiMap& settings = seci->second;
-			Ogre::ConfigFile::SettingsMultiMap::const_iterator i;
-
-			// go through all resource paths
-			for (i = settings.begin(); i != settings.end(); i++) {
-				type = i->first;
-				arch = Ogre::FileSystemLayer::resolveBundlePath(i->second);
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
-			}
-		}
-
-		sec = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
-		const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec);
-
-		//OgreAssert(!genLocs.empty(), ("Resource Group '" + sec + "' must contain at least one entry").c_str());
-
-		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
 	/// <summary>
@@ -243,5 +242,13 @@ namespace K_Engine {
 
 	Camera* RenderManager::getCamera() {
 		return mCamera;
+	}
+
+	int RenderManager::windowHeight() {
+		return window_height;
+	}
+
+	int RenderManager::windowWidth() {
+		return window_width;
 	}
 }

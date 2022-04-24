@@ -54,8 +54,8 @@ namespace K_Engine {
 
 		bool debugMovement;
 
-		void yaw(float angle);		// Rotate in Y axis 
 		void pitch(float angle);	// Rotate in X axis
+		void yaw(float angle);		// Rotate in Y axis 
 		void roll(float angle);		// Rotate in Z axis
 
 		void debug();
