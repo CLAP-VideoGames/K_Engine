@@ -132,26 +132,18 @@ namespace K_Engine {
 		//	m->setMaterial("ground");
 		//}
 
-		//////GROUND
-		//{
-		//	K_Engine::Entity* platform = entMan->addEntity();
-		//	K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>();
-		//	t->setScale(0.5f, 0.5f, 0.5f);
-		//	K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
-		//	m->setMesh("PedroPablo.mesh");
-		//	m->setMaterial("PedroPablo/Body");
-		//	m->debug();
-		//}
-
-		//{
-		//	K_Engine::Entity* platform = entMan->addEntity();
-		//	K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>();
-		//	float factor = 0.05;
-		//	t->setScale(factor);
-		//	K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
-		//	m->setMesh("girlDancing.mesh");
-		//	//m->debug();
-		//}
+		////GROUND
+		{
+			K_Engine::Entity* platform = entMan->addEntity();
+			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>();
+			float scale = 0.005f;
+			t->setScale(scale);
+			t->setPosition(0, 5, 5);
+			t->rotate(0,-90, 0);
+			K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
+			m->setMesh("PedroPablo.mesh");
+			m->debug();
+		}
 
 		{
 			/*Entity* audio = entMan->addEntity();
@@ -192,14 +184,14 @@ namespace K_Engine {
 			t->setPosition(0, 0, 20);
 		}
 
-		//UI Progress Bar 1
-		{
-			K_Engine::Entity* progressBar = entMan->addEntity();
-			K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
-			K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("A", "GreenDefaultProgressBar", 200, 100, 500, 150);
-			t->setPosition(10, 680, 100);
-			t->setScale(300, 25, 1);
-		}
+		////UI Progress Bar 1
+		//{
+		//	K_Engine::Entity* progressBar = entMan->addEntity();
+		//	K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
+		//	K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("A", "GreenDefaultProgressBar", 200, 100, 500, 150);
+		//	t->setPosition(10, 680, 100);
+		//	t->setScale(300, 25, 1);
+		//}
 
 		//UI Progress Bar 2
 		{

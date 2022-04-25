@@ -36,13 +36,13 @@ namespace K_Engine {
 	}
 
 	void MeshRenderer::debug() {
-
 		Ogre::AnimationStateSet* aux = mEntity->getAllAnimationStates();
 		if (aux != nullptr) {
 			auto it = aux->getAnimationStateIterator().begin();
 			while (it != aux->getAnimationStateIterator().end()) {
 				auto s = it->first;
-				printf("%s",s);
+				std::string anim = s;
+				printf("%s",anim);
 				++it;
 			}
 		}
