@@ -40,11 +40,11 @@ namespace K_Engine {
 		mNode->setPosition(0, 4.5, 0);
 		mNode->lookAt({ 0, -1, -1 }, Ogre::Node::TransformSpace::TS_WORLD);
 
-		float factorDiff = 1.0f;
+		float factorDiff = 2.5f;
 		diffuse = Vector3(factorDiff, factorDiff, factorDiff);
 
 		mLight->setDiffuseColour(diffuse.x, diffuse.y, diffuse.z);
-		mLight->setSpecularColour(1, 0, 0);
+		//mLight->setSpecularColour(1, 0, 0);
 		//mLight->setCastShadows(true);
 
 		if (type == LightType::SPOTLIGHT)

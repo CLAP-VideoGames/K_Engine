@@ -215,7 +215,7 @@ namespace K_Engine {
 	void Engine::debug()
 	{
 		Scene* exampleScene = new Scene();
-		exampleScene->debug();
+		exampleScene->init("map");
 		sceneMan->pushScene(exampleScene);
 	}
 }

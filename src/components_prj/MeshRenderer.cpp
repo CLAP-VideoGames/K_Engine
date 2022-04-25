@@ -36,7 +36,17 @@ namespace K_Engine {
 	}
 
 	void MeshRenderer::debug() {
-		K_Engine::RenderManager::GetInstance()->getCamera()->setAnchor(mNode);
+
+		Ogre::AnimationStateSet* aux = mEntity->getAllAnimationStates();
+		if (aux != nullptr) {
+			auto it = aux->getAnimationStateIterator().begin();
+			while (it != aux->getAnimationStateIterator().end()) {
+				auto s = it->first;
+				printf("%s",s);
+				++it;
+			}
+		}
+		//K_Engine::RenderManager::GetInstance()->getCamera()->setAnchor(mNode);
 	}
 
 	void MeshRenderer::start() {

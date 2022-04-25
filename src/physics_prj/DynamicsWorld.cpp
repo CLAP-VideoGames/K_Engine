@@ -205,8 +205,6 @@ namespace K_Engine {
 		//Creation of the body
 		auto rb = new btRigidBody(bodyCI);
 
-
-
 		btWorld_->addRigidBody(rb, group, mask);
 
 		//Adding personal data

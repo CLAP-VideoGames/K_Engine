@@ -62,8 +62,7 @@ namespace K_Engine {
 		for (auto e : entities) e->onEnable();
 	}
 
-	void EntityManager::start()
-	{
+	void EntityManager::start(){
 		for (auto e : entities) e->start();
 	}
 }

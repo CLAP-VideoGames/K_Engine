@@ -29,34 +29,16 @@ namespace K_Engine {
 	Scene::Scene() {
 		//creting the entityManager
 		entMan = new EntityManager();
-		//Initialize through Lua
-		init();
-		//Awake of the entities
-		entMan->awake();
-		//First onEnable
-		entMan->onEnable();
-		//Start of the entites
-		entMan->start();
 	}
 
 	Scene::~Scene() {
 		delete entMan;
 	}
 
-	void Scene::init() {
+	void Scene::init(std::string nameMap) {
 		scriptMan = K_Engine::ScriptManager::GetInstance();
-		scriptMan->loadLuaMap("map", entMan);
-	}
+		loadMap(nameMap);
 
-	void Scene::update(int frameTime) {
-		entMan->update(frameTime);
-	};
-
-	void Scene::fixedUpdate(int deltaTime) {
-		entMan->fixedUpdate(deltaTime);
-	}
-
-	void Scene::debug() {
 		// example scene (pending of development)
 		std::string playerLayer = "Player";
 		std::string nothingLayer = "Nothing";
@@ -150,13 +132,25 @@ namespace K_Engine {
 		//	m->setMaterial("ground");
 		//}
 
-		////GROUND
+		//////GROUND
 		//{
 		//	K_Engine::Entity* platform = entMan->addEntity();
 		//	K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>();
 		//	t->setScale(0.5f, 0.5f, 0.5f);
 		//	K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
-		//	m->setMesh("Sinbad.mesh");
+		//	m->setMesh("PedroPablo.mesh");
+		//	m->setMaterial("PedroPablo/Body");
+		//	m->debug();
+		//}
+
+		//{
+		//	K_Engine::Entity* platform = entMan->addEntity();
+		//	K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>();
+		//	float factor = 0.05;
+		//	t->setScale(factor);
+		//	K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("girlDancing.mesh");
+		//	//m->debug();
 		//}
 
 		{
@@ -238,6 +232,24 @@ namespace K_Engine {
 			K_Engine::Slider* i = slider->addComponent<K_Engine::Slider>("G", "DefaultButton", 40, 200, 300);
 		}
 
+		//Awake of the entities
+		entMan->awake();
+		//First onEnable
+		entMan->onEnable();
+		//Start of the entites
 		entMan->start();
+	}
+
+	void Scene::update(int frameTime) {
+		entMan->update(frameTime);
+	};
+
+	void Scene::fixedUpdate(int deltaTime) {
+		entMan->fixedUpdate(deltaTime);
+	}
+
+	bool Scene::loadMap(std::string nameMap){
+		scriptMan->loadLuaMap(nameMap, entMan);
+		return true;
 	}
 }
