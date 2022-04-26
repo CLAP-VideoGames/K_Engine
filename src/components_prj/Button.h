@@ -8,8 +8,11 @@
 
 namespace K_Engine {
 	class UIManager;
+	class InputManager;
 	class UIButton;
 	class Transform;
+	struct Rectangle;
+
 	/// <summary>
 	/// This class provides an entity with a UIButton component
 	/// </summary>
@@ -78,7 +81,7 @@ namespace K_Engine {
 
 		InputManager* inputMan;
 
-		Rectangle inputArea;
+		Rectangle* inputArea;
 
 		bool pressed_;
 	};

@@ -5,7 +5,8 @@
 #include <components_prj/Transform.h>
 
 #include <ui_prj/UIManager.h>
-#include <ui_prj/UiButton.h>
+#include <ui_prj/UIButton.h>
+#include <ui_prj/Rectangle.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
@@ -31,15 +32,15 @@ namespace K_Engine {
 		hoverImageName_ = hoverImageName;
 		pressedImageName_ = pressedImageName;
 
-		inputMan = K_Engine::InputManager::GetInstance();
+		inputArea = new Rectangle();
 
-		inputArea.h = button_->getHeight();
-		inputArea.w = button_->getWidth();
-		inputArea.x = button_->getLeft();
-		inputArea.y = button_->getTop();
+		inputMan = K_Engine::InputManager::GetInstance();
 	}
 
-	K_Engine::Button::~Button() = default;
+	K_Engine::Button::~Button() 
+	{
+		delete inputArea;
+	};
 
 	std::string K_Engine::Button::GetId()
 	{
@@ -52,15 +53,19 @@ namespace K_Engine {
 		button_ = UIManager::GetInstance()->addButton(overlayName_, imageName_, hoverImageName_, pressedImageName_);
 		//Scale syincing
 		button_->setSize(button_->getSize().first * transformRf_->getScale().x, button_->getSize().second * transformRf_->getScale().y);
+		
+		inputArea->h = button_->getHeight();
+		inputArea->w = button_->getWidth();
+		inputArea->x = button_->getLeft();
+		inputArea->y = button_->getTop();
 	}
 
 	void Button::update(int frameTime)
 	{
-
-		inputArea.h = button_->getHeight();
-		inputArea.w = button_->getWidth();
-		inputArea.x = button_->getLeft();
-		inputArea.y = button_->getTop();
+		inputArea->h = button_->getHeight();
+		inputArea->w = button_->getWidth();
+		inputArea->x = button_->getLeft();
+		inputArea->y = button_->getTop();
 
 		Point pointer;
 		auto pointPos = inputMan->getMousePos();
@@ -69,7 +74,7 @@ namespace K_Engine {
 
 		pressed_ = false;
 
-		if (PointInRect(&pointer, &inputArea)) {
+		if (PointInRect(&pointer, inputArea)) {
 
 			if (inputMan->getLeftMouseButtonPressed()) {
 				pressed_ = true;

@@ -134,11 +134,10 @@ namespace K_Engine {
 			run = inputMan->update() &&
 				!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) &&
 				!inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE);
-			if (!run) 
-				continue;
+
+			if (!run) continue;
 
 			while (accFrameTime >= DELTA_TIME) {
-
 				// physics update
 				sceneMan->fixedUpdateScene(DELTA_TIME);
 				physicsMan->update();
