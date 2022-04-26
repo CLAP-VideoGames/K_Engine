@@ -1,5 +1,7 @@
 #include "MeshRenderer.h"
 
+#include <iostream>
+
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
@@ -17,6 +19,8 @@
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 #include <utils_prj/K_Map.h>
+
+
 
 namespace K_Engine {
 	std::string MeshRenderer::name = "MeshRenderer";
@@ -41,8 +45,8 @@ namespace K_Engine {
 			auto it = aux->getAnimationStateIterator().begin();
 			while (it != aux->getAnimationStateIterator().end()) {
 				auto s = it->first;
-				std::string anim = s;
-				printf("%s",anim);
+				std::string anim = s.c_str();
+				std::cout << anim << "\n";
 				++it;
 			}
 		}

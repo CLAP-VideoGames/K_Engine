@@ -25,7 +25,9 @@ namespace K_Engine {
 
 	}
 
-	Animator::~Animator() = default;
+	Animator::~Animator() {
+		delete currentState_;
+	}
 
 	std::string Animator::GetId() {
 		return name;
@@ -41,15 +43,18 @@ namespace K_Engine {
 
 		// Recogemos todos los estados que traiga la malla
 		animStatesMap_ = ogreEntity_->getAllAnimationStates();
+		currentState_ = new AnimStateInfo({ ogreEntity_->getAllAnimationStates()->getAnimationStateIterator().begin()->second,
+			ogreEntity_->getAllAnimationStates()->getAnimationStateIterator().begin()->first });
+		currentState_->animation->setEnabled(false);
 	}
 
 	void Animator::update(int frameTime)
 	{
 		// Actualizamos la animacion actual
-		currentState_->animation->addTime(frameTime);
+		currentState_->animation->addTime(Ogre::Real(frameTime/1000.0f));
 
 		// Miramos si hay que cambiar de estado de animacion
-		manageAnimTransitions();
+		//manageAnimTransitions();
 	}
 
 	void Animator::setAnimBool(std::string anim, std::string condName, bool value)
@@ -60,6 +65,12 @@ namespace K_Engine {
 	bool Animator::getAnimBool(std::string anim, std::string condName)
 	{
 		return animTransitionsMap_.at(anim).at(condName)->cond;
+	}
+	void Animator::playAnim(std::string anim)
+	{
+		currentState_->name = anim;
+		currentState_->animation = animStatesMap_->getAnimationState(anim);
+		currentState_->animation->setEnabled(true);
 	}
 	void Animator::manageAnimTransitions()
 	{

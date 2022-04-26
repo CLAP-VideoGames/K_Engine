@@ -67,6 +67,9 @@ namespace K_Engine {
 		//Getters
 		bool getAnimBool(std::string anim, std::string condName);
 
+		//Features
+		void playAnim(std::string anim);
+
 	private:
 
 		//Punteros a nodos y entidad de Ogre y componentes Transform y Mesh

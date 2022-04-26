@@ -134,7 +134,6 @@ namespace K_Engine {
 		//}
 
 		////GROUND
-		{
 			K_Engine::Entity* monkey = entMan->addEntity();
 			K_Engine::Transform* t = monkey->addComponent<K_Engine::Transform>();
 			float scale = 0.005f;
@@ -145,7 +144,6 @@ namespace K_Engine {
 			m->setMesh("PedroPablo.mesh");
 			K_Engine::Animator* anim = monkey->addComponent<K_Engine::Animator>();
 			m->debug();
-		}
 
 		{
 			/*Entity* audio = entMan->addEntity();
@@ -232,6 +230,8 @@ namespace K_Engine {
 		entMan->onEnable();
 		//Start of the entites
 		entMan->start();
+
+		anim->playAnim("Shoot");
 	}
 
 	void Scene::update(int frameTime) {
