@@ -11,9 +11,11 @@ testScene = {
             imageName = "DefaultButton"
             hovermageName = "TestButtonAmongus"
             pressedImageName = "ButtonApretado"
-            onClick = function(){
-                sceneManager:changeScene("map")
-            }
+            onClick = "onClick"
         }
     }
+}
+
+function onClick(){
+    sceneManager:changeScene("map");
 }

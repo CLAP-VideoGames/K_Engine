@@ -233,7 +233,7 @@ namespace K_Engine {
 
 		anim->playAnim("Shoot");
 	}
-
+ 
 	void Scene::update(int frameTime) {
 		entMan->update(frameTime);
 	};
