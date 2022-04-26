@@ -38,7 +38,7 @@ namespace K_Engine {
 
 	void Scene::init(std::string nameMap) {
 		scriptMan = K_Engine::ScriptManager::GetInstance();
-		loadMap(nameMap);
+		//loadMap(nameMap);
 
 		// example scene (pending of development)
 		std::string playerLayer = "Player";
@@ -136,10 +136,10 @@ namespace K_Engine {
 		////GROUND
 			K_Engine::Entity* monkey = entMan->addEntity();
 			K_Engine::Transform* t = monkey->addComponent<K_Engine::Transform>();
-			float scale = 0.005f;
+			float scale = 0.5f;
 			t->setScale(scale);
 			t->setPosition(0, 5, 5);
-			t->rotate(0,-90, 0);
+			//t->rotate(0,-90, 0);
 			K_Engine::MeshRenderer* m = monkey->addComponent<K_Engine::MeshRenderer>();
 			m->setMesh("PedroPablo.mesh");
 			K_Engine::Animator* anim = monkey->addComponent<K_Engine::Animator>();
@@ -231,7 +231,7 @@ namespace K_Engine {
 		//Start of the entites
 		entMan->start();
 
-		anim->playAnim("Shoot");
+		anim->playAnim("Kick");
 	}
 
 	void Scene::update(int frameTime) {
