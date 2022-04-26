@@ -28,14 +28,7 @@ namespace K_Engine {
 		try {
 			instance.reset(new InputManager());
 
-			instance.get()->kbState_ = SDL_GetKeyboardState(0);
-			instance.get()->flush();
-
-			instance.get()->controller = SDL_GameControllerOpen(0);
-
-			Uint32 SDL_system_init = SDL_WasInit(SDL_INIT_EVERYTHING);
-			if (!SDL_system_init)
-				throw std::exception("SDL not initialized");
+			instance.get()->initInput();
 		}
 		catch (const std::exception& e) {
 			return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, e.what());
@@ -56,6 +49,41 @@ namespace K_Engine {
 		return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "Input manager shutdown success");
 	}
 
+	// update the state with a new event
+	bool InputManager::update() {
+		SDL_Event event;
+
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_QUIT:
+				return false;
+				break;
+			case SDL_KEYDOWN:
+				onKeyDown(event);
+				break;
+			case SDL_KEYUP:
+				onKeyUp(event);
+				break;
+			case SDL_MOUSEMOTION:
+				onMouseMotion(event);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				onMouseButtonChange(event, true);
+				break;
+			case SDL_MOUSEBUTTONUP:
+				onMouseButtonChange(event, false);
+				break;
+			case SDL_MOUSEWHEEL:
+				mouseScrollAmount = event.wheel.y;
+				break;
+			default:
+				break;
+			}
+		}
+
+		return true;
+	}
+
 	// clear the state
 	void InputManager::flush() {
 		isKeyDownEvent_ = false;
@@ -67,43 +95,12 @@ namespace K_Engine {
 			mbState_[i] = false;
 	}
 
-	// update the state with a new event
-	bool InputManager::update() {
-		SDL_Event event;
+	void InputManager::setupInput() {
+		kbState_ = SDL_GetKeyboardState(0);
+		flush();
 
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_QUIT:
-				return false;
-
-				break;
-			case SDL_KEYDOWN:
-				onKeyDown(event);
-
-				break;
-			case SDL_KEYUP:
-				onKeyUp(event);
-
-				break;
-			case SDL_MOUSEMOTION:
-				onMouseMotion(event);
-
-				break;
-			case SDL_MOUSEBUTTONDOWN:
-				onMouseButtonChange(event, true);
-
-				break;
-			case SDL_MOUSEBUTTONUP:
-				onMouseButtonChange(event, false);
-
-			case SDL_MOUSEWHEEL:
-				mouseScrollAmount = event.wheel.y;
-
-				break;
-			}
-		}
-
-		return true;
+		controller = SDL_GameControllerOpen(0);
+		setDeathZones(5000, 0);
 	}
 
 	bool InputManager::keyDownEvent() {
@@ -146,26 +143,19 @@ namespace K_Engine {
 			case SDL_CONTROLLER_AXIS_LEFTX:
 			case SDL_CONTROLLER_AXIS_LEFTY:
 				if (-deathZoneLeftJoy < value && value < deathZoneLeftJoy) return 0;
-
 				return value;
 				break;
-
 			case SDL_CONTROLLER_AXIS_RIGHTX:
 			case SDL_CONTROLLER_AXIS_RIGHTY:
 				if (-deathZoneRightJoy < value && value < deathZoneRightJoy) return 0;
-
 				return value;
 				break;
-
 			case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
 				if (-deathZoneLeftTrigger < value && value < deathZoneLeftTrigger) return 0;
-
 				return value;
 				break;
-
 			case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
 				if (-deathZoneRightTrigger < value && value < deathZoneRightTrigger) return 0;
-
 				return value;
 				break;
 			}
@@ -203,37 +193,37 @@ namespace K_Engine {
 		return isLeftMousePressed_;
 	}
 
-	float InputManager::mouseScroll()
-	{
+	float InputManager::mouseScroll() {
 		return mouseScrollAmount;
 	}
 
-	void InputManager::setDeathZones(double deathZoneValue, int axis)
-	{
+	void InputManager::setDeathZones(double deathZoneValue, int axis) {
 		//Limiting the parameters
 		if (deathZoneValue > DEATHZONEMAX) deathZoneValue = DEATHZONEMAX;
 		else if (deathZoneValue < DEATHZONEMIN) deathZoneValue = DEATHZONEMIN;
-
 
 		switch (axis)
 		{
 		case 0:
 			deathZoneLeftJoy = deathZoneValue;
-
 			break;
 		case 1:
 			deathZoneRightJoy = deathZoneValue;
-
 			break;
 		case 2:
 			deathZoneLeftTrigger = deathZoneValue;
-
 			break;
 		case 3:
 			deathZoneRightTrigger = deathZoneValue;
-
 			break;
 		}
+	}
+
+	void InputManager::initInput()
+	{
+		Uint32 SDL_system_init = SDL_WasInit(SDL_INIT_EVERYTHING);
+		if (!SDL_system_init)
+			throw std::exception("SDL not initialized");
 	}
 
 	void InputManager::onKeyDown(const SDL_Event& e) {

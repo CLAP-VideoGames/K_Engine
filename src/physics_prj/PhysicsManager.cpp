@@ -51,11 +51,20 @@ namespace K_Engine {
 		btWorld->stepSimulation(1.f / 60.f, 10);
 	}
 
+	void PhysicsManager::registerDefaultLayers() {
+		addLayer("All");
+		addLayer("Default");
+	}
+
 	void PhysicsManager::initWorld(btVector3 const& gravity) {
 		colLayers_ = new CollisionLayers();
 		this->gravity = new btVector3(gravity);
 		dynamicsWorld_ = new DynamicsWorld(gravity);
 		btWorld = dynamicsWorld_->getBtWorld();
+	}
+
+	void PhysicsManager::addLayer(std::string name) {
+		colLayers_->addLayer(name);
 	}
 
 	void PhysicsManager::releaseWorld() {
@@ -96,9 +105,5 @@ namespace K_Engine {
 
 	int PhysicsManager::getLayerID(std::string name) const {
 		return colLayers_->getLayer(name);
-	}
-
-	void PhysicsManager::addLayer(std::string name) {
-		colLayers_->addLayer(name);
 	}
 }

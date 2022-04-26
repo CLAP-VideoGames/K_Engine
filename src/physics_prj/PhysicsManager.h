@@ -45,8 +45,6 @@ namespace K_Engine {
 		/// <summary>
 		/// Initialize the static manager instance.
 		/// </summary>
-		/// <param name="step">Number of physics steps by second</param>
-		/// <param name="gravity">Gravity of the world</param>
 		/// <returns>if has been succesful the initialization</returns>
 		static bool Init();
 
@@ -60,6 +58,15 @@ namespace K_Engine {
 		/// Updates all the physics objects.
 		/// </summary>
 		void update();
+
+		/// <summary>
+		/// Adds a new layer to the world. It can be accesed by its name.
+		/// </summary>
+		/// <param name="name">Key name</param>
+		void addLayer(std::string name);
+
+		// register default layers
+		void registerDefaultLayers();
 
 		/// <summary>
 		/// Change the collision layer and group of a certain rigidbody.
@@ -93,13 +100,6 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="name">Key name</param>
 		int getLayerID(std::string name) const;
-
-		/// <summary>
-		/// Adds a new layer to the world. It can be accesed by its name.
-		/// </summary>
-		/// <param name="name">Key name</param>
-		void addLayer(std::string name);
-
 
 	private:
 		static std::unique_ptr<PhysicsManager> instance;
