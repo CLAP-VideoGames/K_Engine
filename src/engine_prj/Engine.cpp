@@ -81,39 +81,42 @@ namespace K_Engine {
 
 	bool Engine::setup()
 	{
-		// render setup
-		renderMan->locateResources("./resources.cfg");
-		uiMan->cleanElements();
+		try {
+			// render setup
+			renderMan->locateResources("./resources.cfg");
+			uiMan->cleanElements();
 
-		// physics setup
-		physicsMan->registerDefaultLayers();
+			// physics setup
+			physicsMan->registerDefaultLayers();
 #ifdef DEVELOPMENT
-		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
-		physicsMan->addLayer("Player");
-		physicsMan->addLayer("Platform");
+			// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
+			physicsMan->addLayer("Player");
+			physicsMan->addLayer("Platform");
 #endif // !DEVELOPMENT
 
-		// input setup
-		inputMan->setupInput();
+			// input setup
+			inputMan->setupInput();
 
-		// base components setup
-		K_Engine::Registry::registerComponents();
+			// base components setup
+			K_Engine::Registry::registerComponents();
 
 #ifndef DEVELOPMENT
-		// game layers setup
-		registerGameLayers();
-
-		// game component setup
-		registerGameComponents();
-
-		// start scene
-		sceneMan->pushScene(loadScene());
+			// game layers setup
+			registerGameLayers();
+			// game component setup
+			registerGameComponents();
+			// start scene
+			sceneMan->pushScene(loadScene());
 #endif
 
 #ifdef DEVELOPMENT
-		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
-		debug();
+			// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
+			debug();
 #endif
+		}
+		catch (const std::exception e) {
+			return logMan->printLog(LogType::FATAL, "Engine setup failure\n");
+		}
 
 		return logMan->printLog(LogType::INFO, "Engine setup success\n");
 	}
@@ -129,8 +132,10 @@ namespace K_Engine {
 			unsigned int frameTime = timer.currTime() - currTime;
 			currTime += frameTime; accFrameTime += frameTime;
 
+			// clear log buffer
 			logMan->clearLogBuffer();
 
+			// exit condition (we hould hange the keys to the game and use the exitCondition method here
 			run = inputMan->update() &&
 				!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) &&
 				!inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE);
@@ -152,6 +157,7 @@ namespace K_Engine {
 			// clear input buffer
 			inputMan->flush();
 
+			// print log buffer
 			logMan->printLogBuffer();
 		}
 	}
@@ -210,7 +216,7 @@ namespace K_Engine {
 		if (gameName == nullptr || registerGameComponents == nullptr || registerGameLayers == nullptr || loadScene == nullptr)
 			return logMan->addLog(LogType::FATAL, "One of game .dll functions unable to load explicitly");
 		return logMan->addLog(LogType::INFO, "Game functions load success");
-	}
+}
 
 	bool Engine::closeGame()
 	{
