@@ -10,11 +10,13 @@
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 
+#include <input_prj/InputManager.h>
+
 namespace K_Engine {
 	//Required
 	std::string Button::name = "Button";
 
-	Button::Button() : Component(){
+	Button::Button() : Component() {
 
 	}
 
@@ -22,12 +24,19 @@ namespace K_Engine {
 
 	}
 
-	Button::Button(Entity* e, std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : Component(e){
+	Button::Button(Entity* e, std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 
 		hoverImageName_ = hoverImageName;
 		pressedImageName_ = pressedImageName;
+
+		inputMan = K_Engine::InputManager::GetInstance();
+
+		inputArea.h = button_->getHeight();
+		inputArea.w = button_->getWidth();
+		inputArea.x = button_->getLeft();
+		inputArea.y = button_->getTop();
 	}
 
 	K_Engine::Button::~Button() = default;
@@ -47,6 +56,31 @@ namespace K_Engine {
 
 	void Button::update(int frameTime)
 	{
+
+		inputArea.h = button_->getHeight();
+		inputArea.w = button_->getWidth();
+		inputArea.x = button_->getLeft();
+		inputArea.y = button_->getTop();
+
+		Point pointer;
+		auto pointPos = inputMan->getMousePos();
+		pointer.x = pointPos.first;
+		pointer.y = pointPos.second;
+
+		pressed_ = false;
+
+		if (PointInRect(&pointer, &inputArea)) {
+
+			if (inputMan->getLeftMouseButtonPressed()) {
+				pressed_ = true;
+
+				button_->setMaterial(pressedImageName_);
+			}
+			else button_->setMaterial(hoverImageName_);
+		}
+		else button_->setMaterial(imageName_);
+
+
 		//Position syncing
 		Vector3 pos = transformRf_->getPosition();
 		button_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
@@ -55,7 +89,7 @@ namespace K_Engine {
 		button_->setRenderOrder(transformRf_->getPosition().z);
 
 		//Callback check
-		if (button_->getPressed()) {
+		if (pressed_) {
 			if (onButtonClick != nullptr) {
 				onButtonClick;
 			}

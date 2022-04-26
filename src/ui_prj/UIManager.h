@@ -43,8 +43,6 @@ namespace K_Engine {
 		static bool Init();
 		static bool Shutdown();
 
-		void update();
-
 		/// <summary>
 		/// Adds a progressBar to your scene with its default values
 		/// </summary>

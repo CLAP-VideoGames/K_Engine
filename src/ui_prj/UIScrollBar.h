@@ -15,7 +15,7 @@ namespace K_Engine {
 		UIScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower);
 		virtual ~UIScrollBar();
 
-		virtual void update();
+		/*virtual void update();*/
 
 		double getRelativePos();
 

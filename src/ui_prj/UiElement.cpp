@@ -75,4 +75,20 @@ namespace K_Engine {
 	{
 		overlay_->setZOrder(z);
 	}
+	int UIElement::getLeft()
+	{
+		return element_->getLeft();
+	}
+	int UIElement::getTop()
+	{
+		return element_->getTop();;
+	}
+	int UIElement::getHeight()
+	{
+		return element_->getHeight();
+	}
+	int UIElement::getWidth()
+	{
+		return element_->getWidth();
+	}
 }

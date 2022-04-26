@@ -97,35 +97,35 @@ namespace K_Engine {
 	}
 
 	//Sets the position according to mouse input and pos
-	void UIScrollBar::update() {
-		//Setup the input area rectangle
-		inputArea.h = element_->getHeight();
-		inputArea.w = element_->getWidth();
-		inputArea.x = element_->getLeft();
-		inputArea.y = element_->getTop();
+	//void UIScrollBar::update() {
+	//	//Setup the input area rectangle
+	//	inputArea.h = element_->getHeight();
+	//	inputArea.w = element_->getWidth();
+	//	inputArea.x = element_->getLeft();
+	//	inputArea.y = element_->getTop();
 
-		Point pointer;
-		auto pointPos = inputMan->getMousePos();
-		pointer.x = pointPos.first;
-		pointer.y = pointPos.second;
+	//	Point pointer;
+	//	auto pointPos = inputMan->getMousePos();
+	//	pointer.x = pointPos.first;
+	//	pointer.y = pointPos.second;
 
-		if (inputMan->getLeftMouseButtonPressed())
-		{
-			if (PointInRect(&pointer, &inputArea)) {
-				pressed = true;
-			}
-		}
-		else
-			pressed = false;
+	//	if (inputMan->getLeftMouseButtonPressed())
+	//	{
+	//		if (PointInRect(&pointer, &inputArea)) {
+	//			pressed = true;
+	//		}
+	//	}
+	//	else
+	//		pressed = false;
 
-		if (pressed) {
-			auto y = element_->getTop();
-			if (y >= upperLimit && y <= lowerLimit) {
-				if (pointer.y >= upperLimit && pointer.y <= lowerLimit) {
-					element_->setTop(pointer.y);
-					positionNeedsSync = true;
-				}
-			}
-		}
-	}
+	//	if (pressed) {
+	//		auto y = element_->getTop();
+	//		if (y >= upperLimit && y <= lowerLimit) {
+	//			if (pointer.y >= upperLimit && pointer.y <= lowerLimit) {
+	//				element_->setTop(pointer.y);
+	//				positionNeedsSync = true;
+	//			}
+	//		}
+	//	}
+	//}
 }

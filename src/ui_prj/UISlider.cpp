@@ -103,38 +103,38 @@ namespace K_Engine {
 	}
 
 	//Sets the position according to mouse input and pos
-	void UISlider::update() {
-		//Setup the input area rectangle
-		inputArea.h = element_->getHeight();
-		inputArea.w = element_->getWidth();
-		inputArea.x = element_->getLeft();
-		inputArea.y = element_->getTop();
+	//void UISlider::update() {
+	//	//Setup the input area rectangle
+	//	inputArea.h = element_->getHeight();
+	//	inputArea.w = element_->getWidth();
+	//	inputArea.x = element_->getLeft();
+	//	inputArea.y = element_->getTop();
 
-		Point pointer;
-		auto pointPos = inputMan->getMousePos();
-		pointer.x = pointPos.first;
-		pointer.y = pointPos.second;
+	//	Point pointer;
+	//	auto pointPos = inputMan->getMousePos();
+	//	pointer.x = pointPos.first;
+	//	pointer.y = pointPos.second;
 
-		if (inputMan->getLeftMouseButtonPressed())
-		{
-			if (PointInRect(&pointer, &inputArea)) {
-				pressed = true;
-			}
-		}
-		else
-			pressed = false;
+	//	if (inputMan->getLeftMouseButtonPressed())
+	//	{
+	//		if (PointInRect(&pointer, &inputArea)) {
+	//			pressed = true;
+	//		}
+	//	}
+	//	else
+	//		pressed = false;
 
-		if (pressed) {
-			auto x = element_->getLeft();
-			if (x >= leftLimit && x <= rightLimit) {
-				if (pointer.x >= leftLimit && pointer.x <= rightLimit) {
-					element_->setLeft(pointer.x);
-					progressBar_->setProgress(getRelativePos());
-					positionNeedsSync = true;
-				}
-			}
-		}
-		
-		progressBar_->update();
-	}
+	//	if (pressed) {
+	//		auto x = element_->getLeft();
+	//		if (x >= leftLimit && x <= rightLimit) {
+	//			if (pointer.x >= leftLimit && pointer.x <= rightLimit) {
+	//				element_->setLeft(pointer.x);
+	//				progressBar_->setProgress(getRelativePos());
+	//				positionNeedsSync = true;
+	//			}
+	//		}
+	//	}
+	//	
+	//	progressBar_->update();
+	//}
 }

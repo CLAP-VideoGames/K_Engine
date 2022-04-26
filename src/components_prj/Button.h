@@ -75,6 +75,12 @@ namespace K_Engine {
 
 		//Function callback
 		std::function<void(void*)> onButtonClick = nullptr;
+
+		InputManager* inputMan;
+
+		Rectangle inputArea;
+
+		bool pressed_;
 	};
 }
 
