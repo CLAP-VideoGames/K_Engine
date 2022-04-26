@@ -46,10 +46,10 @@ namespace K_Engine {
 #ifndef DEVELOPMENT
 		// load game dll
 		success = loadGame();
-
 		// if something goes wrong, we exit initialization
-		if (!success) 
+		if (!success)
 			return logMan->printLog(LogType::FATAL, "Error on game data initialization");
+		name = gameName();
 #endif
 
 		// initialisation of all sub-engines
@@ -82,26 +82,31 @@ namespace K_Engine {
 	bool Engine::setup()
 	{
 		// render setup
-		uiMan->cleanElements();
 		renderMan->locateResources("./resources.cfg");
+		uiMan->cleanElements();
 
 		// physics setup
-		std::string playerLayer = "Player";
-		std::string nothingLayer = "Nothing";
-		std::string platformLayer = "Platform";
-
-		physicsMan->addLayer(playerLayer);
-		physicsMan->addLayer(nothingLayer);
-		physicsMan->addLayer(platformLayer);
+		physicsMan->registerDefaultLayers();
+#ifdef DEVELOPMENT
+		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
+		physicsMan->addLayer("Player");
+		physicsMan->addLayer("Platform");
+#endif // !DEVELOPMENT
 
 		// input setup
-		inputMan->setDeathZones(5000, 0);
+		inputMan->setupInput();
 
 		// base components setup
 		K_Engine::Registry::registerComponents();
 
 #ifndef DEVELOPMENT
+		// game layers setup
+		registerGameLayers();
+
+		// game component setup
 		registerGameComponents();
+
+		// start scene
 		sceneMan->pushScene(loadScene());
 #endif
 
@@ -125,12 +130,14 @@ namespace K_Engine {
 			currTime += frameTime; accFrameTime += frameTime;
 
 			logMan->clearLogBuffer();
+
+			run = inputMan->update() &&
+				!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) &&
+				!inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE);
+
+			if (!run) continue;
+
 			while (accFrameTime >= DELTA_TIME) {
-				inputMan->update();
-
-				run = (!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B)
-					&& !inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE));
-
 				// physics update
 				sceneMan->fixedUpdateScene(DELTA_TIME);
 				physicsMan->update();
@@ -141,6 +148,9 @@ namespace K_Engine {
 			sceneMan->updateScene(frameTime);
 			uiMan->update();
 			renderMan->render();
+
+			// clear input buffer
+			inputMan->flush();
 
 			logMan->printLogBuffer();
 		}
@@ -156,8 +166,8 @@ namespace K_Engine {
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::SceneManager::Shutdown() && // after PhysicsManager because if not it'd mean runtime error on callbacks
 			K_Engine::RenderManager::Shutdown();
-		
-		if(!success)
+
+		if (!success)
 			return logMan->printLog(LogType::WARNING, "Error on sub-modules shutdown");
 
 		sceneMan = nullptr; renderMan = nullptr;
@@ -189,15 +199,17 @@ namespace K_Engine {
 
 		if (game == nullptr)
 			return logMan->addLog(LogType::FATAL, "Game .dll unable to load");
-		logMan->addLog(LogType::FATAL, "Game load success");
+		logMan->addLog(LogType::INFO, "Game load success");
 
 		// game functions load
+		gameName = (GameName)GetProcAddress(game, "gameName");
+		registerGameComponents = (Game)GetProcAddress(game, "registerComponents");
+		registerGameLayers = (Game)GetProcAddress(game, "registerLayers");
 		loadScene = (SceneLoad)GetProcAddress(game, "loadScene");
-		registerGameComponents = (GameComponents)GetProcAddress(game, "registerComponents");
 
-		if (loadScene != nullptr || registerGameComponents != nullptr)
+		if (gameName == nullptr || registerGameComponents == nullptr || registerGameLayers == nullptr || loadScene == nullptr)
 			return logMan->addLog(LogType::FATAL, "One of game .dll functions unable to load explicitly");
-		return logMan->addLog(LogType::FATAL, "Game functions load success");
+		return logMan->addLog(LogType::INFO, "Game functions load success");
 	}
 
 	bool Engine::closeGame()

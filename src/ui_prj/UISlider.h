@@ -16,7 +16,7 @@ namespace K_Engine {
 		UISlider(std::string overlayName, std::string imageName, int y, int left, int right);
 		virtual ~UISlider();
 
-		virtual void update();
+		/*virtual void update();*/
 
 		double getRelativePos();
 

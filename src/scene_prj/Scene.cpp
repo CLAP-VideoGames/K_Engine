@@ -214,6 +214,7 @@ namespace K_Engine {
 			K_Engine::Entity* text = entMan->addEntity();
 			K_Engine::Transform* t = text->addComponent<K_Engine::Transform>();
 			K_Engine::Text* i = text->addComponent<K_Engine::Text>("D", "Fino senhores");
+			i->changeText("Tremendo, senhores");
 			t->setPosition(135, 10, 50);
 		}
 
@@ -233,7 +234,7 @@ namespace K_Engine {
 
 		anim->playAnim("Kick");
 	}
-
+ 
 	void Scene::update(int frameTime) {
 		entMan->update(frameTime);
 	};

@@ -15,17 +15,7 @@ namespace K_Engine {
 		UIButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
 		virtual ~UIButton();
 
-		virtual void update();
-
-		bool getPressed() { return pressed_; };
-
 	private:
-		bool pressed_;
-
-		InputManager* inputMan;
-
-		Rectangle inputArea;
-
 		std::string imageName_;
 
 		//Extra images for button

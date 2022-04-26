@@ -8,8 +8,11 @@
 
 namespace K_Engine {
 	class UIManager;
+	class InputManager;
 	class UIButton;
 	class Transform;
+	struct Rectangle;
+
 	/// <summary>
 	/// This class provides an entity with a UIButton component
 	/// </summary>
@@ -75,6 +78,12 @@ namespace K_Engine {
 
 		//Function callback
 		std::function<void(void*)> onButtonClick = nullptr;
+
+		InputManager* inputMan;
+
+		Rectangle* inputArea;
+
+		bool pressed_;
 	};
 }
 

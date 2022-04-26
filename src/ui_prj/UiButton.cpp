@@ -7,8 +7,6 @@
 #include <OgreOverlayContainer.h>
 #include <OgreTextAreaOverlayElement.h>
 
-#include <input_prj/InputManager.h>
-
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
@@ -39,13 +37,6 @@ namespace K_Engine {
 
 		size = std::pair<int, int>(400, 150);
 
-		inputMan = K_Engine::InputManager::GetInstance();
-
-		inputArea.h = element_->getHeight();
-		inputArea.w = element_->getWidth();
-		inputArea.x = element_->getLeft();
-		inputArea.y = element_->getTop();
-
 		numberButtons++;
 
 		imageName_ = imageName;
@@ -54,31 +45,4 @@ namespace K_Engine {
 	}
 
 	UIButton::~UIButton() = default;
-
-	void UIButton::update() {
-
-		inputArea.h = element_->getHeight();
-		inputArea.w = element_->getWidth();
-		inputArea.x = element_->getLeft();
-		inputArea.y = element_->getTop();
-
-		Point pointer;
-		auto pointPos = inputMan->getMousePos();
-		pointer.x = pointPos.first;
-		pointer.y = pointPos.second;
-
-		pressed_ = false;
-
-		if (PointInRect(&pointer, &inputArea)) {
-			
-			if (inputMan->getLeftMouseButtonPressed()) {
-				pressed_ = true;
-
-				setMaterial(pressedImageName_);
-			}
-			else setMaterial(hoverImageName_);
-		}
-		else setMaterial(imageName_);
-		
-	}
 }

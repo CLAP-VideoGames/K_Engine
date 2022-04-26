@@ -7,8 +7,9 @@
 
 namespace K_Engine {
 	class Scene;
+	typedef void (*Game)();
 	typedef Scene* (*SceneLoad)();
-	typedef void (*GameComponents)();
+	typedef std::string (*GameName)();
 
 	class RenderManager;
 	class PhysicsManager;
@@ -31,14 +32,6 @@ namespace K_Engine {
 		void run();
 		bool shutdown();
 
-		K_Engine::RenderManager* getRenderManager();
-		K_Engine::PhysicsManager* getPhysicsManager();
-		K_Engine::UIManager* getUIManager();
-		K_Engine::AudioManager* getAudioManager();
-		K_Engine::InputManager* getInputManager();
-		K_Engine::ComponentManager* getComponentManager();
-		K_Engine::SceneManager* getSceneManager();
-
 	private:
 		std::string name;
 
@@ -53,8 +46,10 @@ namespace K_Engine {
 		K_Engine::UIManager* uiMan;
 
 		HMODULE game;
+		GameName gameName;
+		Game registerGameComponents;
+		Game registerGameLayers;
 		SceneLoad loadScene;
-		GameComponents registerGameComponents;
 
 		bool loadGame();
 		bool closeGame();

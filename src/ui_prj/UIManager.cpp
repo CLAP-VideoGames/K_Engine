@@ -78,11 +78,7 @@ namespace K_Engine {
         return K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::INFO, "UI manager shutdown success");
     }
 
-    void UIManager::update()
-    {
-        for (int i = 0; i < notCeguiElements.size(); i++)
-            notCeguiElements[i]->update();
-    }
+    void UIManager::update() {};
 
     UIProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight)
     {

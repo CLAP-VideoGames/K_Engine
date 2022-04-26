@@ -52,14 +52,16 @@ namespace K_Engine {
 		/// <param name="metrics"></param>
 		void setMetrics(Metrics m);
 
-		//For input based UI
-		virtual void update() {};
-
 		/// <summary>
 		/// Bigger z is closer to the camera
 		/// </summary>
 		/// <param name="z"></param>
 		void setRenderOrder(int z);
+
+		int getLeft();
+		int getTop();
+		int getHeight();
+		int getWidth();
 
 	protected:
 		Ogre::Overlay* overlay_;

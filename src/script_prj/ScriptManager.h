@@ -15,6 +15,7 @@ namespace luabridge {
 }
 
 typedef struct lua_State lua_State;
+    typedef int (*lua_CFunction) (lua_State* L);
 
 namespace K_Engine {
     class EntityManager;
@@ -22,6 +23,7 @@ namespace K_Engine {
     class ComponentManager;
     class Component;
     class PhysicsManager;
+
 
     class  __declspec(dllexport) ScriptManager {
     public:
@@ -42,7 +44,6 @@ namespace K_Engine {
         //Lectura de tablas
         luabridge::LuaRef getTable(const std::string& c_name);
         luabridge::LuaRef getMetatable(luabridge::LuaRef table, const std::string& c_name);
-        void setDataComponents(std::vector<std::string> components);
 
         //Lectura de parametros
         /// <summary>
@@ -54,18 +55,21 @@ namespace K_Engine {
         T getParameter(luabridge::LuaRef table, const std::string& parameterName);
 
 
-        //Test(Provisional, borrar antes de la entrega final)
-
-        void createPlayerbyAtrib(std::string name, float x, float y);
-        //Lectura de una tabla llamando desde Lua
-        void createPlayerbyObject(luabridge::LuaRef object);
-
-
         //Lectura de una tabla script YA CARGADO sin llamar desde Lua
         void loadLuaMap(std::string scene, EntityManager* entMan);
 
-        //Añadir componentes por tablas
-        void addComponentbyTable(Entity* e, const std::string& component, luabridge::LuaRef propert);
+        //Lectura de Escenas de .lua
+        void loadLuaScene(std::string scene);
+
+        //Publicar funcion de C++ a Lua
+        void publishCFunctionToLua(std::string name, lua_CFunction(*func)(lua_State* L));
+
+        //Publicar funcion de C++ a Lua
+        template <typename T>
+        void publishCNamespaceFunctionToLua(std::string classTypename, std::string name, lua_CFunction(*func)(lua_State* L));
+
+        //Devolver funcion de Lua a C++
+        luabridge::LuaRef getLuaFunction(std::string funcName);
 
     private:
         static std::unique_ptr<ScriptManager> instance;
