@@ -11,6 +11,7 @@
 #include <render_prj/RenderManager.h>
 
 #include <components_prj/Transform.h>
+#include <components_prj/Animator.h>
 #include <components_prj/MeshRenderer.h>
 #include <components_prj/RigidBody.h>
 #include <components_prj/AudioSource.h>
@@ -134,14 +135,15 @@ namespace K_Engine {
 
 		////GROUND
 		{
-			K_Engine::Entity* platform = entMan->addEntity();
-			K_Engine::Transform* t = platform->addComponent<K_Engine::Transform>();
+			K_Engine::Entity* monkey = entMan->addEntity();
+			K_Engine::Transform* t = monkey->addComponent<K_Engine::Transform>();
 			float scale = 0.005f;
 			t->setScale(scale);
 			t->setPosition(0, 5, 5);
 			t->rotate(0,-90, 0);
-			K_Engine::MeshRenderer* m = platform->addComponent<K_Engine::MeshRenderer>();
+			K_Engine::MeshRenderer* m = monkey->addComponent<K_Engine::MeshRenderer>();
 			m->setMesh("PedroPablo.mesh");
+			K_Engine::Animator* anim = monkey->addComponent<K_Engine::Animator>();
 			m->debug();
 		}
 
