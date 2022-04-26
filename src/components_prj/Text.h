@@ -45,6 +45,11 @@ namespace K_Engine {
 		/// </summary> 
 		virtual void update(int frameTime);
 
+		/// <summary>
+		/// Sets the text value to a new string
+		/// </summary>
+		void changeText(std::string newText);
+
 	private:
 		//Required
 		static std::string name;

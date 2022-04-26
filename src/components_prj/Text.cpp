@@ -26,6 +26,7 @@ namespace K_Engine {
 	{
 		overlayName_ = overlayName;
 		text_ = text;
+		uitext_ = UIManager::GetInstance()->addText(overlayName_, text_);
 	}
 
 	K_Engine::Text::~Text() = default;
@@ -38,7 +39,6 @@ namespace K_Engine {
 	void K_Engine::Text::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		uitext_ = UIManager::GetInstance()->addText(overlayName_, text_);
 	}
 	void Text::update(int frameTime)
 	{
@@ -52,4 +52,10 @@ namespace K_Engine {
 		//ZOrder syncing
 		uitext_->setRenderOrder(transformRf_->getPosition().z);
 	}
+
+	void Text::changeText(std::string newText)
+	{
+		uitext_->setText(newText);
+	}
+
 }
