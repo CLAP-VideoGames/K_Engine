@@ -199,7 +199,7 @@ namespace K_Engine {
 
 		// We create a camera and assign it to a viewport
 		mCamera = new Camera();
-		mCamera->setNearClipDistance(5);
+		mCamera->setNearClipDistance(1);
 		mCamera->setFarClipDistance(10000);
 		mCamera->setCameraPos(-4, 10, 10);
 	}
