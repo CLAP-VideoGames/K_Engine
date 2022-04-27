@@ -67,8 +67,8 @@ namespace K_Engine {
 		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, y_, leftLimit_, rightLimit_);
 
 		progressBar_ = new UIProgressBar(overlayName_ + " progress", "DefaultProgressBar", leftLimit_, y_, rightLimit_-leftLimit_, 20);
-		progressBar_->setMaxProgress(100);
-		progressBar_->setProgress(100);
+		//progressBar_->setMaxProgress(100);
+		//progressBar_->setProgress(100);
 		progressBar_->setRenderOrder(30);
 	}
 
@@ -83,12 +83,8 @@ namespace K_Engine {
 		pointer.x = pointPos.first;
 		pointer.y = pointPos.second;
 
-		if (inputMan->getLeftMouseButtonPressed())
-		{
-			if (PointInRect(&pointer, inputArea)) {
-				pressed_ = true;
-			}
-		}
+		if (inputMan->getLeftMouseButtonPressed() && PointInRect(&pointer, inputArea))
+			pressed_ = true;
 		else
 			pressed_ = false;
 
@@ -97,7 +93,7 @@ namespace K_Engine {
 			if (x >= leftLimit_ && x <= rightLimit_) {
 				if (pointer.x >= leftLimit_ && pointer.x <= rightLimit_) {
 					slider_->setLeft(pointer.x);
-					progressBar_->setProgress(slider_->getRelativePos());
+					//progressBar_->setProgress(slider_->getRelativePos());
 				}
 			}
 		}

@@ -11,18 +11,6 @@ namespace K_Engine {
 	public:
 		UIProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight);
 		virtual ~UIProgressBar();
-
-		void setProgress(float prog);
-		void setMaxProgress(float maximum);
-
-		float getProgress();
-
-	private:
-		std::pair<int, int> originalSize;
-
-		//Starts full progresion
-		float progresion = 100;
-		float maximumProgresion = 100;
 	};
 }
 #endif // UIPROGRESS_H
