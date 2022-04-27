@@ -10,12 +10,22 @@
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 
+#include <utils_prj/K_Map.h>
+
 namespace K_Engine {
 	//Required
 	std::string Text::name = "Text";
 
 	std::string K_Engine::Text::GetId() {
 		return name;
+	}
+
+	void Text::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		text_ = information->value("text");
+		offsetX = 0;
+		offsetY = 0;
 	}
 
 	Text::Text() : Component() {}

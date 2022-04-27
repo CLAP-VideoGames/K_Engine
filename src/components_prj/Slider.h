@@ -37,6 +37,9 @@ namespace K_Engine {
 		//Required method for the component name
 		static std::string GetId();
 
+
+		virtual void init(K_Map* information);
+
 		/// <summary>
 		/// It's called at the beginning of the execution.
 		/// </summary>

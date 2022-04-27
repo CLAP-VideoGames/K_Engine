@@ -10,12 +10,26 @@
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 
+#include <utils_prj/K_Map.h>
+
 namespace K_Engine {
 	//Required
 	std::string ProgressBar::name = "ProgressBar";
 
 	std::string K_Engine::ProgressBar::GetId() {
 		return name;
+	}
+
+	void ProgressBar::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+		x_ = information->valueToNumber("x");
+		y_ = information->valueToNumber("y");
+		orgWidth_ = information->valueToNumber("orgWidth");
+		orgHeight_ = information->valueToNumber("orgHeight");
+		progress_ = information->valueToNumber("progress");
+		maxProgress_ = information->valueToNumber("maxProgress");
 	}
 
 	ProgressBar::ProgressBar() : Component() {}

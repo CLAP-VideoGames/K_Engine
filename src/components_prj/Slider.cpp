@@ -12,6 +12,7 @@
 #include <utils_prj/checkML.h>
 
 #include <input_prj/InputManager.h>
+#include <utils_prj/K_Map.h>
 
 namespace K_Engine {
 	//Required
@@ -19,6 +20,21 @@ namespace K_Engine {
 
 	std::string K_Engine::Slider::GetId() {
 		return name;
+	}
+
+	void Slider::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+		y_ = information->valueToNumber("y");
+		leftLimit_ = information->valueToNumber("leftLimit");
+		rightLimit_ = information->valueToNumber("rightLimit");
+
+		inputArea = new Rectangle();
+
+		inputMan = K_Engine::InputManager::GetInstance();
+
+		pressed_ = false;
 	}
 
 	Slider::Slider() : Component() {}

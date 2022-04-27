@@ -10,12 +10,20 @@
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 
+#include <utils_prj/K_Map.h>
+
 namespace K_Engine {
 	//Required
 	std::string Image::name = "Image";
 
 	std::string Image::GetId() {
 		return name;
+	}
+
+	void Image::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
 	}
 
 	Image::Image() : Component() {}

@@ -11,6 +11,7 @@
 #include <utils_prj/checkML.h>
 
 #include <input_prj/InputManager.h>
+#include <utils_prj/K_Map.h>
 
 namespace K_Engine {
 	//Required
@@ -18,6 +19,21 @@ namespace K_Engine {
 
 	std::string K_Engine::ScrollBar::GetId() {
 		return name;
+	}
+
+	void ScrollBar::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+		x_ = information->valueToNumber("x");
+		upperLimit_ = information->valueToNumber("upperLimit");
+		lowerLimit_ = information->valueToNumber("lowerLimit");
+
+		inputArea = new Rectangle();
+
+		inputMan = K_Engine::InputManager::GetInstance();
+
+		pressed_ = false;
 	}
 
 	ScrollBar::ScrollBar() : Component() {}
