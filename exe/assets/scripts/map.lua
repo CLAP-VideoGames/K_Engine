@@ -157,5 +157,5 @@ map = {
     },
 }
 
-entities = {"cubo" ,"originalPieceMap" ,"pieceMap_001" ,"pieceMap_002" ,"originalSphere" ,"platform" ,"sphere_001" ,"sphere_002" }
+map_entities = {"cubo" ,"originalPieceMap" ,"pieceMap_001" ,"pieceMap_002" ,"originalSphere" ,"platform" ,"sphere_001" ,"sphere_002" }
 

@@ -48,11 +48,13 @@ namespace K_Engine {
 		return (information.find(key) != information.end());
 	}
 
-	std::function<void(void*)> K_Map::valueToFunction(std::string key)
+	std::function<void(std::string)> K_Map::valueToCallback(std::string value)
 	{
-		return [=](void*) {
-			ScriptManager::GetInstance()->callLuaFunction(value(key));
+		std::function<void(std::string)> f = [=](std::string value) {
+			ScriptManager::GetInstance()->callLuaCallback(value);
 		};
+
+		return f;
 	}
 
 	Vector3* K_Map::valueToVector3(std::string key)

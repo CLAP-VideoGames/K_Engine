@@ -183,22 +183,22 @@ namespace K_Engine {
 			Light* lComp = light->addComponent<Light>(LightType::DIRECTIONAL, true);
 		}
 
-		//UI Button
-		{
-			K_Engine::Entity* button = entMan->addEntity();
-			K_Engine::Transform* t = button->addComponent<K_Engine::Transform>();
-			K_Engine::Button* b = button->addComponent<K_Engine::Button>("F", "TestButton", "TestButton", "TestButton");
-			t->setPosition(900, 5, 500);
-			t->setScale(0.4, 1, 1);
-		}
+		////UI Button
+		//{
+		//	K_Engine::Entity* button = entMan->addEntity();
+		//	K_Engine::Transform* t = button->addComponent<K_Engine::Transform>();
+		//	K_Engine::Button* b = button->addComponent<K_Engine::Button>("F", "TestButton", "TestButton", "TestButton");
+		//	t->setPosition(900, 5, 500);
+		//	t->setScale(0.4, 1, 1);
+		//}
 
-		//UI Image
-		{
-			K_Engine::Entity* image = entMan->addEntity();
-			K_Engine::Transform* t = image->addComponent<K_Engine::Transform>();
-			K_Engine::Image* i = image->addComponent<K_Engine::Image>("E", "Fino");
-			t->setPosition(0, 0, 20);
-		}
+		////UI Image
+		//{
+		//	K_Engine::Entity* image = entMan->addEntity();
+		//	K_Engine::Transform* t = image->addComponent<K_Engine::Transform>();
+		//	K_Engine::Image* i = image->addComponent<K_Engine::Image>("E", "Fino");
+		//	t->setPosition(0, 0, 20);
+		//}
 
 		////UI Progress Bar 1
 		//{
@@ -209,37 +209,37 @@ namespace K_Engine {
 		//	t->setScale(300, 25, 1);
 		//}
 
-		//UI Progress Bar 2
-		{
-			K_Engine::Entity* progressBar = entMan->addEntity();
-			K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
-			K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("B", "DefaultProgressBar", 100, 500, 300, 50);
-			t->setPosition(10, 680, 50);
-			t->setScale(300, 25, 1);
-		}
+		////UI Progress Bar 2
+		//{
+		//	K_Engine::Entity* progressBar = entMan->addEntity();
+		//	K_Engine::Transform* t = progressBar->addComponent<K_Engine::Transform>();
+		//	K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("B", "DefaultProgressBar", 100, 500, 300, 50);
+		//	t->setPosition(10, 680, 50);
+		//	t->setScale(300, 25, 1);
+		//}
 
-		//UI ScrollBar
-		{
-			K_Engine::Entity* scrollBar = entMan->addEntity();
-			K_Engine::Transform* t = scrollBar->addComponent<K_Engine::Transform>();
-			K_Engine::ScrollBar* i = scrollBar->addComponent<K_Engine::ScrollBar>("C", "DefaultButton", 40, 200, 300);
-		}
+		////UI ScrollBar
+		//{
+		//	K_Engine::Entity* scrollBar = entMan->addEntity();
+		//	K_Engine::Transform* t = scrollBar->addComponent<K_Engine::Transform>();
+		//	K_Engine::ScrollBar* i = scrollBar->addComponent<K_Engine::ScrollBar>("C", "DefaultButton", 40, 200, 300);
+		//}
 
-		//UI Text
-		{
-			K_Engine::Entity* text = entMan->addEntity();
-			K_Engine::Transform* t = text->addComponent<K_Engine::Transform>();
-			K_Engine::Text* i = text->addComponent<K_Engine::Text>("D", "Fino senhores");
-			i->changeText("Tremendo, senhores");
-			t->setPosition(135, 10, 50);
-		}
+		////UI Text
+		//{
+		//	K_Engine::Entity* text = entMan->addEntity();
+		//	K_Engine::Transform* t = text->addComponent<K_Engine::Transform>();
+		//	K_Engine::Text* i = text->addComponent<K_Engine::Text>("D", "Fino senhores");
+		//	i->changeText("Tremendo, senhores");
+		//	t->setPosition(135, 10, 50);
+		//}
 
-		//UI Slider
-		{
-			K_Engine::Entity* slider = entMan->addEntity();
-			K_Engine::Transform* t = slider->addComponent<K_Engine::Transform>();
-			K_Engine::Slider* i = slider->addComponent<K_Engine::Slider>("G", "DefaultButton", 40, 200, 300);
-		}
+		////UI Slider
+		//{
+		//	K_Engine::Entity* slider = entMan->addEntity();
+		//	K_Engine::Transform* t = slider->addComponent<K_Engine::Transform>();
+		//	K_Engine::Slider* i = slider->addComponent<K_Engine::Slider>("G", "DefaultButton", 40, 200, 300);
+		//}
 
 		//Awake of the entities
 		entMan->awake();
