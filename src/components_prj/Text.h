@@ -8,6 +8,8 @@ namespace K_Engine {
 	class UIManager;
 	class UIText;
 	class Transform;
+	class Vector3;
+
 	/// <summary>
 	/// This class provides an entity with a UiImage component
 	/// </summary>
@@ -50,6 +52,8 @@ namespace K_Engine {
 		/// </summary>
 		void changeText(std::string newText);
 
+		void changeTextPosition(int x, int y);
+
 	private:
 		//Required
 		static std::string name;
@@ -63,6 +67,8 @@ namespace K_Engine {
 		//Basic attributes needed for the text
 		std::string overlayName_;
 		std::string text_;
+		int offsetY;
+		int offsetX;
 	};
 }
 

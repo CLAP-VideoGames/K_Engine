@@ -27,6 +27,8 @@ namespace K_Engine {
 		overlayName_ = overlayName;
 		text_ = text;
 		uitext_ = UIManager::GetInstance()->addText(overlayName_, text_);
+		offsetX = 0;
+		offsetY = 0;
 	}
 
 	K_Engine::Text::~Text() = default;
@@ -44,7 +46,7 @@ namespace K_Engine {
 	{
 		//Position syncing
 		Vector3 pos = transformRf_->getPosition();
-		uitext_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
+		uitext_->setPosition(transformRf_->getPosition().x+ offsetX, transformRf_->getPosition().y + offsetY);
 
 		//Scale syincing
 		uitext_->setSize(uitext_->getSize().first * transformRf_->getScale().x, uitext_->getSize().second * transformRf_->getScale().y);
@@ -58,4 +60,9 @@ namespace K_Engine {
 		uitext_->setText(newText);
 	}
 
+	void Text::changeTextPosition(int x, int y)
+	{
+		offsetY = y;
+		offsetX = x;
+	}
 }
