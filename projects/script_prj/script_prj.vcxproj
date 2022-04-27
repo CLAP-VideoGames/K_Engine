@@ -112,6 +112,9 @@
     <ProjectReference Include="..\ecs_prj\ecs_prj.vcxproj">
       <Project>{a9c79538-c953-45eb-9232-435d0fbba7e2}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\log_prj\log_prj.vcxproj">
+      <Project>{dfc9a446-2e67-405a-a322-2fa068d46aba}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

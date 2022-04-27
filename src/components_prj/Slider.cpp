@@ -7,6 +7,7 @@
 #include <ui_prj/UIManager.h>
 #include <ui_prj/UISlider.h>
 #include <ui_prj/UIProgressBar.h>
+#include <ui_prj/Rectangle.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>

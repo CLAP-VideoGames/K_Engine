@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <stdexcept>
 #include <string>
+#include <functional>
 //#include <utils_prj/Vector3.h>
 
 
@@ -15,9 +16,9 @@ namespace K_Engine {
 	/// and give it to the components so they can get initialized without creating
 	/// any not desireable dependencies
 	/// </summary>
+	class ScriptManager;
 	class __declspec(dllexport) K_Map
 	{
-
 	public:
 		K_Map();
 		~K_Map();
@@ -33,6 +34,8 @@ namespace K_Engine {
 		std::string value(std::string key);
 
 		bool hasValue(std::string key);
+
+		std::function<void(void*)> valueToFunction(std::string key);
 
 	private:
 

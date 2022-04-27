@@ -31,7 +31,7 @@ namespace K_Engine {
 		EntityManager* entMan;
 		ScriptManager* scriptMan;
 
-		bool loadMap(std::string nameMap);
+		bool loadScene(std::string nameMap);
 	};
 }
 #endif

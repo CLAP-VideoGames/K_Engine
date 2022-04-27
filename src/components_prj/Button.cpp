@@ -13,6 +13,8 @@
 
 #include <input_prj/InputManager.h>
 
+#include <utils_prj/K_Map.h>
+
 namespace K_Engine {
 	//Required
 	std::string Button::name = "Button";
@@ -41,6 +43,21 @@ namespace K_Engine {
 	Button::~Button() {
 		delete inputArea; inputArea = nullptr;
 	};
+
+	void Button::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+
+		hoverImageName_ = information->value("hoverImageName");
+		pressedImageName_ = information->value("pressedImageName");
+
+		setButtonClick(information->valueToFunction("onClick"));
+
+		inputArea = new Rectangle();
+
+		inputMan = K_Engine::InputManager::GetInstance();
+	}
 
 	void K_Engine::Button::start()
 	{

@@ -13,6 +13,8 @@ extern "C" {
 #include <LuaBridge.h>
 
 //Otros proyectos
+#include <log_prj/LogManager.h>
+
 #include <ecs_prj/EntityManager.h>
 #include <ecs_prj/Entity.h>
 #include <ecs_prj/ComponentManager.h>
@@ -115,9 +117,11 @@ namespace K_Engine {
 		getGlobalNamespace(luaState).beginClass<EntityManager>("EntityManager")
 			.addFunction("addEntity", &EntityManager::addEntity)
 			.endClass();
-		/*getGlobalNamespace(luaState).beginClass<Entity>("Entity")
-			.addFunction("addComponent", &Entity::addComponent<T>)
-			.endClass();*/
+		//LogManager
+		getGlobalNamespace(luaState).beginClass<LogManager>("LogManager")
+			.addStaticFunction("getInstance", &LogManager::GetInstance)
+			.addFunction("printLog", &LogManager::printLog)
+			.endClass();
 		//LUA
 		getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
 			.addStaticFunction("getInstance", &ScriptManager::GetInstance)
@@ -130,7 +134,7 @@ namespace K_Engine {
 		return checkLua(luaState, luaL_dofile(luaState, file.c_str()));
 	}
 
-	void ScriptManager::loadLuaMap(std::string sceneFile, EntityManager* entMan){
+	void ScriptManager::loadLuaScene(std::string sceneFile, EntityManager* entMan){
 		if (!reloadLuaScript(sceneFile))
 			throw std::string("the scene" + sceneFile + "is not valid\n.");
 
@@ -143,7 +147,7 @@ namespace K_Engine {
 		for (size_t i = 1; i <= numEntities; i++)
 			entities.push_back(ent[i].cast<string>());
 
-		luabridge::LuaRef scene = getTable("scene");
+		luabridge::LuaRef scene = getTable(sceneFile);
 
 		for (size_t i = 0; i < numEntities; i++) {
 			Entity* e = entMan->addEntity();
@@ -204,20 +208,20 @@ namespace K_Engine {
 		}
 	}
 
-	void ScriptManager::loadLuaScene(std::string scene)
-	{
-		if (!reloadLuaScript(scene))
-			throw std::string("The scene" + scene + "is not valid\n.");
-	}
-
-	void ScriptManager::publishCFunctionToLua(std::string name, lua_CFunction(*func)(lua_State* L))
+	void ScriptManager::registerCFunctionToLua(std::string name, lua_CFunction(*func)(lua_State* L))
 	{
 		lua_register(luaState, name.c_str(), func(luaState));
 	}
 
+
 	luabridge::LuaRef ScriptManager::getLuaFunction(std::string funcName)
 	{
 		return getGlobal(luaState, funcName.c_str());
+	}
+
+	void ScriptManager::callLuaFunction(std::string funcName)
+	{
+		call(getLuaFunction(funcName));
 	}
 
 	luabridge::LuaRef ScriptManager::getTable(const std::string& c_name)

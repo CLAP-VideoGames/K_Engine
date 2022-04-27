@@ -43,6 +43,12 @@ namespace K_Engine {
 		static std::string GetId();
 
 		/// <summary>
+		/// Used to initialize via .Lua using scriptManager
+		/// </summary>
+		/// <param name="information"></param>
+		virtual void init(K_Map* information);
+
+		/// <summary>
 		/// It's called at the beginning of the execution.
 		/// </summary>
 		virtual void start();
