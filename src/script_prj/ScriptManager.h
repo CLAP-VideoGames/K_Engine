@@ -18,6 +18,7 @@ typedef struct lua_State lua_State;
     typedef int (*lua_CFunction) (lua_State* L);
 
 namespace K_Engine {
+    class LogManager;
     class EntityManager;
     class Entity;
     class ComponentManager;
@@ -56,13 +57,12 @@ namespace K_Engine {
 
 
         //Lectura de una tabla script YA CARGADO sin llamar desde Lua
-        void loadLuaMap(std::string scene, EntityManager* entMan);
-
-        //Lectura de Escenas de .lua
-        void loadLuaScene(std::string scene);
+        void loadLuaScene(std::string scene, EntityManager* entMan);
 
         //Publicar funcion de C++ a Lua
-        void publishCFunctionToLua(std::string name, lua_CFunction(*func)(lua_State* L));
+        void registerCFunctionToLua(std::string name, lua_CFunction(*func)(lua_State* L));
+        //Quitar funcion de C++ a Lua
+        void unRegisterCFunctionToLua(std::string name, lua_CFunction(*func)(lua_State* L));
 
         //Publicar funcion de C++ a Lua
         template <typename T>
@@ -70,6 +70,8 @@ namespace K_Engine {
 
         //Devolver funcion de Lua a C++
         luabridge::LuaRef getLuaFunction(std::string funcName);
+        //Llamada a una función de lua
+        void callLuaFunction(std::string funcName);
 
     private:
         static std::unique_ptr<ScriptManager> instance;

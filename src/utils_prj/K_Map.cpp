@@ -2,6 +2,7 @@
 #include <utils_prj/Vector3.h>
 #include <sstream>
 #include <vector>
+#include <script_prj/ScriptManager.h>
 
 namespace K_Engine {
 
@@ -45,6 +46,13 @@ namespace K_Engine {
 
 	bool K_Map::hasValue(std::string key){
 		return (information.find(key) != information.end());
+	}
+
+	std::function<void(void*)> K_Map::valueToFunction(std::string key)
+	{
+		return [=](void*) {
+			ScriptManager::GetInstance()->callLuaFunction(value(key));
+		};
 	}
 
 	Vector3* K_Map::valueToVector3(std::string key)

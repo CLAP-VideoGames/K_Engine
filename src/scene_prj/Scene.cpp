@@ -38,7 +38,7 @@ namespace K_Engine {
 
 	void Scene::init(std::string nameMap) {
 		scriptMan = K_Engine::ScriptManager::GetInstance();
-		//loadMap(nameMap);
+		loadScene(nameMap);
 
 		// example scene (pending of development)
 		std::string playerLayer = "Player";
@@ -260,8 +260,8 @@ namespace K_Engine {
 		entMan->fixedUpdate(deltaTime);
 	}
 
-	bool Scene::loadMap(std::string nameMap){
-		scriptMan->loadLuaMap(nameMap, entMan);
+	bool Scene::loadScene(std::string nameMap){
+		scriptMan->loadLuaScene(nameMap, entMan);
 		return true;
 	}
 }

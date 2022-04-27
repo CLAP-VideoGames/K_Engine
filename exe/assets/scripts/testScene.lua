@@ -7,15 +7,18 @@ testScene = {
         },
         Enabled = "true",
         Button = {
-            overlayName = "Boton"
-            imageName = "DefaultButton"
-            hovermageName = "TestButtonAmongus"
-            pressedImageName = "ButtonApretado"
-            onClick = "onClick"
+            overlayName = "Boton",
+            imageName = "DefaultButton",
+            hoverImageName = "TestButtonAmongus",
+            pressedImageName = "ButtonApretado",
+            onClick = "changeScene"
         }
-    }
+    },
 }
 
-function onClick(){
-    sceneManager:changeScene("map");
-}
+function changeScene()
+    local logMan = LogManager.getInstance();
+    logMan:printLog(2,"a  VeR  Si Me MuErO");
+end
+
+entities = { "changeSceneButton"}
