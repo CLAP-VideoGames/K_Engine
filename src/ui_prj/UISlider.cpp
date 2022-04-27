@@ -1,13 +1,9 @@
 #include "UISlider.h"
 
-#include <iostream>
-
 #include <OgreOverlay.h>
 #include <OgreOverlayManager.h>
 #include <OgreOverlayContainer.h>
 #include <OgreTextAreaOverlayElement.h>
-
-#include <input_prj/InputManager.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
@@ -33,8 +29,6 @@ namespace K_Engine {
 		// Show the overlay
 		overlay_->show();
 
-		inputMan = K_Engine::InputManager::GetInstance();
-
 		//Setup the movement limits of the scrollbar
 		leftLimit = left;
 		rightLimit = right;
@@ -46,12 +40,6 @@ namespace K_Engine {
 			element_->setDimensions(distance / 10, 20);
 		}
 		else  element_->setDimensions(distance, 20);
-
-		//Setup the input area rectangle
-		inputArea.h = element_->getHeight();
-		inputArea.w = element_->getWidth();
-		inputArea.x = element_->getLeft();
-		inputArea.y = element_->getTop();
 	}
 
 	UISlider::~UISlider()
@@ -62,34 +50,5 @@ namespace K_Engine {
 	//this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
 	double UISlider::getRelativePos() {
 		return (((double)element_->getLeft() - (double)leftLimit) / (double)distance) * 100;
-	}
-
-	bool UISlider::getNeedsSync()
-	{
-		return positionNeedsSync;
-	}
-
-	void UISlider::setNeedsSync(bool newState)
-	{
-		positionNeedsSync = newState;
-	}
-
-	void UISlider::updatePosition(Vector3 newPosition)
-	{
-		float previousTopDistance;
-		previousTopDistance = element_->getTop() - leftLimit;
-		leftLimit = newPosition.y;
-		element_->setLeft(newPosition.x);
-		rightLimit = leftLimit + distance;
-		element_->setTop(previousTopDistance + leftLimit);
-	}
-
-	void UISlider::updateSize(float scale)
-	{
-		element_->setTop((element_->getTop() - leftLimit) / (distance / initialDistance) * scale + leftLimit);
-		element_->setHeight(initialDistance * scale / 10);
-		element_->setWidth(20 * scale);
-		distance = initialDistance * scale;
-		rightLimit = leftLimit + distance;
 	}
 }

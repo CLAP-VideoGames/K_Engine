@@ -44,11 +44,6 @@ namespace K_Engine {
 		delete inputArea; inputArea = nullptr;
 	};
 
-	std::string K_Engine::Button::GetId()
-	{
-		return name;
-	}
-
 	void Button::init(K_Map* information)
 	{
 		overlayName_ = information->value("overlayName");

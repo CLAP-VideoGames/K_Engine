@@ -1,13 +1,9 @@
 #include <ui_prj/UIScrollBar.h>
 
-#include <iostream>
-
 #include <OgreOverlay.h>
 #include <OgreOverlayManager.h>
 #include <OgreOverlayContainer.h>
 #include <OgreTextAreaOverlayElement.h>
-
-#include <input_prj/InputManager.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
@@ -34,8 +30,6 @@ namespace K_Engine {
 		// Show the overlay
 		overlay_->show();
 
-		inputMan = K_Engine::InputManager::GetInstance();
-
 		//Setup the movement limits of the scrollbar
 		upperLimit = upper;
 		lowerLimit = lower;
@@ -48,12 +42,6 @@ namespace K_Engine {
 		}
 		else  element_->setDimensions(20, distance);
 
-		//Setup the input area rectangle
-		inputArea.h = element_->getHeight();
-		inputArea.w = element_->getWidth();
-		inputArea.x = element_->getLeft();
-		inputArea.y = element_->getTop();
-
 	}
 
 	UIScrollBar::~UIScrollBar()
@@ -65,34 +53,5 @@ namespace K_Engine {
 	//this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
 	double UIScrollBar::getRelativePos() {
 		return (((double)element_->getTop() - (double)upperLimit) / (double)distance) * 100;
-	}
-
-	bool UIScrollBar::getNeedsSync()
-	{
-		return positionNeedsSync;
-	}
-
-	void UIScrollBar::setNeedsSync(bool newState)
-	{
-		positionNeedsSync = newState;
-	}
-
-	void UIScrollBar::updatePosition(Vector3 newPosition)
-	{
-		float previousTopDistance;
-		previousTopDistance = element_->getTop() - upperLimit;
-		upperLimit = newPosition.y;
-		element_->setLeft(newPosition.x);
-		lowerLimit = upperLimit + distance;
-		element_->setTop(previousTopDistance + upperLimit);
-	}
-
-	void UIScrollBar::updateSize(float scale)
-	{
-		element_->setTop((element_->getTop() - upperLimit) / (distance / initialDistance) * scale + upperLimit);
-		element_->setHeight(initialDistance * scale / 10);
-		element_->setWidth(20 * scale);
-		distance = initialDistance * scale;
-		lowerLimit = upperLimit + distance;
 	}
 }
