@@ -14,22 +14,22 @@
 
 namespace K_Engine {
 
-	UIScrollBar::UIScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower) : UIElement(Ogre::OverlayManager::getSingletonPtr())
+	UIScrollBar::UIScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower) : UIElement()
 	{
 		//Initialization of everything that ogre needs to show something
 		//Default settings
-		element_ = static_cast<Ogre::OverlayContainer*>(
+		overlayElement_ = static_cast<Ogre::OverlayContainer*>(
 			overlayMan_->createOverlayElement("Panel", "ScrollBar"));
-		element_->setMetricsMode(Ogre::GMM_PIXELS);
-		element_->setTop(upper);
-		element_->setLeft(x);
+		overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
+		overlayElement_->setTop(upper);
+		overlayElement_->setLeft(x);
 
 		//DefaultMaterial
-		element_->setMaterialName(imageName);
+		overlayElement_->setMaterialName(imageName);
 
 		// Create an overlay, and add the panel
 		overlay_ = overlayMan_->create(overlayName);
-		overlay_->add2D(element_);
+		overlay_->add2D(overlayElement_);
 
 		// Show the overlay
 		overlay_->show();
@@ -43,55 +43,47 @@ namespace K_Engine {
 		//Setup default size relative to the total distance
 		distance = lower - upper;
 		initialDistance = distance;
-		if (distance / 10 > 0) {
-			element_->setDimensions(20, distance / 10);
-		}
-		else  element_->setDimensions(20, distance);
+		if (distance / 10 > 0) 
+			overlayElement_->setDimensions(20, distance / 10);
+		else overlayElement_->setDimensions(20, distance);
 
 		//Setup the input area rectangle
-		inputArea.h = element_->getHeight();
-		inputArea.w = element_->getWidth();
-		inputArea.x = element_->getLeft();
-		inputArea.y = element_->getTop();
+		inputArea.h = overlayElement_->getHeight();
+		inputArea.w = overlayElement_->getWidth();
+		inputArea.x = overlayElement_->getLeft();
+		inputArea.y = overlayElement_->getTop();
 
 	}
 
-	UIScrollBar::~UIScrollBar()
-	{
-
-	}
+	UIScrollBar::~UIScrollBar() = default;
 
 	//Returns the percentage of the scrollbar that is left above the scrollbar itself
 	//this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
 	double UIScrollBar::getRelativePos() {
-		return (((double)element_->getTop() - (double)upperLimit) / (double)distance) * 100;
+		return (((double)overlayElement_->getTop() - (double)upperLimit) / (double)distance) * 100;
 	}
 
-	bool UIScrollBar::getNeedsSync()
-	{
+	bool UIScrollBar::getNeedsSync() {
 		return positionNeedsSync;
 	}
 
-	void UIScrollBar::setNeedsSync(bool newState)
-	{
+	void UIScrollBar::setNeedsSync(bool newState) {
 		positionNeedsSync = newState;
 	}
 
-	void UIScrollBar::updatePosition(Vector3 newPosition)
-	{
+	void UIScrollBar::updatePosition(Vector3 newPosition) {
 		float previousTopDistance;
-		previousTopDistance = element_->getTop() - upperLimit;
+		previousTopDistance = overlayElement_->getTop() - upperLimit;
 		upperLimit = newPosition.y;
-		element_->setLeft(newPosition.x);
+		overlayElement_->setLeft(newPosition.x);
 		lowerLimit = upperLimit + distance;
-		element_->setTop(previousTopDistance + upperLimit);
+		overlayElement_->setTop(previousTopDistance + upperLimit);
 	}
 
-	void UIScrollBar::updateSize(float scale)
-	{
-		element_->setTop((element_->getTop() - upperLimit) / (distance / initialDistance) * scale + upperLimit);
-		element_->setHeight(initialDistance * scale / 10);
-		element_->setWidth(20 * scale);
+	void UIScrollBar::updateSize(float scale) {
+		overlayElement_->setTop((overlayElement_->getTop() - upperLimit) / (distance / initialDistance) * scale + upperLimit);
+		overlayElement_->setHeight(initialDistance * scale / 10);
+		overlayElement_->setWidth(20 * scale);
 		distance = initialDistance * scale;
 		lowerLimit = upperLimit + distance;
 	}

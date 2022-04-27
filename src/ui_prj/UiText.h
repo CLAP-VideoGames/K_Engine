@@ -11,7 +11,6 @@ namespace Ogre {
 }
 
 namespace K_Engine {
-
 	/// <summary>
 	/// Our text class, overlayName is the interName ogre will record your overlay
 	/// text_ is the message our text will show
@@ -23,20 +22,19 @@ namespace K_Engine {
 
 		virtual ~UIText();
 
-		void setText(std::string nText);
-
 		//Im pretty sure size is based on font for text
+		virtual void setPosition(int x, int y);
 		virtual void setSize(int w, int h);
 
-		virtual void setPosition(int x, int y);
-
 		void setFont(std::string fontName);
+		void setText(std::string newText);
 
-		std::string getText() { return text_; }
+		std::string getText();
 
 	private:
+		Ogre::TextAreaOverlayElement* textArea_;
+
 		std::string text_;
-		Ogre::TextAreaOverlayElement* textArea;
 	};
 }
 #endif // UITEXT_H

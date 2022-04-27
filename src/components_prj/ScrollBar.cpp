@@ -68,10 +68,8 @@ namespace K_Engine {
 	void ScrollBar::update(int frameTime)
 	{
 		//Setup the input area rectangle
-		inputArea->h = scrollBar_->getHeight();
-		inputArea->w = scrollBar_->getWidth();
-		inputArea->x = scrollBar_->getLeft();
-		inputArea->y = scrollBar_->getTop();
+		inputArea->x = scrollBar_->getPosition().first; inputArea->y = scrollBar_->getPosition().second;
+		inputArea->w = scrollBar_->getSize().first; inputArea->h = scrollBar_->getSize().second;
 
 		Point pointer;
 		auto pointPos = inputMan->getMousePos();
@@ -88,7 +86,7 @@ namespace K_Engine {
 			pressed_ = false;
 
 		if (pressed_) {
-			auto y = scrollBar_->getTop();
+			auto y = scrollBar_->getPosition().second;
 			if (y >= upperLimit_ && y <= lowerLimit_) {
 				if (pointer.y >= upperLimit_ && pointer.y <= lowerLimit_) {
 					scrollBar_->setTop(pointer.y);

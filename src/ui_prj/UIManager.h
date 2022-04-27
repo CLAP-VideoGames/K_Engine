@@ -15,15 +15,6 @@ namespace K_Engine {
 	class UIElement;
 	class RenderManager;
 
-	enum class Widget {
-		IMAGE, 
-		TEXT, 
-		BUTTON, 
-		SLIDER, 
-		SCROLL_BAR, 
-		PROGRESS_BAR
-	};
-
 	class  __declspec(dllexport) UIManager {
 	public:
 		UIManager();

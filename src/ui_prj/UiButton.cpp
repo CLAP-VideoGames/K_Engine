@@ -5,7 +5,6 @@
 #include <OgreOverlay.h>
 #include <OgreOverlayManager.h>
 #include <OgreOverlayContainer.h>
-#include <OgreTextAreaOverlayElement.h>
 
 #include <utils_prj/checkML.h>
 
@@ -13,29 +12,28 @@ namespace K_Engine {
 
 	static int numberButtons = 0;
 
-	UIButton::UIButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : UIElement(Ogre::OverlayManager::getSingletonPtr())
+	UIButton::UIButton(std::string overlayName, std::string imageName, std::string hoverImageName,
+		std::string pressedImageName) : UIElement()
 	{
 		//Initialization of everything that ogre needs to show something
 		//Default settings
 		std::string numOfElements = std::to_string(numberButtons);
 
-		element_ = static_cast<Ogre::OverlayContainer*>(
+		overlayElement_ = static_cast<Ogre::OverlayContainer*>(
 			overlayMan_->createOverlayElement("Panel", "Button" + numOfElements));
-		element_->setMetricsMode(Ogre::GMM_PIXELS);
-		element_->setPosition(defaultX, defaultY);
-		element_->setDimensions(defaultWidth, defaultHeight);
+		overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
+		overlayElement_->setPosition(DEFAULT_LEFT, DEFAULT_TOP);
+		overlayElement_->setDimensions(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
 		//DefaultMaterial
-		element_->setMaterialName(imageName);
+		overlayElement_->setMaterialName(imageName);
 
 		// Create an overlay, and add the panel
 		overlay_ = overlayMan_->create(overlayName);
-		overlay_->add2D(element_);
+		overlay_->add2D(overlayElement_);
 
 		// Show the overlay
 		overlay_->show();
-
-		size = std::pair<int, int>(400, 150);
 
 		numberButtons++;
 

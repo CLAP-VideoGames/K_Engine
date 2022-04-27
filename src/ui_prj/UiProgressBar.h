@@ -2,7 +2,7 @@
 #ifndef UIPROGRESSBAR_H
 #define UIPROGRESSBAR_H
 
-#include <ui_prj/UiElement.h>
+#include <ui_prj/UIElement.h>
 
 namespace K_Engine {
 
@@ -18,14 +18,11 @@ namespace K_Engine {
 		float getProgress();
 
 	private:
-
 		std::pair<int, int> originalSize;
 
 		//Starts full progresion
 		float progresion = 100;
-
 		float maximumProgresion = 100;
-
 	};
 }
 #endif // UIPROGRESS_H

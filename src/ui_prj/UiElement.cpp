@@ -11,92 +11,60 @@
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
-	UIElement::UIElement(Ogre::OverlayManager* man)
-	{
-		overlayMan_ = man;
+	int UIElement::numOverlayElems = 0;
 
-		size = std::pair<int, int>(defaultWidth, defaultHeight);
+	UIElement::UIElement() {
+		overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
 
-		position = std::pair<int, int>(defaultX, defaultY);
+		numOverlayElems++;
 	}
 
 	UIElement::~UIElement() {
-		hide();
-	};
+		overlayMan_->destroy(overlay_);
+	}
 
-	void UIElement::show()
-	{
+	void UIElement::show() {
 		overlay_->show();
 	}
 
-	void UIElement::hide()
-	{
+	void UIElement::hide() {
 		overlay_->hide();
 	}
 
-	void UIElement::setMaterial(std::string const& materialName)
-	{
-		element_->setMaterialName(materialName);
+	void UIElement::setMaterial(std::string const& materialName) {
+		overlayElement_->setMaterialName(materialName);
 	}
 
-	std::pair<int, int> UIElement::getPosition()
-	{
-		return position;
+	void UIElement::setPosition(int x, int y) {
+		overlayElement_->setPosition(x, y);
 	}
 
-	std::pair<int, int> UIElement::getSize()
-	{
-		return size;
+	void UIElement::setSize(int w, int h) {
+		overlayElement_->setDimensions(w, h);
 	}
 
-	void UIElement::setPosition(int x, int y)
-	{
-		element_->setPosition(x, y);
-
-		position.first = x;
-		position.second = y;
+	void UIElement::setTop(int topValue) {
+		overlayElement_->setTop(topValue);
 	}
 
-	void UIElement::setSize(int w, int h)
-	{
-		element_->setDimensions(w, h);
-
-		size.first = w;
-		size.second = h;
+	void UIElement::setLeft(int leftValue) {
+		overlayElement_->setLeft(leftValue);
 	}
 
-	void UIElement::setMetrics(Metrics m)
-	{
-		if (m == PIXELS) element_->setMetricsMode(Ogre::GMM_PIXELS);
-		else if (m == WINDOW_RELATIVE) element_->setMetricsMode(Ogre::GMM_RELATIVE);
+	void UIElement::setMetrics(Metrics m) {
+		if (m == PIXELS) overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
+		else if (m == WINDOW_RELATIVE) overlayElement_->setMetricsMode(Ogre::GMM_RELATIVE);
 	}
 
-	void UIElement::setRenderOrder(int z)
-	{
+	void UIElement::setRenderOrder(int z) {
 		overlay_->setZOrder(z);
 	}
-	int UIElement::getLeft()
-	{
-		return element_->getLeft();
+
+	std::pair<int, int> UIElement::getPosition() {
+		return { overlayElement_->getLeft(), overlayElement_->getTop() };
 	}
-	int UIElement::getTop()
-	{
-		return element_->getTop();;
-	}
-	int UIElement::getHeight()
-	{
-		return element_->getHeight();
-	}
-	int UIElement::getWidth()
-	{
-		return element_->getWidth();
-	}
-	void UIElement::setTop(int topValue)
-	{
-		element_->setTop(topValue);
-	}
-	void UIElement::setLeft(int leftValue)
-	{
-		element_->setLeft(leftValue);
+
+	std::pair<int, int> UIElement::getSize() {
+		return { overlayElement_->getWidth(), overlayElement_->getHeight() };
 	}
 }

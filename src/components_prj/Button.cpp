@@ -49,18 +49,14 @@ namespace K_Engine {
 		//Scale syincing
 		button_->setSize(button_->getSize().first * transformRf_->getScale().x, button_->getSize().second * transformRf_->getScale().y);
 		
-		inputArea->h = button_->getHeight();
-		inputArea->w = button_->getWidth();
-		inputArea->x = button_->getLeft();
-		inputArea->y = button_->getTop();
+		inputArea->x = button_->getPosition().first; inputArea->y = button_->getPosition().second;	
+		inputArea->w = button_->getSize().first; inputArea->h = button_->getSize().second;
 	}
 
 	void Button::update(int frameTime)
 	{
-		inputArea->h = button_->getHeight();
-		inputArea->w = button_->getWidth();
-		inputArea->x = button_->getLeft();
-		inputArea->y = button_->getTop();
+		inputArea->x = button_->getPosition().first; inputArea->y = button_->getPosition().second;
+		inputArea->w = button_->getSize().first; inputArea->h = button_->getSize().second;
 
 		Point pointer;
 		auto pointPos = inputMan->getMousePos();

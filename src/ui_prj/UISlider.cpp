@@ -14,21 +14,20 @@
 
 namespace K_Engine {
 
-	UISlider::UISlider(std::string overlayName, std::string imageName, int y, int left, int right) : UIElement(Ogre::OverlayManager::getSingletonPtr())
+	UISlider::UISlider(std::string overlayName, std::string imageName, int y, int left, int right) : UIElement()
 	{
 		//Initialization of everything that ogre needs to show something
 		//Default settings
-		element_ = static_cast<Ogre::OverlayContainer*>(
-			overlayMan_->createOverlayElement("Panel", "Slider"));
-		element_->setMetricsMode(Ogre::GMM_PIXELS);
-		element_->setPosition(right, y);
+		overlayElement_ = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", "Slider"));
+		overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
+		overlayElement_->setPosition(right, y);
 
 		//DefaultMaterial
-		element_->setMaterialName(imageName);
+		overlayElement_->setMaterialName(imageName);
 
 		// Create an overlay, and add the panel
 		overlay_ = overlayMan_->create(overlayName);
-		overlay_->add2D(element_);
+		overlay_->add2D(overlayElement_);
 
 		// Show the overlay
 		overlay_->show();
@@ -42,16 +41,15 @@ namespace K_Engine {
 		//Setup default size relative to the total distance
 		distance = right - left;
 		initialDistance = distance;
-		if (distance / 10 > 0) {
-			element_->setDimensions(distance / 10, 20);
-		}
-		else  element_->setDimensions(distance, 20);
+		if (distance / 10 > 0) 
+			overlayElement_->setDimensions(distance / 10, 20);
+		else  overlayElement_->setDimensions(distance, 20);
 
 		//Setup the input area rectangle
-		inputArea.h = element_->getHeight();
-		inputArea.w = element_->getWidth();
-		inputArea.x = element_->getLeft();
-		inputArea.y = element_->getTop();
+		inputArea.h = overlayElement_->getHeight();
+		inputArea.w = overlayElement_->getWidth();
+		inputArea.x = overlayElement_->getLeft();
+		inputArea.y = overlayElement_->getTop();
 	}
 
 	UISlider::~UISlider()
@@ -61,7 +59,7 @@ namespace K_Engine {
 	//Returns the percentage of the scrollbar that is left above the scrollbar itself
 	//this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
 	double UISlider::getRelativePos() {
-		return (((double)element_->getLeft() - (double)leftLimit) / (double)distance) * 100;
+		return (((double)overlayElement_->getLeft() - (double)leftLimit) / (double)distance) * 100;
 	}
 
 	bool UISlider::getNeedsSync()
@@ -77,18 +75,18 @@ namespace K_Engine {
 	void UISlider::updatePosition(Vector3 newPosition)
 	{
 		float previousTopDistance;
-		previousTopDistance = element_->getTop() - leftLimit;
+		previousTopDistance = overlayElement_->getTop() - leftLimit;
 		leftLimit = newPosition.y;
-		element_->setLeft(newPosition.x);
+		overlayElement_->setLeft(newPosition.x);
 		rightLimit = leftLimit + distance;
-		element_->setTop(previousTopDistance + leftLimit);
+		overlayElement_->setTop(previousTopDistance + leftLimit);
 	}
 
 	void UISlider::updateSize(float scale)
 	{
-		element_->setTop((element_->getTop() - leftLimit) / (distance / initialDistance) * scale + leftLimit);
-		element_->setHeight(initialDistance * scale / 10);
-		element_->setWidth(20 * scale);
+		overlayElement_->setTop((overlayElement_->getTop() - leftLimit) / (distance / initialDistance) * scale + leftLimit);
+		overlayElement_->setHeight(initialDistance * scale / 10);
+		overlayElement_->setWidth(20 * scale);
 		distance = initialDistance * scale;
 		rightLimit = leftLimit + distance;
 	}

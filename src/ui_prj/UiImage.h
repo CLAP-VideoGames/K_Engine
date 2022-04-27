@@ -2,7 +2,7 @@
 #ifndef UIIMAGE_H
 #define UIIMAGE_H
 
-#include <ui_prj/UiElement.h>
+#include <ui_prj/UIElement.h>
 
 namespace K_Engine {
 	class UIImage : public UIElement

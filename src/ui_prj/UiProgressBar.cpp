@@ -1,33 +1,33 @@
 #include "UIProgressBar.h"
 
-#include <OgreOverlayContainer.h>
-#include <OgreOverlayManager.h>
-#include <OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
+#include <OgreOverlayManager.h>
+#include <OgreOverlayContainer.h>
 
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
     static int numberOfBars = 0;
 
-    UIProgressBar::UIProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight) : UIElement(Ogre::OverlayManager::getSingletonPtr())
+    UIProgressBar::UIProgressBar(std::string overlayName, std::string imageName,
+        int x, int y, int orgWidth, int orgHeight) : UIElement()
     {
         std::string elemtnNumber = std::to_string(numberOfBars);
 
         //Initialization of everything that ogre needs to show something
         //Default settings
-        element_ = static_cast<Ogre::OverlayContainer*>(
+        overlayElement_ = static_cast<Ogre::OverlayContainer*>(
             overlayMan_->createOverlayElement("Panel", "ProgressBar" + elemtnNumber));
-        element_->setMetricsMode(Ogre::GMM_PIXELS);
-        element_->setPosition(x, y);
-        element_->setDimensions(orgWidth, orgHeight);
+        overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
+        overlayElement_->setPosition(x, y);
+        overlayElement_->setDimensions(orgWidth, orgHeight);
 
         //DefaultMaterial
-        element_->setMaterialName(imageName);
+        overlayElement_->setMaterialName(imageName);
 
         // Create an overlay, and add the panel
         overlay_ = overlayMan_->create(overlayName);
-        overlay_->add2D(element_);
+        overlay_->add2D(overlayElement_);
 
         // Show the overlay
         overlay_->show();
@@ -39,21 +39,18 @@ namespace K_Engine {
 
     UIProgressBar::~UIProgressBar() = default;
 
-    void UIProgressBar::setProgress(float prog)
-    {
+    void UIProgressBar::setProgress(float prog) {
         if (prog <= maximumProgresion)  progresion = prog;
         else progresion = maximumProgresion;
 
         setSize(originalSize.first * (prog / maximumProgresion), originalSize.second);
     }
 
-    void UIProgressBar::setMaxProgress(float maximum)
-    {
+    void UIProgressBar::setMaxProgress(float maximum) {
         maximumProgresion = maximum;
     }
 
-    float UIProgressBar::getProgress()
-    {
+    float UIProgressBar::getProgress() {
         return progresion;
     }
 }

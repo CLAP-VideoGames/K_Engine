@@ -74,10 +74,8 @@ namespace K_Engine {
 	void Slider::update(int frameTime)
 	{
 		//Setup the input area rectangle
-		inputArea->h = slider_->getHeight();
-		inputArea->w = slider_->getWidth();
-		inputArea->x = slider_->getLeft();
-		inputArea->y = slider_->getTop();
+		inputArea->x = slider_->getPosition().first; inputArea->y = slider_->getPosition().second;
+		inputArea->w = slider_->getSize().first; inputArea->h = slider_->getSize().second;
 
 		Point pointer;
 		auto pointPos = inputMan->getMousePos();
@@ -94,7 +92,7 @@ namespace K_Engine {
 			pressed_ = false;
 
 		if (pressed_) {
-			auto x = slider_->getLeft();
+			auto x = slider_->getPosition().first;
 			if (x >= leftLimit_ && x <= rightLimit_) {
 				if (pointer.x >= leftLimit_ && pointer.x <= rightLimit_) {
 					slider_->setLeft(pointer.x);
