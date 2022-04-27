@@ -19,7 +19,7 @@ namespace K_Engine {
 		//Initialization of everything that ogre needs to show something
 		//Default settings
 		element_ = static_cast<Ogre::OverlayContainer*>(
-			oveMngr_->createOverlayElement("Panel", "ScrollBar"));
+			overlayMan_->createOverlayElement("Panel", "ScrollBar"));
 		element_->setMetricsMode(Ogre::GMM_PIXELS);
 		element_->setTop(upper);
 		element_->setLeft(x);
@@ -28,7 +28,7 @@ namespace K_Engine {
 		element_->setMaterialName(imageName);
 
 		// Create an overlay, and add the panel
-		overlay_ = oveMngr_->create(overlayName);
+		overlay_ = overlayMan_->create(overlayName);
 		overlay_->add2D(element_);
 
 		// Show the overlay

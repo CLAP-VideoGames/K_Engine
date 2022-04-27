@@ -19,7 +19,8 @@ namespace K_Engine {
 	class UIText : public UIElement
 	{
 	public:
-		UIText(std::string overlayName, std::string text_);
+		UIText(std::string overlayName, std::string fontName, std::string text);
+
 		virtual ~UIText();
 
 		void setText(std::string nText);
@@ -31,10 +32,10 @@ namespace K_Engine {
 
 		void setFont(std::string fontName);
 
-		std::string getText() { return text; }
+		std::string getText() { return text_; }
 
 	private:
-		std::string text;
+		std::string text_;
 		Ogre::TextAreaOverlayElement* textArea;
 	};
 }

@@ -13,7 +13,7 @@
 namespace K_Engine {
 	UIElement::UIElement(Ogre::OverlayManager* man)
 	{
-		oveMngr_ = man;
+		overlayMan_ = man;
 
 		size = std::pair<int, int>(defaultWidth, defaultHeight);
 
@@ -67,8 +67,8 @@ namespace K_Engine {
 
 	void UIElement::setMetrics(Metrics m)
 	{
-		if (m == Pixels) element_->setMetricsMode(Ogre::GMM_PIXELS);
-		else if (m == WindowRelative) element_->setMetricsMode(Ogre::GMM_RELATIVE);
+		if (m == PIXELS) element_->setMetricsMode(Ogre::GMM_PIXELS);
+		else if (m == WINDOW_RELATIVE) element_->setMetricsMode(Ogre::GMM_RELATIVE);
 	}
 
 	void UIElement::setRenderOrder(int z)

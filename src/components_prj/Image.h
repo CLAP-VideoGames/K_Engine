@@ -8,13 +8,13 @@ namespace K_Engine {
 	class UIManager;
 	class UIImage;
 	class Transform;
+
 	/// <summary>
 	/// This class provides an entity with a UiImage component
 	/// </summary>
 	class __declspec(dllexport) Image : public Component
 	{
 	public:
-
 		Image();
 
 		/// <summary>
@@ -29,11 +29,14 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
-		Image(Entity* e, std::string overlayName, std::string imageName);
+		Image(Entity* e, std::string overlayName, std::string name);
+
 		virtual ~Image();
 
-		//Required method for the component name
+		// required method for the component name
 		static std::string GetId();
+
+		virtual void init(K_Map* information);
 
 		/// <summary>
 		/// It's called at the beginning of the execution.

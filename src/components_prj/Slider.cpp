@@ -5,30 +5,47 @@
 #include <ecs_prj/Entity.h>
 
 #include <ui_prj/UIManager.h>
-#include <ui_prj/UiSlider.h>
-#include <ui_prj/UiProgressBar.h>
+#include <ui_prj/UISlider.h>
+#include <ui_prj/UIProgressBar.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 
 #include <input_prj/InputManager.h>
+#include <utils_prj/K_Map.h>
 
 namespace K_Engine {
 	//Required
 	std::string Slider::name = "Slider";
 
-	Slider::Slider() : Component() {
+	std::string K_Engine::Slider::GetId() {
+		return name;
 	}
 
-	K_Engine::Slider::Slider(Entity* e) : Component(e) {
-	}
-
-	Slider::Slider(Entity* e, std::string overlayName, std::string imageName, int y, int leftLimit, int rightLimit) : Component(e)
+	void Slider::init(K_Map* information)
 	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+		y_ = information->valueToNumber("y");
+		leftLimit_ = information->valueToNumber("leftLimit");
+		rightLimit_ = information->valueToNumber("rightLimit");
+
+		inputArea = new Rectangle();
+
+		inputMan = K_Engine::InputManager::GetInstance();
+
+		pressed_ = false;
+	}
+
+	Slider::Slider() : Component() {}
+
+	K_Engine::Slider::Slider(Entity* e) : Component(e) {}
+
+	Slider::Slider(Entity* e, std::string overlayName, std::string imageName, int y, int leftLimit, int rightLimit) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
-		y_ = y;
-		leftLimit_ = leftLimit;
+
+		y_ = y; leftLimit_ = leftLimit;
 		rightLimit_ = rightLimit;
 
 		inputArea = new Rectangle();
@@ -39,27 +56,21 @@ namespace K_Engine {
 	}
 
 	K_Engine::Slider::~Slider() {
-		delete inputArea;
-		inputArea = nullptr;
-		delete progressBar_;
-		progressBar_ = nullptr;
-	}
-
-	std::string K_Engine::Slider::GetId()
-	{
-		return name;
+		delete inputArea; inputArea = nullptr;
+		delete progressBar_; progressBar_ = nullptr;
 	}
 
 	void K_Engine::Slider::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		slider_ = UIManager::GetInstance()->addSlider(overlayName_, imageName_, y_, leftLimit_, rightLimit_);
+		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, y_, leftLimit_, rightLimit_);
 
 		progressBar_ = new UIProgressBar(overlayName_ + " progress", "DefaultProgressBar", leftLimit_, y_, rightLimit_-leftLimit_, 20);
 		progressBar_->setMaxProgress(100);
 		progressBar_->setProgress(100);
 		progressBar_->setRenderOrder(30);
 	}
+
 	void Slider::update(int frameTime)
 	{
 		//Setup the input area rectangle

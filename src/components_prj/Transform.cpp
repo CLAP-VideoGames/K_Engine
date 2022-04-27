@@ -13,6 +13,10 @@
 namespace K_Engine {
 	std::string Transform::name = "Transform";
 
+	std::string Transform::GetId() {
+		return name;
+	}
+
 	Transform::Transform(): Component() {
 	}
 
@@ -26,10 +30,6 @@ namespace K_Engine {
 		delete position_; position_ = nullptr;
 		delete rotation_; rotation_ = nullptr;
 		delete scale_; scale_ = nullptr;
-	}
-
-	std::string Transform::GetId() {
-		return name;
 	}
 
 	void Transform::init(K_Map* information)

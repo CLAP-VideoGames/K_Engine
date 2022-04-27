@@ -5,43 +5,48 @@
 #include <ecs_prj/Entity.h>
 
 #include <ui_prj/UIManager.h>
-#include <ui_prj/UiText.h>
+#include <ui_prj/UIText.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
+
+#include <utils_prj/K_Map.h>
 
 namespace K_Engine {
 	//Required
 	std::string Text::name = "Text";
 
-	Text::Text() : Component()
-	{
+	std::string K_Engine::Text::GetId() {
+		return name;
 	}
 
-	K_Engine::Text::Text(Entity* e) : Component( e)
+	void Text::init(K_Map* information)
 	{
+		overlayName_ = information->value("overlayName");
+		text_ = information->value("text");
+		offsetX = 0;
+		offsetY = 0;
 	}
 
-	Text::Text(Entity* e, std::string overlayName, std::string text) : Component(e)
-	{
+	Text::Text() : Component() {}
+
+	K_Engine::Text::Text(Entity* e) : Component(e) {}
+
+	Text::Text(Entity* e, std::string overlayName, std::string text) : Component(e) {
 		overlayName_ = overlayName;
 		text_ = text;
-		uitext_ = UIManager::GetInstance()->addText(overlayName_, text_);
 		offsetX = 0;
 		offsetY = 0;
 	}
 
 	K_Engine::Text::~Text() = default;
 
-	std::string K_Engine::Text::GetId()
-	{
-		return name;
-	}
-
 	void K_Engine::Text::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
+		uitext_ = UIManager::GetInstance()->addWidget<UIText>(overlayName_, "MyFont", text_);
 	}
+
 	void Text::update(int frameTime)
 	{
 		//Position syncing
@@ -57,7 +62,8 @@ namespace K_Engine {
 
 	void Text::changeText(std::string newText)
 	{
-		uitext_->setText(newText);
+		text_ = newText;
+		if (uitext_ != nullptr) uitext_->setText(newText);
 	}
 
 	void Text::changeTextPosition(int x, int y)

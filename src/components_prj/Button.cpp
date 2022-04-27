@@ -19,15 +19,16 @@ namespace K_Engine {
 	//Required
 	std::string Button::name = "Button";
 
-	Button::Button() : Component() {
-
+	std::string Button::GetId() {
+		return name;
 	}
 
-	K_Engine::Button::Button(Entity* e) : Component(e) {
+	Button::Button() : Component() {}
 
-	}
+	K_Engine::Button::Button(Entity* e) : Component(e) {}
 
-	Button::Button(Entity* e, std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName) : Component(e) {
+	Button::Button(Entity* e, std::string overlayName, std::string imageName,
+		std::string hoverImageName, std::string pressedImageName) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 
@@ -39,10 +40,8 @@ namespace K_Engine {
 		inputMan = K_Engine::InputManager::GetInstance();
 	}
 
-	K_Engine::Button::~Button() 
-	{
-		delete inputArea;
-		inputArea = nullptr;
+	Button::~Button() {
+		delete inputArea; inputArea = nullptr;
 	};
 
 	std::string K_Engine::Button::GetId()
@@ -68,7 +67,7 @@ namespace K_Engine {
 	void K_Engine::Button::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		button_ = UIManager::GetInstance()->addButton(overlayName_, imageName_, hoverImageName_, pressedImageName_);
+		button_ = UIManager::GetInstance()->addWidget<UIButton>(overlayName_, imageName_, hoverImageName_, pressedImageName_);
 		//Scale syincing
 		button_->setSize(button_->getSize().first * transformRf_->getScale().x, button_->getSize().second * transformRf_->getScale().y);
 		
