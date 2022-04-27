@@ -7,7 +7,9 @@
 namespace K_Engine {
 	class UIManager;
 	class UIScrollBar;
+	class InputManager;
 	class Transform;
+	struct Rectangle;
 	/// <summary>
 	/// This class provides an entity with a UiScrollBar component
 	/// </summary>
@@ -60,6 +62,12 @@ namespace K_Engine {
 		int x_;
 		int upperLimit_;
 		int lowerLimit_;
+
+		InputManager* inputMan;
+
+		Rectangle* inputArea;
+
+		bool pressed_;
 	};
 }
 

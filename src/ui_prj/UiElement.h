@@ -63,6 +63,9 @@ namespace K_Engine {
 		int getHeight();
 		int getWidth();
 
+		void setTop(int topValue);
+		void setLeft(int leftValue);
+
 	protected:
 		Ogre::Overlay* overlay_;
 		Ogre::OverlayContainer* element_;

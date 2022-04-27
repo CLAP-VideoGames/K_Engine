@@ -10,6 +10,8 @@
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 
+#include <input_prj/InputManager.h>
+
 namespace K_Engine {
 	//Required
 	std::string ScrollBar::name = "ScrollBar";
@@ -27,9 +29,18 @@ namespace K_Engine {
 		x_ = x;
 		upperLimit_ = upperLimit;
 		lowerLimit_ = lowerLimit;
+
+		inputArea = new Rectangle();
+
+		inputMan = K_Engine::InputManager::GetInstance();
+
+		pressed_ = false;
 	}
 
-	K_Engine::ScrollBar::~ScrollBar() = default;
+	K_Engine::ScrollBar::~ScrollBar() {
+		delete inputArea;
+		inputArea = nullptr;
+	}
 
 	std::string K_Engine::ScrollBar::GetId()
 	{
@@ -43,6 +54,34 @@ namespace K_Engine {
 	}
 	void ScrollBar::update(int frameTime)
 	{
+		//Setup the input area rectangle
+		inputArea->h = scrollBar_->getHeight();
+		inputArea->w = scrollBar_->getWidth();
+		inputArea->x = scrollBar_->getLeft();
+		inputArea->y = scrollBar_->getTop();
+
+		Point pointer;
+		auto pointPos = inputMan->getMousePos();
+		pointer.x = pointPos.first;
+		pointer.y = pointPos.second;
+
+		if (inputMan->getLeftMouseButtonPressed())
+		{
+			if (PointInRect(&pointer, inputArea)) {
+				pressed_ = true;
+			}
+		}
+		else
+			pressed_ = false;
+
+		if (pressed_) {
+			auto y = scrollBar_->getTop();
+			if (y >= upperLimit_ && y <= lowerLimit_) {
+				if (pointer.y >= upperLimit_ && pointer.y <= lowerLimit_) {
+					scrollBar_->setTop(pointer.y);
+				}
+			}
+		}
 		//Position syncing
 		//Transform actualization if there was a change in position
 		//if (scrollBar_->getNeedsSync()) {

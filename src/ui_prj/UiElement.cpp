@@ -91,4 +91,12 @@ namespace K_Engine {
 	{
 		return element_->getWidth();
 	}
+	void UIElement::setTop(int topValue)
+	{
+		element_->setTop(topValue);
+	}
+	void UIElement::setLeft(int leftValue)
+	{
+		element_->setLeft(leftValue);
+	}
 }

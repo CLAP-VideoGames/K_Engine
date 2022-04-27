@@ -40,6 +40,7 @@ namespace K_Engine {
 	K_Engine::Button::~Button() 
 	{
 		delete inputArea;
+		inputArea = nullptr;
 	};
 
 	std::string K_Engine::Button::GetId()

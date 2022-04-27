@@ -12,8 +12,6 @@
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
 
-#include <ui_prj/UiProgressBar.h>
-
 namespace K_Engine {
 
 	UISlider::UISlider(std::string overlayName, std::string imageName, int y, int left, int right) : UIElement(Ogre::OverlayManager::getSingletonPtr())
@@ -54,17 +52,10 @@ namespace K_Engine {
 		inputArea.w = element_->getWidth();
 		inputArea.x = element_->getLeft();
 		inputArea.y = element_->getTop();
-
-		progressBar_ = new UIProgressBar(overlayName + " progress", "DefaultProgressBar", left, y, distance, 20);
-		progressBar_->setMaxProgress(100);
-		progressBar_->setProgress(100);
-		progressBar_->setRenderOrder(30);
 	}
 
 	UISlider::~UISlider()
 	{
-		delete progressBar_;
-		progressBar_ = nullptr;
 	}
 
 	//Returns the percentage of the scrollbar that is left above the scrollbar itself
@@ -101,40 +92,4 @@ namespace K_Engine {
 		distance = initialDistance * scale;
 		rightLimit = leftLimit + distance;
 	}
-
-	//Sets the position according to mouse input and pos
-	//void UISlider::update() {
-	//	//Setup the input area rectangle
-	//	inputArea.h = element_->getHeight();
-	//	inputArea.w = element_->getWidth();
-	//	inputArea.x = element_->getLeft();
-	//	inputArea.y = element_->getTop();
-
-	//	Point pointer;
-	//	auto pointPos = inputMan->getMousePos();
-	//	pointer.x = pointPos.first;
-	//	pointer.y = pointPos.second;
-
-	//	if (inputMan->getLeftMouseButtonPressed())
-	//	{
-	//		if (PointInRect(&pointer, &inputArea)) {
-	//			pressed = true;
-	//		}
-	//	}
-	//	else
-	//		pressed = false;
-
-	//	if (pressed) {
-	//		auto x = element_->getLeft();
-	//		if (x >= leftLimit && x <= rightLimit) {
-	//			if (pointer.x >= leftLimit && pointer.x <= rightLimit) {
-	//				element_->setLeft(pointer.x);
-	//				progressBar_->setProgress(getRelativePos());
-	//				positionNeedsSync = true;
-	//			}
-	//		}
-	//	}
-	//	
-	//	progressBar_->update();
-	//}
 }

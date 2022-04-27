@@ -8,6 +8,9 @@ namespace K_Engine {
 	class UIManager;
 	class UISlider;
 	class Transform;
+	class InputManager;
+	struct Rectangle;
+	class UIProgressBar;
 	/// <summary>
 	/// This class provides an entity with a UiScrollBar component
 	/// </summary>
@@ -28,7 +31,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
-		Slider(Entity* e, std::string overlayName, std::string imageName, int x, int leftLimit, int rightLimit);
+		Slider(Entity* e, std::string overlayName, std::string imageName, int y, int leftLimit, int rightLimit);
 		virtual ~Slider();
 
 		//Required method for the component name
@@ -57,9 +60,17 @@ namespace K_Engine {
 		//Basic attributes needed for the image
 		std::string overlayName_;
 		std::string imageName_;
-		int x_;
+		int y_;
 		int leftLimit_;
 		int rightLimit_;
+
+		InputManager* inputMan;
+
+		Rectangle* inputArea;
+
+		bool pressed_;
+
+		UIProgressBar* progressBar_;
 	};
 }
 
