@@ -20,7 +20,7 @@ namespace K_Engine {
 		std::string numOfElements = std::to_string(numberButtons);
 
 		element_ = static_cast<Ogre::OverlayContainer*>(
-			oveMngr_->createOverlayElement("Panel", "Button" + numOfElements));
+			overlayMan_->createOverlayElement("Panel", "Button" + numOfElements));
 		element_->setMetricsMode(Ogre::GMM_PIXELS);
 		element_->setPosition(defaultX, defaultY);
 		element_->setDimensions(defaultWidth, defaultHeight);
@@ -29,7 +29,7 @@ namespace K_Engine {
 		element_->setMaterialName(imageName);
 
 		// Create an overlay, and add the panel
-		overlay_ = oveMngr_->create(overlayName);
+		overlay_ = overlayMan_->create(overlayName);
 		overlay_->add2D(element_);
 
 		// Show the overlay

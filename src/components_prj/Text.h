@@ -16,7 +16,6 @@ namespace K_Engine {
 	class __declspec(dllexport) Text : public Component
 	{
 	public:
-
 		Text();
 
 		/// <summary>
@@ -32,6 +31,7 @@ namespace K_Engine {
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="text">Text to display</param>
 		Text(Entity* e, std::string overlayName, std::string text);
+
 		virtual ~Text();
 
 		//Required method for the component name
@@ -67,6 +67,7 @@ namespace K_Engine {
 		//Basic attributes needed for the text
 		std::string overlayName_;
 		std::string text_;
+
 		int offsetY;
 		int offsetX;
 	};

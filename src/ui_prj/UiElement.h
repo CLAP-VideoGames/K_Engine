@@ -11,42 +11,37 @@ namespace Ogre {
 }
 
 namespace K_Engine {
+	enum Metrics {
+		PIXELS, 
+		WINDOW_RELATIVE
+	};
 
-	enum Metrics{ Pixels, WindowRelative };
 	/// <summary>
 	/// Parent class for every UiElement like button or Text,
 	/// Default metrics is WindowRelative
 	/// </summary>
-	
 	class UIElement
 	{
 	public:
 		UIElement(Ogre::OverlayManager* man);
+
 		virtual ~UIElement();
 
-		/// <summary>
-		/// Shows the overlay
-		/// </summary>
-		void show();
-
-		/// <summary>
-		/// Hides the overlay
-		/// </summary>
-		void hide();
+		void show(); // Shows the overlay
+		void hide(); // Hides the overlay
 
 		void setMaterial(std::string const& materialName);
 
-		std::pair<int, int> getPosition();
-
-		std::pair<int, int> getSize();
-
-		//Virtual because some elements dont use the generic class OverlayContainer
+		// Virtual because some elements dont use the generic class OverlayContainer
 		// for example: TextArea, so we need to use othe kind of element 
 		virtual void setPosition(int x, int y);
 		virtual void setSize(int w, int h);
 
+		void setTop(int topValue);
+		void setLeft(int leftValue);
+		
 		/// <summary>
-		/// Pixels make setPosition and setDimesions work with PIxels
+		/// Pixels make setPosition and setDimesions work with Pixels
 		/// and WindowRelative makest it relative to the window
 		/// </summary>
 		/// <param name="metrics"></param>
@@ -57,20 +52,21 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="z"></param>
 		void setRenderOrder(int z);
+		
+		std::pair<int, int> getPosition();
+		std::pair<int, int> getSize();
 
 		int getLeft();
 		int getTop();
+
 		int getHeight();
 		int getWidth();
 
-		void setTop(int topValue);
-		void setLeft(int leftValue);
-
 	protected:
+		Ogre::OverlayManager* overlayMan_;
+
 		Ogre::Overlay* overlay_;
 		Ogre::OverlayContainer* element_;
-
-		Ogre::OverlayManager* oveMngr_;
 
 		int defaultWidth = 500;
 		int defaultHeight = 150;
@@ -81,7 +77,6 @@ namespace K_Engine {
 		//Information for the user
 		std::pair<int, int> size;
 		std::pair<int, int> position;
-
 	};
 }
-#endif // IUELEMENT_H
+#endif // UIELEMENT_H

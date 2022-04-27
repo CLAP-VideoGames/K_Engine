@@ -63,11 +63,8 @@ namespace K_Engine {
     bool UIManager::Shutdown()
     {
         try {
-            for (size_t i = 0; i < instance.get()->notCeguiElements.size(); i++)
-                delete instance.get()->notCeguiElements[i];
-            instance.get()->notCeguiElements.clear();
-
-            delete instance.get()->overSystem_; instance.get()->overSystem_ = nullptr;
+            instance.get()->cleanElements();
+            instance.get()->closeOverlaySystem();
 
             instance.reset(nullptr);
         }
@@ -79,58 +76,6 @@ namespace K_Engine {
     }
 
     void UIManager::update() {};
-
-    UIProgressBar* UIManager::addProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight)
-    {
-        UIProgressBar* p = new UIProgressBar(overlayName, imageName, x, y, orgWidth, orgHeight);
-
-        notCeguiElements.push_back(p);
-
-        return p;
-    }
-
-    UIText* UIManager::addText(std::string overlayName, std::string text)
-    {
-        UIText* t = new UIText(overlayName, text);
-
-        notCeguiElements.push_back(t);
-
-        return t;
-    }
-
-    UIImage* UIManager::addImage(std::string overlayName, std::string imageName)
-    {
-        UIImage* i = new UIImage(overlayName, imageName);
-
-        notCeguiElements.push_back(i);
-
-        return i;
-    }
-
-    UIButton* UIManager::addButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName)
-    {
-        UIButton* b = new UIButton(overlayName, imageName, hoverImageName, pressedImageName);
-
-        notCeguiElements.push_back(b);
-
-        return b;
-    }
-
-    UIScrollBar* UIManager::addScrollBar(std::string overlayName, std::string imageName, int x, int upper, int lower) {
-        UIScrollBar* s = new UIScrollBar(overlayName, imageName, x, upper, lower);
-        
-        notCeguiElements.push_back(s);
-
-        return s;
-    }
-
-    UISlider* UIManager::addSlider(std::string overlayName, std::string imageName, int y, int left, int right) {
-        UISlider* s = new UISlider(overlayName, imageName, y, left, right);
-
-        notCeguiElements.push_back(s);
-
-        return s;
-    }
 
     void UIManager::initOverlaySystem()
     {
@@ -151,7 +96,13 @@ namespace K_Engine {
 
     void UIManager::cleanElements()
     {
-        for (UIElement* c : notCeguiElements) 
-            delete c;
+        for (UIElement* uiElem : notCeguiElements) 
+            delete uiElem;
+        notCeguiElements.clear();
+    }
+
+    void UIManager::closeOverlaySystem()
+    {
+        delete instance.get()->overSystem_; instance.get()->overSystem_ = nullptr;
     }
 }

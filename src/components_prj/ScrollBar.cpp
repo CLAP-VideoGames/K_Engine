@@ -5,7 +5,7 @@
 #include <ecs_prj/Entity.h>
 
 #include <ui_prj/UIManager.h>
-#include <ui_prj/UiScrollBar.h>
+#include <ui_prj/UIScrollBar.h>
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
@@ -16,14 +16,16 @@ namespace K_Engine {
 	//Required
 	std::string ScrollBar::name = "ScrollBar";
 
-	ScrollBar::ScrollBar() : Component() {
+	std::string K_Engine::ScrollBar::GetId() {
+		return name;
 	}
 
-	K_Engine::ScrollBar::ScrollBar(Entity* e) : Component( e){
-	}
+	ScrollBar::ScrollBar() : Component() {}
 
-	ScrollBar::ScrollBar(Entity* e, std::string overlayName, std::string imageName, int x, int upperLimit, int lowerLimit) : Component(e)
-	{
+	K_Engine::ScrollBar::ScrollBar(Entity* e) : Component(e) {}
+
+	ScrollBar::ScrollBar(Entity* e, std::string overlayName, std::string imageName,
+		int x, int upperLimit, int lowerLimit) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 		x_ = x;
@@ -38,20 +40,15 @@ namespace K_Engine {
 	}
 
 	K_Engine::ScrollBar::~ScrollBar() {
-		delete inputArea;
-		inputArea = nullptr;
-	}
-
-	std::string K_Engine::ScrollBar::GetId()
-	{
-		return name;
+		delete inputArea; inputArea = nullptr;
 	}
 
 	void K_Engine::ScrollBar::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		scrollBar_ = UIManager::GetInstance()->addScrollBar(overlayName_, imageName_, x_, upperLimit_, lowerLimit_);
+		scrollBar_ = UIManager::GetInstance()->addWidget<UIScrollBar>(overlayName_, imageName_, x_, upperLimit_, lowerLimit_);
 	}
+
 	void ScrollBar::update(int frameTime)
 	{
 		//Setup the input area rectangle
