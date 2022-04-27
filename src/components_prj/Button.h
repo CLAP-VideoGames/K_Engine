@@ -67,18 +67,13 @@ namespace K_Engine {
 	private:
 		//Required
 		static std::string name;
-
-		//Reference to transform Component
-		Transform* transformRf_ = nullptr;
-
-		//Button created in UIManager
-		UIButton* button_;
+		
+		Transform* transformRf_; // Reference to transform Component
+		UIButton* button_;       // Button created in UIManager
 
 		//Basic attributes needed for the button
 		std::string overlayName_;
 		std::string imageName_;
-
-		//Extra attributes for button
 		std::string hoverImageName_;
 		std::string pressedImageName_;
 
@@ -86,13 +81,11 @@ namespace K_Engine {
 		std::function<void(std::string)> onButtonClick = nullptr;
 		std::string keyCallback_;
 
+		bool pressed_;
 		InputManager* inputMan;
-
 		Rectangle* inputArea;
 
-		bool pressed_;
+		void syncData();
 	};
 }
-
-
 #endif BUTTON_H

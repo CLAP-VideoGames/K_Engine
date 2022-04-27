@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include <utils_prj/Vector3.h>
+
 #include <ui_prj/UiElement.h>
 
 namespace Ogre {
@@ -18,8 +20,7 @@ namespace K_Engine {
 	class UIText : public UIElement
 	{
 	public:
-		UIText(std::string overlayName, std::string fontName, std::string text);
-
+		UIText(std::string overlayName, std::string fontName, int fontSize, std::string text, Vector3 textColor);
 		virtual ~UIText();
 
 		//Im pretty sure size is based on font for text
@@ -27,14 +28,14 @@ namespace K_Engine {
 		virtual void setSize(int w, int h);
 
 		void setFont(std::string fontName);
+		void setFontSize(int newSize);
 		void setText(std::string newText);
+		void setTextColor(Vector3 newColor);
 
-		std::string getText();
+		virtual std::pair<int, int> getSize();
 
 	private:
 		Ogre::TextAreaOverlayElement* textArea_;
-
-		std::string text_;
 	};
 }
 #endif // UITEXT_H

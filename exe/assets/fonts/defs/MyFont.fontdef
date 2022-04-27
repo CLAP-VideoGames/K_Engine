@@ -1,4 +1,4 @@
-MyFont
+font MyFont
 {
     type         truetype
     source       batang.ttf

@@ -20,44 +20,40 @@ namespace K_Engine {
 		return name;
 	}
 
-	void Text::init(K_Map* information)
-	{
-		overlayName_ = information->value("overlayName");
-		text_ = information->value("text");
-		offsetX = 0;
-		offsetY = 0;
-	}
-
 	Text::Text() : Component() {}
 
 	K_Engine::Text::Text(Entity* e) : Component(e) {}
 
-	Text::Text(Entity* e, std::string overlayName, std::string text) : Component(e) {
+	Text::Text(Entity* e, std::string overlayName, std::string fontName, int fontSize, std::string text, Vector3 textColor) : Component(e) {
 		overlayName_ = overlayName;
+		fontName_ = fontName;
 		text_ = text;
-		offsetX = 0;
-		offsetY = 0;
+
+		fontSize_ = fontSize;
+		textColor_ = textColor;
 	}
 
 	K_Engine::Text::~Text() = default;
 
+	void Text::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		fontName_ = information->value("fontName");
+		text_ = information->value("text");
+
+		fontSize_ = information->valueToNumber("fontSize");
+		textColor_ = *(information->valueToVector3("textColor"));
+	}
+
 	void K_Engine::Text::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		uitext_ = UIManager::GetInstance()->addWidget<UIText>(overlayName_, "MyFont", text_);
+		uitext_ = UIManager::GetInstance()->addWidget<UIText>(overlayName_, fontName_, fontSize_, text_, textColor_);
 	}
 
 	void Text::update(int frameTime)
 	{
-		//Position syncing
-		Vector3 pos = transformRf_->getPosition();
-		uitext_->setPosition(transformRf_->getPosition().x+ offsetX, transformRf_->getPosition().y + offsetY);
-
-		//Scale syincing
-		uitext_->setSize(uitext_->getSize().first * transformRf_->getScale().x, uitext_->getSize().second * transformRf_->getScale().y);
-
-		//ZOrder syncing
-		uitext_->setRenderOrder(transformRf_->getPosition().z);
+		syncData();
 	}
 
 	void Text::changeText(std::string newText)
@@ -66,9 +62,13 @@ namespace K_Engine {
 		if (uitext_ != nullptr) uitext_->setText(newText);
 	}
 
-	void Text::changeTextPosition(int x, int y)
+	void Text::syncData()
 	{
-		offsetY = y;
-		offsetX = x;
+		// Position syncing
+		uitext_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
+		// Size syncing
+		uitext_->setSize(uitext_->getSize().first * transformRf_->getScale().x, uitext_->getSize().second * transformRf_->getScale().y);
+		// ZOrder syncing
+		uitext_->setRenderOrder((int)transformRf_->getPosition().z);
 	}
 }

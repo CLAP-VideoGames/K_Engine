@@ -8,71 +8,59 @@
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
+	UIText::UIText(std::string overlayName, std::string fontName, int fontSize, std::string text, Vector3 textColor) : UIElement()
+	{
+		//Initialization of everything that ogre needs to show something
+		textArea_ = static_cast<Ogre::TextAreaOverlayElement*>(overlayMan_->createOverlayElement("Panel", fontName + std::to_string(numOverlayElems)));
+		textArea_->setMetricsMode(Ogre::GMM_PIXELS);
+		textArea_->setPosition(DEFAULT_LEFT, DEFAULT_TOP);
+		textArea_->setDimensions(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-    //Number of text so ogre can keep track of every UiElement
-    static int numberOfText = 0;
+		textArea_->setMetricsMode(Ogre::GMM_PIXELS);
+		textArea_->setCaption(text);
+		textArea_->setCharHeight(fontSize);
 
-    UIText::UIText(std::string overlayName, std::string fontName, std::string text) : UIElement()
-    {
-        //Our message
-        text_ = text;
+		//Default font
+		//textArea_->setFontName(fontName);
+		textArea_->setColourBottom(Ogre::ColourValue(textColor.x, textColor.y, textColor.z));
+		textArea_->setColourTop(Ogre::ColourValue(textColor.x, textColor.y, textColor.z));
 
-        std::string elemtnNumber = std::to_string(numberOfText);
+		// Create an overlay, and add the panel
+		overlay_ = overlayMan_->create(overlayName);
+		overlay_->add2D((Ogre::OverlayContainer*)textArea_);
 
-        //Initialization of everything that ogre needs to show something
-        overlayElement_ = static_cast<Ogre::OverlayContainer*>(
-            overlayMan_->createOverlayElement("Panel", "PanelText" + elemtnNumber));
-        overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
-        overlayElement_->setPosition(DEFAULT_LEFT, DEFAULT_TOP);
-        overlayElement_->setDimensions(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		// Show the overlay
+		overlay_->show();
+	}
 
-        textArea_ = static_cast<Ogre::TextAreaOverlayElement*>(
-            overlayMan_->createOverlayElement("TextArea", "TextAreaName" + elemtnNumber));
+	UIText::~UIText() = default;
 
-        textArea_->setMetricsMode(Ogre::GMM_PIXELS);
-        textArea_->setPosition(50, 50);
-        textArea_->setDimensions(20, 20);
-        textArea_->setCaption(text_);
-        textArea_->setCharHeight(40);
+	void UIText::setPosition(int x, int y) {
+		textArea_->setPosition(x, y);
+	}
 
-        //Default font
-        textArea_->setFontName(fontName);
-        textArea_->setColourBottom(Ogre::ColourValue(0.00, 0.00, 0.00));
-        textArea_->setColourTop(Ogre::ColourValue(0.0, 0.0, 0.0));
+	void UIText::setSize(int w, int h) {
+		textArea_->setDimensions(w, h);
+	}
 
-        // Create an overlay, and add the panel
-        overlay_ = overlayMan_->create(overlayName);
-        overlay_->add2D(overlayElement_);
+	void UIText::setFont(std::string fontName) {
+		textArea_->setFontName(fontName);
+	}
 
-        // Add the text area to the panel
-        overlayElement_->addChild(textArea_);
+	void UIText::setFontSize(int newSize) {
+		textArea_->setCharHeight(newSize);
+	}
 
-        // Show the overlay
-        overlay_->show();
+	void UIText::setText(std::string newText) {
+		textArea_->setCaption(newText);
+	}
 
-        setText(text_);
-        numberOfText++;
-    }
-
-    UIText::~UIText() = default;
-
-    void UIText::setPosition(int x, int y) {
-        textArea_->setPosition(x, y);
-    }
-
-    void UIText::setSize(int w, int h) {
-        textArea_->setDimensions(w, h);
-    }
-
-    void UIText::setFont(std::string fontName) {
-        textArea_->setFontName(fontName);
-    }
-
-    void UIText::setText(std::string newText) {
-        textArea_->setCaption(newText);
-    }
-
-    std::string UIText::getText() { return text_; }
+	void UIText::setTextColor(Vector3 newColor) {
+		textArea_->setColourBottom(Ogre::ColourValue(newColor.x, newColor.y, newColor.z));
+		textArea_->setColourTop(Ogre::ColourValue(newColor.x, newColor.y, newColor.z));
+	}
+	std::pair<int, int> UIText::getSize()
+	{
+		return { textArea_->getWidth(), textArea_->getHeight() };
+	}
 }
-
-

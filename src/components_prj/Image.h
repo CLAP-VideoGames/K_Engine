@@ -38,31 +38,24 @@ namespace K_Engine {
 
 		virtual void init(K_Map* information);
 
-		/// <summary>
-		/// It's called at the beginning of the execution.
-		/// </summary>
+		// It's called at the beginning of the execution.
 		virtual void start();
 
-		/// <summary>
-		/// It's called every frame of the game.
-		/// </summary> 
+		// It's called every frame of the game.
 		virtual void update(int frameTime);
 
 	private:
 		//Required
 		static std::string name;
 
-		//Reference to transform Component
-		Transform* transformRf_ = nullptr;
+		Transform* transformRf_; // Reference to transform Component
+		UIImage* image_;         // Image created in UIManager
 
-		//Image created in UIManager
-		UIImage* image_;
-
-		//Basic attributes needed for the image
+		// Basic attributes needed for the image
 		std::string overlayName_;
 		std::string imageName_;
+
+		void syncData();
 	};
 }
-
-
 #endif IMAGE_H

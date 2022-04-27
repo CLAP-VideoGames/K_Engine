@@ -2,13 +2,14 @@
 #ifndef TEXT_H
 #define TEXT_H
 
+#include <utils_prj/Vector3.h>
+
 #include <ecs_prj/Component.h>
 
 namespace K_Engine {
 	class UIManager;
 	class UIText;
 	class Transform;
-	class Vector3;
 
 	/// <summary>
 	/// This class provides an entity with a UiImage component
@@ -30,7 +31,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="text">Text to display</param>
-		Text(Entity* e, std::string overlayName, std::string text);
+		Text(Entity* e, std::string overlayName, std::string fontName, int fontSize, std::string text, Vector3 textColor);
 
 		virtual ~Text();
 
@@ -54,26 +55,21 @@ namespace K_Engine {
 		/// </summary>
 		void changeText(std::string newText);
 
-		void changeTextPosition(int x, int y);
-
 	private:
 		//Required
 		static std::string name;
 
-		//Reference to transform Component
-		Transform* transformRf_ = nullptr;
+		Transform* transformRf_; // Reference to transform Component
+		UIText* uitext_; // Text created in UIManager
 
-		//Text created in UIManager
-		UIText* uitext_;
-
-		//Basic attributes needed for the text
 		std::string overlayName_;
+		std::string fontName_;
 		std::string text_;
 
-		int offsetY;
-		int offsetX;
+		int fontSize_;
+		Vector3 textColor_;
+
+		void syncData();
 	};
 }
-
-
-#endif TEXT_H
+#endif // TEXT_H

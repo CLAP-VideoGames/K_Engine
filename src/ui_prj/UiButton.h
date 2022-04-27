@@ -10,11 +10,6 @@ namespace K_Engine {
 	public:
 		UIButton(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
 		virtual ~UIButton();
-
-	private:
-		std::string imageName_;
-		std::string hoverImageName_;
-		std::string pressedImageName_;
 	};
 }
 #endif // UIBUTTON_H

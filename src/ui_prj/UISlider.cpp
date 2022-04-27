@@ -36,14 +36,11 @@ namespace K_Engine {
 		distance = right - left;
 		initialDistance = distance;
 		if (distance / 10 > 0) 
-			element_->setDimensions(distance / 10, 20);
-		
-		else  element_->setDimensions(distance, 20);
+			overlayElement_->setDimensions(distance / 10, 20);
+		else overlayElement_->setDimensions(distance, 20);
 	}
 
-	UISlider::~UISlider()
-	{
-	}
+	UISlider::~UISlider() = default;
 
 	//Returns the percentage of the scrollbar that is left above the scrollbar itself
 	//this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.

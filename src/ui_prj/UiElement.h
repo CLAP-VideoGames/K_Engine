@@ -30,7 +30,6 @@ namespace K_Engine {
 	{
 	public:
 		UIElement();
-
 		virtual ~UIElement();
 
 		void show(); // Shows the overlay
@@ -54,7 +53,7 @@ namespace K_Engine {
 		void setRenderOrder(int z);
 		
 		std::pair<int, int> getPosition();
-		std::pair<int, int> getSize();
+		virtual std::pair<int, int> getSize();
 
 	protected:
 		static int numOverlayElems;

@@ -20,12 +20,6 @@ namespace K_Engine {
 		return name;
 	}
 
-	void Image::init(K_Map* information)
-	{
-		overlayName_ = information->value("overlayName");
-		imageName_ = information->value("imageName");
-	}
-
 	Image::Image() : Component() {}
 
 	Image::Image(Entity* e) : Component(e) {}
@@ -37,22 +31,31 @@ namespace K_Engine {
 
 	Image::~Image() = default;
 
+	void Image::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+	}
+
 	void Image::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
+
 		image_ = UIManager::GetInstance()->addWidget<UIImage>(overlayName_, imageName_);
+		syncData();
 	}
 
-	void Image::update(int frameTime)
+	void Image::update(int frameTime) {
+		syncData();
+	}
+
+	void Image::syncData()
 	{
 		// Position syncing
-		Vector3 pos = transformRf_->getPosition();
 		image_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
-
-		// Scale syncing
+		// Size syncing
 		image_->setSize(image_->getSize().first * transformRf_->getScale().x, image_->getSize().second * transformRf_->getScale().y);
-
 		// ZOrder syncing
-		image_->setRenderOrder(transformRf_->getPosition().z);
+		image_->setRenderOrder((int)transformRf_->getPosition().z);
 	}
 }

@@ -31,12 +31,10 @@ namespace K_Engine {
 		std::string hoverImageName, std::string pressedImageName) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
-
 		hoverImageName_ = hoverImageName;
 		pressedImageName_ = pressedImageName;
 
 		inputArea = new Rectangle();
-
 		inputMan = K_Engine::InputManager::GetInstance();
 	}
 
@@ -48,7 +46,6 @@ namespace K_Engine {
 	{
 		overlayName_ = information->value("overlayName");
 		imageName_ = information->value("imageName");
-
 		hoverImageName_ = information->value("hoverImageName");
 		pressedImageName_ = information->value("pressedImageName");
 
@@ -56,7 +53,6 @@ namespace K_Engine {
 		setButtonClick(information->valueToCallback(keyCallback_));
 
 		inputArea = new Rectangle();
-
 		inputMan = K_Engine::InputManager::GetInstance();
 	}
 
@@ -64,53 +60,46 @@ namespace K_Engine {
 	{
 		transformRf_ = entity->getComponent<Transform>();
 		button_ = UIManager::GetInstance()->addWidget<UIButton>(overlayName_, imageName_, hoverImageName_, pressedImageName_);
-		//Scale syincing
-		button_->setSize(button_->getSize().first * transformRf_->getScale().x, button_->getSize().second * transformRf_->getScale().y);
 		
-		inputArea->x = button_->getPosition().first; inputArea->y = button_->getPosition().second;	
-		inputArea->w = button_->getSize().first; inputArea->h = button_->getSize().second;
+		syncData();
 	}
 
 	void Button::update(int frameTime)
 	{
-		inputArea->x = button_->getPosition().first; inputArea->y = button_->getPosition().second;
-		inputArea->w = button_->getSize().first; inputArea->h = button_->getSize().second;
+		syncData();
 
-		Point pointer;
-		auto pointPos = inputMan->getMousePos();
-		pointer.x = pointPos.first;
-		pointer.y = pointPos.second;
+		Point pointer; auto pointPos = inputMan->getMousePos();
+		pointer.x = pointPos.first; pointer.y = pointPos.second;
 
 		pressed_ = false;
-
 		if (PointInRect(&pointer, inputArea)) {
-
 			if (inputMan->getLeftMouseButtonPressed()) {
 				pressed_ = true;
-
 				button_->setMaterial(pressedImageName_);
+				if (onButtonClick != nullptr) 
+					onButtonClick(keyCallback_);
 			}
 			else button_->setMaterial(hoverImageName_);
 		}
 		else button_->setMaterial(imageName_);
 
-
-		//Position syncing
-		Vector3 pos = transformRf_->getPosition();
-		button_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
-
-		//ZOrder syncing
-		button_->setRenderOrder(transformRf_->getPosition().z);
-
-		//Callback check
-		if (pressed_) {
-			if (onButtonClick != nullptr) {
-				onButtonClick(keyCallback_);
-			}
-		}
+		syncData();
 	}
-	void Button::setButtonClick(std::function<void(std::string)> function)
-	{
+	
+	void Button::setButtonClick(std::function<void(std::string)> function) {
 		onButtonClick = function;
+	}
+
+	void Button::syncData()
+	{
+		// Position syncing
+		button_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
+		// Size syncing
+		button_->setSize(button_->getSize().first * transformRf_->getScale().x, button_->getSize().second * transformRf_->getScale().y);
+		// ZOrder syncing
+		button_->setRenderOrder((int)transformRf_->getPosition().z);
+
+		inputArea->x = button_->getPosition().first; inputArea->y = button_->getPosition().second;
+		inputArea->w = button_->getSize().first; inputArea->h = button_->getSize().second;
 	}
 }
