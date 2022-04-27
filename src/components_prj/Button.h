@@ -62,7 +62,7 @@ namespace K_Engine {
 		/// Sets a function to be called when button is pressed
 		/// </summary>
 		/// <param name="Function">Function to be called, declaration example: void Function();</param>
-		void setButtonClick(std::function<void(void*)> function);
+		void setButtonClick(std::function<void(std::string)> function);
 
 	private:
 		//Required
@@ -83,7 +83,8 @@ namespace K_Engine {
 		std::string pressedImageName_;
 
 		//Function callback
-		std::function<void(void*)> onButtonClick = nullptr;
+		std::function<void(std::string)> onButtonClick = nullptr;
+		std::string keyCallback_;
 
 		InputManager* inputMan;
 

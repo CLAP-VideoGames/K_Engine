@@ -13,6 +13,8 @@ extern "C" {
 #include <LuaBridge.h>
 
 //Otros proyectos
+#include <scene_prj/SceneManager.h>
+
 #include <log_prj/LogManager.h>
 
 #include <ecs_prj/EntityManager.h>
@@ -113,18 +115,23 @@ namespace K_Engine {
 
 	void ScriptManager::registerClassesandFunctions(lua_State* L)
 	{
+		//SceneManager
+		getGlobalNamespace(luaState).beginClass<SceneManager>("SceneManager")
+			.addStaticFunction("getSceneManInstance", &SceneManager::GetInstance)
+			.addFunction("changeScene", &SceneManager::pushScenebyStr)
+			.endClass();
 		//ECS
 		getGlobalNamespace(luaState).beginClass<EntityManager>("EntityManager")
 			.addFunction("addEntity", &EntityManager::addEntity)
 			.endClass();
 		//LogManager
 		getGlobalNamespace(luaState).beginClass<LogManager>("LogManager")
-			.addStaticFunction("getInstance", &LogManager::GetInstance)
-			.addFunction("printLog", &LogManager::printLog)
+			.addStaticFunction("getLogInstance", &LogManager::GetInstance)
+			.addFunction("printLog", &LogManager::printLogLua)
 			.endClass();
 		//LUA
 		getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
-			.addStaticFunction("getInstance", &ScriptManager::GetInstance)
+			.addStaticFunction("getScriptInstance", &ScriptManager::GetInstance)
 			.endClass();
 	}
 
@@ -142,7 +149,7 @@ namespace K_Engine {
 		//So we can call awake once they all are initialized
 		std::vector<Component*> luaComponents;
 
-		luabridge::LuaRef ent = getTable("entities"); /*getMetatable(table, "entities");*/
+		luabridge::LuaRef ent = getTable(sceneFile + "_" + "entities"); /*getMetatable(table, "entities");*/
 		int numEntities = ent.length();
 		for (size_t i = 1; i <= numEntities; i++)
 			entities.push_back(ent[i].cast<string>());
@@ -219,9 +226,17 @@ namespace K_Engine {
 		return getGlobal(luaState, funcName.c_str());
 	}
 
-	void ScriptManager::callLuaFunction(std::string funcName)
+	void ScriptManager::callLuaCallback(std::string funcName)
 	{
-		call(getLuaFunction(funcName));
+		LuaRef f = getLuaFunction(funcName);
+		f();
+	}
+
+	template<typename ...Ts>
+	void ScriptManager::callLuaFunction(std::string funcName, Ts &&... args)
+	{
+		LuaRef f = getLuaFunction(funcName);
+		f(args...);
 	}
 
 	luabridge::LuaRef ScriptManager::getTable(const std::string& c_name)

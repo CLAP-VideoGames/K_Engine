@@ -24,6 +24,7 @@ namespace K_Engine {
 		bool addLog(LogType ty, std::string msg);
 		void printLogBuffer();
 		bool printLog(LogType ty, std::string msg);
+		bool printLogLua(int ty, std::string msg);
 
 		void clearLogBuffer();
 

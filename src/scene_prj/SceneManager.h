@@ -30,6 +30,12 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="newS"></param>
 		void changeScene(Scene* newS);
+		/// <summary>
+		/// Pops the actual scene and pushes the new scene by string name
+		/// </summary>
+		/// <param name="newS"></param>
+		void pushScenebyStr(std::string scene);
+
 
 		/// <summary>
 		/// called once per frame, it calls the actual scene update, requires time between frames

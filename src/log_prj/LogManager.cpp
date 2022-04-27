@@ -64,6 +64,13 @@ namespace K_Engine {
 		return exec;
 	}
 
+	bool LogManager::printLogLua(int ty, std::string msg) {
+		bool exec = addLog(LogType(ty), msg);
+		printLogBuffer();
+		clearLogBuffer();
+		return exec;
+	}
+
 	// Clears the log registry
 	void LogManager::clearLogBuffer() {
 		reg.clear();

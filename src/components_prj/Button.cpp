@@ -52,7 +52,8 @@ namespace K_Engine {
 		hoverImageName_ = information->value("hoverImageName");
 		pressedImageName_ = information->value("pressedImageName");
 
-		setButtonClick(information->valueToFunction("onClick"));
+		keyCallback_ = information->value("onClick");
+		setButtonClick(information->valueToCallback(keyCallback_));
 
 		inputArea = new Rectangle();
 
@@ -108,11 +109,11 @@ namespace K_Engine {
 		//Callback check
 		if (pressed_) {
 			if (onButtonClick != nullptr) {
-				onButtonClick;
+				onButtonClick(keyCallback_);
 			}
 		}
 	}
-	void Button::setButtonClick(std::function<void(void*)> function)
+	void Button::setButtonClick(std::function<void(std::string)> function)
 	{
 		onButtonClick = function;
 	}

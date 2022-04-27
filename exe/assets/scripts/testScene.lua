@@ -17,8 +17,8 @@ testScene = {
 }
 
 function changeScene()
-    local logMan = LogManager.getInstance();
-    logMan:printLog(2,"a  VeR  Si Me MuErO");
+    local sceneMan = SceneManager.getSceneManInstance();
+    sceneMan:changeScene("map");
 end
 
-entities = { "changeSceneButton"}
+testScene_entities = { "changeSceneButton"}

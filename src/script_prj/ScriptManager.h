@@ -71,7 +71,9 @@ namespace K_Engine {
         //Devolver funcion de Lua a C++
         luabridge::LuaRef getLuaFunction(std::string funcName);
         //Llamada a una función de lua
-        void callLuaFunction(std::string funcName);
+        template<typename ...Ts>
+        void callLuaFunction(std::string funcName, Ts &&... args);
+        void callLuaCallback(std::string funcName);
 
     private:
         static std::unique_ptr<ScriptManager> instance;

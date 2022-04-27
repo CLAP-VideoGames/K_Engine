@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef K_Map_H
 #define K_Map_H
 
@@ -34,8 +34,12 @@ namespace K_Engine {
 		std::string value(std::string key);
 
 		bool hasValue(std::string key);
-
-		std::function<void(void*)> valueToFunction(std::string key);
+		/// <summary>
+		/// Devuelve la función de lua con dicho nombre
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		std::function<void(std::string)> valueToCallback(std::string value);
 
 	private:
 

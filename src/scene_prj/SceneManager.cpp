@@ -52,6 +52,11 @@ namespace K_Engine {
 	void SceneManager::pushScene(Scene* newS) {
 		scenes.push(newS);
 	}
+	void SceneManager::pushScenebyStr(std::string scene) {
+		Scene* exampleScene = new Scene();
+		exampleScene->init(scene);
+		pushScene(exampleScene);
+	}
 
 	void SceneManager::changeScene(Scene* newS) {
 		popScene();
