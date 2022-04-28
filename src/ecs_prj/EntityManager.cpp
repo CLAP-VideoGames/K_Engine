@@ -19,6 +19,8 @@ namespace K_Engine {
 	{
 		auto c = new Entity();
 
+		c->setMan(this);
+
 		entities.push_back(c);
 
 		return c;

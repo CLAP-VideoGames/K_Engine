@@ -9,6 +9,7 @@
 
 namespace K_Engine {
 	class Component;
+	class EntityManager;
 
 	/*
 	*Our class Entity starts with only a Transform Component, which contains the rotation, position and scale of our entity
@@ -115,6 +116,10 @@ namespace K_Engine {
 
 		//Getter for the children vector
 		std::vector<Entity*> getChildren() { return children; }
+
+		EntityManager* getMan() { return entMan; }
+
+		void setMan(EntityManager* e) { entMan = e; }
 	private:
 
 		/*
@@ -146,6 +151,9 @@ namespace K_Engine {
 
 		//Entitys attached to thi entity
 		std::vector<Entity*> children;
+
+		//The entity manager of the entity´s scene
+		EntityManager* entMan;
 	};
 }
 #endif // ENTITY_H
