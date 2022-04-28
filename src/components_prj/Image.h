@@ -38,6 +38,10 @@ namespace K_Engine {
 
 		virtual void init(K_Map* information);
 
+		virtual void onEnable();
+
+		virtual void onDisable();
+
 		// It's called at the beginning of the execution.
 		virtual void start();
 

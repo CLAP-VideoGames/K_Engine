@@ -37,6 +37,17 @@ namespace K_Engine {
 		imageName_ = information->value("imageName");
 	}
 
+	void Image::onEnable()
+	{
+		if (image_ != nullptr)
+			image_->show();
+	}
+
+	void Image::onDisable()
+	{
+		image_->hide();
+	}
+
 	void Image::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();

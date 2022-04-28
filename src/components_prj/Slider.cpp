@@ -46,6 +46,38 @@ namespace K_Engine {
 		delete progressBar_; progressBar_ = nullptr;
 	}
 
+	void Slider::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+		y_ = information->valueToNumber("y");
+		leftLimit_ = information->valueToNumber("leftLimit");
+		rightLimit_ = information->valueToNumber("rightLimit");
+
+		inputArea = new Rectangle();
+
+		inputMan = K_Engine::InputManager::GetInstance();
+
+		pressed_ = false;
+	}
+
+	void Slider::onEnable()
+	{
+		if (slider_ != nullptr)
+			slider_->show();
+		if (progressBar_ != nullptr)
+			progressBar_->show();
+		if (background_ != nullptr)
+			background_->show();
+	}
+
+	void Slider::onDisable()
+	{
+		slider_->hide();
+		progressBar_->hide();
+		background_->hide();
+	}
+
 	void K_Engine::Slider::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
@@ -61,21 +93,6 @@ namespace K_Engine {
 		/*setMaxProgress(100);
 		setProgress(100);*/
 		background_->setRenderOrder(20);
-	}
-
-	void Slider::init(K_Map* information)
-	{
-		overlayName_ = information->value("overlayName");
-		imageName_ = information->value("imageName");
-		y_ = information->valueToNumber("y");
-		leftLimit_ = information->valueToNumber("leftLimit");
-		rightLimit_ = information->valueToNumber("rightLimit");
-
-		inputArea = new Rectangle();
-
-		inputMan = K_Engine::InputManager::GetInstance();
-
-		pressed_ = false;
 	}
 
 	void Slider::update(int frameTime)

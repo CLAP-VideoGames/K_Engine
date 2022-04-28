@@ -58,17 +58,23 @@ namespace K_Engine {
 		inputMan = K_Engine::InputManager::GetInstance();
 	}
 
+	void Button::onEnable()
+	{
+		if (button_ != nullptr)
+			button_->show();
+	}
+
+	void Button::onDisable()
+	{
+		button_->hide();
+	}
+
 	void K_Engine::Button::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
 		button_ = UIManager::GetInstance()->addWidget<UIButton>(overlayName_, imageName_, hoverImageName_, pressedImageName_);
 		
 		syncData();
-	}
-
-	void Button::onDisable()
-	{
-		button_->hide();
 	}
 
 	void Button::update(int frameTime)

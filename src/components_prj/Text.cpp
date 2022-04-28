@@ -45,6 +45,17 @@ namespace K_Engine {
 		textColor_ = *(information->valueToVector3("textColor"));
 	}
 
+	void Text::onEnable()
+	{
+		if (uitext_ != nullptr)
+			uitext_->show();
+	}
+
+	void Text::onDisable()
+	{
+		uitext_->hide();
+	}
+
 	void K_Engine::Text::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();

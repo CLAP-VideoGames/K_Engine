@@ -56,6 +56,17 @@ namespace K_Engine {
 		maxProgress_ = information->valueToNumber("maxProgress");
 	}
 
+	void ProgressBar::onEnable()
+	{
+		if (progressBar_ != nullptr)
+			progressBar_->show();
+	}
+
+	void ProgressBar::onDisable()
+	{
+		progressBar_->hide();
+	}
+
 	void K_Engine::ProgressBar::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();

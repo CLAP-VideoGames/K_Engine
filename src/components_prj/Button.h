@@ -48,12 +48,14 @@ namespace K_Engine {
 		/// <param name="information"></param>
 		virtual void init(K_Map* information);
 
+		virtual void onEnable();
+
+		virtual void onDisable();
+
 		/// <summary>
 		/// It's called at the beginning of the execution.
 		/// </summary>
 		virtual void start();
-
-		virtual void onDisable();
 
 		/// <summary>
 		/// It's called every frame of the game.

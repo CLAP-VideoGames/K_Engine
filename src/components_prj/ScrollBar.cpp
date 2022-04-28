@@ -22,21 +22,6 @@ namespace K_Engine {
 		return name;
 	}
 
-	void ScrollBar::init(K_Map* information)
-	{
-		overlayName_ = information->value("overlayName");
-		imageName_ = information->value("imageName");
-		x_ = information->valueToNumber("x");
-		upperLimit_ = information->valueToNumber("upperLimit");
-		lowerLimit_ = information->valueToNumber("lowerLimit");
-
-		inputArea = new Rectangle();
-
-		inputMan = K_Engine::InputManager::GetInstance();
-
-		pressed_ = false;
-	}
-
 	ScrollBar::ScrollBar() : Component() {}
 
 	K_Engine::ScrollBar::ScrollBar(Entity* e) : Component(e) {}
@@ -58,6 +43,32 @@ namespace K_Engine {
 
 	K_Engine::ScrollBar::~ScrollBar() {
 		delete inputArea; inputArea = nullptr;
+	}
+
+	void ScrollBar::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+		x_ = information->valueToNumber("x");
+		upperLimit_ = information->valueToNumber("upperLimit");
+		lowerLimit_ = information->valueToNumber("lowerLimit");
+
+		inputArea = new Rectangle();
+
+		inputMan = K_Engine::InputManager::GetInstance();
+
+		pressed_ = false;
+	}
+
+	void ScrollBar::onEnable()
+	{
+		if (scrollBar_ != nullptr)
+			scrollBar_->show();
+	}
+
+	void ScrollBar::onDisable()
+	{
+		scrollBar_->hide();
 	}
 
 	void K_Engine::ScrollBar::start()
