@@ -226,13 +226,13 @@ namespace K_Engine {
 		//}
 
 		//UI Text
-		{
+		/*{
 			K_Engine::Entity* text = entMan->addEntity();
 			K_Engine::Transform* t = text->addComponent<K_Engine::Transform>();
 			K_Engine::Text* i = text->addComponent<K_Engine::Text>("D", "MyFont", 60, "Fino senhores", Vector3(1, 0, 0));
 			i->changeText("Tremendo, senhores");
 			t->setPosition(135, 10, 50);
-		}
+		}*/
 
 		////UI Slider
 		//{
