@@ -68,6 +68,7 @@ namespace K_Engine {
 	}
 	void Animator::playAnim(std::string anim)
 	{
+		currentState_->animation->setEnabled(false);
 		currentState_->name = anim;
 		currentState_->animation = animStatesMap_->getAnimationState(anim);
 		currentState_->animation->setEnabled(true);
