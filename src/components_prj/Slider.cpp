@@ -23,21 +23,6 @@ namespace K_Engine {
 		return name;
 	}
 
-	void Slider::init(K_Map* information)
-	{
-		overlayName_ = information->value("overlayName");
-		imageName_ = information->value("imageName");
-		y_ = information->valueToNumber("y");
-		leftLimit_ = information->valueToNumber("leftLimit");
-		rightLimit_ = information->valueToNumber("rightLimit");
-
-		inputArea = new Rectangle();
-
-		inputMan = K_Engine::InputManager::GetInstance();
-
-		pressed_ = false;
-	}
-
 	Slider::Slider() : Component() {}
 
 	K_Engine::Slider::Slider(Entity* e) : Component(e) {}
@@ -73,9 +58,24 @@ namespace K_Engine {
 		progressBar_->setRenderOrder(30);
 
 		background_ = new UIProgressBar(overlayName_ + " background", "GreenDefaultProgressBar", leftLimit_, y_, rightLimit_ - leftLimit_, 20);
-		background_->setMaxProgress(100);
-		background_->setProgress(100);
+		/*setMaxProgress(100);
+		setProgress(100);*/
 		background_->setRenderOrder(20);
+	}
+
+	void Slider::init(K_Map* information)
+	{
+		overlayName_ = information->value("overlayName");
+		imageName_ = information->value("imageName");
+		y_ = information->valueToNumber("y");
+		leftLimit_ = information->valueToNumber("leftLimit");
+		rightLimit_ = information->valueToNumber("rightLimit");
+
+		inputArea = new Rectangle();
+
+		inputMan = K_Engine::InputManager::GetInstance();
+
+		pressed_ = false;
 	}
 
 	void Slider::update(int frameTime)
