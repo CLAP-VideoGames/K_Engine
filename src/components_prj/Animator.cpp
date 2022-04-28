@@ -63,7 +63,8 @@ namespace K_Engine {
 	void Animator::setAnimTransition(std::string src, std::string dest, bool cond)
 	{
 		AnimTransition next ({ dest, cond });
-		animTransitionsMap_.emplace(src, next);
+
+		//animTransitionsMap_.emplace(src, next);
 	}
 
 	void Animator::setAnimBool(std::string anim, std::string condName, bool value)
