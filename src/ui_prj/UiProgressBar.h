@@ -9,7 +9,7 @@ namespace K_Engine {
 	class UIProgressBar : public UIElement
 	{
 	public:
-		UIProgressBar(std::string overlayName, std::string imageName, int x, int y, int orgWidth, int orgHeight);
+		UIProgressBar(std::string overlayName, std::string imageName, int orgWidth, int orgHeight);
 		virtual ~UIProgressBar();
 	};
 }

@@ -84,12 +84,12 @@ namespace K_Engine {
 		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, y_, leftLimit_, rightLimit_);
 		slider_->setRenderOrder(40);
 
-		progressBar_ = new UIProgressBar(overlayName_ + " progress", "DefaultProgressBar", leftLimit_, y_, rightLimit_-leftLimit_, 20);
+		progressBar_ = new UIProgressBar(overlayName_ + " progress", "DefaultProgressBar", rightLimit_-leftLimit_, 20);
 		//progressBar_->setMaxProgress(100);
 		//progressBar_->setProgress(100);
 		progressBar_->setRenderOrder(30);
 
-		background_ = new UIProgressBar(overlayName_ + " background", "GreenDefaultProgressBar", leftLimit_, y_, rightLimit_ - leftLimit_, 20);
+		background_ = new UIProgressBar(overlayName_ + " background", "GreenDefaultProgressBar", rightLimit_ - leftLimit_, 20);
 		/*setMaxProgress(100);
 		setProgress(100);*/
 		background_->setRenderOrder(20);

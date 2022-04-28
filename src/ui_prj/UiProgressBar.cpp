@@ -8,13 +8,12 @@
 
 namespace K_Engine {
     UIProgressBar::UIProgressBar(std::string overlayName, std::string imageName,
-        int x, int y, int orgWidth, int orgHeight) : UIElement()
+        int orgWidth, int orgHeight) : UIElement()
     {
         //Initialization of everything that ogre needs to show something
         //Default settings
         overlayElement_ = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", imageName + std::to_string(numOverlayElems)));
         overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
-        overlayElement_->setPosition(x, y);
         overlayElement_->setDimensions(orgWidth, orgHeight);
 
         //DefaultMaterial

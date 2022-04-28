@@ -24,13 +24,10 @@ namespace K_Engine {
 
 	K_Engine::ProgressBar::ProgressBar(Entity* e) : Component(e) {}
 
-	ProgressBar::ProgressBar(Entity* e, std::string overlayName, std::string imageName, int x, int y,
+	ProgressBar::ProgressBar(Entity* e, std::string overlayName, std::string imageName, 
 		int orgWidth, int orgHeight, float progress, float maxProgress) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
-
-		x_ = x;
-		y_ = y;
 
 		orgWidth_ = orgWidth;
 		orgHeight_ = orgHeight;
@@ -45,9 +42,6 @@ namespace K_Engine {
 	{
 		overlayName_ = information->value("overlayName");
 		imageName_ = information->value("imageName");
-
-		x_ = information->valueToNumber("x");
-		y_ = information->valueToNumber("y");
 
 		orgWidth_ = information->valueToNumber("orgWidth");
 		orgHeight_ = information->valueToNumber("orgHeight");
@@ -70,8 +64,8 @@ namespace K_Engine {
 	void K_Engine::ProgressBar::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		progressBar_ = UIManager::GetInstance()->addWidget<UIProgressBar>(overlayName_, imageName_, x_, y_, orgWidth_, orgHeight_);
-
+		progressBar_ = UIManager::GetInstance()->addWidget<UIProgressBar>(overlayName_, imageName_, orgWidth_, orgHeight_);
+		progressBar_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
 		setMaxProgress(maxProgress_);
 		setProgress(progress_);
 	}
@@ -79,22 +73,20 @@ namespace K_Engine {
 	void ProgressBar::update(int frameTime)
 	{
 		////Position syncing
-		//Vector3 pos = transformRf_->getPosition();
-		//progressBar_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
+		Vector3 pos = transformRf_->getPosition();
+		progressBar_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
 
 		////Scale syincing
-		//progressBar_->setSize(progressBar_->getSize().first * transformRf_->getScale().x, progressBar_->getSize().second * transformRf_->getScale().y);
-		//
-		////ZOrder syncing
-		//progressBar_->setRenderOrder(transformRf_->getPosition().z);
+		progressBar_->setSize(orgWidth_ * transformRf_->getScale().x * (progress_ / maxProgress_), orgHeight_ * transformRf_->getScale().y);
+		
+		//ZOrder syncing
+		progressBar_->setRenderOrder(transformRf_->getPosition().z);
 	}
 
 	void ProgressBar::setProgress(float progress)
 	{
 		if (progress <= maxProgress_) progress_ = progress;
 		else progress_ = maxProgress_;
-
-		progressBar_->setSize(orgWidth_ * (progress_ / maxProgress_), orgHeight_);
 	}
 
 	void ProgressBar::setMaxProgress(float maxProgress) {

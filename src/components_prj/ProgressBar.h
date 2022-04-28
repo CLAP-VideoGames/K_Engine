@@ -29,7 +29,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
-		ProgressBar(Entity* e, std::string overlayName, std::string imageName, int x, int y, 
+		ProgressBar(Entity* e, std::string overlayName, std::string imageName,
 			int orgWidth, int orgHeight, float progress = 100, float maxProgress = 100);
 		
 		virtual ~ProgressBar();
@@ -75,7 +75,6 @@ namespace K_Engine {
 		std::string overlayName_;
 		std::string imageName_;
 
-		int x_, y_;
 		int orgWidth_, orgHeight_;
 
 		float progress_;
