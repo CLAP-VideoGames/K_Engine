@@ -40,6 +40,7 @@ namespace K_Engine {
 		//(sorry caps)
 		void start();
 
+		void hideElements();
 
 	private:
 		//Our entity vector

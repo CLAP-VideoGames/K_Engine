@@ -34,6 +34,8 @@ namespace K_Engine {
 		virtual void init(K_Map* information);
 		virtual void update(int frameTime);
 
+		virtual void onDisable();
+
 		//Setters
 		void setVisible(bool value);
 		void setMaterial(std::string nMaterial);

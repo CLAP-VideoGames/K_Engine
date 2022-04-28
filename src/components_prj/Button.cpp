@@ -1,5 +1,7 @@
 #include "Button.h"
 
+#include <iostream>
+
 #include <ecs_prj/Entity.h>
 
 #include <components_prj/Transform.h>
@@ -62,6 +64,11 @@ namespace K_Engine {
 		button_ = UIManager::GetInstance()->addWidget<UIButton>(overlayName_, imageName_, hoverImageName_, pressedImageName_);
 		
 		syncData();
+	}
+
+	void Button::onDisable()
+	{
+		button_->hide();
 	}
 
 	void Button::update(int frameTime)

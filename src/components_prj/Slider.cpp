@@ -65,11 +65,17 @@ namespace K_Engine {
 	{
 		transformRf_ = entity->getComponent<Transform>();
 		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, y_, leftLimit_, rightLimit_);
+		slider_->setRenderOrder(40);
 
 		progressBar_ = new UIProgressBar(overlayName_ + " progress", "DefaultProgressBar", leftLimit_, y_, rightLimit_-leftLimit_, 20);
 		progressBar_->setMaxProgress(100);
 		progressBar_->setProgress(100);
 		progressBar_->setRenderOrder(30);
+
+		background_ = new UIProgressBar(overlayName_ + " background", "GreenDefaultProgressBar", leftLimit_, y_, rightLimit_ - leftLimit_, 20);
+		background_->setMaxProgress(100);
+		background_->setProgress(100);
+		background_->setRenderOrder(20);
 	}
 
 	void Slider::update(int frameTime)
@@ -95,7 +101,7 @@ namespace K_Engine {
 		if (pressed_) {
 			auto x = slider_->getPosition().first;
 			if (x >= leftLimit_ && x <= rightLimit_) {
-				if (pointer.x >= leftLimit_ && pointer.x <= rightLimit_) {
+				if (pointer.x >= leftLimit_ && pointer.x <= rightLimit_ - slider_->getSize().first) {
 					slider_->setLeft(pointer.x);
 					progressBar_->setProgress(slider_->getRelativePos());
 				}

@@ -53,6 +53,9 @@ namespace K_Engine {
 		scenes.push(newS);
 	}
 	void SceneManager::pushScenebyStr(std::string scene) {
+		if (scenes.top() != nullptr) {
+			scenes.top()->hideElements();
+		}
 		Scene* exampleScene = new Scene();
 		exampleScene->init(scene);
 		pushScene(exampleScene);

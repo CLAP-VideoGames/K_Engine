@@ -53,6 +53,8 @@ namespace K_Engine {
 		/// </summary>
 		virtual void start();
 
+		virtual void onDisable();
+
 		/// <summary>
 		/// It's called every frame of the game.
 		/// </summary> 

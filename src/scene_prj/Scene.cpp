@@ -134,32 +134,32 @@ namespace K_Engine {
 		//}
 
 		//PedroPablo
-		K_Engine::Entity* monkey = entMan->addEntity();
-		{
-			K_Engine::Transform* t = monkey->addComponent<K_Engine::Transform>();
-			float scale = 0.5f;
-			t->setScale(scale);
-			t->setPosition(0, 5, 5);
-			//t->rotate(0,-90, 0);
-			K_Engine::MeshRenderer* m = monkey->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("PedroPablo.mesh");
-			m->debug();
-		}
-		K_Engine::Animator* anim = monkey->addComponent<K_Engine::Animator>();
+		//K_Engine::Entity* monkey = entMan->addEntity();
+		//{
+		//	K_Engine::Transform* t = monkey->addComponent<K_Engine::Transform>();
+		//	float scale = 0.5f;
+		//	t->setScale(scale);
+		//	t->setPosition(0, 5, 5);
+		//	//t->rotate(0,-90, 0);
+		//	K_Engine::MeshRenderer* m = monkey->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("PedroPablo.mesh");
+		//	m->debug();
+		//}
+		//K_Engine::Animator* anim = monkey->addComponent<K_Engine::Animator>();
 
 		//Dario
-		K_Engine::Entity* monkey2 = entMan->addEntity();
-		{
-			K_Engine::Transform* t = monkey2->addComponent<K_Engine::Transform>();
-			float scale = 0.5f;
-			t->setScale(scale);
-			t->setPosition(-3, 5, 5);
-			//t->rotate(0,-90, 0);
-			K_Engine::MeshRenderer* m = monkey2->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("Dario.mesh");
-			m->debug();
-		}
-		K_Engine::Animator* anim_ = monkey2->addComponent<K_Engine::Animator>();
+		//K_Engine::Entity* monkey2 = entMan->addEntity();
+		//{
+		//	K_Engine::Transform* t = monkey2->addComponent<K_Engine::Transform>();
+		//	float scale = 0.5f;
+		//	t->setScale(scale);
+		//	t->setPosition(-3, 5, 5);
+		//	//t->rotate(0,-90, 0);
+		//	K_Engine::MeshRenderer* m = monkey2->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("Dario.mesh");
+		//	m->debug();
+		//}
+		//K_Engine::Animator* anim_ = monkey2->addComponent<K_Engine::Animator>();
 
 		{
 			/*Entity* audio = entMan->addEntity();
@@ -178,10 +178,10 @@ namespace K_Engine {
 		}
 
 		//LIGHT
-		{
+		/*{
 			Entity* light = entMan->addEntity();
 			Light* lComp = light->addComponent<Light>(LightType::DIRECTIONAL, true);
-		}
+		}*/
 
 		////UI Button
 		//{
@@ -248,8 +248,8 @@ namespace K_Engine {
 		//Start of the entites
 		entMan->start();
 
-		anim_->playAnim("Death");
-		anim->playAnim("Death");
+		/*anim_->playAnim("Death");
+		anim->playAnim("Death");*/
 	}
  
 	void Scene::update(int frameTime) {
@@ -258,6 +258,11 @@ namespace K_Engine {
 
 	void Scene::fixedUpdate(int deltaTime) {
 		entMan->fixedUpdate(deltaTime);
+	}
+
+	void Scene::hideElements()
+	{
+		entMan->hideElements();
 	}
 
 	bool Scene::loadScene(std::string nameMap){

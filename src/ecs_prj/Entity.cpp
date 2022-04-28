@@ -69,4 +69,11 @@ namespace K_Engine {
 		return c;
 	}
 
+	void Entity::setActive(bool a)
+	{
+		active = a;
+		for (auto e : components)
+			e.second->setActive(a);
+	}
+
 }

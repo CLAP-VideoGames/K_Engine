@@ -150,7 +150,7 @@ namespace K_Engine {
 		if (SDL_Init(SDL_INIT_EVERYTHING))
 			throw SDL_GetError();
 
-		window_width = 1080, window_height = 720;
+		window_width = 1920, window_height = 1080;
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
 		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, flags);
 		if(!mSDLWin)

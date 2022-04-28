@@ -25,6 +25,8 @@ namespace K_Engine {
 		//Update is called once per frame
 		void fixedUpdate(int deltaTime);
 
+		void hideElements();
+
 	protected:
 
 		//In charge of keeping track of the entities of the scene

@@ -74,6 +74,7 @@ namespace K_Engine {
 		bool pressed_;
 
 		UIProgressBar* progressBar_;
+		UIProgressBar* background_;
 	};
 }
 

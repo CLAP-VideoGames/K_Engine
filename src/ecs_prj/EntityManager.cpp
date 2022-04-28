@@ -65,4 +65,10 @@ namespace K_Engine {
 	void EntityManager::start(){
 		for (auto e : entities) e->start();
 	}
+
+	void EntityManager::hideElements() {
+		for (auto e : entities) {
+			e->setActive(false);
+		}
+	}
 }

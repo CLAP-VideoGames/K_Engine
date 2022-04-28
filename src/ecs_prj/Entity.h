@@ -80,7 +80,7 @@ namespace K_Engine {
 		Component* addComponentByName(std::string name);
 
 		//This mehtos is used to set our Entity to active or unactive
-		void setActive(bool a) { active = a; }
+		void setActive(bool a);
 
 		/// <summary>
 		/// This method updates our entity and is called once per frame, requires time between frames

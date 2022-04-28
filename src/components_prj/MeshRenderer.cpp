@@ -71,6 +71,11 @@ namespace K_Engine {
 		syncRotation();
 	}
 
+	void MeshRenderer::onDisable()
+	{
+		setVisible(false);
+	}
+
 	void MeshRenderer::setVisible(bool value) {
 		visible = value;
 	}

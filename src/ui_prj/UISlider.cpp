@@ -16,7 +16,7 @@ namespace K_Engine {
 		//Default settings
 		overlayElement_ = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", "Slider"));
 		overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
-		overlayElement_->setPosition(right, y);
+		overlayElement_->setPosition(right - (right - left) / 10, y);
 
 		//DefaultMaterial
 		overlayElement_->setMaterialName(imageName);
@@ -45,6 +45,6 @@ namespace K_Engine {
 	//Returns the percentage of the scrollbar that is left above the scrollbar itself
 	//this means that 100 is when the bar is on top and the closer it gets to 0 the lower it is.
 	double UISlider::getRelativePos() {
-		return (((double)overlayElement_->getLeft() - (double)leftLimit) / (double)distance) * 100;
+		return (((double)overlayElement_->getLeft() - (double)leftLimit) / ((double)distance - overlayElement_->getWidth())) * 100;
 	}
 }
