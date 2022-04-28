@@ -79,12 +79,11 @@ namespace K_Engine {
 		return logMan->printLog(LogType::INFO, "Engine initialization success\n");
 	}
 
-	bool Engine::setup()
-	{
+	bool Engine::setup() {
 		try {
 			// render setup
 			renderMan->locateResources("./resources.cfg");
-			uiMan->cleanElements();
+			renderMan->setFullScreen();
 
 			// physics setup
 			physicsMan->registerDefaultLayers();
@@ -113,6 +112,9 @@ namespace K_Engine {
 			// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
 			debug();
 #endif
+
+			// clean loading screen
+			uiMan->cleanElements();
 		}
 		catch (const std::exception e) {
 			return logMan->printLog(LogType::FATAL, "Engine setup failure\n");
@@ -121,8 +123,7 @@ namespace K_Engine {
 		return logMan->printLog(LogType::INFO, "Engine setup success\n");
 	}
 
-	void Engine::run()
-	{
+	void Engine::run() {
 		// Timer for main loop
 		K_Engine::Timer timer = K_Engine::Timer();
 
@@ -162,8 +163,7 @@ namespace K_Engine {
 		}
 	}
 
-	bool Engine::shutdown()
-	{
+	bool Engine::shutdown() {
 		bool success = K_Engine::ComponentManager::Shutdown() &&
 			K_Engine::InputManager::Shutdown() &&
 			K_Engine::ScriptManager::Shutdown() &&
@@ -193,8 +193,7 @@ namespace K_Engine {
 		return success;
 	}
 
-	bool Engine::loadGame()
-	{
+	bool Engine::loadGame() {
 		// game .dll loading
 #ifndef _DEBUG
 		game = LoadLibrary(TEXT("./game.dll"));
@@ -218,8 +217,7 @@ namespace K_Engine {
 		return logMan->addLog(LogType::INFO, "Game functions load success");
 }
 
-	bool Engine::closeGame()
-	{
+	bool Engine::closeGame() {
 		try {
 			FreeLibrary(game);
 		}
@@ -230,8 +228,7 @@ namespace K_Engine {
 		return true;
 	}
 
-	void Engine::debug()
-	{
+	void Engine::debug() {
 		Scene* exampleScene2 = new Scene();
 		exampleScene2->init("map");
 		sceneMan->pushScene(exampleScene2);

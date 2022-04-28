@@ -121,18 +121,25 @@ namespace K_Engine {
 		mRoot->renderOneFrame();
 	}
 
-	void RenderManager::setAmbientLight(Vector3 light)
-	{
+	void RenderManager::setFullScreen() {
+		fullScreen = !fullScreen; Uint32 flags = fullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
+		SDL_SetWindowFullscreen(mSDLWin, flags);
+	}
+
+	void RenderManager::exitWindow() {
+		SDL_Event quit; quit.type = SDL_QUIT;
+		SDL_PushEvent(&quit);
+	}
+
+	void RenderManager::setAmbientLight(Vector3 light) {
 		mSM->setAmbientLight(Ogre::ColourValue(light.x, light.y, light.z));
 	}
 
-	Ogre::Light* RenderManager::createLight(LightType lType)
-	{
+	Ogre::Light* RenderManager::createLight(LightType lType) {
 		return mSM->createLight((Ogre::Light::LightTypes)lType);
 	}
 
-	void RenderManager::initRoot()
-	{
+	void RenderManager::initRoot() {
 		mRoot = new Ogre::Root("plugins.cfg", "ogre.cfg", "ogre.log");
 
 		if (!mRoot->restoreConfig())
@@ -150,11 +157,23 @@ namespace K_Engine {
 		if (SDL_Init(SDL_INIT_EVERYTHING))
 			throw SDL_GetError();
 
+		// this could be used to check display resolution
+		//SDL_DisplayMode info; SDL_GetDesktopDisplayMode(0, &info);
+		//window_width = info.w; window_height = info.h;
+
+		fullScreen = false;
 		window_width = 1920, window_height = 1080;
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
-		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, flags);
+		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, flags);
 		if(!mSDLWin)
-			throw Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR, SDL_GetError(), "RenderManager");
+			throw Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR, SDL_GetError(), "SDL Window not loaded correctly");
+
+		// make background screen black so my eyes don't bleed
+		SDL_Renderer* renderer = SDL_CreateRenderer(mSDLWin, -1, 0);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderClear(renderer);
+		SDL_RenderPresent(renderer);
+		SDL_DestroyRenderer(renderer);
 
 		/**
 		* Get driver-specific information about a window.
@@ -204,16 +223,14 @@ namespace K_Engine {
 		mCamera->setCameraPos(-4, 10, 10);
 	}
 
-	void RenderManager::closeContext()
-	{
+	void RenderManager::closeContext() {
 		mRoot->saveConfig();
 
 		delete mCamera; mCamera = nullptr;
 		delete mRoot; mRoot = nullptr;
 	}
 
-	void RenderManager::closeWindow()
-	{
+	void RenderManager::closeWindow() {
 		if (mRenderWin != nullptr) {
 			mRoot->destroyRenderTarget(mRenderWin);
 			mRenderWin = nullptr;

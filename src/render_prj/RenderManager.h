@@ -42,6 +42,10 @@ namespace K_Engine {
 
 		void render();
 
+		// window related methods
+		void setFullScreen();
+		void exitWindow();
+
 		// light creation methods
 		void setAmbientLight(Vector3 light);
 		Ogre::Light* createLight(LightType lType);
@@ -68,6 +72,7 @@ namespace K_Engine {
 		Camera* mCamera;
 
 		int window_height, window_width;
+		bool fullScreen;
 
 		void initRoot();
 		void initWindow(std::string n);
