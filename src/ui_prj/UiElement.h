@@ -44,6 +44,9 @@ namespace K_Engine {
 
 		void setTop(int topValue);
 		void setLeft(int leftValue);
+
+		void setWidth(int widthValue);
+		void setHeight(int heightValue);
 		
 		// Pixels make setPosition and setDimesions work with Pixels
 		// and WindowRelative makest it relative to the window

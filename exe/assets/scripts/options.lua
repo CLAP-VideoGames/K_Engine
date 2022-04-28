@@ -1,7 +1,7 @@
 options = {
     sliderVolume = {
         Transform = {
-            position = "0, 0, 0",
+            position = "600, 500, 60",
             rotation = " 0 ,0 ,0 ",
             scale = " 1.000000 ,1.000000 ,1.000000 ",
         },
@@ -9,9 +9,7 @@ options = {
         Slider = {
             overlayName = "SliderVolumen",
             imageName = "DefaultButton",
-            y = "550",
-            leftLimit = "600",
-            rightLimit = "1250"
+            width = "500"
         }
     },
 }

@@ -10,7 +10,7 @@ namespace K_Engine {
 	class Transform;
 	class InputManager;
 	struct Rectangle;
-	class UIProgressBar;
+	class ProgressBar;
 	/// <summary>
 	/// This class provides an entity with a UiScrollBar component
 	/// </summary>
@@ -70,6 +70,7 @@ namespace K_Engine {
 		int y_;
 		int leftLimit_;
 		int rightLimit_;
+		int width;
 
 		InputManager* inputMan;
 
@@ -77,8 +78,8 @@ namespace K_Engine {
 
 		bool pressed_;
 
-		UIProgressBar* progressBar_;
-		UIProgressBar* background_;
+		ProgressBar* progressBar_;
+		ProgressBar* background_;
 	};
 }
 

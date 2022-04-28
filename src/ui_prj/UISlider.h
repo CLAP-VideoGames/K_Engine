@@ -15,6 +15,9 @@ namespace K_Engine {
 
 		double getRelativePos();
 
+		void setLeftLimit(int newLeftLimit);
+		void setRightLimit(int newRightLimit);
+
 	private:
 		int leftLimit, rightLimit;
 		int initialDistance;

@@ -47,4 +47,12 @@ namespace K_Engine {
 	double UISlider::getRelativePos() {
 		return (((double)overlayElement_->getLeft() - (double)leftLimit) / ((double)distance - overlayElement_->getWidth())) * 100;
 	}
+	void UISlider::setLeftLimit(int newLeftLimit)
+	{
+		leftLimit = newLeftLimit;
+	}
+	void UISlider::setRightLimit(int newRightLimit)
+	{
+		rightLimit = newRightLimit;
+	}
 }

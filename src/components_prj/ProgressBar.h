@@ -65,6 +65,8 @@ namespace K_Engine {
 		/// <param name="maxProgress">Value to be used as max progress</param>
 		void setMaxProgress(float maxProgress);
 
+		void setCustomRenderOrder(int customNewOrder);
+
 	private:
 		//Required
 		static std::string name;
@@ -79,6 +81,9 @@ namespace K_Engine {
 
 		float progress_;
 		float maxProgress_;
+
+		bool customRenderOrder = false;
+		int customOrder;
 	};
 }
 #endif PROGRESSBAR_H

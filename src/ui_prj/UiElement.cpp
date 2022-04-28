@@ -51,6 +51,16 @@ namespace K_Engine {
 		overlayElement_->setLeft(leftValue);
 	}
 
+	void UIElement::setWidth(int widthValue)
+	{
+		overlayElement_->setWidth(widthValue);
+	}
+
+	void UIElement::setHeight(int heightValue)
+	{
+		overlayElement_->setHeight(heightValue);
+	}
+
 	void UIElement::setMetrics(Metrics m) {
 		if (m == PIXELS) overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
 		else if (m == WINDOW_RELATIVE) overlayElement_->setMetricsMode(Ogre::GMM_RELATIVE);

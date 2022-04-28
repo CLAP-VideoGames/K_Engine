@@ -1,12 +1,12 @@
 #include <components_prj/Slider.h>
 
 #include <components_prj/Transform.h>
+#include <components_prj/ProgressBar.h>
 
 #include <ecs_prj/Entity.h>
 
 #include <ui_prj/UIManager.h>
 #include <ui_prj/UISlider.h>
-#include <ui_prj/UIProgressBar.h>
 #include <ui_prj/Rectangle.h>
 
 #include <utils_prj/Vector3.h>
@@ -43,16 +43,13 @@ namespace K_Engine {
 
 	K_Engine::Slider::~Slider() {
 		delete inputArea; inputArea = nullptr;
-		delete progressBar_; progressBar_ = nullptr;
 	}
 
 	void Slider::init(K_Map* information)
 	{
 		overlayName_ = information->value("overlayName");
 		imageName_ = information->value("imageName");
-		y_ = information->valueToNumber("y");
-		leftLimit_ = information->valueToNumber("leftLimit");
-		rightLimit_ = information->valueToNumber("rightLimit");
+		width = information->valueToNumber("width");
 
 		inputArea = new Rectangle();
 
@@ -65,34 +62,25 @@ namespace K_Engine {
 	{
 		if (slider_ != nullptr)
 			slider_->show();
-		if (progressBar_ != nullptr)
-			progressBar_->show();
-		if (background_ != nullptr)
-			background_->show();
 	}
 
 	void Slider::onDisable()
 	{
 		slider_->hide();
-		progressBar_->hide();
-		background_->hide();
 	}
 
 	void K_Engine::Slider::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
+		leftLimit_ = transformRf_->getPosition().x;
+		rightLimit_ = leftLimit_ + width;
+		y_ = transformRf_->getPosition().y;
 		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, y_, leftLimit_, rightLimit_);
-		slider_->setRenderOrder(40);
 
-		progressBar_ = new UIProgressBar(overlayName_ + " progress", "DefaultProgressBar", rightLimit_-leftLimit_, 20);
-		//progressBar_->setMaxProgress(100);
-		//progressBar_->setProgress(100);
-		progressBar_->setRenderOrder(30);
+		progressBar_ = entity->addComponent<ProgressBar>(overlayName_ + " progress", "DefaultProgressBar", rightLimit_-leftLimit_, 20);
+		progressBar_->setCustomRenderOrder(5);
 
-		background_ = new UIProgressBar(overlayName_ + " background", "GreenDefaultProgressBar", rightLimit_ - leftLimit_, 20);
-		/*setMaxProgress(100);
-		setProgress(100);*/
-		background_->setRenderOrder(20);
+		background_ = entity->addComponent<ProgressBar>(overlayName_ + " background", "GreenDefaultProgressBar", rightLimit_ - leftLimit_, 20);
 	}
 
 	void Slider::update(int frameTime)
@@ -106,8 +94,12 @@ namespace K_Engine {
 		pointer.x = pointPos.first;
 		pointer.y = pointPos.second;
 
-		if (inputMan->getLeftMouseButtonPressed() && PointInRect(&pointer, inputArea))
-			pressed_ = true;
+		if (inputMan->getLeftMouseButtonPressed())
+		{
+			if (PointInRect(&pointer, inputArea)) {
+				pressed_ = true;
+			}
+		}
 		else
 			pressed_ = false;
 
@@ -116,25 +108,20 @@ namespace K_Engine {
 			if (x >= leftLimit_ && x <= rightLimit_) {
 				if (pointer.x >= leftLimit_ && pointer.x <= rightLimit_ - slider_->getSize().first) {
 					slider_->setLeft(pointer.x);
-					//progressBar_->setProgress(slider_->getRelativePos());
+					progressBar_->setProgress(slider_->getRelativePos());
 				}
 			}
 		}
 
 		//Position syncing
-		//Transform actualization if there was a change in position
-		//if (scrollBar_->getNeedsSync()) {
-		//	transformRf_->setPosition(transformRf_->getPosition().x, scrollBar_->getPosition().second, transformRf_->getPosition().z);
-		//	scrollBar_->setNeedsSync(false);
-		//}
-
-		//////Element actualization
-		//scrollBar_->updatePosition(transformRf_->getPosition());
-
-		//Scale syincing
-		/*scrollBar_->setSize(scrollBar_->getSize().first * transformRf_->getScale().x, scrollBar_->getSize().second * transformRf_->getScale().y);*/
+		slider_->setLeft(transformRf_->getPosition().x + (slider_->getPosition().first - leftLimit_));
+		slider_->setTop(transformRf_->getPosition().y);
+		rightLimit_ = transformRf_->getPosition().x + (rightLimit_ - leftLimit_);
+		leftLimit_ = transformRf_->getPosition().x;
+		slider_->setLeftLimit(leftLimit_);
+		slider_->setRightLimit(rightLimit_);
 
 		//ZOrder syncing
-		/*scrollBar_->setRenderOrder(transformRf_->getPosition().z);*/
+		slider_->setRenderOrder(transformRf_->getPosition().z + 10);
 	}
 }

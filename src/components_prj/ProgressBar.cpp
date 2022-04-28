@@ -80,7 +80,10 @@ namespace K_Engine {
 		progressBar_->setSize(orgWidth_ * transformRf_->getScale().x * (progress_ / maxProgress_), orgHeight_ * transformRf_->getScale().y);
 		
 		//ZOrder syncing
-		progressBar_->setRenderOrder(transformRf_->getPosition().z);
+		if (customRenderOrder)
+			progressBar_->setRenderOrder(transformRf_->getPosition().z + customOrder);
+		else
+			progressBar_->setRenderOrder(transformRf_->getPosition().z);
 	}
 
 	void ProgressBar::setProgress(float progress)
@@ -91,5 +94,10 @@ namespace K_Engine {
 
 	void ProgressBar::setMaxProgress(float maxProgress) {
 		maxProgress_ = maxProgress;
+	}
+	void ProgressBar::setCustomRenderOrder(int customNewOrder)
+	{
+		customRenderOrder = true;
+		customOrder = customNewOrder;
 	}
 }
