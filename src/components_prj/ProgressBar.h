@@ -65,23 +65,17 @@ namespace K_Engine {
 		//Required
 		static std::string name;
 
-		//Reference to transform Component
-		Transform* transformRf_ = nullptr;
+		Transform* transformRf_;     // Reference to transform Component
+		UIProgressBar* progressBar_; //ProgressBar created in UIManager
 
-		//ProgressBar created in UIManager
-		UIProgressBar* progressBar_;
-
-		//Basic attributes needed for the progress bar
 		std::string overlayName_;
 		std::string imageName_;
-		int x_;
-		int y_;
-		int orgWidth_;
-		int orgHeight_;
+
+		int x_, y_;
+		int orgWidth_, orgHeight_;
+
 		float progress_;
 		float maxProgress_;
 	};
 }
-
-
 #endif PROGRESSBAR_H
