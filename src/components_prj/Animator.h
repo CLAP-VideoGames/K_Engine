@@ -62,6 +62,7 @@ namespace K_Engine {
 		virtual void debug() {};
 
 		//Setters
+		void setAnimTransition(std::string src, std::string dest, bool cond);
 		void setAnimBool(std::string anim, std::string condName, bool value);
 		void setEnable(bool state);
 		void setLoop(bool state);
