@@ -46,12 +46,15 @@ namespace K_Engine {
 		currentState_ = new AnimStateInfo({ ogreEntity_->getAllAnimationStates()->getAnimationStateIterator().begin()->second,
 			ogreEntity_->getAllAnimationStates()->getAnimationStateIterator().begin()->first });
 		currentState_->animation->setEnabled(false);
+
+		stopAllAnims = false;
 	}
 
 	void Animator::update(int frameTime)
 	{
 		// Actualizamos la animacion actual
-		currentState_->animation->addTime(Ogre::Real(frameTime/1000.0f));
+		if(!stopAllAnims)
+			currentState_->animation->addTime(Ogre::Real(frameTime/1000.0f));
 
 		// Miramos si hay que cambiar de estado de animacion
 		//manageAnimTransitions();
@@ -62,16 +65,51 @@ namespace K_Engine {
 		animTransitionsMap_.at(anim).at(condName)->cond = value;
 	}
 
+	void Animator::setEnable(bool state)
+	{
+		currentState_->animation->setEnabled(state);
+	}
+
+	void Animator::setLoop(bool state)
+	{
+		currentState_->animation->setLoop(state);
+	}
+
 	bool Animator::getAnimBool(std::string anim, std::string condName)
 	{
 		return animTransitionsMap_.at(anim).at(condName)->cond;
 	}
+	std::string Animator::getCurrAnimName()
+	{
+		return currentState_->name;
+	}
+	bool Animator::getEnable()
+	{
+		return currentState_->animation->getEnabled();
+	}
+	bool Animator::getLoop()
+	{
+		return currentState_->animation->getLoop();
+	}
+	bool Animator::animHasEnded()
+	{
+		return currentState_->animation->hasEnded();
+	}
 	void Animator::playAnim(std::string anim)
 	{
-		currentState_->animation->setEnabled(false);
 		currentState_->name = anim;
 		currentState_->animation = animStatesMap_->getAnimationState(anim);
 		currentState_->animation->setEnabled(true);
+		currentState_->animation->setWeight(0);
+		currentState_->animation->setTimePosition(0);
+	}
+	void Animator::stopAnim()
+	{
+		stopAllAnims = true;
+	}
+	void Animator::resumeAnim()
+	{
+		stopAllAnims = false;
 	}
 	void Animator::manageAnimTransitions()
 	{
@@ -81,7 +119,10 @@ namespace K_Engine {
 			// Si alguna de las transiciones desde el anyState estan a true cambiamos el estado
 			if (t.second->cond)
 			{
+				currentState_->name = t.second->nextState;
 				currentState_->animation = animStatesMap_->getAnimationState(t.second->nextState);
+				currentState_->animation->setWeight(0);
+				currentState_->animation->setTimePosition(0);
 				return; // cortamos el metodo
 			}
 		}
@@ -92,7 +133,10 @@ namespace K_Engine {
 			// Si alguna de las transiciones desde el currentState estan a true cambiamos el estado
 			if (t.second->cond)
 			{
+				currentState_->name = t.second->nextState;
 				currentState_->animation = animStatesMap_->getAnimationState(t.second->nextState);
+				currentState_->animation->setWeight(0);
+				currentState_->animation->setTimePosition(0);
 				return; // cortamos el metodo
 			}
 		}

@@ -63,12 +63,20 @@ namespace K_Engine {
 
 		//Setters
 		void setAnimBool(std::string anim, std::string condName, bool value);
+		void setEnable(bool state);
+		void setLoop(bool state);
 
 		//Getters
 		bool getAnimBool(std::string anim, std::string condName);
+		std::string getCurrAnimName();
+		bool getEnable();
+		bool getLoop();
+		bool animHasEnded();
 
 		//Features
 		void playAnim(std::string anim);
+		void stopAnim();
+		void resumeAnim();
 
 	private:
 
@@ -93,6 +101,9 @@ namespace K_Engine {
 
 		//Gestión cambio de estados
 		void manageAnimTransitions();
+
+		//Flags
+		bool stopAllAnims;
 	};
 }
 #endif ANIMATOR_H
