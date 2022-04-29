@@ -270,8 +270,7 @@ namespace K_Engine {
 		entMan->hideElements();
 	}
 
-	void Scene::showElements()
-	{
+	void Scene::showElements() {
 		entMan->showElements();
 	}
 
