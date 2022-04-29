@@ -137,9 +137,7 @@ namespace K_Engine {
 			logMan->clearLogBuffer();
 
 			// exit condition (we hould hange the keys to the game and use the exitCondition method here
-			run = inputMan->update() &&
-				!inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) &&
-				!inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE);
+			run = inputMan->update() && exit();
 
 			if (!run) continue;
 
@@ -207,15 +205,27 @@ namespace K_Engine {
 		logMan->addLog(LogType::INFO, "Game load success");
 
 		// game functions load
-		gameName = (GameName)GetProcAddress(game, "gameName");
+		gameName = (GameString)GetProcAddress(game, "gameName");
 		registerGameComponents = (Game)GetProcAddress(game, "registerComponents");
 		registerGameLayers = (Game)GetProcAddress(game, "registerLayers");
-		loadScene = (SceneLoad)GetProcAddress(game, "loadScene");
+		startUpScene = (GameScene)GetProcAddress(game, "startUpScene");
+		gameExitConditions = (GameBool)GetProcAddress(game, "gameExitConditions");
 
-		if (gameName == nullptr || registerGameComponents == nullptr || registerGameLayers == nullptr || loadScene == nullptr)
+		if (gameName == nullptr || registerGameComponents == nullptr || registerGameLayers == nullptr || 
+			startUpScene == nullptr || gameExitConditions == nullptr)
 			return logMan->addLog(LogType::FATAL, "One of game .dll functions unable to load explicitly");
 		return logMan->addLog(LogType::INFO, "Game functions load success");
-}
+	}
+
+	bool Engine::exit() {
+#ifdef DEVELOPMENT
+		return !inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) &&
+			!inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE);
+#endif
+#ifndef DEVELOPMENT
+		return gameExitConditions();
+#endif
+	}
 
 	bool Engine::closeGame() {
 		try {

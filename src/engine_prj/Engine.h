@@ -8,8 +8,9 @@
 namespace K_Engine {
 	class Scene;
 	typedef void (*Game)();
-	typedef Scene* (*SceneLoad)();
-	typedef std::string (*GameName)();
+	typedef Scene* (*GameScene)();
+	typedef bool (*GameBool)();
+	typedef std::string (*GameString)();
 
 	class RenderManager;
 	class PhysicsManager;
@@ -46,10 +47,13 @@ namespace K_Engine {
 		K_Engine::UIManager* uiMan;
 
 		HMODULE game;
-		GameName gameName;
+		GameString gameName;
 		Game registerGameComponents;
 		Game registerGameLayers;
-		SceneLoad loadScene;
+		GameScene startUpScene;
+		GameBool gameExitConditions;
+
+		bool exit();
 
 		bool loadGame();
 		bool closeGame();
