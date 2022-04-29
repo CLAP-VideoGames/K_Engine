@@ -155,7 +155,21 @@ map = {
             Material = "black",
         }
     },
+    light_001 = {
+        Transform = {
+            position = " -4.013021 ,4.872576 ,-1.262424 ",
+            rotation = " -22.582804 ,33.304256 ,-37.142292 ",
+            scale = " 1.000000 ,1.000000 ,1.000000 ",
+        },
+        Light = {
+            lightType = "1" ,
+            visible = "true" ,
+            diffuse = "1.0, 1.0, 1.0" ,
+            lookAt = "0.0, 0.0, 0.0" ,
+        },
+        Enabled = "true",
+    },
 }
 
-map_entities = {"cubo" ,"originalPieceMap" ,"pieceMap_001" ,"pieceMap_002" ,"originalSphere" ,"platform" ,"sphere_001" ,"sphere_002" }
+map_entities = {"cubo" ,"originalPieceMap" ,"pieceMap_001" ,"pieceMap_002" ,"originalSphere" ,"platform" ,"sphere_001" ,"sphere_002" ,"light_001"}
 

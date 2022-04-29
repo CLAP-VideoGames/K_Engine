@@ -12,11 +12,12 @@ namespace Ogre {
 }
 
 namespace K_Engine {
+	class Transform;
+
 	enum class LightType;
 
 	class __declspec(dllexport) Light : public Component {
 	public:
-
 		Light();
 
 		/// <summary>
@@ -31,23 +32,18 @@ namespace K_Engine {
 		//Required method for the component name
 		static std::string GetId();
 
+		virtual void init(K_Map* information);
+
 		/// <summary>
 		/// It's called at the beginning of the execution.
 		/// </summary>
 		virtual void start();
 
 		void changeType(LightType type);
-
 		void changeDiffuse(Vector3 newDiff);
-		void restoreDiffuse();
 
 		void setVisible(bool visible);
 		bool isVisible();
-
-		/// <summary>
-		/// Custom method for debugging.
-		/// </summary>
-		//virtual void debug();
 
 	private:
 		//Required
@@ -56,15 +52,13 @@ namespace K_Engine {
 		Ogre::SceneNode* mNode;
 		Ogre::Light* mLight;
 
-		LightType type;
+		Transform* transformRf_;
 
+		LightType type;
 		bool visible;
 
-		Vector3 diffuse;
-		/*Vector3 specularColor_;
-		Vector3 direction_;*/
-
-		//float distance_;
+		Vector3* diffuse;
+		Vector3* lookAt;
 
 		// spotlight parameters
 		float innerAngle, outerAngle;

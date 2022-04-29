@@ -8,7 +8,9 @@
 
 #include <ecs_prj/Entity.h>
 
-#include <utils_prj/Vector3.h>
+#include <components_prj/Transform.h>
+
+#include <utils_prj/K_Map.h>
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
@@ -28,24 +30,34 @@ namespace K_Engine {
 		visible = enable;
 	}
 
-	Light::~Light() = default;
+	Light::~Light() {
+		delete diffuse; delete lookAt;
+	}
+
+	void Light::init(K_Map* information) {
+		type = (LightType)information->valueToNumber("lightType");
+		visible = information->valueToBool("visible");
+
+		lookAt = information->valueToVector3("lookAt");
+		diffuse = information->valueToVector3("diffuse");
+
+		if (type == LightType::SPOTLIGHT)
+			setSpotlightParameters(information->valueToNumber("innerAngle"), information->valueToNumber("outerAngle"));
+	}
 
 	void Light::start() {
+		transformRf_ = entity->getComponent<Transform>();
+
 		mLight = RenderManager::GetInstance()->createLight(type);
-		mNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
-		mNode->attachObject(mLight);
-		mNode->setPosition(0, 4.5, 0);
-		mNode->lookAt({ 0, -1, -1 }, Ogre::Node::TransformSpace::TS_WORLD);
-
-		float factorDiff = 2.5f;
-		diffuse = Vector3(factorDiff, factorDiff, factorDiff);
-
-		mLight->setDiffuseColour(diffuse.x, diffuse.y, diffuse.z);
+		mLight->setDiffuseColour(diffuse->x, diffuse->y, diffuse->z);
 		//mLight->setSpecularColour(1, 0, 0);
 		//mLight->setCastShadows(true);
 
-		if (type == LightType::SPOTLIGHT)
-			setSpotlightParameters(0, 45);
+		mNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
+		mNode->attachObject(mLight);
+		mNode->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y, transformRf_->getPosition().z);
+		mNode->lookAt(Ogre::Vector3((double)lookAt->x, (double)lookAt->y, (double)lookAt->z), Ogre::Node::TransformSpace::TS_WORLD);
+
 		float ambient = 0.1;
 		K_Engine::RenderManager::GetInstance()->setAmbientLight({ ambient, ambient, ambient });
 	}
@@ -56,17 +68,12 @@ namespace K_Engine {
 		mLight->setType((Ogre::Light::LightTypes)type);
 
 		if (type == LightType::SPOTLIGHT)
-			setSpotlightParameters(0, 45);
+			setSpotlightParameters(innerAngle, outerAngle);
 	}
 
-	void K_Engine::Light::changeDiffuse(Vector3 newDiff)
-	{
+	void K_Engine::Light::changeDiffuse(Vector3 newDiff) {
+		diffuse->x = newDiff.x; diffuse->y = newDiff.y; diffuse->z = newDiff.z;
 		mLight->setDiffuseColour(newDiff.x, newDiff.y, newDiff.z);
-	}
-
-	void K_Engine::Light::restoreDiffuse()
-	{
-		mLight->setDiffuseColour(diffuse.x, diffuse.y, diffuse.z);
 	}
 
 	void Light::setVisible(bool visib) {
@@ -78,8 +85,8 @@ namespace K_Engine {
 		return visible;
 	}
 
-	void Light::setSpotlightParameters(float inAng, float outAng)
-	{
+	void Light::setSpotlightParameters(float inAng, float outAng) {
+		innerAngle = inAng; outerAngle = outAng;
 		mLight->setSpotlightInnerAngle(Ogre::Radian(Ogre::Degree(inAng)));
 		mLight->setSpotlightOuterAngle(Ogre::Radian(Ogre::Degree(outAng)));
 	}

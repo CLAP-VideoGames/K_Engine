@@ -71,13 +71,9 @@ namespace K_Engine {
 		std::string s;
 		std::vector<double> digits;
 
-
-		while (getline(f, s, ',')) {
+		while (getline(f, s, ','))
 			digits.push_back(std::stod(s));
-		}
-		x = digits[0];
-		y = digits[1];
-		z = digits[2];
+		x = digits[0]; y = digits[1]; z = digits[2];
 
 		K_Engine::Vector3* vector = new K_Engine::Vector3(x, y, z);
 
