@@ -53,14 +53,13 @@ namespace K_Engine {
 
 		// Recogemos todos los estados que traiga la malla
 		animStatesMap_ = ogreEntity_->getAllAnimationStates();
-		currentState_ = new AnimStateInfo({ ogreEntity_->getAllAnimationStates()->getAnimationStateIterator().begin()->second,
-			ogreEntity_->getAllAnimationStates()->getAnimationStateIterator().begin()->first });
-		currentState_->animation->setEnabled(startsEnabled);
+
+		currentState_ = new AnimStateInfo();
 
 		stopAllAnims = false;
 
-		/*if (defaultAnim != "None")
-			playAnim(defaultAnim);*/
+		if (defaultAnim != "None")
+			playAnim(defaultAnim);
 	}
 
 	void Animator::update(int frameTime)
@@ -125,7 +124,7 @@ namespace K_Engine {
 		currentState_->name = anim;
 		currentState_->animation = animStatesMap_->getAnimationState(anim);
 		currentState_->animation->setEnabled(true);
-		currentState_->animation->setWeight(0);
+		//currentState_->animation->setWeight(0);
 		currentState_->animation->setTimePosition(0);
 	}
 
