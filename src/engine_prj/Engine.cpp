@@ -105,7 +105,7 @@ namespace K_Engine {
 			// game component setup
 			registerGameComponents();
 			// start scene
-			sceneMan->pushScene(loadScene());
+			sceneMan->pushScene(startUpScene());
 #endif
 
 #ifdef DEVELOPMENT
@@ -211,7 +211,7 @@ namespace K_Engine {
 		startUpScene = (GameScene)GetProcAddress(game, "startUpScene");
 		gameExitConditions = (GameBool)GetProcAddress(game, "gameExitConditions");
 
-		if (gameName == nullptr || registerGameComponents == nullptr || registerGameLayers == nullptr || 
+		if (gameName == nullptr || registerGameComponents == nullptr || registerGameLayers == nullptr ||
 			startUpScene == nullptr || gameExitConditions == nullptr)
 			return logMan->addLog(LogType::FATAL, "One of game .dll functions unable to load explicitly");
 		return logMan->addLog(LogType::INFO, "Game functions load success");
