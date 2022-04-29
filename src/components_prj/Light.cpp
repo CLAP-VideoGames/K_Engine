@@ -25,9 +25,12 @@ namespace K_Engine {
 
 	Light::Light(Entity* e) : Component(e) {}
 
-	Light::Light(Entity* e, LightType lType, bool enable) : Component( e) {
+	Light::Light(Entity* e, LightType lType, bool enable, Vector3* diff, Vector3* look) : Component( e) {
 		type = lType;
 		visible = enable;
+
+		lookAt = look;
+		diffuse = diff;
 	}
 
 	Light::~Light() {

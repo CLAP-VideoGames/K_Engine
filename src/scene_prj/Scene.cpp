@@ -41,7 +41,7 @@ namespace K_Engine {
 	}
 
 	void Scene::init(std::string nameMap) {
-		loadScene(nameMap);
+		//loadScene(nameMap);
 
 		//SPHERE
 		/*K_Engine::Entity* player = entMan->addEntity();
@@ -176,7 +176,9 @@ namespace K_Engine {
 		//LIGHT
 		{
 			Entity* light = entMan->addEntity();
-			Light* lComp = light->addComponent<Light>(LightType::DIRECTIONAL, true);
+			K_Engine::Transform* t = light->addComponent<K_Engine::Transform>();
+			t->setPosition(0, 20, 20);
+			Light* lComp = light->addComponent<Light>(LightType::DIRECTIONAL, true, new Vector3(1, 1, 1), new Vector3(0, 0, 0));
 		}
 
 		////UI Button
@@ -255,7 +257,7 @@ namespace K_Engine {
 		entMan->onEnable();
 		entMan->start();
 	}
- 
+
 	void Scene::update(int frameTime) {
 		entMan->update(frameTime);
 	};
@@ -272,7 +274,7 @@ namespace K_Engine {
 		return name;
 	}
 
-	bool Scene::loadScene(std::string nameMap){
+	bool Scene::loadScene(std::string nameMap) {
 		scriptMan->loadLuaScene(nameMap, entMan);
 		return true;
 	}

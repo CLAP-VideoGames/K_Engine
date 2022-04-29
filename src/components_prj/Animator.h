@@ -45,6 +45,8 @@ namespace K_Engine {
 		//Required method for the component name
 		static std::string GetId();
 
+		virtual void init(K_Map* information);
+
 		/// <summary>
 		/// It's called at the beginning of the execution.
 		/// </summary>
@@ -79,6 +81,8 @@ namespace K_Engine {
 		void resumeAnim();
 
 	private:
+		//Required
+		static std::string name;
 
 		//Punteros a nodos y entidad de Ogre y componentes Transform y Mesh
 		Ogre::SceneNode* node_;
@@ -96,14 +100,15 @@ namespace K_Engine {
 		//nombre de la animacion	//Transiciones
 		std::map<std::string, std::map<std::string, AnimTransition*>> animTransitionsMap_;
 
-		//Required
-		static std::string name;
+		//Flags
+		bool stopAllAnims;
+
+		bool startsEnabled;
+		// JUST TO TRY INIT AND ALL, PROBABLY TO BE DELETED
+		std::string defaultAnim;
 
 		//Gestión cambio de estados
 		void manageAnimTransitions();
-
-		//Flags
-		bool stopAllAnims;
 	};
 }
 #endif ANIMATOR_H

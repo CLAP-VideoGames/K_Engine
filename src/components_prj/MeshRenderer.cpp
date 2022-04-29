@@ -20,8 +20,6 @@
 #include <utils_prj/checkML.h>
 #include <utils_prj/K_Map.h>
 
-
-
 namespace K_Engine {
 	std::string MeshRenderer::name = "MeshRenderer";
 
@@ -42,15 +40,11 @@ namespace K_Engine {
 	void MeshRenderer::debug() {
 		Ogre::AnimationStateSet* aux = mEntity->getAllAnimationStates();
 		if (aux != nullptr) {
-			auto it = aux->getAnimationStateIterator().begin();
-			while (it != aux->getAnimationStateIterator().end()) {
-				auto s = it->first;
-				std::string anim = s.c_str();
-				std::cout << anim << "\n";
-				++it;
+			for(auto it = aux->getAnimationStateIterator().begin(); it != aux->getAnimationStateIterator().end(); ++it) {
+				std::string anim = it->first;
+				std::cout << anim.c_str() << "\n";
 			}
 		}
-		//K_Engine::RenderManager::GetInstance()->getCamera()->setAnchor(mNode);
 	}
 
 	void MeshRenderer::start() {
@@ -61,9 +55,9 @@ namespace K_Engine {
 
 	void MeshRenderer::init(K_Map* information){
 		setMesh(meshFile = information->value("MeshFile"));
-		if (information->hasValue("Material")) {
+
+		if (information->hasValue("Material")) 
 			setMaterial(information->value("Material"));
-		}
 	}
 
 	void MeshRenderer::update(int frameTime) {
@@ -71,8 +65,7 @@ namespace K_Engine {
 		syncRotation();
 	}
 
-	void MeshRenderer::onDisable()
-	{
+	void MeshRenderer::onDisable() {
 		setVisible(false);
 	}
 

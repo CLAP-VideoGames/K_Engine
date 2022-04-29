@@ -12,25 +12,33 @@
 
 #include <utils_prj/Timer.h>
 #include <utils_prj/checkML.h>
+#include <utils_prj/K_Map.h>
 
 namespace K_Engine {
 	//Required
 	std::string Animator::name = "Animator";
 
-	Animator::Animator(): Component() {
+	std::string Animator::GetId() {
+		return name;
+	}
 
+	Animator::Animator(): Component() {
+		defaultAnim = "None";
+		startsEnabled = false;
 	}
 
 	Animator::Animator(Entity* e) : Component(e) {
-
+		defaultAnim = "None";
+		startsEnabled = false;
 	}
 
 	Animator::~Animator() {
 		delete currentState_;
 	}
 
-	std::string Animator::GetId() {
-		return name;
+	void Animator::init(K_Map* information) {
+		defaultAnim = information->value("defaultAnim");
+		startsEnabled = information->valueToBool("startsEnabled");
 	}
 
 	void Animator::start()
@@ -38,16 +46,21 @@ namespace K_Engine {
 		// Obtenemos los componentes y entidades necesarios
 		tr_ = entity->getComponent<Transform>();
 		mesh_ = entity->getComponent<MeshRenderer>();
+
 		node_ = mesh_->getOgreNode();
 		ogreEntity_ = mesh_->getOgreEntity();
+		mesh_->debug(); // print all anims
 
 		// Recogemos todos los estados que traiga la malla
 		animStatesMap_ = ogreEntity_->getAllAnimationStates();
 		currentState_ = new AnimStateInfo({ ogreEntity_->getAllAnimationStates()->getAnimationStateIterator().begin()->second,
 			ogreEntity_->getAllAnimationStates()->getAnimationStateIterator().begin()->first });
-		currentState_->animation->setEnabled(false);
+		currentState_->animation->setEnabled(startsEnabled);
 
 		stopAllAnims = false;
+
+		/*if (defaultAnim != "None")
+			playAnim(defaultAnim);*/
 	}
 
 	void Animator::update(int frameTime)
@@ -86,22 +99,27 @@ namespace K_Engine {
 	{
 		return animTransitionsMap_.at(anim).at(condName)->cond;
 	}
+	
 	std::string Animator::getCurrAnimName()
 	{
 		return currentState_->name;
 	}
+
 	bool Animator::getEnable()
 	{
 		return currentState_->animation->getEnabled();
 	}
+
 	bool Animator::getLoop()
 	{
 		return currentState_->animation->getLoop();
 	}
+
 	bool Animator::animHasEnded()
 	{
 		return currentState_->animation->hasEnded();
 	}
+
 	void Animator::playAnim(std::string anim)
 	{
 		currentState_->name = anim;
@@ -110,14 +128,17 @@ namespace K_Engine {
 		currentState_->animation->setWeight(0);
 		currentState_->animation->setTimePosition(0);
 	}
+
 	void Animator::stopAnim()
 	{
 		stopAllAnims = true;
 	}
+
 	void Animator::resumeAnim()
 	{
 		stopAllAnims = false;
 	}
+
 	void Animator::manageAnimTransitions()
 	{
 		// ANYSTATE

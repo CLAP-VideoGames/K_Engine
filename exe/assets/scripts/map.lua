@@ -157,7 +157,7 @@ map = {
     },
     light_001 = {
         Transform = {
-            position = " -4.013021 ,4.872576 ,-1.262424 ",
+            position = " 0.0 ,10.0 ,10.0 ",
             rotation = " -22.582804 ,33.304256 ,-37.142292 ",
             scale = " 1.000000 ,1.000000 ,1.000000 ",
         },
@@ -169,7 +169,37 @@ map = {
         },
         Enabled = "true",
     },
+    monkey_001 = {
+        Transform = {
+            position = " 0.000000, 5.000000, 5.000000 ",
+            rotation = " 0.0000 ,0.0 ,0.0 ",
+            scale = " 0.300000 ,0.300000 ,0.300000 ",
+        },
+        Enabled = "true",
+        MeshRenderer = {
+            MeshFile = "PedroPablo.mesh",
+        },
+        Animator = {
+            defaultAnim = "Granade",
+            startsEnabled = "true", 
+        }
+    },
+    monkey_002 = {
+        Transform = {
+            position = " -3.000000, 5.000000, 5.000000 ",
+            rotation = " 0.0000 ,0.0 ,0.0 ",
+            scale = " 0.300000 ,0.300000 ,0.300000 ",
+        },
+        Enabled = "true",
+        MeshRenderer = {
+            MeshFile = "Dario.mesh",
+        }, 
+        Animator = {
+            defaultAnim = "Death",
+            startsEnabled = "true", 
+        }
+    },
 }
 
-map_entities = {"cubo" ,"originalPieceMap" ,"pieceMap_001" ,"pieceMap_002" ,"originalSphere" ,"platform" ,"sphere_001" ,"sphere_002" ,"light_001"}
+map_entities = {"cubo" ,"originalPieceMap" ,"pieceMap_001" ,"pieceMap_002" ,"originalSphere" ,"platform" ,"sphere_001" ,"sphere_002" ,"light_001" ,"monkey_001" ,"monkey_002"}
 

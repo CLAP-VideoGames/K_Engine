@@ -25,7 +25,7 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="e">Entity to be attached to</param>
 		Light(Entity* e);
-		Light(Entity* e, LightType type, bool enabled);
+		Light(Entity* e, LightType lType, bool enable, Vector3* diff, Vector3* look);
 
 		virtual ~Light();
 
