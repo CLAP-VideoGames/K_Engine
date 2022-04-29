@@ -15,12 +15,13 @@ namespace K_Engine {
 	//Required
 	std::string Light::name = "Light";
 
-	Light::Light() : Component() {
-
+	std::string Light::GetId() {
+		return name;
 	}
 
-	Light::Light(Entity* e) : Component(e) {
-	}
+	Light::Light() : Component() {}
+
+	Light::Light(Entity* e) : Component(e) {}
 
 	Light::Light(Entity* e, LightType lType, bool enable) : Component( e) {
 		type = lType;
@@ -28,10 +29,6 @@ namespace K_Engine {
 	}
 
 	Light::~Light() = default;
-
-	std::string Light::GetId() {
-		return name;
-	}
 
 	void Light::start() {
 		mLight = RenderManager::GetInstance()->createLight(type);

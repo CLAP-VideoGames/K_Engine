@@ -28,7 +28,6 @@ namespace K_Engine {
 		std::string name;
 	};
 
-
 	class __declspec(dllexport) Animator : public Component
 	{
 	public:

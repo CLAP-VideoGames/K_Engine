@@ -25,6 +25,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached to</param>
 		Light(Entity* e);
 		Light(Entity* e, LightType type, bool enabled);
+
 		virtual ~Light();
 
 		//Required method for the component name

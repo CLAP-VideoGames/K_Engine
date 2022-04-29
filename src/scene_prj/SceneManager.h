@@ -25,32 +25,25 @@ namespace K_Engine {
 		//Allows the user to push a new scene into the stack
 		void pushScene(Scene* newS);
 
-		/// <summary>
-		/// Pops the actual scene and pushes the new scene
-		/// </summary>
-		/// <param name="newS"></param>
+		// Pops the actual scene and pushes the new scene
 		void changeScene(Scene* newS);
-		/// <summary>
-		/// Pops the actual scene and pushes the new scene by string name
-		/// </summary>
-		/// <param name="newS"></param>
+
+		// Allows the user to pop the scenes stack
+		void popSceneStr(std::string scene);
+
+		// Pops the actual scene and pushes the new scene by string name
 		void pushScenebyStr(std::string scene);
 
-
-		/// <summary>
-		/// called once per frame, it calls the actual scene update, requires time between frames
-		/// </summary>
+		// Pops the actual scene and pushes the new scene by string name
+		void changeSceneStr(std::string scene);
+		
+		// called once per frame, it calls the actual scene update, requires time between frames
 		void updateScene(int frameTime);
 
-		/// <summary>
-		/// called once per frame, it calls the actual scene fixed update, requires fixed deltaTime
-		/// </summary>
+		// called once per frame, it calls the actual scene fixed update, requires fixed deltaTime
 		void fixedUpdateScene(int deltaTime);
 
-		/// <summary>
-		/// returns the top of the scene stack
-		/// </summary>
-		/// <returns></returns>
+		// returns the top of the scene stack
 		Scene* currentScene();
 
 	private:

@@ -10,27 +10,25 @@ namespace K_Engine {
 
 	class  __declspec(dllexport) Scene {
 	public:
-		//Creates the entityManager of our scene
 		Scene();
-
-		//Deletes the entityManager of our scene
+		Scene(std::string sceneName);
 		virtual ~Scene();
 
-		//Init is called once when the Scene is created, use this method to load your lua map
+		// Init is called once when the Scene is created, use this method to load your lua map
 		virtual void init(std::string nameMap);
+		virtual void init();
 
-		//Update is called once per frame
-		void update(int frameTime);
-
-		//Update is called once per frame
-		void fixedUpdate(int deltaTime);
+		void update(int frameTime);      // Update is called once per frame
+		void fixedUpdate(int deltaTime); // FixedUpdate is called 'x' times per frame
 
 		void hideElements();
 
-	protected:
+		std::string getName();
 
-		//In charge of keeping track of the entities of the scene
-		EntityManager* entMan;
+	protected:
+		std::string name;
+
+		EntityManager* entMan;    // In charge of keeping track of the entities of the scene
 		ScriptManager* scriptMan;
 
 		bool loadScene(std::string nameMap);

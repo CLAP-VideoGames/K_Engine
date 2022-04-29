@@ -28,8 +28,12 @@
 
 namespace K_Engine {
 	Scene::Scene() {
-		//creting the entityManager
 		entMan = new EntityManager();
+		scriptMan = K_Engine::ScriptManager::GetInstance();
+	}
+
+	Scene::Scene(std::string sceneName) : Scene() {
+		name = sceneName;
 	}
 
 	Scene::~Scene() {
@@ -37,15 +41,7 @@ namespace K_Engine {
 	}
 
 	void Scene::init(std::string nameMap) {
-		scriptMan = K_Engine::ScriptManager::GetInstance();
 		loadScene(nameMap);
-
-		// example scene (pending of development)
-		std::string playerLayer = "Player";
-		std::string nothingLayer = "Nothing";
-		std::string platformLayer = "Platform";
-
-		int playerCollidesWith = K_Engine::PhysicsManager::GetInstance()->getLayerID(platformLayer);
 
 		//SPHERE
 		/*K_Engine::Entity* player = entMan->addEntity();
@@ -251,6 +247,14 @@ namespace K_Engine {
 		anim_->playAnim("Death");
 		anim->playAnim("Death");
 	}
+
+	void Scene::init() {
+		loadScene(name);
+
+		entMan->awake();
+		entMan->onEnable();
+		entMan->start();
+	}
  
 	void Scene::update(int frameTime) {
 		entMan->update(frameTime);
@@ -260,9 +264,12 @@ namespace K_Engine {
 		entMan->fixedUpdate(deltaTime);
 	}
 
-	void Scene::hideElements()
-	{
+	void Scene::hideElements() {
 		entMan->hideElements();
+	}
+
+	std::string Scene::getName() {
+		return name;
 	}
 
 	bool Scene::loadScene(std::string nameMap){
