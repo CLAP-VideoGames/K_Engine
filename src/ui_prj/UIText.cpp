@@ -26,7 +26,7 @@ namespace K_Engine {
 		textArea_->setColourTop(Ogre::ColourValue(textColor.x, textColor.y, textColor.z));
 
 		// Create an overlay, and add the panel
-		overlay_ = overlayMan_->create(overlayName);
+		overlay_ = overlayMan_->create(overlayName + std::to_string(numOverlayElems));
 		overlay_->add2D((Ogre::OverlayContainer*)textArea_);
 
 		// Show the overlay

@@ -127,6 +127,7 @@ namespace K_Engine {
 		getGlobalNamespace(luaState).beginClass<SceneManager>("SceneManager")
 			.addStaticFunction("getSceneMan", &SceneManager::GetInstance)
 			.addFunction("changeScene", &SceneManager::pushScenebyStr)
+			.addFunction("popScene", &SceneManager::popSceneStr)
 			.endClass();
 		//ECS
 		getGlobalNamespace(luaState).beginClass<EntityManager>("EntityManager")

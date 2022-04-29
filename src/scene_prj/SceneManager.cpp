@@ -46,6 +46,7 @@ namespace K_Engine {
 	}
 
 	void SceneManager::popScene() {
+		scenes.top()->hideElements();
 		scenes.pop();
 	}
 
@@ -61,8 +62,8 @@ namespace K_Engine {
 	void SceneManager::pushScenebyStr(std::string scene) {
 		if (scenes.top() != nullptr) 
 			scenes.top()->hideElements();
-		Scene* exampleScene = new Scene();
-		exampleScene->init(scene);
+		Scene* exampleScene = new Scene(scene);
+		exampleScene->init();
 		pushScene(exampleScene);
 	}
 
@@ -75,8 +76,10 @@ namespace K_Engine {
 		while (scenes.top()->getName() != scene)
 			popScene();
 
-		if(scenes.empty())
+		if (scenes.empty())
 			K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, "Scene name not found");
+		else
+			scenes.top()->showElements();
 	}
 
 	void SceneManager::updateScene(int frameTime) {

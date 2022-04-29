@@ -46,7 +46,7 @@ testMenu = {
     },
     fullScreenButton = {
         Transform = {
-            position = "750, 800, 0",
+            position = "1350, 200, 0",
             rotation = " 0 ,0 ,0 ",
             scale = " 1.000000 ,1.000000 ,1.000000 ",
         },
@@ -67,6 +67,7 @@ function changeScene()
 end
 
 function goToOptions()
+    print("Venga venga que nos vamos a los ajustes hdp")
     local sceneMan = SceneManager.getSceneMan();
     sceneMan:changeScene("options");
 end
@@ -77,7 +78,7 @@ function exitGame()
 end
 
 function fullScreen()
-    local renderMan = SceneManager.getRenderMan();
+    local renderMan = RenderManager.getRenderMan();
     renderMan:fullScreen();
 end
 

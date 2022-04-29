@@ -73,4 +73,10 @@ namespace K_Engine {
 			e->setActive(false);
 		}
 	}
+	void EntityManager::showElements()
+	{
+		for (auto e : entities) {
+			e->setActive(true);
+		}
+	}
 }

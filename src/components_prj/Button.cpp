@@ -95,8 +95,6 @@ namespace K_Engine {
 			else button_->setMaterial(hoverImageName_);
 		}
 		else button_->setMaterial(imageName_);
-
-		syncData();
 	}
 	
 	void Button::setButtonClick(std::function<void(std::string)> function) {

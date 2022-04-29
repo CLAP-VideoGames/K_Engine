@@ -270,6 +270,11 @@ namespace K_Engine {
 		entMan->hideElements();
 	}
 
+	void Scene::showElements()
+	{
+		entMan->showElements();
+	}
+
 	std::string Scene::getName() {
 		return name;
 	}

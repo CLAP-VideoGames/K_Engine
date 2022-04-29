@@ -22,6 +22,7 @@ namespace K_Engine {
 		void fixedUpdate(int deltaTime); // FixedUpdate is called 'x' times per frame
 
 		void hideElements();
+		void showElements();
 
 		std::string getName();
 

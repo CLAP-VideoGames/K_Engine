@@ -20,7 +20,7 @@ namespace K_Engine {
         overlayElement_->setMaterialName(imageName);
 
         // Create an overlay, and add the panel
-        overlay_ = overlayMan_->create(overlayName);
+        overlay_ = overlayMan_->create(overlayName + std::to_string(numOverlayElems));
         overlay_->add2D(overlayElement_);
 
         // Show the overlay

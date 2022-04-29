@@ -41,6 +41,7 @@ namespace K_Engine {
 		void start();
 
 		void hideElements();
+		void showElements();
 
 	private:
 		//Our entity vector

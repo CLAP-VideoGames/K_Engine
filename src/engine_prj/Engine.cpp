@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-#define DEVELOPMENT
+////////#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -99,6 +99,9 @@ namespace K_Engine {
 			// base components setup
 			K_Engine::Registry::registerComponents();
 
+			// clean loading screen
+			uiMan->cleanElements();
+
 #ifndef DEVELOPMENT
 			// game layers setup
 			registerGameLayers();
@@ -113,8 +116,6 @@ namespace K_Engine {
 			debug();
 #endif
 
-			// clean loading screen
-			uiMan->cleanElements();
 		}
 		catch (const std::exception e) {
 			return logMan->printLog(LogType::FATAL, "Engine setup failure\n");
