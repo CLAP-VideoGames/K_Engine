@@ -22,7 +22,7 @@ namespace K_Engine {
 	class Camera;
 	class Vector3;
 
-	enum class __declspec(dllexport) LightType {
+	enum class LightType {
 		POINT,
 		DIRECTIONAL, 
 		SPOTLIGHT
