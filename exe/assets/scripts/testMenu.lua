@@ -44,20 +44,41 @@ testMenu = {
             onClick = "exitGame"
         }
     },
+    fullScreenButton = {
+        Transform = {
+            position = "750, 800, 0",
+            rotation = " 0 ,0 ,0 ",
+            scale = " 1.000000 ,1.000000 ,1.000000 ",
+        },
+        Enabled = "true",
+        Button = {
+            overlayName = "FullScreen",
+            imageName = "DefaultButton",
+            hoverImageName = "TestButtonAmongus",
+            pressedImageName = "ButtonApretado",
+            onClick = "fullScreen"
+        }
+    },
 }
 
 function changeScene()
-    local sceneMan = SceneManager.getSceneManInstance();
+    local sceneMan = SceneManager.getSceneMan();
     sceneMan:changeScene("map");
 end
 
 function goToOptions()
-    local sceneMan = SceneManager.getSceneManInstance();
+    local sceneMan = SceneManager.getSceneMan();
     sceneMan:changeScene("options");
 end
 
 function exitGame()
-
+    local renderMan = RenderManager.getRenderMan();
+    renderMan:exitGame();
 end
 
-testMenu_entities = { "changeSceneButton", "optionsButton", "exitButton"}
+function fullScreen()
+    local renderMan = SceneManager.getRenderMan();
+    renderMan:fullScreen();
+end
+
+testMenu_entities = { "changeSceneButton", "optionsButton", "exitButton", "fullScreenButton"}

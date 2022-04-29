@@ -119,12 +119,15 @@ namespace K_Engine {
 		return currentState_->animation->hasEnded();
 	}
 
-	void Animator::playAnim(std::string anim)
+	void Animator::playAnim(std::string anim, bool loop)
 	{
+		if(currentState_->animation != nullptr)
+			currentState_->animation->setEnabled(false);
+
 		currentState_->name = anim;
 		currentState_->animation = animStatesMap_->getAnimationState(anim);
 		currentState_->animation->setEnabled(true);
-		//currentState_->animation->setWeight(0);
+		currentState_->animation->setLoop(loop);
 		currentState_->animation->setTimePosition(0);
 	}
 

@@ -17,7 +17,7 @@ testScene = {
 }
 
 function changeScene()
-    local sceneMan = SceneManager.getSceneManInstance();
+    local sceneMan = SceneManager.getSceneMan();
     sceneMan:changeScene("map");
 end
 

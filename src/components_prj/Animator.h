@@ -76,7 +76,7 @@ namespace K_Engine {
 		bool animHasEnded();
 
 		//Features
-		void playAnim(std::string anim);
+		void playAnim(std::string anim, bool loop = true);
 		void stopAnim();
 		void resumeAnim();
 

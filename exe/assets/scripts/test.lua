@@ -1,5 +1,5 @@
 
-local s = ScriptManager.getInstance();
+local s = ScriptManager.getScriptMan();
 
 player = {
     name = "Francisquito",

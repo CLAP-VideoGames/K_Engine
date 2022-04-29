@@ -13,6 +13,8 @@ extern "C" {
 #include <LuaBridge.h>
 
 //Otros proyectos
+#include <render_prj/RenderManager.h>
+
 #include <scene_prj/SceneManager.h>
 
 #include <log_prj/LogManager.h>
@@ -115,9 +117,15 @@ namespace K_Engine {
 
 	void ScriptManager::registerClassesandFunctions(lua_State* L)
 	{
+		//RenderManager
+		getGlobalNamespace(luaState).beginClass<RenderManager>("RenderManager")
+		.addStaticFunction("getRenderMan", &RenderManager::GetInstance)
+			.addFunction("fullScreen", &RenderManager::setFullScreen)
+			.addFunction("exitGame", &RenderManager::exitWindow)
+			.endClass();
 		//SceneManager
 		getGlobalNamespace(luaState).beginClass<SceneManager>("SceneManager")
-			.addStaticFunction("getSceneManInstance", &SceneManager::GetInstance)
+			.addStaticFunction("getSceneMan", &SceneManager::GetInstance)
 			.addFunction("changeScene", &SceneManager::pushScenebyStr)
 			.endClass();
 		//ECS
@@ -126,12 +134,12 @@ namespace K_Engine {
 			.endClass();
 		//LogManager
 		getGlobalNamespace(luaState).beginClass<LogManager>("LogManager")
-			.addStaticFunction("getLogInstance", &LogManager::GetInstance)
+			.addStaticFunction("getLogMan", &LogManager::GetInstance)
 			.addFunction("printLog", &LogManager::printLogLua)
 			.endClass();
 		//LUA
 		getGlobalNamespace(luaState).beginClass<ScriptManager>("ScriptManager")
-			.addStaticFunction("getScriptInstance", &ScriptManager::GetInstance)
+			.addStaticFunction("getScriptMan", &ScriptManager::GetInstance)
 			.endClass();
 	}
 

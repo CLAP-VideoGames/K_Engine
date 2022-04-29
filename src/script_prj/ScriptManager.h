@@ -24,6 +24,7 @@ namespace K_Engine {
     class ComponentManager;
     class Component;
     class PhysicsManager;
+    class RenderManager;
 
 
     class  __declspec(dllexport) ScriptManager {
