@@ -15,13 +15,14 @@ namespace K_Engine {
 		}
 	}
 
-	Entity* EntityManager::addEntity()
+	Entity* EntityManager::addEntity(bool inExecution)
 	{
 		auto c = new Entity();
 
 		c->setMan(this);
 
-		entities.push_back(c);
+		if (inExecution)toStart.push_back(c);
+		else entities.push_back(c);
 
 		return c;
 	}
@@ -38,6 +39,13 @@ namespace K_Engine {
 			}//If it is active, we update it
 			else if (e->isActive())e->update(frameTime);
 		}
+
+		for (auto a : toStart) {
+			a->start();
+			entities.push_back(a);
+		}
+
+		toStart.clear();
 	}
 
 	void EntityManager::fixedUpdate(int deltaTime)

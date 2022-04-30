@@ -29,7 +29,7 @@ namespace K_Engine {
 		offsetCenter_ = new Vector3(0, 0, 0); //By default no offset
 	}
 
-	RigidBody::RigidBody(Entity* e) : Component( e) {
+	RigidBody::RigidBody(Entity* e) : Component(e) {
 
 	}
 
@@ -49,11 +49,11 @@ namespace K_Engine {
 	}
 
 	RigidBody::~RigidBody() {
-		delete dimensions_; delete offsetCenter_; 
+		delete dimensions_; delete offsetCenter_;
 		delete collisionInfo; delete btTransform_;
 		delete rbState;
 
-		dimensions_ = nullptr; offsetCenter_ = nullptr; 
+		dimensions_ = nullptr; offsetCenter_ = nullptr;
 		collisionInfo = nullptr; btTransform_ = nullptr;
 		rbState = nullptr;
 	};
@@ -96,18 +96,18 @@ namespace K_Engine {
 		transformRf_ = entity->getComponent<Transform>();
 		world_ = K_Engine::PhysicsManager::GetInstance()->getWorld();
 
-		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(), 
+		btTransform_ = K_Engine::PhysicsManager::GetInstance()->createTransform(transformRf_->getPosition(),
 			*offsetCenter_, transformRf_->getRotation());
 
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
 		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->y, (btScalar)dimensions_->z };
 		collisionInfo = new K_Engine::CollisionInfo(this->entity,
-				//Collision Enter Callback
-				[=](void* other) {
+			//Collision Enter Callback
+			[=](void* other) {
 				this->launchEnterCallbacks(other);
 			},
-				//Collision Stay Callback
+			//Collision Stay Callback
 				[=](void* other) {
 				this->launchStayCallbacks(other);
 			},
@@ -117,7 +117,7 @@ namespace K_Engine {
 			});
 
 
-		rb = world_->addRigidBody(type_, *btTransform_, dimensions, scale_, bType_, mass_, restitution_, friction_, group_, 
+		rb = world_->addRigidBody(type_, *btTransform_, dimensions, scale_, bType_, mass_, restitution_, friction_, group_,
 			mask_, isTrigger_, collisionInfo);
 
 		rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
@@ -148,15 +148,18 @@ namespace K_Engine {
 	}
 
 	void RigidBody::update(int frameTime) {
-		btVector3 pos = rb->getWorldTransform().getOrigin();
-		btScalar y;
-		btScalar z;
-		btScalar x;
-		rb->getWorldTransform().getRotation().getEulerZYX(z, y, x);
+		if (rb != nullptr) {
 
-		//set new position
-		transformRf_->setPosition(pos.x() - offsetCenter_->x, pos.y() - offsetCenter_->y, pos.z() - offsetCenter_->z);
-		transformRf_->setRotation(x, y, z);
+			btVector3 pos = rb->getWorldTransform().getOrigin();
+			btScalar y;
+			btScalar z;
+			btScalar x;
+			rb->getWorldTransform().getRotation().getEulerZYX(z, y, x);
+
+			//set new position
+			transformRf_->setPosition(pos.x() - offsetCenter_->x, pos.y() - offsetCenter_->y, pos.z() - offsetCenter_->z);
+			transformRf_->setRotation(x, y, z);
+		}
 	}
 
 	void RigidBody::debug() {
@@ -181,18 +184,18 @@ namespace K_Engine {
 		(*dimensions_) = toAdd;
 	}
 
-	void RigidBody::addForce(Vector3 const& value){
+	void RigidBody::addForce(Vector3 const& value) {
 		btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
 		Vector3 p = transformRf_->getPosition();
 		btVector3 pos = { (btScalar)p.x,(btScalar)p.y,(btScalar)p.z };
 		rb->applyForce(force, pos);
 	}
-	
+
 	void RigidBody::addImpulse(Vector3 const& value) {
 
 	}
 
-	void RigidBody::addExplosionForce(Vector3 const& value){
+	void RigidBody::addExplosionForce(Vector3 const& value) {
 
 	}
 

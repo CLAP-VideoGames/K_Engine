@@ -19,7 +19,7 @@ namespace K_Engine {
 		~EntityManager();
 
 		//Method to add and Entity that return it to the user
-		Entity* addEntity();
+		Entity* addEntity(bool inExecution = false);
 
 		//where every entity is updated
 		void update(int frameTime);
@@ -46,6 +46,8 @@ namespace K_Engine {
 	private:
 		//Our entity vector
 		std::vector<Entity*> entities;
+
+		std::vector<Entity*> toStart;
 	};
 }
 #endif // ENTITYMANAGER_H

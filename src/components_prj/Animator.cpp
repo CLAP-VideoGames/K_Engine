@@ -65,7 +65,7 @@ namespace K_Engine {
 	void Animator::update(int frameTime)
 	{
 		// Actualizamos la animacion actual
-		if(!stopAllAnims)
+		if(currentState_->animation != nullptr && !stopAllAnims)
 			currentState_->animation->addTime(Ogre::Real(frameTime/1000.0f));
 
 		// Miramos si hay que cambiar de estado de animacion
