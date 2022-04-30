@@ -109,6 +109,8 @@ namespace K_Engine {
 				if (pointer.x >= leftLimit_ && pointer.x <= rightLimit_ - slider_->getSize().first) {
 					slider_->setLeft(pointer.x);
 					progressBar_->setProgress(slider_->getRelativePos());
+					if (onSliderClick != nullptr)
+						onSliderClick(keyCallback_);
 				}
 			}
 		}
@@ -123,5 +125,9 @@ namespace K_Engine {
 
 		//ZOrder syncing
 		slider_->setRenderOrder(transformRf_->getPosition().z + 10);
+	}
+	void Slider::setSliderClick(std::function<void(std::string)> function)
+	{
+		onSliderClick = function;
 	}
 }
