@@ -92,14 +92,14 @@ namespace K_Engine {
 	private:
 		static std::unique_ptr<InputManager> instance;
 
-		bool isKeyUpEvent_;
-		bool isKeyDownEvent_;
+		bool isKeyUpEvent_ = false;
+		bool isKeyDownEvent_ = false;
 
-		bool isMouseMotionEvent_;
-		bool isMouseButtonEvent_;
+		bool isMouseMotionEvent_ = false;
+		bool isMouseButtonEvent_ = false;
 
 		//Esto es para ver que se sigue pulsando
-		bool isMouseButtonHeldDown_;
+		bool isMouseButtonHeldDown_ = false;
 		bool isRightMousePressed_ = false;
 		bool isLeftMousePressed_ = false;
 
