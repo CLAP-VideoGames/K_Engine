@@ -54,7 +54,7 @@ namespace K_Engine {
 	{
 		Mix_Chunk* sfx = Mix_LoadWAV(path);
 		if (!sfx) 
-			K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, "WAV sound could not be loaded \n");
+			K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, "SFX sound could not be loaded \n");
 
 		return sfx;
 	}
@@ -78,13 +78,13 @@ namespace K_Engine {
 
 			if ((aud->channel = Mix_PlayChannel(-1, aud->sfx, loop)) == -1)
 				// Gets the first empty channel and assign the audio file to that channel, and starts playing
-				std::cout << "WAV sound could not be played!\n";
+				K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::WARNING, "SFX sound could not be played");
 		}
 		else {
 			Mix_VolumeMusic(masterVolume * musicVolume * vol * MIX_MAX_VOLUME);
 
 			if (Mix_PlayMusic(aud->mus, loop) == -1)
-				std::cout << "MUS sound could not be played!\n";
+				K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::WARNING, "Music sound could not be played");
 		}
 	}
 
