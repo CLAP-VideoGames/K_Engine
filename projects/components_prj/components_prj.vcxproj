@@ -61,7 +61,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\bullet\src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL-main\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
@@ -83,7 +83,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\bullet\src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL-main\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +136,9 @@
     </ProjectReference>
     <ProjectReference Include="..\render_prj\render_prj.vcxproj">
       <Project>{3cdee0e0-bdc9-49de-ba43-3ad704f5537b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\sound_prj\sound_prj.vcxproj">
+      <Project>{06ce32e3-a5e2-4bbf-8d9a-f20b9e847284}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

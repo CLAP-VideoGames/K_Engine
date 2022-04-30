@@ -1,136 +1,125 @@
 #include "AudioSource.h"
 
+#include <SDL_mixer.h>
+
 #include <sound_prj/AudioManager.h>
 
 #include <ecs_prj/Entity.h>
 
+#include <utils_prj/K_Map.h>
 #include <utils_prj/checkML.h>
 
 namespace K_Engine {
 	//Required
 	std::string AudioSource::name = "AudioSource";
 
-	AudioSource::AudioSource(): Component() {
+	std::string AudioSource::GetId() {
+		return name;
 	}
 
-	AudioSource::AudioSource(Entity* e) : Component(e){
-		audioM = K_Engine::AudioManager::GetInstance();
-		musicVolume = effectVolume = 50;
+	AudioSource::AudioSource() : Component() {}
+
+	AudioSource::AudioSource(Entity* e) : Component(e) {}
+
+	AudioSource::AudioSource(Entity* e, AudioType type, char* path, int vol, bool loop, bool start) {
+		audio = new Audio;
+
+		audio->audio_path = path;
+		audio->type = type;
+
+		volume = vol;
+
+		loopable = loop;
+		playStart = start;
+
+		playing = false; paused = false;
 	}
 
 	AudioSource::~AudioSource() = default;
 
-	std::string AudioSource::GetId() {
-		return name;
+	void AudioSource::init(K_Map* information) {
+		audio = new Audio;
+
+		audio->audio_path = information->value("path").c_str();
+		audio->type = (AudioType)information->valueToNumber("type");
+
+		volume = information->valueToNumber("volume");
+
+		loopable = information->valueToBool("loopable");
+		playStart = information->valueToBool("playStart");
+
+		playing = false; paused = false;
+	}
+
+	void AudioSource::start()
+	{
+		audioMan = AudioManager::GetInstance();
+
+		if (audio->type == AudioType::SOUND_EFFECT) 
+			audio->sfx = audioMan->loadSFX(audio->audio_path);
+		else
+			audio->mus = audioMan->loadMUS(audio->audio_path);
+
+		if (playStart)
+			play();
+	}
+
+	void AudioSource::update(int frameTime) {
+		playing = audioMan->hasEnded(audio);
+		paused = playing ? paused : playing;
 	}
 
 	/// <summary>
 	/// If there's another song playing already, it will be replaced by the new one
 	/// </summary>
-	void AudioSource::playSong(const char* path)
-	{
-		audioM->playMUS(path, -1);
-	}
-
-	/// <summary>
-	/// Play a certain sound effect, as many times as necessary
-	/// </summary>
-	void AudioSource::playSoundEffect(const char* path, int nLoop)
-	{
-		audioM->playWAV(path, effectVolume, nLoop);
-	}
-
-	/// <summary>
-	/// Set the volume for Music and Sound Effects
-	/// </summary>
-	void AudioSource::setGeneralVolume(int vol)
-	{
-		setMusicVolume(vol);
-		setEffectVolume(vol);
-	}
-
-	/// <summary>
-	/// Set the volume of the Music
-	/// </summary>
-	void AudioSource::setMusicVolume(int vol)
-	{
-		musicVolume = vol;
-		audioM->setVolumeMUS(vol);
-	}
-
-	/// <summary>
-	/// Set the volume of ALL the sound effects
-	/// </summary>
-	void AudioSource::setEffectVolume(int vol)
-	{
-		effectVolume = vol;
-		audioM->setVolumeWAV(-1, vol);
-	}
-
-	/// <summary>
-	/// Returns the volume of the Music
-	/// </summary>
-	int AudioSource::getMusicVolume()
-	{
-		return musicVolume;
-	}
-
-	/// <summary>
-	/// Returns the volume of the Sound effects
-	/// </summary>
-	int AudioSource::getEffectVolume()
-	{
-		return effectVolume;
-	}
-
-	/// <summary>
-	/// Stops the Music and all the Sound Effects
-	/// </summary>
-	void AudioSource::stopAudio()
-	{
-		audioM->stopMUS();
-		audioM->stopWAV(-1);
+	void AudioSource::play() {
+		if (!playing) {
+			audioMan->play(audio, volume, loopable ? -1 : 0);
+			playing = true;
+		}
 	}
 
 	/// <summary>
 	/// Pause all the Music and all the Sound Effects
 	/// </summary>
-	void AudioSource::pauseAudio()
-	{
-		audioM->pauseMUS();
-		audioM->pauseWAV(-1);
+	void AudioSource::pause() {
+		if (playing && !paused) {
+			audioMan->pause(audio);
+			paused = true;
+		}
 	}
 
 	/// <summary>
 	/// Resume all the Music and all the Sound Effects
 	/// </summary>
-	void AudioSource::resumeAudio()
-	{
-		audioM->resumeMUS();
-		audioM->resumeWAV(-1);
+	void AudioSource::resume() {
+		if (playing && paused) {
+			audioMan->resume(audio);
+			paused = false;
+		}
 	}
 
 	/// <summary>
-	/// Stop the sound effect we introduce (if it doesn't exist, it will write an error message, but won't stop the program)
+	/// Stops the Music and all the Sound Effects
 	/// </summary>
-	void AudioSource::stopOneSoundEffect(const char* path)
-	{
-		audioM->stopWAV(audioM->locateAudioFile(path,false));
+	void AudioSource::stop() {
+		if (playing || paused) {
+			audioMan->stop(audio);
+			playing = false; paused = false;
+		}
 	}
 
 	/// <summary>
-	/// Pause the sound effect we introduce (if it doesn't exist, it will write an error message, but won't stop the program)
+	/// Set the volume for Music and Sound Effects
 	/// </summary>
-	void AudioSource::pauseOneSoundEffect(const char* path)
-	{
-		audioM->pauseWAV(audioM->locateAudioFile(path,false));
+	void AudioSource::setVolume(float vol) {
+		volume = vol;
 	}
 
 	/// <summary>
-	/// Resume the sound effect we introduce (if it doesn't exist or it's not paused, it will write an error message, but won't stop the program)
+	/// Returns the volume of the Music
 	/// </summary>
-	void AudioSource::resumeOneSoundEffect(const char* path)
-	{
-		audioM->resumeWAV(audioM->locateAudioFile(path,false));
+	float AudioSource::getVolume() {
+		return volume;
 	}
 }

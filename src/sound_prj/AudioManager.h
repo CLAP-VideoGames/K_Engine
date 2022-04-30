@@ -9,6 +9,21 @@ typedef struct _Mix_Music Mix_Music;
 class Mix_Chunk;
 
 namespace K_Engine {
+	enum class AudioType {
+		SOUND_EFFECT,
+		MUSIC
+	};
+
+	struct Audio {
+		const char* audio_path;
+		AudioType type;
+		union {
+			Mix_Chunk* sfx; // Wav file
+			Mix_Music* mus; // OGG file (MP3 and other files not available)
+		};
+		int channel;
+	};
+
 	class  __declspec(dllexport) AudioManager {
 	public:
 		AudioManager();
@@ -19,37 +34,29 @@ namespace K_Engine {
 		static bool Init();
 		static bool Shutdown();
 
-		void playWAV(const char* path, int vol,int loop = 0);
-		void playMUS(const char* path, int loop = 0);
+		Mix_Chunk* loadSFX(const char* path);
+		Mix_Music* loadMUS(const char* path);
 
-		void pauseMUS();
-		void pauseWAV(int channel);
+		void play(Audio* aud, int vol, int loop = 0);
+		void pause(Audio* aud);
+		void resume(Audio* aud);
+		void stop(Audio* aud);
 
-		void resumeMUS();
-		void resumeWAV(int channel);
+		bool hasEnded(Audio* aud);
 
-		void stopMUS();
-		void stopWAV(int channel);
+		void setMasterVolume(float newVol);
+		void setMusicVolume(float newVol);
+		void setSFXVolume(float newVol);
 
-		void setVolumeWAV(int channel, int vol);
-		void setVolumeMUS(int vol);
-
-		int locateAudioFile(const char* path, bool add);
+		float getMasterVolume();
+		float getMusicVolume();
+		float getSFXVolume();
 
 	private:
 		static std::unique_ptr<AudioManager> instance;
-		
-		// Organize all audio files and its asigned channel
-		std::unordered_map<std::string, int> AudioAndChannel;
-		int lastChannel = 0;
 
-		// Wav file
-		Mix_Chunk* wav = nullptr; 
-		// OGG file (MP3 and other files not available)
-		Mix_Music* mus = nullptr;
-		
-		void loadWAV(const char* path);
-		void loadMUS(const char* path);
+		// 0 -> muted; 1 -> full
+		float masterVolume, musicVolume, sfxVolume;
 
 		void initAudio();
 		void closeAudio();

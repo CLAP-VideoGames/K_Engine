@@ -50,199 +50,121 @@ namespace K_Engine {
 	//-------------------------------------------------------------------------------
 
 	// It loads a WAV file 
-	void AudioManager::loadWAV(const char* path)
+	Mix_Chunk* AudioManager::loadSFX(const char* path)
 	{
-		wav = Mix_LoadWAV(path);
+		Mix_Chunk* sfx = Mix_LoadWAV(path);
+		if (!sfx) 
+			K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, "WAV sound could not be loaded \n");
 
-		if (!wav)
-			std::cout << "WAV sound could not be loaded \n";
+		return sfx;
 	}
 
 	// It loads a OGG file (MP3 and other not available)
-	void AudioManager::loadMUS(const char* path)
+	Mix_Music* AudioManager::loadMUS(const char* path)
 	{
-		mus = Mix_LoadMUS(path);
-
+		Mix_Music* mus = Mix_LoadMUS(path);
 		if (!mus)
-			std::cout << "MUS sound could not be loaded \n";
+			K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::FATAL, "MUS sound could not be loaded \n");
+
+		return mus;
 	}
 
 	//-------------------------------------------------------------------------------
 
-	void AudioManager::playWAV(const char* path, int vol, int loop)
+	void AudioManager::play(Audio* aud, int vol, int loop)
 	{
-		// Load and set volume
-		loadWAV(path);
-		Mix_VolumeChunk(wav, vol);
-		int channel = locateAudioFile(path, true); // Returns the channel it's located, if it's a new channel, it will return -1
+		if (aud->type == AudioType::SOUND_EFFECT) {
+			Mix_VolumeChunk(aud->sfx, masterVolume * sfxVolume * vol * MIX_MAX_VOLUME);
 
-
-		if (channel == -1)
-		{
-			// Gets the first empty channel and assign the audio file to that channel, and starts playing
-			if (Mix_PlayChannel(-1, wav, loop) == -1)
+			if ((aud->channel = Mix_PlayChannel(-1, aud->sfx, loop)) == -1)
+				// Gets the first empty channel and assign the audio file to that channel, and starts playing
 				std::cout << "WAV sound could not be played!\n";
 		}
-		else
-		{
-			// Gets the channel where it's already located and play it again
-			if (Mix_PlayChannel(channel, wav, loop) == -1)
-				std::cout << "Existing WAV sound could not be played!\n";
+		else {
+			Mix_VolumeMusic(masterVolume * musicVolume * vol * MIX_MAX_VOLUME);
+
+			if (Mix_PlayMusic(aud->mus, loop) == -1)
+				std::cout << "MUS sound could not be played!\n";
 		}
-	}
-
-	void AudioManager::playMUS(const char* path, int loop)
-	{
-		loadMUS(path);
-
-		if (Mix_PlayMusic(mus, loop) == -1)
-			std::cout << "MUS sound could not be played!\n";
 	}
 
 	//-------------------------------------------------------------------------------
 
-	void AudioManager::pauseMUS()
+	void AudioManager::pause(Audio* aud)
 	{
-		if (mus != nullptr)
-		{
-			//if(Mix_PlayingMusic())
+		if (aud->type == AudioType::SOUND_EFFECT) 
+			Mix_Pause(aud->channel);
+		else 
 			Mix_PauseMusic();
-		}
-		else
-		{
-			std::cout << "There is no MUS to pause\n";
-		}
-	}
-
-	void AudioManager::pauseWAV(int channel)
-	{
-		// If channel = -1, then all channels will be paused
-		// If channel = -1, then all channels will be resumed
-		// If channel exists and it's not paused, then it will be resumed
-		// If channel = -2, then the channel doesn't exist
-		if (channel != -2 && channel == -1 || (Mix_GetChunk(channel) != nullptr && !Mix_Paused(channel)))
-		{
-			Mix_Pause(channel);
-		}
-		else
-		{
-			std::cout << "There is no WAV to pause\n";
-		}
 	}
 
 	//-------------------------------------------------------------------------------
 
-	void AudioManager::resumeMUS()
+	void AudioManager::resume(Audio* aud)
 	{
-		if (mus != nullptr)
-		{
-			Mix_ResumeMusic(); // This is safe to use on halted, paused, and already playing music.
-		}
+		if (aud->type == AudioType::SOUND_EFFECT)
+			Mix_Resume(aud->channel);
 		else
-		{
-			std::cout << "There is no MUS to resume\n";
-		}
-	}
-
-	void AudioManager::resumeWAV(int channel)
-	{
-		// Resume an especific WAV if it's paused
-		// If channel = -1, then all channels will be resumed
-		// If channel exists and it's paused, then it will be resumed
-		// If channel = -2, then the channel doesn't exist
-		if (channel != -2 && channel == -1 || (Mix_GetChunk(channel) != nullptr && Mix_Paused(channel)))
-		{
-			Mix_Resume(channel);
-		}
-		else
-		{
-			std::cout << "There is no WAV to resume\n";
-		}
+			Mix_ResumeMusic();
 	}
 
 	//-------------------------------------------------------------------------------
 
-	void AudioManager::stopMUS()
+	void AudioManager::stop(Audio* aud)
 	{
-		if (mus != nullptr)
-		{
+		if (aud->type == AudioType::SOUND_EFFECT)
+			Mix_HaltChannel(aud->channel);
+		else
 			Mix_HaltMusic();
-		}
-		else
-		{
-			std::cout << "There is no MUS to pause\n";
-		}
-	}
-
-	void AudioManager::stopWAV(int channel)
-	{
-		// If channel = -1, then all channels will be stopped
-		// If the channel don't have a Mix_Chunk, then it's empty
-		// If channel = -2, then the channel doesn't exist
-		if (channel != -2 && channel == -1 || Mix_GetChunk(channel) != nullptr)
-		{
-			Mix_HaltChannel(channel);
-		}
-		else
-		{
-			std::cout << "There is no WAV to pause\n";
-		}
-	}
-
-	void AudioManager::setVolumeMUS(int vol)
-	{
-		if (vol > 0 && vol < 128)
-		{
-			Mix_VolumeMusic(vol);
-		}
-	}
-
-	void AudioManager::setVolumeWAV(int channel, int vol)
-	{
-		if (vol > 0 && vol < 128)
-		{
-			Mix_Volume(channel, vol); // If channel = -1, all channel will have the same volume
-		}
 	}
 
 	//-------------------------------------------------------------------------------
 
-	/// <summary>
-	/// Returns the channel is located depending on the file name
-	/// If it doesn't exist, if we want to add it, we insert the audio file name and its channel assigned. Else, we'll return a non-existent channel
-	/// </summary>
-	int AudioManager::locateAudioFile(const char* path, bool add)
+	bool AudioManager::hasEnded(Audio* aud)
 	{
-		std::unordered_map<std::string, int>::iterator it = AudioAndChannel.find(path);
-
-		if (it == AudioAndChannel.end() && add)
-		{
-			AudioAndChannel.insert({ path,lastChannel });
-			lastChannel++;
-			return -1;
-		}
-		else if (it != AudioAndChannel.end())
-		{
-			return it->second;
-		}
+		if (aud->type == AudioType::SOUND_EFFECT)
+			return Mix_Playing(aud->channel);
 		else
-		{
-			return -2;
-		}
+			return Mix_PlayingMusic();
 	}
 
-	void AudioManager::initAudio()
-	{
+	//-------------------------------------------------------------------------------
+
+	void AudioManager::setMasterVolume(float newVol) {
+		masterVolume = newVol;
+	}
+
+	void AudioManager::setMusicVolume(float newVol) {
+		musicVolume = newVol;
+	}
+
+	void AudioManager::setSFXVolume(float newVol) {
+		sfxVolume = newVol;
+	}
+
+	float AudioManager::getMasterVolume() {
+		return masterVolume;
+	}
+
+	float AudioManager::getMusicVolume() {
+		return musicVolume;
+	}
+
+	float AudioManager::getSFXVolume() {
+		return sfxVolume;
+	}
+
+	//-------------------------------------------------------------------------------
+
+	void AudioManager::initAudio() {
 		//Initialize SDL2_mixer
 		if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 			throw std::exception("SDL2_mixer could not be initialized");
+
+		masterVolume = musicVolume = sfxVolume = 1;
 	}
 
-	void AudioManager::closeAudio()
-	{
-		Mix_FreeChunk(instance->wav);
-		Mix_FreeMusic(instance->mus);
-
+	void AudioManager::closeAudio() {
 		Mix_CloseAudio();
 	}
 }
