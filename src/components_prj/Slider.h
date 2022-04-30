@@ -4,6 +4,8 @@
 
 #include <ecs_prj/Component.h>
 
+#include <functional>
+
 namespace K_Engine {
 	class UIManager;
 	class UISlider;
@@ -54,6 +56,12 @@ namespace K_Engine {
 		/// </summary> 
 		virtual void update(int frameTime);
 
+		/// <summary>
+		/// Sets a function to be called when button is pressed
+		/// </summary>
+		/// <param name="Function">Function to be called, declaration example: void Function();</param>
+		void setSliderClick(std::function<void(std::string)> function);
+
 	private:
 		//Required
 		static std::string name;
@@ -80,6 +88,10 @@ namespace K_Engine {
 
 		ProgressBar* progressBar_;
 		ProgressBar* background_;
+
+		//Function callback
+		std::function<void(std::string)> onSliderClick = nullptr;
+		std::string keyCallback_;
 	};
 }
 
