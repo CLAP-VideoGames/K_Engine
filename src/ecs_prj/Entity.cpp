@@ -4,6 +4,7 @@
 
 #include <utils_prj/Vector3.h>
 #include <utils_prj/checkML.h>
+#include <ecs_prj/EntityManager.h>
 
 namespace K_Engine {
 	Entity::Entity() {
@@ -51,6 +52,11 @@ namespace K_Engine {
 	void Entity::start() {
 		for (auto e : components) 
 			e.second->start();
+	}
+
+	void Entity::destroy(EntityManager* entMan)
+	{
+		entMan->destroyEntity(this);
 	}
 
 	void Entity::addChild(Entity* child) {

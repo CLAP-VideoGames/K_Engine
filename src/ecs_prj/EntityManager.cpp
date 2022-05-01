@@ -87,4 +87,14 @@ namespace K_Engine {
 			e->setActive(true);
 		}
 	}
+	void EntityManager::destroyEntity(Entity* e)
+	{
+		auto it = entities.begin();
+		while (it != entities.end() && *it != e) ++it;
+		if (it != entities.end()) {
+			delete e;
+			entities.erase(it);
+		}
+
+	}
 }
