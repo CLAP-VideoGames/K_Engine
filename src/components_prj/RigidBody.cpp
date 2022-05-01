@@ -184,6 +184,10 @@ namespace K_Engine {
 		(*dimensions_) = toAdd;
 	}
 
+	void RigidBody::disableDeactivation() {
+		rb->setActivationState(DISABLE_DEACTIVATION);
+	}
+
 	void RigidBody::addForce(Vector3 const& value) {
 		btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
 		Vector3 p = transformRf_->getPosition();

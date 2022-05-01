@@ -120,6 +120,11 @@ namespace K_Engine {
 		/// </summary>
 		void setOffset(Vector3 const& value);
 
+		/// <summary>
+		/// Disables deactivation of the entity. Useful for entities that we don't want to be asleep.
+		/// </summary>
+		void disableDeactivation();
+
 		void addForce(Vector3 const& value);
 
 		void addImpulse(Vector3 const& value);
