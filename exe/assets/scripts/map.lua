@@ -202,4 +202,3 @@ map = {
 }
 
 map_entities = {"cubo" ,"originalPieceMap" ,"pieceMap_001" ,"pieceMap_002" ,"originalSphere" ,"platform" ,"sphere_001" ,"sphere_002" ,"light_001" ,"monkey_001" ,"monkey_002"}
-
