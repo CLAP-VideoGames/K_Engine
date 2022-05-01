@@ -15,6 +15,8 @@ extern "C" {
 //Otros proyectos
 #include <render_prj/RenderManager.h>
 
+#include<sound_prj/AudioManager.h>
+
 #include <scene_prj/SceneManager.h>
 
 #include <log_prj/LogManager.h>
@@ -117,9 +119,16 @@ namespace K_Engine {
 
 	void ScriptManager::registerClassesandFunctions(lua_State* L)
 	{
+		//AudioManager
+		getGlobalNamespace(luaState).beginClass<AudioManager>("AudioManager")
+			.addStaticFunction("getAudioMan", &AudioManager::GetInstance)
+			.addFunction("setMasterVolume", &AudioManager::setMasterVolume)
+			.addFunction("setSFXVolume", &AudioManager::setSFXVolume)
+			.addFunction("setMusicVolume", &AudioManager::setMusicVolume)
+			.endClass();
 		//RenderManager
 		getGlobalNamespace(luaState).beginClass<RenderManager>("RenderManager")
-		.addStaticFunction("getRenderMan", &RenderManager::GetInstance)
+			.addStaticFunction("getRenderMan", &RenderManager::GetInstance)
 			.addFunction("fullScreen", &RenderManager::setFullScreen)
 			.addFunction("exitGame", &RenderManager::exitWindow)
 			.endClass();
@@ -235,17 +244,16 @@ namespace K_Engine {
 		return getGlobal(luaState, funcName.c_str());
 	}
 
+	void ScriptManager::callLuaFunction(std::string funcName, float value)
+	{
+		LuaRef f = getLuaFunction(funcName);
+		f(value);
+	}
+
 	void ScriptManager::callLuaCallback(std::string funcName)
 	{
 		LuaRef f = getLuaFunction(funcName);
 		f();
-	}
-
-	template<typename ...Ts>
-	void ScriptManager::callLuaFunction(std::string funcName, Ts &&... args)
-	{
-		LuaRef f = getLuaFunction(funcName);
-		f(args...);
 	}
 
 	luabridge::LuaRef ScriptManager::getTable(const std::string& c_name)

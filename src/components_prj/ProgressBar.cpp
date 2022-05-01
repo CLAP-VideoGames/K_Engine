@@ -34,6 +34,8 @@ namespace K_Engine {
 
 		progress_ = progress;
 		maxProgress_ = maxProgress;
+
+		interactive_ = false;
 	}
 
 	K_Engine::ProgressBar::~ProgressBar() = default;
@@ -48,6 +50,8 @@ namespace K_Engine {
 
 		progress_ = information->valueToNumber("progress");
 		maxProgress_ = information->valueToNumber("maxProgress");
+
+		interactive_ = false;
 	}
 
 	void ProgressBar::onEnable()
@@ -68,6 +72,7 @@ namespace K_Engine {
 		progressBar_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
 		setMaxProgress(maxProgress_);
 		setProgress(progress_);
+		progressBar_->setInteractive(interactive_);
 	}
 
 	void ProgressBar::update(int frameTime)
@@ -99,5 +104,13 @@ namespace K_Engine {
 	{
 		customRenderOrder = true;
 		customOrder = customNewOrder;
+	}
+	void ProgressBar::setInteractive(bool interactive)
+	{
+		interactive_ = interactive;
+	}
+	bool ProgressBar::getIsFocus()
+	{
+		return progressBar_->getIsFocusNow();
 	}
 }

@@ -2,6 +2,7 @@
 
 #include <components_prj/Transform.h>
 #include <components_prj/ProgressBar.h>
+#include <components_prj/Image.h>
 
 #include <ecs_prj/Entity.h>
 
@@ -39,6 +40,7 @@ namespace K_Engine {
 		inputMan = K_Engine::InputManager::GetInstance();
 
 		pressed_ = false;
+		controllerChangingValue = false;
 	}
 
 	K_Engine::Slider::~Slider() {
@@ -51,11 +53,15 @@ namespace K_Engine {
 		imageName_ = information->value("imageName");
 		width = information->valueToNumber("width");
 
+		keyCallback_ = information->value("onSliderClick");
+		onSliderClick = information->valueToFunction(keyCallback_, 1.0f);
+
 		inputArea = new Rectangle();
 
 		inputMan = K_Engine::InputManager::GetInstance();
 
 		pressed_ = false;
+		controllerChangingValue = false;
 	}
 
 	void Slider::onEnable()
@@ -80,7 +86,9 @@ namespace K_Engine {
 		progressBar_ = entity->addComponent<ProgressBar>(overlayName_ + " progress", "DefaultProgressBar", rightLimit_-leftLimit_, 20);
 		progressBar_->setCustomRenderOrder(5);
 
-		background_ = entity->addComponent<ProgressBar>(overlayName_ + " background", "GreenDefaultProgressBar", rightLimit_ - leftLimit_, 20);
+		background_ = entity->addComponent<Image>(overlayName_ + " background", "GreenDefaultProgressBar");
+		background_->setDimensions(rightLimit_ - leftLimit_, 20);
+		background_->setInteractive(true);
 	}
 
 	void Slider::update(int frameTime)
@@ -110,7 +118,61 @@ namespace K_Engine {
 					slider_->setLeft(pointer.x);
 					progressBar_->setProgress(slider_->getRelativePos());
 					if (onSliderClick != nullptr)
-						onSliderClick(keyCallback_);
+						onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
+				}
+			}
+		}
+
+		if (background_->getIsFocus()) {
+			if (controllerChangingValue) {
+				//Comprobamos si hay que mover el slider o terminar de cambiarlo
+				if (inputMan->controllerButtonPressed(CONTROLLER_BUTTON_A) || inputMan->controllerButtonPressed(CONTROLLER_BUTTON_B)) {
+					controllerChangingValue = false;
+					//Cambiamos de vuelta el material
+				}
+				else {
+					if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) > 0.5 ||
+						inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_RIGHT)) {
+						if (slider_->getPosition().first + 5 <= rightLimit_ - slider_->getSize().first) {
+							slider_->setLeft(slider_->getPosition().first + 5);
+							progressBar_->setProgress(slider_->getRelativePos());
+							if (onSliderClick != nullptr)
+								onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
+						}
+						else {
+							if (slider_->getPosition().first != rightLimit_ - slider_->getSize().first) {
+								slider_->setLeft(rightLimit_ - slider_->getSize().first);
+								progressBar_->setProgress(slider_->getRelativePos());
+								if (onSliderClick != nullptr)
+									onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
+							}
+						}
+
+					}
+					else if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) < -0.5 ||
+						inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_LEFT)) {
+						if (slider_->getPosition().first - 5 >= leftLimit_) {
+							slider_->setLeft(slider_->getPosition().first - 5);
+							progressBar_->setProgress(slider_->getRelativePos());
+							if (onSliderClick != nullptr)
+								onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
+						}
+						else {
+							if (slider_->getPosition().first != leftLimit_) {
+								slider_->setLeft(leftLimit_);
+								progressBar_->setProgress(slider_->getRelativePos());
+								if (onSliderClick != nullptr)
+									onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
+							}
+						}
+					}
+				}
+			}
+			else {
+				//Comprobamos si se quiere empezar a cambiar el valor
+				if (inputMan->controllerButtonPressed(CONTROLLER_BUTTON_A)) {
+					controllerChangingValue = true;
+					//Cambiamos el material del slider
 				}
 			}
 		}
@@ -126,7 +188,7 @@ namespace K_Engine {
 		//ZOrder syncing
 		slider_->setRenderOrder(transformRf_->getPosition().z + 10);
 	}
-	void Slider::setSliderClick(std::function<void(std::string)> function)
+	void Slider::setSliderClick(std::function<void(std::string, float)> function)
 	{
 		onSliderClick = function;
 	}

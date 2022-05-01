@@ -83,7 +83,7 @@ namespace K_Engine {
 		try {
 			// render setup
 			renderMan->locateResources("./resources.cfg");
-			renderMan->setFullScreen();
+			//renderMan->setFullScreen();
 
 			// physics setup
 			physicsMan->registerDefaultLayers();
@@ -241,7 +241,7 @@ namespace K_Engine {
 
 	void Engine::debug() {
 		//Carga de escena
-		Scene* exampleScene2 = new Scene("map");
+		Scene* exampleScene2 = new Scene("testMenu");
 		exampleScene2->init();
 		sceneMan->pushScene(exampleScene2);
 	}

@@ -9,7 +9,8 @@ options = {
         Slider = {
             overlayName = "SliderVolumen",
             imageName = "DefaultButton",
-            width = "500"
+            width = "500",
+            onSliderClick = "setMasterVolume"
         }
     },
     popSceneButton = {
@@ -27,13 +28,37 @@ options = {
             onClick = "popScene"
         }
     },
+    audio = {
+        AudioSource = {
+            path = "./assets/sounds/samba_UCM.ogg",
+            type = "1",
+            volume = "1",
+            loopable = "true",
+            playOnStart = "true"
+        }
+    },
+    focusOptions = {
+        Transform = {
+            position = "0, 0, 200",
+            rotation = " 0 ,0 ,0 ",
+            scale = " 1.000000 ,1.000000 ,1.000000 ",
+        },
+        Enabled = "true",
+        Focus = {
+            overlayName = "FocusElementOptions",
+            imageName = "SelectorFoco"
+        }
+    },
 }
 
 function popScene()
-    print("Vuelta al menu")
     local sceneMan = SceneManager.getSceneMan();
     sceneMan:popScene("testMenu");
 end
 
+function setMasterVolume(volume)
+    local audioMan = AudioManager.getAudioMan();
+    audioMan:setMasterVolume(volume);
+end
 
-options_entities = {"sliderVolume", "popSceneButton"}
+options_entities = {"sliderVolume", "popSceneButton", "audio", "focusOptions"}

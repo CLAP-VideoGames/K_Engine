@@ -48,6 +48,12 @@ namespace K_Engine {
 		// It's called every frame of the game.
 		virtual void update(int frameTime);
 
+		void setInteractive(bool interactive);
+
+		bool getIsFocus();
+
+		void setDimensions(int width, int height);
+
 	private:
 		//Required
 		static std::string name;
@@ -58,6 +64,11 @@ namespace K_Engine {
 		// Basic attributes needed for the image
 		std::string overlayName_;
 		std::string imageName_;
+
+		bool interactive_;
+
+		int width_;
+		int height_;
 
 		void syncData();
 	};

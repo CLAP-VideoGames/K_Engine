@@ -3,6 +3,7 @@
 #include <ecs_prj/EntityManager.h>
 #include <ecs_prj/Entity.h>
 #include <script_prj/ScriptManager.h>
+#include <sound_prj/AudioManager.h>
 
 // SOON TO BE DELETED
 #include <physics_prj/PhysicsManager.h>
@@ -158,19 +159,8 @@ namespace K_Engine {
 		K_Engine::Animator* anim_ = monkey2->addComponent<K_Engine::Animator>();
 
 		{
-			/*Entity* audio = entMan->addEntity();
-			AudioSource* a = audio->addComponent<AudioSource>();
-			//a->playSong("./assets/sounds/samba_UCM.ogg");
-			a->playSoundEffect("./assets/sounds/clap.wav", -1);
-			a->playSoundEffect("./assets/sounds/crash.wav", -1);
-			a->playSoundEffect("./assets/sounds/accordion.wav", -1);
-			a->setGeneralVolume(75);
-			a->stopOneSoundEffect("./assets/sounds/clap.wav");
-			a->playSoundEffect("./assets/sounds/clap.wav", -1);
-			a->pauseOneSoundEffect("./assets/sounds/clap.wav");
-			a->resumeOneSoundEffect("./assets/sounds/clap.wav");
-			a->resumeOneSoundEffect("./assets/sounds/accordion.wav");*/
-
+			Entity* audio = entMan->addEntity();
+			AudioSource* a = audio->addComponent<AudioSource>(AudioType::MUSIC, "assets/sounds/samba_UCM.ogg", 1.f, true, true);
 		}
 
 		//LIGHT
