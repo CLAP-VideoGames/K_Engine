@@ -159,6 +159,12 @@ namespace K_Engine {
 			//set new position
 			transformRf_->setPosition(pos.x() - offsetCenter_->x, pos.y() - offsetCenter_->y, pos.z() - offsetCenter_->z);
 			transformRf_->setRotation(x, y, z);
+
+			if (forceToAdd != Vector3(0, 0, 0)) {
+				addForce(forceToAdd);
+				forceToAdd = Vector3(0, 0, 0);
+			}
+
 		}
 	}
 
@@ -189,10 +195,13 @@ namespace K_Engine {
 	}
 
 	void RigidBody::addForce(Vector3 const& value) {
-		btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
-		Vector3 p = transformRf_->getPosition();
-		btVector3 pos = { (btScalar)p.x,(btScalar)p.y,(btScalar)p.z };
-		rb->applyForce(force, pos);
+		if (transformRf_ != nullptr) {
+			btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
+			Vector3 p = transformRf_->getPosition();
+			btVector3 pos = { (btScalar)p.x,(btScalar)p.y,(btScalar)p.z };
+			rb->applyForce(force, pos);
+		}
+		else forceToAdd += value;
 	}
 
 	void RigidBody::addImpulse(Vector3 const& value) {
