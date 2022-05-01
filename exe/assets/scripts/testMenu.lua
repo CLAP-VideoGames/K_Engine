@@ -59,6 +59,18 @@ testMenu = {
             onClick = "fullScreen"
         }
     },
+    focus = {
+        Transform = {
+            position = "0, 0, 200",
+            rotation = " 0 ,0 ,0 ",
+            scale = " 1.000000 ,1.000000 ,1.000000 ",
+        },
+        Enabled = "true",
+        Focus = {
+            overlayName = "FocusElement",
+            imageName = "SelectorFoco"
+        }
+    },
 }
 
 function changeScene()
@@ -82,4 +94,4 @@ function fullScreen()
     renderMan:fullScreen();
 end
 
-testMenu_entities = { "changeSceneButton", "optionsButton", "exitButton", "fullScreenButton"}
+testMenu_entities = { "changeSceneButton", "optionsButton", "exitButton", "fullScreenButton", "focus"}

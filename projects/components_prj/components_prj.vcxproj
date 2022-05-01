@@ -102,6 +102,7 @@
     <ClCompile Include="..\..\src\components_prj\Animator.cpp" />
     <ClCompile Include="..\..\src\components_prj\AudioSource.cpp" />
     <ClCompile Include="..\..\src\components_prj\Button.cpp" />
+    <ClCompile Include="..\..\src\components_prj\Focus.cpp" />
     <ClCompile Include="..\..\src\components_prj\Image.cpp" />
     <ClCompile Include="..\..\src\components_prj\Light.cpp" />
     <ClCompile Include="..\..\src\components_prj\MeshRenderer.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="..\..\src\components_prj\AudioSource.h" />
     <ClInclude Include="..\..\src\components_prj\Button.h" />
     <ClInclude Include="..\..\src\components_prj\ComponentRegistry.h" />
+    <ClInclude Include="..\..\src\components_prj\Focus.h" />
     <ClInclude Include="..\..\src\components_prj\Image.h" />
     <ClInclude Include="..\..\src\components_prj\Light.h" />
     <ClInclude Include="..\..\src\components_prj\MeshRenderer.h" />

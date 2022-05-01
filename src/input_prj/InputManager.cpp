@@ -100,7 +100,7 @@ namespace K_Engine {
 		flush();
 
 		controller = SDL_GameControllerOpen(0);
-		setDeathZones(5000, 0);
+		setDeathZones(25000, 0);
 	}
 
 	bool InputManager::keyDownEvent() {

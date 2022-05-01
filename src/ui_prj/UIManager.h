@@ -14,6 +14,7 @@ namespace Ogre {
 namespace K_Engine {
 	class UIElement;
 	class RenderManager;
+	class UIImage;
 
 	class  __declspec(dllexport) UIManager {
 	public:
@@ -36,6 +37,11 @@ namespace K_Engine {
 		}
 
 		void cleanElements();
+
+		UIElement* getNextFocusDown(UIElement* focus, int offset);
+		UIElement* getNextFocusUp(UIElement* focus, int offset);
+		UIElement* getNextFocusLeft(UIElement* focus, int offset);
+		UIElement* getNextFocusRight(UIElement* focus, int offset);
 
 	private:
 		static std::unique_ptr<UIManager> instance;

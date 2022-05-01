@@ -101,6 +101,173 @@ namespace K_Engine {
         notCeguiElements.clear();
     }
 
+    UIElement* UIManager::getNextFocusDown(UIElement* focus, int offset)
+    {
+        if (notCeguiElements.size() == 0)
+            return nullptr;
+
+        if (notCeguiElements.size() > 1) {
+            int lesserHeight = 10000;
+            
+            UIElement* topElement = nullptr;
+            int closestDownPosition = 10000;
+            UIElement* closestDownElement = nullptr;
+
+            std::pair<int, int> focusPosition = focus->getPosition();
+
+            for (UIElement* actualElement : notCeguiElements) {
+                if (actualElement->isVisible() && actualElement->getOverlayName() != focus->getOverlayName() &&
+                    actualElement->getPosition().second != focus->getPosition().second + offset/2 && actualElement->getIsInteractive()) {
+                    std::pair<int, int> elementPosition = actualElement->getPosition();
+                    if (lesserHeight > elementPosition.second) {
+                        lesserHeight = elementPosition.second;
+                        topElement = actualElement;
+                    }
+
+                    if (elementPosition.second > focusPosition.second) {
+                        if (closestDownPosition > elementPosition.second) {
+                            closestDownPosition = elementPosition.second;
+                            closestDownElement = actualElement;
+                        }
+                    }
+                    
+                }
+            }
+
+            if (closestDownElement == nullptr)
+                return topElement;
+            else
+                return closestDownElement;
+        }
+
+        return nullptr;
+    }
+
+    UIElement* UIManager::getNextFocusUp(UIElement* focus, int offset)
+    {
+        if (notCeguiElements.size() == 0)
+            return nullptr;
+
+        if (notCeguiElements.size() > 1) {
+            int greaterHeight = -10000;
+
+            UIElement* bottomElement = nullptr;
+            int closestTopPosition = -10000;
+            UIElement* closestTopElement = nullptr;
+
+            std::pair<int, int> focusPosition = focus->getPosition();
+
+            for (UIElement* actualElement : notCeguiElements) {
+                if (actualElement->isVisible() && actualElement->getOverlayName() != focus->getOverlayName() &&
+                    actualElement->getPosition().second != focus->getPosition().second - offset / 2 && actualElement->getIsInteractive()) {
+                    std::pair<int, int> elementPosition = actualElement->getPosition();
+                    if (greaterHeight < elementPosition.second) {
+                        greaterHeight = elementPosition.second;
+                        bottomElement = actualElement;
+                    }
+
+                    if (elementPosition.second < focusPosition.second) {
+                        if (closestTopPosition < elementPosition.second) {
+                            closestTopPosition = elementPosition.second;
+                            closestTopElement = actualElement;
+                        }
+                    }
+
+                }
+            }
+
+            if (closestTopElement == nullptr)
+                return bottomElement;
+            else
+                return closestTopElement;
+        }
+
+        return nullptr;
+    }
+
+    UIElement* UIManager::getNextFocusLeft(UIElement* focus, int offset)
+    {
+        if (notCeguiElements.size() == 0)
+            return nullptr;
+
+        if (notCeguiElements.size() > 1) {
+            int greaterWidth = -10000;
+
+            UIElement* rightestElement = nullptr;
+            int closestLeftPosition = -10000;
+            UIElement* closestLeftElement = nullptr;
+
+            std::pair<int, int> focusPosition = focus->getPosition();
+
+            for (UIElement* actualElement : notCeguiElements) {
+                if (actualElement->isVisible() && actualElement->getOverlayName() != focus->getOverlayName() &&
+                    actualElement->getPosition().first != focus->getPosition().first - offset / 2 && actualElement->getIsInteractive()) {
+                    std::pair<int, int> elementPosition = actualElement->getPosition();
+                    if (greaterWidth < elementPosition.first) {
+                        greaterWidth = elementPosition.first;
+                        rightestElement = actualElement;
+                    }
+
+                    if (elementPosition.first < focusPosition.first) {
+                        if (closestLeftPosition < elementPosition.first) {
+                            closestLeftPosition = elementPosition.first;
+                            closestLeftElement = actualElement;
+                        }
+                    }
+
+                }
+            }
+
+            if (closestLeftElement == nullptr)
+                return rightestElement;
+            else
+                return closestLeftElement;
+        }
+
+        return nullptr;
+    }
+
+    UIElement* UIManager::getNextFocusRight(UIElement* focus, int offset)
+    {
+        if (notCeguiElements.size() == 0)
+            return nullptr;
+
+        if (notCeguiElements.size() > 1) {
+            int lesserWidth = 10000;
+
+            UIElement* leftestElement = nullptr;
+            int closestRightPosition = 10000;
+            UIElement* closestRightElement = nullptr;
+
+            std::pair<int, int> focusPosition = focus->getPosition();
+
+            for (UIElement* actualElement : notCeguiElements) {
+                if (actualElement->isVisible() && actualElement->getOverlayName() != focus->getOverlayName() &&
+                    actualElement->getPosition().first != focus->getPosition().first + offset / 2 && actualElement->getIsInteractive()) {
+                    std::pair<int, int> elementPosition = actualElement->getPosition();
+                    if (lesserWidth > elementPosition.first) {
+                        lesserWidth = elementPosition.first;
+                        leftestElement = actualElement;
+                    }
+
+                    if (elementPosition.first > focusPosition.first) {
+                        if (closestRightPosition > elementPosition.first) {
+                            closestRightPosition = elementPosition.first;
+                            closestRightElement = actualElement;
+                        }
+                    }
+                }
+            }
+
+            if (closestRightElement == nullptr)
+                return leftestElement;
+            else
+                return closestRightElement;
+        }
+
+        return nullptr;
+    }
+
     void UIManager::closeOverlaySystem()
     {
         delete instance.get()->overSystem_; instance.get()->overSystem_ = nullptr;

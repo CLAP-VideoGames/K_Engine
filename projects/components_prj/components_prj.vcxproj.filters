@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\src\components_prj\Slider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\components_prj\Focus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\components_prj\MeshRenderer.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\components_prj\Slider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components_prj\Focus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

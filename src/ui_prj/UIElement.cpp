@@ -17,6 +17,9 @@ namespace K_Engine {
 		overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
 
 		numOverlayElems++;
+
+		isInteractive_ = false;
+		isFocusNow_ = false;
 	}
 
 	UIElement::~UIElement() {
@@ -76,5 +79,29 @@ namespace K_Engine {
 
 	std::pair<int, int> UIElement::getSize() {
 		return { overlayElement_->getWidth(), overlayElement_->getHeight() };
+	}
+	std::string UIElement::getOverlayName()
+	{
+		return overlay_->getName();
+	}
+	bool UIElement::isVisible()
+	{
+		return overlay_->isVisible();
+	}
+	void UIElement::setInteractive(bool isInteractive)
+	{
+		isInteractive_ = isInteractive;
+	}
+	void UIElement::setFocusNow(bool isFocusNow)
+	{
+		isFocusNow_ = isFocusNow;
+	}
+	bool UIElement::getIsInteractive()
+	{
+		return isInteractive_;
+	}
+	bool UIElement::getIsFocusNow()
+	{
+		return isFocusNow_;
 	}
 }

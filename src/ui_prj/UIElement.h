@@ -58,6 +58,15 @@ namespace K_Engine {
 		std::pair<int, int> getPosition();
 		virtual std::pair<int, int> getSize();
 
+		std::string getOverlayName();
+		bool isVisible();
+
+		void setInteractive(bool isInteractive);
+		void setFocusNow(bool isFocusNow);
+
+		bool getIsInteractive();
+		bool getIsFocusNow();
+
 	protected:
 		static int numOverlayElems;
 
@@ -65,6 +74,9 @@ namespace K_Engine {
 
 		Ogre::Overlay* overlay_;
 		Ogre::OverlayContainer* overlayElement_;
+
+		bool isInteractive_;
+		bool isFocusNow_;
 	};
 }
 #endif // UIELEMENT_H

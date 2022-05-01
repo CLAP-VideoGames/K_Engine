@@ -14,6 +14,7 @@
 #include <components_prj/ScrollBar.h>
 #include <components_prj/Text.h>
 #include <components_prj/Slider.h>
+#include <components_prj/Focus.h>
 
 #include <ecs_prj/ComponentManager.h>
 
@@ -34,6 +35,7 @@ namespace K_Engine {
 			compMan->add<K_Engine::ScrollBar>();
 			compMan->add<K_Engine::Text>();
 			compMan->add<K_Engine::Slider>();
+			compMan->add<K_Engine::Focus>();
 		}
 	}
 }

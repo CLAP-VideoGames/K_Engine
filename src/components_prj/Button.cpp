@@ -73,7 +73,8 @@ namespace K_Engine {
 	{
 		transformRf_ = entity->getComponent<Transform>();
 		button_ = UIManager::GetInstance()->addWidget<UIButton>(overlayName_, imageName_, hoverImageName_, pressedImageName_);
-		
+		button_->setInteractive(true);
+
 		syncData();
 	}
 
@@ -81,6 +82,15 @@ namespace K_Engine {
 	{
 		syncData();
 
+		//Gamepad control
+		if (button_->getIsFocusNow()) {
+			if (inputMan->controllerButtonPressed(CONTROLLER_BUTTON_A)) {
+				button_->setMaterial(pressedImageName_);
+				onButtonClick(keyCallback_);
+			}
+		}
+
+		//Mouse control
 		Point pointer; auto pointPos = inputMan->getMousePos();
 		pointer.x = pointPos.first; pointer.y = pointPos.second;
 
