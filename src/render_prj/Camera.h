@@ -37,6 +37,10 @@ namespace K_Engine {
 
 		void update();
 
+		void setBackgroundColor(float r, float g, float b, float a);
+
+		void lookAt(float x, float y, float z);
+
 		// Returns the object Camera
 		Ogre::Camera* getCamera();
 

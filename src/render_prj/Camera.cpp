@@ -66,10 +66,15 @@ namespace K_Engine {
 		mAnchorEntity = anchor;
 	}
 
-	void Camera::update()
-	{
-		//debug();
-		mCameraNode->lookAt(Ogre::Vector3(1.5,1.5,0.0), Ogre::Node::TS_PARENT);
+	void Camera::update(){
+	}
+
+	void Camera::setBackgroundColor(float r, float g, float b, float a){
+		mCamera->getViewport()->setBackgroundColour(Ogre::ColourValue(r, g, b, a));
+	}
+
+	void Camera::lookAt(float x, float y, float z){
+		mCameraNode->lookAt(Ogre::Vector3(x, y, z), Ogre::Node::TS_PARENT);
 	}
 
 	Ogre::Camera* Camera::getCamera()
@@ -102,8 +107,7 @@ namespace K_Engine {
 		mCameraNode->roll(Ogre::Degree(angle));
 	}
 
-	void Camera::debug()
-	{
+	void Camera::debug() {
 		if (mAnchorEntity != nullptr && !debugMovement) mCameraNode->lookAt(mAnchorEntity->getPosition(), Ogre::Node::TS_PARENT);
 
 		if (InputManager::GetInstance()->isKeyDown(K_Engine_Keycode::KEY_a)) yaw(-0.10);
