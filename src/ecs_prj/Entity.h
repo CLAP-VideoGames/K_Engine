@@ -109,7 +109,7 @@ namespace K_Engine {
 		void start();
 
 		//Destroy this object and all its components
-		void destroy(EntityManager* entMan);
+		void destroy();
 
 		//Add an entity to the children vector
 		void addChild(Entity* child);
