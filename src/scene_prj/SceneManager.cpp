@@ -46,8 +46,11 @@ namespace K_Engine {
 	}
 
 	void SceneManager::popScene() {
-		scenes.top()->hideElements();
-		scenes.pop();
+		if (scenes.size() < 2)
+			return;
+
+			scenes.top()->hideElements();
+			scenes.pop();
 	}
 
 	void SceneManager::pushScene(Scene* newS) {
@@ -73,6 +76,9 @@ namespace K_Engine {
 	}
 
 	void SceneManager::popSceneStr(std::string scene) {
+		if (scenes.size() < 2)
+			return;
+
 		while (scenes.top()->getName() != scene)
 			popScene();
 

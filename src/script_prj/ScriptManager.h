@@ -73,7 +73,9 @@ namespace K_Engine {
         luabridge::LuaRef getLuaFunction(std::string funcName);
         //Llamada a una función de lua
         template<typename ...Ts>
-        void callLuaFunction(std::string funcName, Ts &&... args);
+        void callLuaFunction(std::string funcName, Ts &&... args) {
+
+        };
         void callLuaCallback(std::string funcName);
 
     private:

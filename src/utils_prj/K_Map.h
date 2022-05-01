@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <string>
 #include <functional>
+#include <script_prj/ScriptManager.h>
 //#include <utils_prj/Vector3.h>
 
 
@@ -40,6 +41,15 @@ namespace K_Engine {
 		/// <param name="value"></param>
 		/// <returns></returns>
 		std::function<void(std::string)> valueToCallback(std::string value);
+		
+		template<typename ...Ts>
+		std::function<void(std::string, Ts &&... args)> valueToFunction(std::string keyValue, Ts &&... args) {
+			std::function<void(std::string, Ts &&... args)> f = [=](std::string keyValue, Ts &&... args) {
+				ScriptManager::GetInstance()->callLuaFunction(keyValue, args...);
+			};
+
+			return f;
+		};
 
 	private:
 

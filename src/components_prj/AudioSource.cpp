@@ -21,10 +21,10 @@ namespace K_Engine {
 
 	AudioSource::AudioSource(Entity* e) : Component(e) {}
 
-	AudioSource::AudioSource(Entity* e, AudioType type, char* path, int vol, bool loop, bool start) {
+	AudioSource::AudioSource(Entity* e, AudioType type, std::string path, float vol, bool loop, bool start) {
 		audio = new Audio;
 
-		audio->audio_path = path;
+		audio->audio_path = path.c_str();
 		audio->type = type;
 
 		volume = vol;

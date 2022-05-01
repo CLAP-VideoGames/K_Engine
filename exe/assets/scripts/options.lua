@@ -9,7 +9,8 @@ options = {
         Slider = {
             overlayName = "SliderVolumen",
             imageName = "DefaultButton",
-            width = "500"
+            width = "500",
+            onSliderClick = "setMasterVolume"
         }
     },
     popSceneButton = {
@@ -30,10 +31,13 @@ options = {
 }
 
 function popScene()
-    print("Vuelta al menu")
     local sceneMan = SceneManager.getSceneMan();
     sceneMan:popScene("testMenu");
 end
 
+function setMasterVolume(volume)
+    local audioMan = AudioManager.getAudioMan();
+    audioMan:setMasterVolume(volume);
+end
 
 options_entities = {"sliderVolume", "popSceneButton"}

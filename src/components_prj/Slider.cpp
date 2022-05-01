@@ -51,6 +51,8 @@ namespace K_Engine {
 		imageName_ = information->value("imageName");
 		width = information->valueToNumber("width");
 
+		onSliderClick = information->valueToFunction(keyCallback_, 1.0f);
+
 		inputArea = new Rectangle();
 
 		inputMan = K_Engine::InputManager::GetInstance();
@@ -110,7 +112,7 @@ namespace K_Engine {
 					slider_->setLeft(pointer.x);
 					progressBar_->setProgress(slider_->getRelativePos());
 					if (onSliderClick != nullptr)
-						onSliderClick(keyCallback_);
+						onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
 				}
 			}
 		}
@@ -126,7 +128,7 @@ namespace K_Engine {
 		//ZOrder syncing
 		slider_->setRenderOrder(transformRf_->getPosition().z + 10);
 	}
-	void Slider::setSliderClick(std::function<void(std::string)> function)
+	void Slider::setSliderClick(std::function<void(std::string, float)> function)
 	{
 		onSliderClick = function;
 	}

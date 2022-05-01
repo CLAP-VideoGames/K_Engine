@@ -60,7 +60,9 @@ namespace K_Engine {
 		/// Sets a function to be called when button is pressed
 		/// </summary>
 		/// <param name="Function">Function to be called, declaration example: void Function();</param>
-		void setSliderClick(std::function<void(std::string)> function);
+		void setSliderClick(std::function<void(std::string, float)> function);
+
+		
 
 	private:
 		//Required
@@ -90,7 +92,7 @@ namespace K_Engine {
 		ProgressBar* background_;
 
 		//Function callback
-		std::function<void(std::string)> onSliderClick = nullptr;
+		std::function<void(std::string,float)> onSliderClick = nullptr;
 		std::string keyCallback_;
 	};
 }

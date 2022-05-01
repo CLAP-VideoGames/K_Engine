@@ -3,6 +3,7 @@
 #define AUDIOSOURCE_H
 
 #include <ecs_prj/Component.h>
+#include <string>
 
 typedef struct _Mix_Music Mix_Music;
 class Mix_Chunk;
@@ -17,7 +18,7 @@ namespace K_Engine {
 	public:
 		AudioSource();
 		AudioSource(Entity* e);
-		AudioSource(Entity* e, AudioType type, char* path, int vol, bool loop, bool start);
+		AudioSource(Entity* e, AudioType type, std::string path, float vol, bool loop, bool start);
 
 		virtual ~AudioSource();
 
@@ -49,7 +50,7 @@ namespace K_Engine {
 		K_Engine::AudioManager* audioMan;
 
 		Audio* audio;
-		int volume; // Volume of audio
+		float volume; // Volume of audio
 
 		bool loopable, playStart;
 		bool playing, paused;
