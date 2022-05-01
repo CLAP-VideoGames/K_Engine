@@ -5,6 +5,7 @@
 #include <memory>
 #include <unordered_map>
 #include <string>
+#include <vector>
 
 typedef struct _Mix_Music Mix_Music;
 class Mix_Chunk;
@@ -23,6 +24,7 @@ namespace K_Engine {
 			Mix_Music* mus; // OGG file (MP3 and other files not available)
 		};
 		int channel;
+		float volume;
 	};
 
 	class  __declspec(dllexport) AudioManager {
@@ -38,7 +40,7 @@ namespace K_Engine {
 		Mix_Chunk* loadSFX(const char* path);
 		Mix_Music* loadMUS(const char* path);
 
-		void play(Audio* aud, float vol, int loop = 0);
+		void play(Audio* aud, int loop = 0);
 		void pause(Audio* aud);
 		void resume(Audio* aud);
 		void stop(Audio* aud);
@@ -58,9 +60,13 @@ namespace K_Engine {
 
 		// 0 -> muted; 1 -> full
 		float masterVolume, musicVolume, sfxVolume;
+		std::vector<Audio*> playingAudios;
 
 		void initAudio();
 		void closeAudio();
+
+		void setVolume();
+		void removePlayingAudio(Audio* aud);
 	};
 }
 #endif // AUDIOMANAGER_H

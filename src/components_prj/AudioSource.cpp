@@ -27,7 +27,7 @@ namespace K_Engine {
 		audio->audio_path = path;
 		audio->type = type;
 
-		volume = vol;
+		audio->volume = vol;
 
 		loopable = loop;
 		playStart = start;
@@ -35,7 +35,10 @@ namespace K_Engine {
 		playing = false; paused = false;
 	}
 
-	AudioSource::~AudioSource() = default;
+	AudioSource::~AudioSource() {
+		stop();
+		delete audio;
+	}
 
 	void AudioSource::init(K_Map* information) {
 		audio = new Audio;
@@ -43,7 +46,7 @@ namespace K_Engine {
 		audio->audio_path = information->value("path").c_str();
 		audio->type = (AudioType)information->valueToNumber("type");
 
-		volume = information->valueToNumber("volume");
+		audio->volume = information->valueToNumber("volume");
 
 		loopable = information->valueToBool("loopable");
 		playStart = information->valueToBool("playOnStart");
@@ -69,12 +72,16 @@ namespace K_Engine {
 		paused = playing ? paused : playing;
 	}
 
+	void AudioSource::onDisable() {
+		stop();
+	}
+
 	/// <summary>
 	/// If there's another song playing already, it will be replaced by the new one
 	/// </summary>
 	void AudioSource::play() {
 		if (!playing) {
-			audioMan->play(audio, volume, loopable ? -1 : 0);
+			audioMan->play(audio, loopable ? -1 : 0);
 			playing = true;
 		}
 	}
@@ -113,13 +120,13 @@ namespace K_Engine {
 	/// Set the volume for Music and Sound Effects
 	/// </summary>
 	void AudioSource::setVolume(float vol) {
-		volume = vol;
+		audio->volume = vol;
 	}
 
 	/// <summary>
 	/// Returns the volume of the Music
 	/// </summary>
 	float AudioSource::getVolume() {
-		return volume;
+		return audio->volume;
 	}
 }
