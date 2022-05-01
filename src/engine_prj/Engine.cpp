@@ -241,7 +241,7 @@ namespace K_Engine {
 
 	void Engine::debug() {
 		//Carga de escena
-		Scene* exampleScene2 = new Scene("options");
+		Scene* exampleScene2 = new Scene("testMenu");
 		exampleScene2->init();
 		sceneMan->pushScene(exampleScene2);
 	}

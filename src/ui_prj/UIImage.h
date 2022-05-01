@@ -10,6 +10,8 @@ namespace K_Engine {
 	public:
 		UIImage(std::string overlayName, std::string imageName);
 		virtual ~UIImage();
+
+		void setDimensions(int width, int height);
 	};
 }
 #endif // UIIMAGE_H

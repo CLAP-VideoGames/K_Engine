@@ -70,6 +70,8 @@ namespace K_Engine {
 
 		int imageOffset;
 
+		bool canChangeFocus_;
+
 		void syncData();
 		void processMovement();
 	};

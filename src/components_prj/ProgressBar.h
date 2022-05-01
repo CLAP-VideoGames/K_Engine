@@ -67,6 +67,10 @@ namespace K_Engine {
 
 		void setCustomRenderOrder(int customNewOrder);
 
+		void setInteractive(bool interactive);
+
+		bool getIsFocus();
+
 	private:
 		//Required
 		static std::string name;
@@ -84,6 +88,8 @@ namespace K_Engine {
 
 		bool customRenderOrder = false;
 		int customOrder;
+
+		bool interactive_;
 	};
 }
 #endif PROGRESSBAR_H

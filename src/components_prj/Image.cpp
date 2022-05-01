@@ -27,6 +27,8 @@ namespace K_Engine {
 	Image::Image(Entity* e, std::string overlayName, std::string imageName) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
+
+		interactive_ = false;
 	}
 
 	Image::~Image() = default;
@@ -35,6 +37,8 @@ namespace K_Engine {
 	{
 		overlayName_ = information->value("overlayName");
 		imageName_ = information->value("imageName");
+
+		interactive_ = false;
 	}
 
 	void Image::onEnable()
@@ -53,11 +57,32 @@ namespace K_Engine {
 		transformRf_ = entity->getComponent<Transform>();
 
 		image_ = UIManager::GetInstance()->addWidget<UIImage>(overlayName_, imageName_);
+		image_->setDimensions(width_, height_);
+		image_->setInteractive(interactive_);
 		syncData();
 	}
 
 	void Image::update(int frameTime) {
 		syncData();
+	}
+
+	void Image::setInteractive(bool interactive)
+	{
+		interactive_ = interactive;
+	}
+	bool Image::getIsFocus()
+	{
+		return image_->getIsFocusNow();
+	}
+
+	void Image::setDimensions(int width, int height)
+	{
+		if (image_ != nullptr)
+			image_->setDimensions(width, height);
+		else {
+			width_ = width;
+			height_ = height;
+		}
 	}
 
 	void Image::syncData()

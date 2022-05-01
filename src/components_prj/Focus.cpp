@@ -37,6 +37,7 @@ namespace K_Engine {
 		timerToUpdate = new Timer();
 
 		imageOffset = 100;
+		canChangeFocus_ = true;
 	}
 
 	Focus::~Focus() {
@@ -55,6 +56,7 @@ namespace K_Engine {
 		timerToUpdate = new Timer();
 
 		imageOffset = 100;
+		canChangeFocus_ = true;
 	}
 
 	void Focus::onDisable()
@@ -63,6 +65,7 @@ namespace K_Engine {
 		image_->setTop(0);
 		transformRf_->setPosition(0, 0, transformRf_->getPosition().z);
 		image_->hide();
+		canChangeFocus_ = true;
 	}
 
 	void Focus::start()
@@ -97,76 +100,87 @@ namespace K_Engine {
 	}
 	void Focus::processMovement()
 	{
-		if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) != 0 ||
-			inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_LEFT) ||
-			inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_RIGHT)) {
-			if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) < 0 ||
-				inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_LEFT)) {
-				//Mover a la izquierda
-				image_->show();
-				UIElement* elementToMoveTo = uiManager->getNextFocusLeft(image_, imageOffset);
-				if (elementToMoveTo != nullptr) {
-					if (currentElement != nullptr)
-						currentElement->setFocusNow(false);
-					transformRf_->setPosition(elementToMoveTo->getPosition().first - imageOffset/2,
-						elementToMoveTo->getPosition().second - imageOffset/2,
-						transformRf_->getPosition().z);
-					image_->setSize(elementToMoveTo->getSize().first + imageOffset, elementToMoveTo->getSize().second + imageOffset);
-					elementToMoveTo->setFocusNow(true);
-					currentElement = elementToMoveTo;
-				}
-			}
-			else if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) > 0 ||
+		if (canChangeFocus_) {
+			if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) != 0 ||
+				inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_LEFT) ||
 				inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_RIGHT)) {
-				//Mover a la derecha
-				image_->show();
-				UIElement* elementToMoveTo = uiManager->getNextFocusRight(image_, imageOffset);
-				if (elementToMoveTo != nullptr) {
-					if (currentElement != nullptr)
-						currentElement->setFocusNow(false);
-					transformRf_->setPosition(elementToMoveTo->getPosition().first - imageOffset / 2,
-						elementToMoveTo->getPosition().second - imageOffset / 2,
-						transformRf_->getPosition().z);
-					image_->setSize(elementToMoveTo->getSize().first + imageOffset, elementToMoveTo->getSize().second + imageOffset);
-					elementToMoveTo->setFocusNow(true);
-					currentElement = elementToMoveTo;
+				if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) < 0 ||
+					inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_LEFT)) {
+					//Mover a la izquierda
+					image_->show();
+					UIElement* elementToMoveTo = uiManager->getNextFocusLeft(image_, imageOffset);
+					if (elementToMoveTo != nullptr) {
+						if (currentElement != nullptr)
+							currentElement->setFocusNow(false);
+						transformRf_->setPosition(elementToMoveTo->getPosition().first - imageOffset / 2,
+							elementToMoveTo->getPosition().second - imageOffset / 2,
+							transformRf_->getPosition().z);
+						image_->setSize(elementToMoveTo->getSize().first + imageOffset, elementToMoveTo->getSize().second + imageOffset);
+						elementToMoveTo->setFocusNow(true);
+						currentElement = elementToMoveTo;
+					}
+				}
+				else if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) > 0 ||
+					inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_RIGHT)) {
+					//Mover a la derecha
+					image_->show();
+					UIElement* elementToMoveTo = uiManager->getNextFocusRight(image_, imageOffset);
+					if (elementToMoveTo != nullptr) {
+						if (currentElement != nullptr)
+							currentElement->setFocusNow(false);
+						transformRf_->setPosition(elementToMoveTo->getPosition().first - imageOffset / 2,
+							elementToMoveTo->getPosition().second - imageOffset / 2,
+							transformRf_->getPosition().z);
+						image_->setSize(elementToMoveTo->getSize().first + imageOffset, elementToMoveTo->getSize().second + imageOffset);
+						elementToMoveTo->setFocusNow(true);
+						currentElement = elementToMoveTo;
+					}
 				}
 			}
-		}else if(inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTY) != 0 ||
-			inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_UP) ||
-			inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_DOWN)) {
-			if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTY) < 0 ||
-				inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_UP)) {
-				//Mover arriba
-				image_->show();
-				UIElement* elementToMoveTo = uiManager->getNextFocusUp(image_, imageOffset);
-				if (elementToMoveTo != nullptr) {
-					if (currentElement != nullptr)
-						currentElement->setFocusNow(false);
-					transformRf_->setPosition(elementToMoveTo->getPosition().first - imageOffset / 2,
-						elementToMoveTo->getPosition().second - imageOffset / 2,
-						transformRf_->getPosition().z);
-					image_->setSize(elementToMoveTo->getSize().first + imageOffset, elementToMoveTo->getSize().second + imageOffset);
-					elementToMoveTo->setFocusNow(true);
-					currentElement = elementToMoveTo;
-				}
-			}
-			else if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTY) > 0 ||
+			else if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTY) != 0 ||
+				inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_UP) ||
 				inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_DOWN)) {
-				//Mover abajo
-				image_->show();
-				UIElement* elementToMoveTo = uiManager->getNextFocusDown(image_, imageOffset);
-				if (elementToMoveTo != nullptr) {
-					if (currentElement != nullptr)
-						currentElement->setFocusNow(false);
-					transformRf_->setPosition(elementToMoveTo->getPosition().first - imageOffset / 2,
-						elementToMoveTo->getPosition().second - imageOffset / 2,
-						transformRf_->getPosition().z);
-					image_->setSize(elementToMoveTo->getSize().first + imageOffset, elementToMoveTo->getSize().second + imageOffset);
-					elementToMoveTo->setFocusNow(true);
-					currentElement = elementToMoveTo;
+				if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTY) < 0 ||
+					inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_UP)) {
+					//Mover arriba
+					image_->show();
+					UIElement* elementToMoveTo = uiManager->getNextFocusUp(image_, imageOffset);
+					if (elementToMoveTo != nullptr) {
+						if (currentElement != nullptr)
+							currentElement->setFocusNow(false);
+						transformRf_->setPosition(elementToMoveTo->getPosition().first - imageOffset / 2,
+							elementToMoveTo->getPosition().second - imageOffset / 2,
+							transformRf_->getPosition().z);
+						image_->setSize(elementToMoveTo->getSize().first + imageOffset, elementToMoveTo->getSize().second + imageOffset);
+						elementToMoveTo->setFocusNow(true);
+						currentElement = elementToMoveTo;
+					}
+				}
+				else if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTY) > 0 ||
+					inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_DOWN)) {
+					//Mover abajo
+					image_->show();
+					UIElement* elementToMoveTo = uiManager->getNextFocusDown(image_, imageOffset);
+					if (elementToMoveTo != nullptr) {
+						if (currentElement != nullptr)
+							currentElement->setFocusNow(false);
+						transformRf_->setPosition(elementToMoveTo->getPosition().first - imageOffset / 2,
+							elementToMoveTo->getPosition().second - imageOffset / 2,
+							transformRf_->getPosition().z);
+						image_->setSize(elementToMoveTo->getSize().first + imageOffset, elementToMoveTo->getSize().second + imageOffset);
+						elementToMoveTo->setFocusNow(true);
+						currentElement = elementToMoveTo;
+					}
 				}
 			}
+		}
+
+		if (inputMan->controllerButtonPressed(CONTROLLER_BUTTON_A)) {
+			canChangeFocus_ = !canChangeFocus_;
+		}
+		else {
+			if (inputMan->controllerButtonPressed(CONTROLLER_BUTTON_B))
+				canChangeFocus_ = true;
 		}
 	}
 }

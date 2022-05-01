@@ -13,6 +13,7 @@ namespace K_Engine {
 	class InputManager;
 	struct Rectangle;
 	class ProgressBar;
+	class Image;
 	/// <summary>
 	/// This class provides an entity with a UiScrollBar component
 	/// </summary>
@@ -88,8 +89,10 @@ namespace K_Engine {
 
 		bool pressed_;
 
+		bool controllerChangingValue;
+
 		ProgressBar* progressBar_;
-		ProgressBar* background_;
+		Image* background_;
 
 		//Function callback
 		std::function<void(std::string,float)> onSliderClick = nullptr;

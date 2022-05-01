@@ -36,7 +36,19 @@ options = {
             loopable = "true",
             playOnStart = "true"
         }
-    }
+    },
+    focusOptions = {
+        Transform = {
+            position = "0, 0, 200",
+            rotation = " 0 ,0 ,0 ",
+            scale = " 1.000000 ,1.000000 ,1.000000 ",
+        },
+        Enabled = "true",
+        Focus = {
+            overlayName = "FocusElementOptions",
+            imageName = "SelectorFoco"
+        }
+    },
 }
 
 function popScene()
@@ -46,7 +58,7 @@ end
 
 function setMasterVolume(volume)
     local audioMan = AudioManager.getAudioMan();
-    audioMan:setMasterVolume(0.5);
+    audioMan:setMasterVolume(volume);
 end
 
-options_entities = {"sliderVolume", "popSceneButton", "audio"}
+options_entities = {"sliderVolume", "popSceneButton", "audio", "focusOptions"}
