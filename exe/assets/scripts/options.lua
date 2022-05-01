@@ -28,6 +28,15 @@ options = {
             onClick = "popScene"
         }
     },
+    audio = {
+        AudioSource = {
+            path = "./assets/sounds/samba_UCM.ogg",
+            type = "1",
+            volume = "1",
+            loopable = "true",
+            playOnStart = "true"
+        }
+    }
 }
 
 function popScene()
@@ -37,7 +46,7 @@ end
 
 function setMasterVolume(volume)
     local audioMan = AudioManager.getAudioMan();
-    audioMan:setMasterVolume(volume);
+    audioMan:setMasterVolume(0.5);
 end
 
-options_entities = {"sliderVolume", "popSceneButton"}
+options_entities = {"sliderVolume", "popSceneButton", "audio"}

@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <string>
 
 typedef struct _Mix_Music Mix_Music;
 class Mix_Chunk;
@@ -15,7 +16,7 @@ namespace K_Engine {
 	};
 
 	struct Audio {
-		const char* audio_path;
+		std::string audio_path;
 		AudioType type;
 		union {
 			Mix_Chunk* sfx; // Wav file
@@ -37,7 +38,7 @@ namespace K_Engine {
 		Mix_Chunk* loadSFX(const char* path);
 		Mix_Music* loadMUS(const char* path);
 
-		void play(Audio* aud, int vol, int loop = 0);
+		void play(Audio* aud, float vol, int loop = 0);
 		void pause(Audio* aud);
 		void resume(Audio* aud);
 		void stop(Audio* aud);

@@ -51,6 +51,7 @@ namespace K_Engine {
 		imageName_ = information->value("imageName");
 		width = information->valueToNumber("width");
 
+		keyCallback_ = information->value("onSliderClick");
 		onSliderClick = information->valueToFunction(keyCallback_, 1.0f);
 
 		inputArea = new Rectangle();

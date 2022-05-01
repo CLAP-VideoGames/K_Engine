@@ -42,13 +42,13 @@ namespace K_Engine {
 		/// <returns></returns>
 		std::function<void(std::string)> valueToCallback(std::string value);
 		
-		template<typename ...Ts>
-		std::function<void(std::string, Ts &&... args)> valueToFunction(std::string keyValue, Ts &&... args) {
-			std::function<void(std::string, Ts &&... args)> f = [=](std::string keyValue, Ts &&... args) {
-				ScriptManager::GetInstance()->callLuaFunction(keyValue, args...);
+		//template<typename ...Ts>
+		std::function<void(std::string, float)> valueToFunction(std::string keyValue, float f) {
+			std::function<void(std::string, float)> func = [=](std::string keyValue, float f) {
+				ScriptManager::GetInstance()->callLuaFunction(keyValue, f);
 			};
 
-			return f;
+			return func;
 		};
 
 	private:

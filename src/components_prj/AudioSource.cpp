@@ -24,7 +24,7 @@ namespace K_Engine {
 	AudioSource::AudioSource(Entity* e, AudioType type, std::string path, float vol, bool loop, bool start) {
 		audio = new Audio;
 
-		audio->audio_path = path.c_str();
+		audio->audio_path = path;
 		audio->type = type;
 
 		volume = vol;
@@ -46,7 +46,7 @@ namespace K_Engine {
 		volume = information->valueToNumber("volume");
 
 		loopable = information->valueToBool("loopable");
-		playStart = information->valueToBool("playStart");
+		playStart = information->valueToBool("playOnStart");
 
 		playing = false; paused = false;
 	}
@@ -56,9 +56,9 @@ namespace K_Engine {
 		audioMan = AudioManager::GetInstance();
 
 		if (audio->type == AudioType::SOUND_EFFECT) 
-			audio->sfx = audioMan->loadSFX(audio->audio_path);
+			audio->sfx = audioMan->loadSFX(audio->audio_path.c_str());
 		else
-			audio->mus = audioMan->loadMUS(audio->audio_path);
+			audio->mus = audioMan->loadMUS(audio->audio_path.c_str());
 
 		if (playStart)
 			play();

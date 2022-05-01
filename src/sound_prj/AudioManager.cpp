@@ -71,7 +71,7 @@ namespace K_Engine {
 
 	//-------------------------------------------------------------------------------
 
-	void AudioManager::play(Audio* aud, int vol, int loop)
+	void AudioManager::play(Audio* aud, float vol, int loop)
 	{
 		if (aud->type == AudioType::SOUND_EFFECT) {
 			Mix_VolumeChunk(aud->sfx, masterVolume * sfxVolume * vol * MIX_MAX_VOLUME);

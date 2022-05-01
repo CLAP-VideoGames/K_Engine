@@ -244,6 +244,12 @@ namespace K_Engine {
 		return getGlobal(luaState, funcName.c_str());
 	}
 
+	void ScriptManager::callLuaFunction(std::string funcName, float value)
+	{
+		LuaRef f = getLuaFunction(funcName);
+		f(value);
+	}
+
 	void ScriptManager::callLuaCallback(std::string funcName)
 	{
 		LuaRef f = getLuaFunction(funcName);
