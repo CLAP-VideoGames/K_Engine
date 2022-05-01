@@ -77,6 +77,10 @@ namespace K_Engine {
 		//Left button pressed
 		bool getLeftMouseButtonPressed();
 
+		bool isMouseButtonUp() const;
+
+		bool isMouseButtonDown() const;
+
 		//Return the amount scroll of the mouse
 		float mouseScroll();
 
@@ -102,6 +106,8 @@ namespace K_Engine {
 		bool isMouseButtonHeldDown_ = false;
 		bool isRightMousePressed_ = false;
 		bool isLeftMousePressed_ = false;
+		bool isMouseButtonDown_ = false;
+		bool isMouseButtonUp_ = false;
 
 		//Editable deathZone for our joySticks
 		float deathZoneLeftJoy = 3000;

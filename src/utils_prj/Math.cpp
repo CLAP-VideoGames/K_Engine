@@ -6,6 +6,9 @@
 #include <utils_prj/Vector3.h>
 
 namespace K_Engine {
+
+	const double Math::PI = 3.1415926;
+
 	void Math::initSeed() {
 		srand((unsigned)time(NULL));
 	}

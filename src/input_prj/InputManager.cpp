@@ -68,9 +68,13 @@ namespace K_Engine {
 				onMouseMotion(event);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
+				isMouseButtonDown_ = true;
+				isMouseButtonUp_ = false;
 				onMouseButtonChange(event, true);
 				break;
 			case SDL_MOUSEBUTTONUP:
+				isMouseButtonDown_ = false;
+				isMouseButtonUp_ = true;
 				onMouseButtonChange(event, false);
 				break;
 			case SDL_MOUSEWHEEL:
@@ -80,7 +84,6 @@ namespace K_Engine {
 				break;
 			}
 		}
-
 		return true;
 	}
 
@@ -191,6 +194,14 @@ namespace K_Engine {
 
 	bool InputManager::getLeftMouseButtonPressed() {
 		return isLeftMousePressed_;
+	}
+
+	bool InputManager::isMouseButtonUp() const{
+		return isMouseButtonUp_;
+	}
+
+	bool InputManager::isMouseButtonDown() const {
+		return isMouseButtonDown_;
 	}
 
 	float InputManager::mouseScroll() {
