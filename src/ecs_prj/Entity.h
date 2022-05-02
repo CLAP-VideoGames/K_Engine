@@ -53,14 +53,12 @@ namespace K_Engine {
 
 		//Templete to check if an Entity has an specific component
 		template <typename T>
-		void hasComponent() {
+		bool hasComponent() {
 			std::string compName = getComponentName<T>();
 
 			auto iterator = components.find(compName);
 
-			if (iterator != components.end()) return true;
-
-			return false;
+			return (iterator != components.end());
 		}
 
 		//Template to add any Component to our Entity
@@ -111,7 +109,7 @@ namespace K_Engine {
 		void start();
 
 		//Destroy this object and all its components
-		void destroy(EntityManager* entMan);
+		void destroy();
 
 		//Add an entity to the children vector
 		void addChild(Entity* child);

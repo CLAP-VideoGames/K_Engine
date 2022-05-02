@@ -28,6 +28,16 @@ namespace K_Engine {
 		return Vector3(this->x / other.x, this->y / other.y, this->z / other.z);
 	}
 
+	bool Vector3::operator!=(Vector3 const& other)
+	{
+		return !(*this == other);
+	}
+
+	bool Vector3::operator==(Vector3 const& other)
+	{
+		return x == other.x && y == other.y && z == other.z;
+	}
+
 	void Vector3::operator+=(Vector3 const& other)
 	{
 		this->x += other.x;
