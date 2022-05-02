@@ -10,7 +10,7 @@ namespace K_Engine {
 	class UISlider : public UIElement
 	{
 	public:
-		UISlider(std::string overlayName, std::string imageName, int y, int left, int right);
+		UISlider(std::string overlayName, std::string imageName, int y, int left, int right, int initialPosition);
 		virtual ~UISlider();
 
 		double getRelativePos();
