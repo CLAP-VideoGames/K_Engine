@@ -158,11 +158,11 @@ namespace K_Engine {
 			throw SDL_GetError();
 
 		// this could be used to check display resolution
-		//SDL_DisplayMode info; SDL_GetDesktopDisplayMode(0, &info);
-		//window_width = info.w; window_height = info.h;
+		SDL_DisplayMode info; SDL_GetDesktopDisplayMode(0, &info);
+		window_width = info.w; window_height = info.h;
 
 		fullScreen = false;
-		window_width = 1920, window_height = 1080;
+		//window_width = 1920, window_height = 1080;
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
 		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, flags);
 		if(!mSDLWin)

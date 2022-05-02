@@ -10,13 +10,13 @@
 
 namespace K_Engine {
 
-	UISlider::UISlider(std::string overlayName, std::string imageName, int y, int left, int right) : UIElement()
+	UISlider::UISlider(std::string overlayName, std::string imageName, int y, int left, int right, int initialPosition) : UIElement()
 	{
 		//Initialization of everything that ogre needs to show something
 		//Default settings
 		overlayElement_ = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", imageName + std::to_string(numOverlayElems)));
-		overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
-		overlayElement_->setPosition(right - (right - left) / 10, y);
+		overlayElement_->setMetricsMode(Ogre::GMM_RELATIVE);
+		overlayElement_->setPosition(left + (right - left - (right - left) / 10) * initialPosition, y);
 
 		//DefaultMaterial
 		overlayElement_->setMaterialName(imageName);

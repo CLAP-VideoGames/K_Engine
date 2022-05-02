@@ -16,6 +16,8 @@
 #include <input_prj/InputManager.h>
 #include <utils_prj/K_Map.h>
 
+#include <sound_prj/AudioManager.h>
+
 namespace K_Engine {
 	//Required
 	std::string Slider::name = "Slider";
@@ -81,10 +83,14 @@ namespace K_Engine {
 		leftLimit_ = transformRf_->getPosition().x;
 		rightLimit_ = leftLimit_ + width;
 		y_ = transformRf_->getPosition().y;
-		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, y_, leftLimit_, rightLimit_);
+
+		initialPosition = AudioManager::GetInstance()->getMasterVolume();
+
+		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, y_, leftLimit_, rightLimit_, initialPosition);
 
 		progressBar_ = entity->addComponent<ProgressBar>(overlayName_ + " progress", "DefaultProgressBar", rightLimit_-leftLimit_, 20);
 		progressBar_->setCustomRenderOrder(5);
+		progressBar_->setProgress(slider_->getRelativePos());
 
 		background_ = entity->addComponent<Image>(overlayName_ + " background", "GreenDefaultProgressBar");
 		background_->setDimensions(rightLimit_ - leftLimit_, 20);

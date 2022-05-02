@@ -3,6 +3,7 @@
 #define RIGIDBODY_H
 
 #include <ecs_prj/Component.h>
+#include <utils_prj/Vector3.h>
 
 class btCollisionShape;
 class btRigidBody;
@@ -164,6 +165,9 @@ namespace K_Engine {
 		//Info
 		K_Engine::CollisionInfo* collisionInfo = nullptr;
 		
+		//Vector to forces when start is not called yet
+		Vector3 forceToAdd;
+
 		//Boolean to control if the associated trigger is a trigger or not (default is false)
 		bool isTrigger = false;
 		//Mass of the body

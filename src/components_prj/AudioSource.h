@@ -33,6 +33,8 @@ namespace K_Engine {
 		/// </summary> 
 		virtual void update(int frameTime);
 
+		virtual void onDisable();
+
 		// Play Audio
 		void play();
 		void pause();
@@ -50,7 +52,6 @@ namespace K_Engine {
 		K_Engine::AudioManager* audioMan;
 
 		Audio* audio;
-		float volume; // Volume of audio
 
 		bool loopable, playStart;
 		bool playing, paused;

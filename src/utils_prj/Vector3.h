@@ -15,6 +15,8 @@ namespace K_Engine {
 		Vector3 operator-(Vector3 const& other);
 		Vector3 operator*(Vector3 const& other);
 		Vector3 operator/(Vector3 const& other);
+		bool operator!=(Vector3 const& other);
+		bool operator==(Vector3 const& other);
 		void operator+=(Vector3 const& other);
 		void operator-=(Vector3 const& other);
 		double& operator[](int);

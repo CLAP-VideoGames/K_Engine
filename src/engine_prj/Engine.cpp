@@ -1,6 +1,5 @@
 #include "Engine.h"
 
-
 //////#define DEVELOPMENT
 
 #include <stdio.h>
@@ -84,7 +83,7 @@ namespace K_Engine {
 		try {
 			// render setup
 			renderMan->locateResources("./resources.cfg");
-			//renderMan->setFullScreen();
+			renderMan->setFullScreen();
 
 			// physics setup
 			physicsMan->registerDefaultLayers();
@@ -167,9 +166,9 @@ namespace K_Engine {
 		bool success = K_Engine::ComponentManager::Shutdown() &&
 			K_Engine::InputManager::Shutdown() &&
 			K_Engine::ScriptManager::Shutdown() &&
-			K_Engine::AudioManager::Shutdown() &&
 			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::SceneManager::Shutdown() && // after PhysicsManager because if not it'd mean runtime error on callbacks
+			K_Engine::AudioManager::Shutdown() &&
 			K_Engine::UIManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();
 

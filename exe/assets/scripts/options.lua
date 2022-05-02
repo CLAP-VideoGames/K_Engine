@@ -28,15 +28,6 @@ options = {
             onClick = "popScene"
         }
     },
-    audio = {
-        AudioSource = {
-            path = "./assets/sounds/samba_UCM.ogg",
-            type = "1",
-            volume = "1",
-            loopable = "true",
-            playOnStart = "true"
-        }
-    },
     focusOptions = {
         Transform = {
             position = "0, 0, 200",
@@ -49,6 +40,15 @@ options = {
             imageName = "SelectorFoco"
         }
     },
+    audio = {
+        AudioSource = {
+            path = "./assets/sounds/samba_UCM.ogg",
+            type = "1",
+            volume = "1",
+            loopable = "true",
+            playOnStart = "true"
+        }
+    }
 }
 
 function popScene()

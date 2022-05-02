@@ -71,17 +71,19 @@ namespace K_Engine {
 
 	//-------------------------------------------------------------------------------
 
-	void AudioManager::play(Audio* aud, float vol, int loop)
+	void AudioManager::play(Audio* aud, int loop)
 	{
+		playingAudios.push_back(aud);
+
 		if (aud->type == AudioType::SOUND_EFFECT) {
-			Mix_VolumeChunk(aud->sfx, masterVolume * sfxVolume * vol * MIX_MAX_VOLUME);
+			Mix_VolumeChunk(aud->sfx, masterVolume * sfxVolume * aud->volume * MIX_MAX_VOLUME);
 
 			if ((aud->channel = Mix_PlayChannel(-1, aud->sfx, loop)) == -1)
 				// Gets the first empty channel and assign the audio file to that channel, and starts playing
 				K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::WARNING, "SFX sound could not be played");
 		}
 		else {
-			Mix_VolumeMusic(masterVolume * musicVolume * vol * MIX_MAX_VOLUME);
+			Mix_VolumeMusic(masterVolume * musicVolume * aud->volume * MIX_MAX_VOLUME);
 
 			if (Mix_PlayMusic(aud->mus, loop) == -1)
 				K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::WARNING, "Music sound could not be played");
@@ -112,6 +114,8 @@ namespace K_Engine {
 
 	void AudioManager::stop(Audio* aud)
 	{
+		removePlayingAudio(aud);
+
 		if (aud->type == AudioType::SOUND_EFFECT)
 			Mix_HaltChannel(aud->channel);
 		else
@@ -122,24 +126,33 @@ namespace K_Engine {
 
 	bool AudioManager::hasEnded(Audio* aud)
 	{
+		bool ended = false;
 		if (aud->type == AudioType::SOUND_EFFECT)
-			return Mix_Playing(aud->channel);
+			ended = !Mix_Playing(aud->channel);
 		else
-			return Mix_PlayingMusic();
+			ended = !Mix_PlayingMusic();
+
+		if (ended)
+			removePlayingAudio(aud);
+
+		return ended;
 	}
 
 	//-------------------------------------------------------------------------------
 
 	void AudioManager::setMasterVolume(float newVol) {
 		masterVolume = newVol;
+		setVolume();
 	}
 
 	void AudioManager::setMusicVolume(float newVol) {
 		musicVolume = newVol;
+		setVolume();
 	}
 
 	void AudioManager::setSFXVolume(float newVol) {
 		sfxVolume = newVol;
+		setVolume();
 	}
 
 	float AudioManager::getMasterVolume() {
@@ -166,5 +179,23 @@ namespace K_Engine {
 
 	void AudioManager::closeAudio() {
 		Mix_CloseAudio();
+	}
+
+	void AudioManager::setVolume() {
+		for (size_t i = 0; i < playingAudios.size(); i++) {
+			if (playingAudios[i]->type == AudioType::SOUND_EFFECT)
+				Mix_VolumeChunk(playingAudios[i]->sfx, masterVolume * sfxVolume * playingAudios[i]->volume * MIX_MAX_VOLUME);
+			else
+				Mix_VolumeMusic(masterVolume * musicVolume * playingAudios[i]->volume * MIX_MAX_VOLUME);
+		}
+	}
+
+	void AudioManager::removePlayingAudio(Audio* aud) {
+		for (auto it = playingAudios.begin(); it != playingAudios.end(); ++it) {
+			if (*it == aud) {
+				playingAudios.erase(it);
+				break;
+			}
+		}
 	}
 }

@@ -167,19 +167,13 @@ namespace K_Engine {
 
 			//set new position
 			transformRf_->setPosition(pos.x() - offsetCenter_->x, pos.y() - offsetCenter_->y, pos.z() - offsetCenter_->z);
-			transformRf_->updateRotationFromPhysics(y, x, z);
+			transformRf_->setRotation(x, y, z);
 
-			/*float force = mass_*10;
-
-			if (InputManager::GetInstance()->isKeyDown(K_Engine::K_Engine_Scancode::SCANCODE_A)) {
-				transformRf_->setRotation(0, 270, 0);
-				addForceImpulse({ -force, 0.0f, 0 });
+			if (forceToAdd != Vector3(0, 0, 0)) {
+				addForce(forceToAdd);
+				forceToAdd = Vector3(0, 0, 0);
 			}
 
-			if (InputManager::GetInstance()->isKeyDown(K_Engine::K_Engine_Scancode::SCANCODE_D)) {
-				transformRf_->setRotation(0, 90, 0);
-				addForceImpulse({ force, 0.0f, 0});
-			}*/
 		}
 	}
 
@@ -219,10 +213,13 @@ namespace K_Engine {
 	}
 
 	void RigidBody::addForce(Vector3 const& value) {
-		btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
-		Vector3 p = transformRf_->getPosition();
-		btVector3 pos = { (btScalar)(p.x + (*offsetCenter_).x),(btScalar)(p.y + (*offsetCenter_).y),(btScalar)(p.z + (*offsetCenter_).z)};
-		rb->applyForce(force, pos);
+		if (transformRf_ != nullptr) {
+			btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
+			Vector3 p = transformRf_->getPosition();
+			btVector3 pos = { (btScalar)p.x,(btScalar)p.y,(btScalar)p.z };
+			rb->applyForce(force, pos);
+		}
+		else forceToAdd += value;
 	}
 
 	void RigidBody::addForceImpulse(Vector3 const& value) {

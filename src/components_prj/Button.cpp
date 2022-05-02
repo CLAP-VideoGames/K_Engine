@@ -14,6 +14,7 @@
 #include <utils_prj/checkML.h>
 
 #include <input_prj/InputManager.h>
+#include <render_prj/RenderManager.h>
 
 #include <utils_prj/K_Map.h>
 
@@ -58,14 +59,12 @@ namespace K_Engine {
 		inputMan = K_Engine::InputManager::GetInstance();
 	}
 
-	void Button::onEnable()
-	{
+	void Button::onEnable() {
 		if (button_ != nullptr)
 			button_->show();
 	}
 
-	void Button::onDisable()
-	{
+	void Button::onDisable() {
 		button_->hide();
 	}
 
@@ -80,7 +79,7 @@ namespace K_Engine {
 
 	void Button::update(int frameTime)
 	{
-		syncData();
+		//syncData();
 
 		//Gamepad control
 		if (button_->getIsFocusNow()) {
@@ -111,8 +110,7 @@ namespace K_Engine {
 		onButtonClick = function;
 	}
 
-	void Button::syncData()
-	{
+	void Button::syncData() {
 		// Position syncing
 		button_->setPosition(transformRf_->getPosition().x, transformRf_->getPosition().y);
 		// Size syncing
@@ -120,7 +118,9 @@ namespace K_Engine {
 		// ZOrder syncing
 		button_->setRenderOrder((int)transformRf_->getPosition().z);
 
-		inputArea->x = button_->getPosition().first; inputArea->y = button_->getPosition().second;
-		inputArea->w = button_->getSize().first; inputArea->h = button_->getSize().second;
+		inputArea->x = button_->getPosition().first * RenderManager::GetInstance()->windowWidth(); 
+		inputArea->y = button_->getPosition().second * RenderManager::GetInstance()->windowHeight();
+		inputArea->w = button_->getSize().first * RenderManager::GetInstance()->windowWidth(); 
+		inputArea->h = button_->getSize().second * RenderManager::GetInstance()->windowHeight();
 	}
 }

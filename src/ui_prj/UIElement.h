@@ -10,8 +10,8 @@ namespace Ogre {
 	class OverlayManager;
 }
 
-#define DEFAULT_WIDTH 500
-#define DEFAULT_HEIGHT 150
+#define DEFAULT_WIDTH 0.2
+#define DEFAULT_HEIGHT 0.2
 
 #define DEFAULT_LEFT 0
 #define DEFAULT_TOP 0
@@ -39,14 +39,14 @@ namespace K_Engine {
 
 		// Virtual because some elements dont use the generic class OverlayContainer
 		// for example: TextArea, so we need to use other kind of element 
-		virtual void setPosition(int x, int y);
-		virtual void setSize(int w, int h);
+		virtual void setPosition(double x, double y);
+		virtual void setSize(double w, double h);
 
-		void setTop(int topValue);
-		void setLeft(int leftValue);
+		void setTop(double topValue);
+		void setLeft(double leftValue);
 
-		void setWidth(int widthValue);
-		void setHeight(int heightValue);
+		void setWidth(double widthValue);
+		void setHeight(double heightValue);
 		
 		// Pixels make setPosition and setDimesions work with Pixels
 		// and WindowRelative makest it relative to the window
@@ -55,8 +55,8 @@ namespace K_Engine {
 		// Bigger z is closer to the camera
 		void setRenderOrder(int z);
 		
-		std::pair<int, int> getPosition();
-		virtual std::pair<int, int> getSize();
+		std::pair<double, double> getPosition();
+		virtual std::pair<double, double> getSize();
 
 		std::string getOverlayName();
 		bool isVisible();

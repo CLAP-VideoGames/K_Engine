@@ -82,6 +82,7 @@ namespace K_Engine {
 		int leftLimit_;
 		int rightLimit_;
 		int width;
+		int initialPosition;
 
 		InputManager* inputMan;
 
