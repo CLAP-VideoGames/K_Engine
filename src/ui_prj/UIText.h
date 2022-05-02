@@ -32,7 +32,7 @@ namespace K_Engine {
 		void setText(std::string newText);
 		void setTextColor(Vector3 newColor);
 
-		virtual std::pair<int, int> getSize();
+		virtual std::pair<double, double> getSize();
 
 	private:
 		Ogre::TextAreaOverlayElement* textArea_;

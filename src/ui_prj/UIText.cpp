@@ -12,7 +12,7 @@ namespace K_Engine {
 	{
 		//Initialization of everything that ogre needs to show something
 		textArea_ = static_cast<Ogre::TextAreaOverlayElement*>(overlayMan_->createOverlayElement("Panel", fontName + std::to_string(numOverlayElems)));
-		textArea_->setMetricsMode(Ogre::GMM_PIXELS);
+		textArea_->setMetricsMode(Ogre::GMM_RELATIVE);
 		textArea_->setPosition(DEFAULT_LEFT, DEFAULT_TOP);
 		textArea_->setDimensions(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
@@ -59,8 +59,8 @@ namespace K_Engine {
 		textArea_->setColourBottom(Ogre::ColourValue(newColor.x, newColor.y, newColor.z));
 		textArea_->setColourTop(Ogre::ColourValue(newColor.x, newColor.y, newColor.z));
 	}
-	std::pair<int, int> UIText::getSize()
-	{
+
+	std::pair<double, double> UIText::getSize() {
 		return { textArea_->getWidth(), textArea_->getHeight() };
 	}
 }

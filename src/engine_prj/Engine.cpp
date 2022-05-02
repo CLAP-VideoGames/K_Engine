@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-////////////////////////////////////////////////#define DEVELOPMENT
+#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -83,7 +83,7 @@ namespace K_Engine {
 		try {
 			// render setup
 			renderMan->locateResources("./resources.cfg");
-			//renderMan->setFullScreen();
+			renderMan->setFullScreen();
 
 			// physics setup
 			physicsMan->registerDefaultLayers();

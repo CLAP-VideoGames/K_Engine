@@ -15,7 +15,7 @@ namespace K_Engine {
 		//Initialization of everything that ogre needs to show something
 		//Default settings
 		overlayElement_ = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", imageName + std::to_string(numOverlayElems)));
-		overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
+		overlayElement_->setMetricsMode(Ogre::GMM_RELATIVE);
 		overlayElement_->setPosition(right - (right - left) / 10, y);
 
 		//DefaultMaterial

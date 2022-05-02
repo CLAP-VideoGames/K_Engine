@@ -38,29 +38,27 @@ namespace K_Engine {
 		overlayElement_->setMaterialName(materialName);
 	}
 
-	void UIElement::setPosition(int x, int y) {
+	void UIElement::setPosition(double x, double y) {
 		overlayElement_->setPosition(x, y);
 	}
 
-	void UIElement::setSize(int w, int h) {
+	void UIElement::setSize(double w, double h) {
 		overlayElement_->setDimensions(w, h);
 	}
 
-	void UIElement::setTop(int topValue) {
+	void UIElement::setTop(double topValue) {
 		overlayElement_->setTop(topValue);
 	}
 
-	void UIElement::setLeft(int leftValue) {
+	void UIElement::setLeft(double leftValue) {
 		overlayElement_->setLeft(leftValue);
 	}
 
-	void UIElement::setWidth(int widthValue)
-	{
+	void UIElement::setWidth(double widthValue) {
 		overlayElement_->setWidth(widthValue);
 	}
 
-	void UIElement::setHeight(int heightValue)
-	{
+	void UIElement::setHeight(double heightValue) {
 		overlayElement_->setHeight(heightValue);
 	}
 
@@ -73,35 +71,35 @@ namespace K_Engine {
 		overlay_->setZOrder(z);
 	}
 
-	std::pair<int, int> UIElement::getPosition() {
+	std::pair<double, double> UIElement::getPosition() {
 		return { overlayElement_->getLeft(), overlayElement_->getTop() };
 	}
 
-	std::pair<int, int> UIElement::getSize() {
+	std::pair<double, double> UIElement::getSize() {
 		return { overlayElement_->getWidth(), overlayElement_->getHeight() };
 	}
-	std::string UIElement::getOverlayName()
-	{
+
+	std::string UIElement::getOverlayName() {
 		return overlay_->getName();
 	}
-	bool UIElement::isVisible()
-	{
+
+	bool UIElement::isVisible() {
 		return overlay_->isVisible();
 	}
-	void UIElement::setInteractive(bool isInteractive)
-	{
+
+	void UIElement::setInteractive(bool isInteractive) {
 		isInteractive_ = isInteractive;
 	}
-	void UIElement::setFocusNow(bool isFocusNow)
-	{
+
+	void UIElement::setFocusNow(bool isFocusNow) {
 		isFocusNow_ = isFocusNow;
 	}
-	bool UIElement::getIsInteractive()
-	{
+
+	bool UIElement::getIsInteractive() {
 		return isInteractive_;
 	}
-	bool UIElement::getIsFocusNow()
-	{
+
+	bool UIElement::getIsFocusNow() {
 		return isFocusNow_;
 	}
 }

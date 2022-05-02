@@ -15,7 +15,7 @@ namespace K_Engine {
 		//Default settings
 		overlayElement_ = static_cast<Ogre::OverlayContainer*>(
 			overlayMan_->createOverlayElement("Panel", imageName + std::to_string(numOverlayElems)));
-		overlayElement_->setMetricsMode(Ogre::GMM_PIXELS);
+		overlayElement_->setMetricsMode(Ogre::GMM_RELATIVE);
 		overlayElement_->setPosition(DEFAULT_LEFT, DEFAULT_TOP);
 		overlayElement_->setDimensions(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 

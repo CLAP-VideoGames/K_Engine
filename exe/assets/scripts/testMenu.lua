@@ -1,7 +1,7 @@
 testMenu = {
     changeSceneButton = {
         Transform = {
-            position = "750, 400, 0",
+            position = "0.4, 0.3, 0",
             rotation = " 0 ,0 ,0 ",
             scale = " 1.000000 ,1.000000 ,1.000000 ",
         },
@@ -16,7 +16,7 @@ testMenu = {
     },
     optionsButton = {
         Transform = {
-            position = "750, 600, 0",
+            position = "0.4, 0.5, 0",
             rotation = " 0 ,0 ,0 ",
             scale = " 1.000000 ,1.000000 ,1.000000 ",
         },
@@ -31,7 +31,7 @@ testMenu = {
     },
     exitButton = {
         Transform = {
-            position = "750, 800, 0",
+            position = "0.4, 0.7, 0",
             rotation = " 0 ,0 ,0 ",
             scale = " 1.000000 ,1.000000 ,1.000000 ",
         },
@@ -46,7 +46,7 @@ testMenu = {
     },
     fullScreenButton = {
         Transform = {
-            position = "1350, 200, 0",
+            position = "0.4, 0.1, 0",
             rotation = " 0 ,0 ,0 ",
             scale = " 1.000000 ,1.000000 ,1.000000 ",
         },
@@ -79,7 +79,6 @@ function changeScene()
 end
 
 function goToOptions()
-    print("Venga venga que nos vamos a los ajustes hdp")
     local sceneMan = SceneManager.getSceneMan();
     sceneMan:changeScene("options");
 end
