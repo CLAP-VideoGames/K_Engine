@@ -261,44 +261,43 @@ namespace K_Engine {
 		(*offsetCenter_) = distance;
 	}
 
-	void RigidBody::launchEnterCallbacks(void* entity)
+	void RigidBody::launchEnterCallbacks(void* ent)
 	{
 		Entity* otherEntity = (Entity*)entity;
 		colisionando = true;
-		/*std::cout << "Entro\n";*/
 
-		std::vector<Component*> components;
+		std::unordered_map<std::string, Component*>* components = entity->getComponentes();
 
-		for (auto c : components) {
-			c->onCollisionEnter(otherEntity);
+		for (auto c : *components) {
+			c.second->onCollisionEnter(otherEntity);
 		}
 	}
 
-	void RigidBody::launchStayCallbacks(void* entity)
+	void RigidBody::launchStayCallbacks(void* ent)
 	{
-		Entity* otherEntity = (Entity*)entity;
-		if (colisionando) {
-			/*std::cout << "Estoy\n";*/
+		Entity* otherEntity = (Entity*)ent;
+		//if (colisionando) {
+		//	/*std::cout << "Estoy\n";*/
 
-		}
+		//}
 
-		std::vector<Component*> components;
+		std::unordered_map<std::string, Component*>* components = entity->getComponentes();
 
-		for (auto c : components) {
-			c->onCollisionStay(otherEntity);
+		for (auto c : *components) {
+			c.second->onCollisionStay(otherEntity);
 		}
 	}
 
-	void RigidBody::launchExitCallbacks(void* entity)
+	void RigidBody::launchExitCallbacks(void* ent)
 	{
-		Entity* otherEntity = (Entity*)entity;
+		Entity* otherEntity = (Entity*)ent;
 		colisionando = false;
 		/*std::cout << "Salgo\n";*/
 
-		std::vector<Component*> components;
+		std::unordered_map<std::string, Component*>* components = entity->getComponentes();
 
-		for (auto c : components) {
-			c->onCollisionExit(otherEntity);
+		for (auto c : *components) {
+			c.second->onCollisionExit(otherEntity);
 		}
 
 	}

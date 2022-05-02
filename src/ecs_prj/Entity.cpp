@@ -10,17 +10,18 @@ namespace K_Engine {
 	Entity::Entity() {
 		active = true;
 		toDestroy = false;
+		components = new std::unordered_map<std::string, Component*>();
 	}
 
 	Entity::~Entity() {
-		for (auto it = components.begin(); it != components.end(); ++it)
+		for (auto it = components->begin(); it != components->end(); ++it)
 			delete it->second;
-		components.clear();
+		components->clear();
 	};
 
 	void Entity::update(int frameTime)
 	{
-		for (auto c : components)
+		for (auto c : *components)
 			//Update is called before physics update so the physics uses the information from the last update
 			c.second->update(frameTime);
 
@@ -31,7 +32,7 @@ namespace K_Engine {
 
 	void Entity::fixedUpdate(int deltaTime)
 	{
-		for (auto c : components)
+		for (auto c : *components)
 			c.second->physicsUpdate(deltaTime);
 
 		//Update for the entity children
@@ -41,16 +42,16 @@ namespace K_Engine {
 
 	void Entity::awake()
 	{
-		for (auto e : components) e.second->awake();
+		for (auto e : *components) e.second->awake();
 	}
 
 	void Entity::onEnable()
 	{
-		for (auto e : components) if(e.second->enable) e.second->onEnable();
+		for (auto e : *components) if(e.second->enable) e.second->onEnable();
 	}
 
 	void Entity::start() {
-		for (auto e : components) 
+		for (auto e : *components) 
 			e.second->start();
 	}
 
@@ -70,7 +71,7 @@ namespace K_Engine {
 
 		//c->awake();
 
-		components.emplace(name, c);
+		components->emplace(name, c);
 
 		return c;
 	}
@@ -78,7 +79,7 @@ namespace K_Engine {
 	void Entity::setActive(bool a)
 	{
 		active = a;
-		for (auto e : components)
+		for (auto e : *components)
 			e.second->setActive(a);
 	}
 

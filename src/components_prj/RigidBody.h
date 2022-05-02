@@ -184,9 +184,9 @@ namespace K_Engine {
 		//Callbacks
 		bool colisionando = false;
 
-		void launchEnterCallbacks(void* entity);
-		void launchStayCallbacks(void* entity);
-		void launchExitCallbacks(void* entity);
+		void launchEnterCallbacks(void* ent);
+		void launchStayCallbacks(void* ent);
+		void launchExitCallbacks(void* ent);
 
 		//Defines if the RigidBody is a trigger or not
 		bool isTrigger_ = false;
