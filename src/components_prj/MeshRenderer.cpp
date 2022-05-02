@@ -31,7 +31,9 @@ namespace K_Engine {
 		mNode = K_Engine::RenderManager::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	}
 
-	MeshRenderer::~MeshRenderer() = default;
+	MeshRenderer::~MeshRenderer() {
+		K_Engine::RenderManager::GetInstance()->getSceneManager()->destroySceneNode(mNode);
+	}
 
 	std::string MeshRenderer::GetId() {
 		return name;
