@@ -15,8 +15,8 @@ namespace K_Engine {
 
 		double getRelativePos();
 
-		void setLeftLimit(int newLeftLimit);
-		void setRightLimit(int newRightLimit);
+		void setLeftLimit(float newLeftLimit);
+		void setRightLimit(float newRightLimit);
 
 		virtual void setSize(double width, double height);
 

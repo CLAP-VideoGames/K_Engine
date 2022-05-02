@@ -30,9 +30,9 @@ namespace K_Engine {
 
 		//Setup the movement limits of the scrollbar
 		leftLimit = x;
-		rightLimit = x + width_;
 		width_ = width;
 		height_ = height;
+		rightLimit = x + width_;
 
 		//Setup default size relative to the total distance
 		initialDistance = width_;
@@ -48,11 +48,11 @@ namespace K_Engine {
 	double UISlider::getRelativePos() {
 		return (((double)overlayElement_->getLeft() - (double)leftLimit) / ((double)width_ - overlayElement_->getWidth())) * 100;
 	}
-	void UISlider::setLeftLimit(int newLeftLimit)
+	void UISlider::setLeftLimit(float newLeftLimit)
 	{
 		leftLimit = newLeftLimit;
 	}
-	void UISlider::setRightLimit(int newRightLimit)
+	void UISlider::setRightLimit(float newRightLimit)
 	{
 		rightLimit = newRightLimit;
 	}

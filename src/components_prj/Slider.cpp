@@ -124,8 +124,8 @@ namespace K_Engine {
 		if (pressed_) {
 			auto x = slider_->getPosition().first;
 			if (x >= x_ && x <= rightLimit_) {
-				if (pointer.x >= x_ && pointer.x <= rightLimit_ - slider_->getSize().first) {
-					slider_->setLeft(pointer.x);
+				if (pointer.x >= x_ * RenderManager::GetInstance()->windowWidth() && pointer.x <= (rightLimit_ - slider_->getSize().first) * RenderManager::GetInstance()->windowWidth()) {
+					slider_->setLeft((float)pointer.x / (float)RenderManager::GetInstance()->windowWidth());
 					progressBar_->setProgress(slider_->getRelativePos());
 					if (onSliderClick != nullptr)
 						onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
@@ -190,7 +190,7 @@ namespace K_Engine {
 		//Position syncing
 		slider_->setLeft(transformRf_->getPosition().x + (slider_->getPosition().first - x_));
 		slider_->setTop(transformRf_->getPosition().y);
-		rightLimit_ = transformRf_->getPosition().x + (rightLimit_ - x_);
+		rightLimit_ = transformRf_->getPosition().x + width_;
 		x_ = transformRf_->getPosition().x;
 		slider_->setLeftLimit(x_);
 		slider_->setRightLimit(rightLimit_);
