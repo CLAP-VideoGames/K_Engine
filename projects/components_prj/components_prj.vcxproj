@@ -108,7 +108,6 @@
     <ClCompile Include="..\..\src\components_prj\MeshRenderer.cpp" />
     <ClCompile Include="..\..\src\components_prj\ProgressBar.cpp" />
     <ClCompile Include="..\..\src\components_prj\RigidBody.cpp" />
-    <ClCompile Include="..\..\src\components_prj\ScrollBar.cpp" />
     <ClCompile Include="..\..\src\components_prj\Slider.cpp" />
     <ClCompile Include="..\..\src\components_prj\Text.cpp" />
     <ClCompile Include="..\..\src\components_prj\Transform.cpp" />
@@ -124,7 +123,6 @@
     <ClInclude Include="..\..\src\components_prj\MeshRenderer.h" />
     <ClInclude Include="..\..\src\components_prj\ProgressBar.h" />
     <ClInclude Include="..\..\src\components_prj\RigidBody.h" />
-    <ClInclude Include="..\..\src\components_prj\ScrollBar.h" />
     <ClInclude Include="..\..\src\components_prj\Slider.h" />
     <ClInclude Include="..\..\src\components_prj\Text.h" />
     <ClInclude Include="..\..\src\components_prj\Transform.h" />

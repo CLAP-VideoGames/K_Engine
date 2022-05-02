@@ -21,7 +21,6 @@
 #include <components_prj/Button.h>
 #include <components_prj/Image.h>
 #include <components_prj/ProgressBar.h>
-#include <components_prj/ScrollBar.h>
 #include <components_prj/Text.h>
 #include <components_prj/Slider.h>
 
@@ -251,13 +250,6 @@ namespace K_Engine {
 		//	K_Engine::ProgressBar* p = progressBar->addComponent<K_Engine::ProgressBar>("B", "DefaultProgressBar", 100, 500, 300, 50);
 		//	t->setPosition(10, 680, 50);
 		//	t->setScale(300, 25, 1);
-		//}
-
-		////UI ScrollBar
-		//{
-		//	K_Engine::Entity* scrollBar = entMan->addEntity();
-		//	K_Engine::Transform* t = scrollBar->addComponent<K_Engine::Transform>();
-		//	K_Engine::ScrollBar* i = scrollBar->addComponent<K_Engine::ScrollBar>("C", "DefaultButton", 40, 200, 300);
 		//}
 
 		//UI Text

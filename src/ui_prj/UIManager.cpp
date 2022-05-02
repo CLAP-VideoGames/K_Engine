@@ -1,11 +1,4 @@
 ﻿#include "UIManager.h"
-#include "UiElement.h"
-#include "UiText.h"
-#include "UiProgressBar.h"
-#include "UiImage.h"
-#include "UiButton.h"
-#include "UiScrollBar.h"
-#include "UiSlider.h"
 
 #include <iostream>
 #include <string>
@@ -19,6 +12,13 @@
 #include <OgreOverlayContainer.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreFontManager.h>
+
+#include <ui_prj/UIElement.h>
+#include <ui_prj/UIImage.h>
+#include <ui_prj/UIButton.h>
+#include <ui_prj/UIText.h>
+#include <ui_prj/UIProgressBar.h>
+#include <ui_prj/UISlider.h>
 
 #include <render_prj/RenderManager.h>
 

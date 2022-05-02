@@ -11,7 +11,6 @@
 #include <components_prj/Button.h>
 #include <components_prj/Image.h>
 #include <components_prj/ProgressBar.h>
-#include <components_prj/ScrollBar.h>
 #include <components_prj/Text.h>
 #include <components_prj/Slider.h>
 #include <components_prj/Focus.h>
@@ -32,7 +31,6 @@ namespace K_Engine {
 			compMan->add<K_Engine::Button>();
 			compMan->add<K_Engine::Image>();
 			compMan->add<K_Engine::ProgressBar>();
-			compMan->add<K_Engine::ScrollBar>();
 			compMan->add<K_Engine::Text>();
 			compMan->add<K_Engine::Slider>();
 			compMan->add<K_Engine::Focus>();
