@@ -17,6 +17,8 @@ namespace K_Engine {
 		for (auto it = components->begin(); it != components->end(); ++it)
 			delete it->second;
 		components->clear();
+
+		delete components;
 	};
 
 	void Entity::update(int frameTime)
@@ -57,7 +59,7 @@ namespace K_Engine {
 
 	void Entity::destroy()
 	{
-		toDestroy = true;
+ 		toDestroy = true;
 	}
 
 	void Entity::addChild(Entity* child) {
