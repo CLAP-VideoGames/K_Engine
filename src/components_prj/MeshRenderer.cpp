@@ -51,6 +51,7 @@ namespace K_Engine {
 		transformRf = entity->getComponent<Transform>();
 		mNode->showBoundingBox(true);
 		syncScale();
+		syncRotation();
 	}
 
 	void MeshRenderer::init(K_Map* information){
@@ -126,6 +127,9 @@ namespace K_Engine {
 	}
 
 	void MeshRenderer::syncRotation() {
+		if (!transformRf)
+			transformRf = entity->getComponent<Transform>();
+
 		Vector3 rot = transformRf->getRotation();
 		Ogre::Vector3 axis = { Ogre::Real(rot.x), Ogre::Real(rot.y), Ogre::Real(rot.z) };
 		Ogre::Quaternion q = EulerToQuaternion(rot);

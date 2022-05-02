@@ -21,6 +21,13 @@ namespace K_Engine {
 		static float toRadians(float angle);
 
 		/// <summary>
+		/// Converts radians to euler angles
+		/// </summary>
+		/// <param name="angle">angle to be converted</param>
+		/// <returns>euler value</returns>
+		static float toEuler(float angle);
+
+		/// <summary>
 		/// Returns a random decimal value between min a max
 		/// </summary>
 		/// <param name="min">min value included</param>

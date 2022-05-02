@@ -101,6 +101,11 @@ namespace K_Engine {
 		void syncScale();
 
 		/// <summary>
+		/// Updates the physic rotation which the transform rotation
+		/// </summary>
+		void syncRotation();
+
+		/// <summary>
 		/// Sets dimensions to the physics body. It's alien to the renderer size, but is still attached to
 		/// its scale. Keep in mind that it's relative to its rotation.
 		/// </summary>
@@ -127,15 +132,15 @@ namespace K_Engine {
 
 		void addForce(Vector3 const& value);
 
-		void addImpulse(Vector3 const& value);
-
-		void addExplosionForce(Vector3 const& value);
+		void addForceImpulse(Vector3 const& value);
 
 		/// <summary>
 		/// Returns the linear velocity of the rigidbody
 		/// </summary>
 		/// <returns></returns>
 		Vector3 getVelocity();
+
+		Vector3 getRotationBody();
 
 	private:
 		//Required

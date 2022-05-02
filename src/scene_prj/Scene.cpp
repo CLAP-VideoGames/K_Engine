@@ -10,6 +10,7 @@
 #include <physics_prj/CollisionLayers.h>
 
 #include <render_prj/RenderManager.h>
+#include <render_prj/Camera.h>
 
 #include <components_prj/Transform.h>
 #include <components_prj/Animator.h>
@@ -43,6 +44,52 @@ namespace K_Engine {
 
 	void Scene::init(std::string nameMap) {
 		//loadScene(nameMap);
+
+		//PedroPablo
+		K_Engine::Entity* suelo = entMan->addEntity();
+		{
+			K_Engine::Transform* t = suelo->addComponent<K_Engine::Transform>();
+			t->setPosition(0, 10, 0);
+			K_Engine::MeshRenderer* m = suelo->addComponent<K_Engine::MeshRenderer>();
+			m->setMesh("cubeMap.mesh");
+			K_Engine::RigidBody* r = suelo->addComponent<K_Engine::RigidBody>(ColliderType::CT_BOX, BodyType::BT_STATIC, 10, 1, 1);
+			float scaleFa = 10.0f;
+			r->setDimensions({ scaleFa, scaleFa, scaleFa });
+
+		}
+
+		//PedroPablo
+		K_Engine::Entity* monkey = entMan->addEntity();
+		{
+			K_Engine::Transform* t = monkey->addComponent<K_Engine::Transform>();
+			float scale = 1.5f;
+			t->setScale(scale);
+			t->setPosition(0, 39, 0);
+
+
+			t->setRotation(0, 90, 0);
+			K_Engine::MeshRenderer* m = monkey->addComponent<K_Engine::MeshRenderer>();
+			m->setMesh("PedroPablo.mesh");
+			m->debug();
+
+			K_Engine::RigidBody* r = monkey->addComponent<K_Engine::RigidBody>(ColliderType::CT_BOX, BodyType::BT_DYNAMIC, 50, 1, 1);
+			r->setDimensions({ 2, 5, 2});
+			r->setOffset({0, 3, 0});
+			r->setFriction(0.8f);
+			
+			r->setPosConstraints({1, 1, 0});
+			r->setRotConstraints({0, 0, 0});
+		}
+
+		//LIGHT
+		{
+			Entity* light = entMan->addEntity();
+			K_Engine::Transform* t = light->addComponent<K_Engine::Transform>();
+			t->setPosition(0, 20, 20);
+			Light* lComp = light->addComponent<Light>(LightType::DIRECTIONAL, true, new Vector3(1, 1, 1), new Vector3(0, 0, 0));
+		}
+
+		K_Engine::RenderManager::GetInstance()->getCamera()->setCameraPos(0, 20, 100);
 
 		//SPHERE
 		/*K_Engine::Entity* player = entMan->addEntity();
@@ -130,46 +177,46 @@ namespace K_Engine {
 		//	m->setMaterial("ground");
 		//}
 
-		//PedroPablo
-		K_Engine::Entity* monkey = entMan->addEntity();
-		{
-			K_Engine::Transform* t = monkey->addComponent<K_Engine::Transform>();
-			float scale = 0.5f;
-			t->setScale(scale);
-			t->setPosition(0, 5, 5);
-			//t->rotate(0,-90, 0);
-			K_Engine::MeshRenderer* m = monkey->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("PedroPablo.mesh");
-			m->debug();
-		}
-		K_Engine::Animator* anim = monkey->addComponent<K_Engine::Animator>();
+		////PedroPablo
+		//K_Engine::Entity* monkey = entMan->addEntity();
+		//{
+		//	K_Engine::Transform* t = monkey->addComponent<K_Engine::Transform>();
+		//	float scale = 0.5f;
+		//	t->setScale(scale);
+		//	t->setPosition(0, 5, 5);
+		//	//t->rotate(0,-90, 0);
+		//	K_Engine::MeshRenderer* m = monkey->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("PedroPablo.mesh");
+		//	m->debug();
+		//}
+		//K_Engine::Animator* anim = monkey->addComponent<K_Engine::Animator>();
 
-		//Dario
-		K_Engine::Entity* monkey2 = entMan->addEntity();
-		{
-			K_Engine::Transform* t = monkey2->addComponent<K_Engine::Transform>();
-			float scale = 0.5f;
-			t->setScale(scale);
-			t->setPosition(-3, 5, 5);
-			//t->rotate(0,-90, 0);
-			K_Engine::MeshRenderer* m = monkey2->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("Dario.mesh");
-			m->debug();
-		}
-		K_Engine::Animator* anim_ = monkey2->addComponent<K_Engine::Animator>();
+		////Dario
+		//K_Engine::Entity* monkey2 = entMan->addEntity();
+		//{
+		//	K_Engine::Transform* t = monkey2->addComponent<K_Engine::Transform>();
+		//	float scale = 0.5f;
+		//	t->setScale(scale);
+		//	t->setPosition(-3, 5, 5);
+		//	t->rotate(0,90, 0);
+		//	K_Engine::MeshRenderer* m = monkey2->addComponent<K_Engine::MeshRenderer>();
+		//	m->setMesh("Dario.mesh");
+		//	m->debug();
+		//}
+		//K_Engine::Animator* anim_ = monkey2->addComponent<K_Engine::Animator>();
 
-		{
-			Entity* audio = entMan->addEntity();
-			AudioSource* a = audio->addComponent<AudioSource>(AudioType::MUSIC, "assets/sounds/samba_UCM.ogg", 1.f, true, true);
-		}
+		//{
+		//	Entity* audio = entMan->addEntity();
+		//	AudioSource* a = audio->addComponent<AudioSource>(AudioType::MUSIC, "assets/sounds/samba_UCM.ogg", 1.f, true, true);
+		//}
 
-		//LIGHT
-		{
-			Entity* light = entMan->addEntity();
-			K_Engine::Transform* t = light->addComponent<K_Engine::Transform>();
-			t->setPosition(0, 20, 20);
-			Light* lComp = light->addComponent<Light>(LightType::DIRECTIONAL, true, new Vector3(1, 1, 1), new Vector3(0, 0, 0));
-		}
+		////LIGHT
+		//{
+		//	Entity* light = entMan->addEntity();
+		//	K_Engine::Transform* t = light->addComponent<K_Engine::Transform>();
+		//	t->setPosition(0, 20, 20);
+		//	Light* lComp = light->addComponent<Light>(LightType::DIRECTIONAL, true, new Vector3(1, 1, 1), new Vector3(0, 0, 0));
+		//}
 
 		////UI Button
 		//{
@@ -236,8 +283,8 @@ namespace K_Engine {
 		//Start of the entites
 		entMan->start();
 
-		anim_->playAnim("Death");
-		anim->playAnim("Death");
+		//anim_->playAnim("Death");
+		//anim->playAnim("Death");
 	}
 
 	void Scene::init() {

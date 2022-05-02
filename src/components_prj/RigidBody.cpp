@@ -15,6 +15,11 @@
 #include <utils_prj/CollisionCallbacks.h>
 #include <utils_prj/checkML.h>
 #include <utils_prj/K_Map.h>
+#include <utils_prj/Math.h>
+
+//CAmbios
+#include <input_prj/InputManager.h>
+#include <input_prj/K_Engine_Keys.h>
 
 namespace K_Engine {
 	//Required
@@ -68,9 +73,10 @@ namespace K_Engine {
 
 	//In both of this methods 0=x 1=y 2=z
 	void RigidBody::setRotConstraints(Vector3 newValue) {
-		rotationConstraints[0] = newValue.x;
-		rotationConstraints[1] = newValue.y;
-		rotationConstraints[2] = newValue.z;
+
+		rotationConstraints[0] = newValue.y;
+		rotationConstraints[1] = newValue.z;
+		rotationConstraints[2] = newValue.x;
 
 		if (rb != nullptr)
 			rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
@@ -101,7 +107,7 @@ namespace K_Engine {
 
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->y, (btScalar)dimensions_->z };
+		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->z, (btScalar)dimensions_->y };
 		collisionInfo = new K_Engine::CollisionInfo(this->entity,
 			//Collision Enter Callback
 			[=](void* other) {
@@ -122,6 +128,10 @@ namespace K_Engine {
 
 		rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
 		rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
+		rb->applyGravity();
+		disableDeactivation();
+		syncScale();
+		syncRotation();
 	}
 
 	void RigidBody::init(K_Map* information)
@@ -148,8 +158,7 @@ namespace K_Engine {
 	}
 
 	void RigidBody::update(int frameTime) {
-		if (rb != nullptr) {
-
+		if (rb != nullptr && bType_ != BodyType::BT_STATIC) {
 			btVector3 pos = rb->getWorldTransform().getOrigin();
 			btScalar y;
 			btScalar z;
@@ -158,7 +167,19 @@ namespace K_Engine {
 
 			//set new position
 			transformRf_->setPosition(pos.x() - offsetCenter_->x, pos.y() - offsetCenter_->y, pos.z() - offsetCenter_->z);
-			transformRf_->setRotation(x, y, z);
+			transformRf_->updateRotationFromPhysics(y, x, z);
+
+			/*float force = mass_*10;
+
+			if (InputManager::GetInstance()->isKeyDown(K_Engine::K_Engine_Scancode::SCANCODE_A)) {
+				transformRf_->setRotation(0, 270, 0);
+				addForceImpulse({ -force, 0.0f, 0 });
+			}
+
+			if (InputManager::GetInstance()->isKeyDown(K_Engine::K_Engine_Scancode::SCANCODE_D)) {
+				transformRf_->setRotation(0, 90, 0);
+				addForceImpulse({ force, 0.0f, 0});
+			}*/
 		}
 	}
 
@@ -173,6 +194,15 @@ namespace K_Engine {
 		btCollisionShape* rbShape = rb->getCollisionShape();
 		rbShape->setLocalScaling(scale_);
 		world_->getBtWorld()->updateSingleAabb(rb);
+	}
+
+	void RigidBody::syncRotation(){
+		if (!transformRf_)
+			transformRf_ = entity->getComponent<Transform>();
+
+		Vector3 rotation = transformRf_->getRotation();
+		btVector3 rot = { (btScalar)btRadians(rotation.x), (btScalar)btRadians(rotation.y), (btScalar)btRadians(rotation.z) };
+		rb->getWorldTransform().setRotation(btQuaternion(rot.x(), rot.y(), rot.z()));
 	}
 
 	void RigidBody::setDimensions(Vector3 const& toAdd) {
@@ -191,22 +221,28 @@ namespace K_Engine {
 	void RigidBody::addForce(Vector3 const& value) {
 		btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
 		Vector3 p = transformRf_->getPosition();
-		btVector3 pos = { (btScalar)p.x,(btScalar)p.y,(btScalar)p.z };
+		btVector3 pos = { (btScalar)(p.x + (*offsetCenter_).x),(btScalar)(p.y + (*offsetCenter_).y),(btScalar)(p.z + (*offsetCenter_).z)};
 		rb->applyForce(force, pos);
 	}
 
-	void RigidBody::addImpulse(Vector3 const& value) {
-
-	}
-
-	void RigidBody::addExplosionForce(Vector3 const& value) {
-
+	void RigidBody::addForceImpulse(Vector3 const& value) {
+		btVector3 force = { (btScalar)value.x,(btScalar)value.y,(btScalar)value.z };
+		rb->applyCentralImpulse(force);
 	}
 
 	Vector3 RigidBody::getVelocity()
 	{
 		btVector3 speed = rb->getLinearVelocity();
 		return Vector3((double)speed.x(), (double)speed.y(), (double)speed.z());
+	}
+
+	Vector3 RigidBody::getRotationBody(){
+		btScalar y;
+		btScalar z;
+		btScalar x;
+		rb->getWorldTransform().getRotation().getEulerZYX(x, z, y);
+		
+		return { Math::toEuler((float)x),Math::toEuler((float)y), Math::toEuler((float)z) };
 	}
 
 	void RigidBody::setOffset(Vector3 const& distance) {

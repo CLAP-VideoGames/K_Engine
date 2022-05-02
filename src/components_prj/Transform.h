@@ -38,6 +38,7 @@ namespace K_Engine {
 
 		/// <summary>
 		/// Rotates the entity to a new rotation relative to the current one.
+		/// ClockWise is negative
 		/// </summary>
 		void rotate(float x, float y, float z);
 		/// <summary>
@@ -51,8 +52,12 @@ namespace K_Engine {
 		void setPosition(float x, float y, float z);
 		/// <summary>
 		/// Sets the entity to a new rotaion
+		/// ClockWise is negative
 		/// </summary>
 		void setRotation(float x, float y, float z);
+
+		void updateRotationFromPhysics(float x, float y, float z);
+
 		/// <summary>
 		/// Sets the entity to a new scale given its aixs values
 		/// </summary>

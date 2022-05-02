@@ -9,6 +9,7 @@
 #include <utils_prj/checkML.h>
 #include <utils_prj/K_Map.h>
 
+#include <iostream>
 
 namespace K_Engine {
 	std::string Transform::name = "Transform";
@@ -58,6 +59,14 @@ namespace K_Engine {
 	void Transform::rotate(float x, float y, float z) {
 		Vector3 toAdd = { x, y, z };
 		(*rotation_) += toAdd;
+
+		std::cout << (*rotation_).x << " " << (*rotation_).y << " " << (*rotation_).z << "\n";
+
+		RigidBody* rb = entity->getComponent<RigidBody>();
+		if (rb) {
+			rb->syncRotation();
+		}
+
 	}
 
 	void Transform::scale(float x, float y, float z) {
@@ -112,6 +121,16 @@ namespace K_Engine {
 	}
 
 	void Transform::setRotation(float x, float y, float z) {
+		Vector3 toAdd = { x, y, z };
+		(*rotation_) = toAdd;
+
+		RigidBody* rb = entity->getComponent<RigidBody>();
+		if (rb) {
+			rb->syncRotation();
+		}
+	}
+
+	void Transform::updateRotationFromPhysics(float x, float y, float z){
 		Vector3 toAdd = { x, y, z };
 		(*rotation_) = toAdd;
 	}
@@ -213,30 +232,6 @@ namespace K_Engine {
 	}
 
 	void Transform::update(int frameTime) {
-
-		if (test) {
-			if (time <= 0) {
-				time = timer;
-				
-				if (times < limitTimes)
-					times++;
-				else {
-					times = 0;
-					factor *= -1;
-				}
-				float value = 0.01;
-				setScale(scale_->x + value * factor, scale_->y + value * factor, scale_->z + value * factor);
-			}
-			else {
-				time -= frameTime;
-			}
-
-
-
-
-
-		}
-
 		//printf("world girar object = %f,%f,%f\n", float(rotation_->x), float(rotation_->y), float(rotation_->z));
 		//printf("world pos object  = %f,%f,%f\n",  float(position_->x), float(position_->y), float(position_->z));
 		//printf("________\n");

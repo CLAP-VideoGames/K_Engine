@@ -17,6 +17,10 @@ namespace K_Engine {
 		return angle * PI / 180.0;
 	}
 
+	float Math::toEuler(float angle) {
+		return angle * 180.0 / PI;
+	}
+
 	float Math::random_double(double min, double max) {
 		return (max - min) * ((double)rand() / RAND_MAX) + min;
 	}

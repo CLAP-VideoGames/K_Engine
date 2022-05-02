@@ -1,6 +1,7 @@
 #include "Engine.h"
 
-////////////////////////////////////////////#define DEVELOPMENT
+
+//////#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -244,5 +245,6 @@ namespace K_Engine {
 		Scene* exampleScene2 = new Scene("testMenu");
 		exampleScene2->init();
 		sceneMan->pushScene(exampleScene2);
+
 	}
 }

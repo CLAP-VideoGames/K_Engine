@@ -24,7 +24,7 @@ namespace K_Engine {
 	bool PhysicsManager::Init() {
 		try {
 			instance.reset(new PhysicsManager());
-			const Vector3& gravity = Vector3(0, -9.8f, 0);
+			const Vector3& gravity = Vector3(0, -60.8f, 0);
 			btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 			instance.get()->initWorld(grav_);
 		}

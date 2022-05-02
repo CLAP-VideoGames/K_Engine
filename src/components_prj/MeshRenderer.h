@@ -47,11 +47,13 @@ namespace K_Engine {
 		
 		Ogre::Quaternion EulerToQuaternion(Vector3 const& rot);
 		void syncScale();
+		
+		void syncRotation();
 
-	private:
 		void syncPosition();
 
-		void syncRotation();
+	private:
+
 
 		// required
 		static std::string name;
