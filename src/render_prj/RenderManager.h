@@ -80,6 +80,8 @@ namespace K_Engine {
 
 		void closeContext();
 		void closeWindow();
+
+		void resetWindowSize();
 	};
 }
 #endif // RENDERMANAGER_H

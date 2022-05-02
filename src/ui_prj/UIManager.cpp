@@ -90,7 +90,7 @@ namespace K_Engine {
     void UIManager::preloadingScreen()
     {
         renderMan->locateResources("./preload.cfg");
-        UIImage loadScreen("Example", "LoadScreen"); loadScreen.setSize(renderMan->windowWidth(), renderMan->windowHeight());
+        UIImage loadScreen("Example", "LoadScreen"); loadScreen.setSize(1.0, 1.0);
         renderMan->render();
     }
 

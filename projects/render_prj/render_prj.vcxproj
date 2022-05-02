@@ -83,7 +83,7 @@
       <AdditionalDependencies>OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;SDL2d.lib;SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL3Plus_d.lib;RenderSystem_GL_d.lib;SDL2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Codec_STBI_d.lib;OgreGLSupport_d.lib;OgreMain_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;OgreRTShaderSystem_d.lib;OgreTerrain_d.lib;OgreVolume_d.lib;Plugin_BSPSceneManager_d.lib;Plugin_OctreeSceneManager_d.lib;Plugin_OctreeZone_d.lib;Plugin_ParticleFX_d.lib;Plugin_PCZSceneManager_d.lib;RenderSystem_GL3Plus_d.lib;RenderSystem_GL_d.lib;SDL2d.lib;%(AdditionalDependencies)user32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\$(Configuration)\;$(SolutionDir)dependencies\ogre\build\SDL-build\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -106,7 +106,7 @@
       <AdditionalDependencies>OgreMain.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;OgreTerrain.lib;OgreVolume.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>Codec_Assimp.lib;Codec_STBI.lib;OgreGLSupport.lib;OgreMain.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;OgreTerrain.lib;OgreVolume.lib;Plugin_BSPSceneManager.lib;Plugin_OctreeSceneManager.lib;Plugin_OctreeZone.lib;Plugin_ParticleFX.lib;Plugin_PCZSceneManager.lib;RenderSystem_GL.lib;RenderSystem_GL3Plus.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Codec_Assimp.lib;Codec_STBI.lib;OgreGLSupport.lib;OgreMain.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;OgreTerrain.lib;OgreVolume.lib;Plugin_BSPSceneManager.lib;Plugin_OctreeSceneManager.lib;Plugin_OctreeZone.lib;Plugin_ParticleFX.lib;Plugin_PCZSceneManager.lib;RenderSystem_GL.lib;RenderSystem_GL3Plus.lib;SDL2.lib;%(AdditionalDependencies)user32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\build\lib\$(Configuration)\;$(SolutionDir)dependencies\ogre\build\SDL-build\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>

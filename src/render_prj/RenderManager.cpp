@@ -2,15 +2,14 @@
 
 #include <iostream>
 #include <string>
-#ifndef _DEBUG
-#include <windows.h>
-#endif
 
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <SDL_syswm.h>
 #include <SDL_video.h>
 #include <SDL_config_windows.h>
+
+#include <windows.h>
 
 #include <OgreRoot.h>
 #include <OgreEntity.h>
@@ -111,8 +110,6 @@ namespace K_Engine {
 		sec = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
 		const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec);
 
-		//OgreAssert(!genLocs.empty(), ("Resource Group '" + sec + "' must contain at least one entry").c_str());
-
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
@@ -122,8 +119,29 @@ namespace K_Engine {
 	}
 
 	void RenderManager::setFullScreen() {
-		fullScreen = !fullScreen; Uint32 flags = fullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
+		fullScreen = !fullScreen;
+
+		float new_width = window_width, new_height = window_height;
+		if (fullScreen) {
+			RECT rect; HWND hd = GetDesktopWindow();
+			GetClientRect(hd, &rect);
+
+			double dpi = 1; int zoom = GetDpiForWindow(hd);
+			switch (zoom) {
+			case 120: dpi = 1.25; break;
+			case 144: dpi = 1.5; break;
+			case 192: dpi = 2; break;
+			default: break;
+			}
+
+			new_width = (rect.right - rect.left) * dpi;
+			new_height = (rect.bottom - rect.top) * dpi;
+		}
+
+		Uint32 flags = fullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : SDL_WINDOW_RESIZABLE;
+		SDL_SetWindowSize(mSDLWin, new_width, new_height);
 		SDL_SetWindowFullscreen(mSDLWin, flags);
+		mRenderWin->windowMovedOrResized();
 	}
 
 	void RenderManager::exitWindow() {
@@ -157,15 +175,11 @@ namespace K_Engine {
 		if (SDL_Init(SDL_INIT_EVERYTHING))
 			throw SDL_GetError();
 
-		// this could be used to check display resolution
-		SDL_DisplayMode info; SDL_GetDesktopDisplayMode(0, &info);
-		window_width = info.w/1.5; window_height = info.h/ 1.5;
-
 		fullScreen = false;
-		//window_width = 1920, window_height = 1080;
+		resetWindowSize();
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
 		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, flags);
-		if(!mSDLWin)
+		if (!mSDLWin)
 			throw Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR, SDL_GetError(), "SDL Window not loaded correctly");
 
 		// make background screen black so my eyes don't bleed
@@ -194,7 +208,7 @@ namespace K_Engine {
 		*/
 		SDL_SysWMinfo wmInfo;
 		SDL_GetVersion(&wmInfo.version);
-		if(!SDL_GetWindowWMInfo(mSDLWin, &wmInfo))
+		if (!SDL_GetWindowWMInfo(mSDLWin, &wmInfo))
 			throw Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR, SDL_GetError(), "RenderManager");
 
 		Ogre::NameValuePairList miscData;
@@ -243,6 +257,11 @@ namespace K_Engine {
 		}
 
 		SDL_Quit();
+	}
+
+	void RenderManager::resetWindowSize() {
+		SDL_DisplayMode info; SDL_GetDesktopDisplayMode(0, &info);
+		window_width = info.w / 1.5; window_height = info.h / 1.5;
 	}
 
 	Ogre::Root* RenderManager::getRoot() {
