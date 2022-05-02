@@ -24,12 +24,14 @@ namespace K_Engine {
 
 	K_Engine::Text::Text(Entity* e) : Component(e) {}
 
-	Text::Text(Entity* e, std::string overlayName, std::string fontName, int fontSize, std::string text, Vector3 textColor) : Component(e) {
+	Text::Text(Entity* e, std::string overlayName, std::string fontName, float x, float y, float width, float height, std::string text, Vector3 textColor) : Component(e) {
 		overlayName_ = overlayName;
+		x_ = x;
+		y_ = y;
+		width_ = width;
+		height_ = height;
 		fontName_ = fontName;
 		text_ = text;
-
-		fontSize_ = fontSize;
 		textColor_ = textColor;
 	}
 
@@ -38,10 +40,12 @@ namespace K_Engine {
 	void Text::init(K_Map* information)
 	{
 		overlayName_ = information->value("overlayName");
+		x_ = information->valueToNumber("x");
+		y_ = information->valueToNumber("y");
+		width_ = information->valueToNumber("width");
+		height_ = information->valueToNumber("height");
 		fontName_ = information->value("fontName");
 		text_ = information->value("text");
-
-		fontSize_ = information->valueToNumber("fontSize");
 		textColor_ = *(information->valueToVector3("textColor"));
 	}
 
@@ -59,7 +63,7 @@ namespace K_Engine {
 	void K_Engine::Text::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		uitext_ = UIManager::GetInstance()->addWidget<UIText>(overlayName_, fontName_, fontSize_, text_, textColor_);
+		uitext_ = UIManager::GetInstance()->addWidget<UIText>(overlayName_, fontName_, x_, y_, width_, height_, text_, textColor_);
 	}
 
 	void Text::update(int frameTime)
@@ -71,6 +75,11 @@ namespace K_Engine {
 	{
 		text_ = newText;
 		if (uitext_ != nullptr) uitext_->setText(newText);
+	}
+
+	void Text::setDimensions(float width, float height)
+	{
+		uitext_->setSize(width, height);
 	}
 
 	void Text::syncData()

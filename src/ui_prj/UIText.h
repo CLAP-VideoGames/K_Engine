@@ -20,7 +20,7 @@ namespace K_Engine {
 	class UIText : public UIElement
 	{
 	public:
-		UIText(std::string overlayName, std::string fontName, int fontSize, std::string text, Vector3 textColor);
+		UIText(std::string overlayName, std::string fontName, float x, float y, float width, float height, std::string text, Vector3 textColor);
 		virtual ~UIText();
 
 		//Im pretty sure size is based on font for text
@@ -28,11 +28,20 @@ namespace K_Engine {
 		virtual void setSize(int w, int h);
 
 		void setFont(std::string fontName);
-		void setFontSize(int newSize);
 		void setText(std::string newText);
 		void setTextColor(Vector3 newColor);
 
+		virtual std::pair<double, double> getPosition();
 		virtual std::pair<double, double> getSize();
+
+		virtual void setPosition(double x, double y);
+		virtual void setSize(double w, double h);
+
+		virtual void setTop(double topValue);
+		virtual void setLeft(double leftValue);
+
+		virtual void setWidth(double widthValue);
+		virtual void setHeight(double heightValue);
 
 	private:
 		Ogre::TextAreaOverlayElement* textArea_;

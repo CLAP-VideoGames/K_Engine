@@ -66,12 +66,19 @@ namespace K_Engine {
 		syncRotation();
 	}
 
+	void MeshRenderer::onEnable()
+	{
+		setVisible(true);
+	}
+
 	void MeshRenderer::onDisable() {
 		setVisible(false);
 	}
 
 	void MeshRenderer::setVisible(bool value) {
 		visible = value;
+		if (mNode != nullptr)
+			mNode->setVisible(visible);
 	}
 
 	void MeshRenderer::setMaterial(std::string nMaterial) {

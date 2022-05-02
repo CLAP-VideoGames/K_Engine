@@ -42,20 +42,20 @@ namespace K_Engine {
 		virtual void setPosition(double x, double y);
 		virtual void setSize(double w, double h);
 
-		void setTop(double topValue);
-		void setLeft(double leftValue);
+		virtual void setTop(double topValue);
+		virtual void setLeft(double leftValue);
 
-		void setWidth(double widthValue);
-		void setHeight(double heightValue);
+		virtual void setWidth(double widthValue);
+		virtual void setHeight(double heightValue);
 		
 		// Pixels make setPosition and setDimesions work with Pixels
 		// and WindowRelative makest it relative to the window
-		void setMetrics(Metrics m);
+		virtual void setMetrics(Metrics m);
 
 		// Bigger z is closer to the camera
 		void setRenderOrder(int z);
 		
-		std::pair<double, double> getPosition();
+		virtual std::pair<double, double> getPosition();
 		virtual std::pair<double, double> getSize();
 
 		std::string getOverlayName();

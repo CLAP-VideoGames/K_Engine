@@ -34,6 +34,7 @@ namespace K_Engine {
 		virtual void init(K_Map* information);
 		virtual void update(int frameTime);
 
+		virtual void onEnable();
 		virtual void onDisable();
 
 		//Setters

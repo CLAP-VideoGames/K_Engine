@@ -31,7 +31,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="text">Text to display</param>
-		Text(Entity* e, std::string overlayName, std::string fontName, int fontSize, std::string text, Vector3 textColor);
+		Text(Entity* e, std::string overlayName, std::string fontName, float x, float y, float width, float height, std::string text, Vector3 textColor);
 
 		virtual ~Text();
 
@@ -59,6 +59,8 @@ namespace K_Engine {
 		/// </summary>
 		void changeText(std::string newText);
 
+		void setDimensions(float width, float height);
+
 	private:
 		//Required
 		static std::string name;
@@ -67,10 +69,12 @@ namespace K_Engine {
 		UIText* uitext_; // Text created in UIManager
 
 		std::string overlayName_;
+		float x_;
+		float y_;
+		float width_;
+		float height_;
 		std::string fontName_;
 		std::string text_;
-
-		int fontSize_;
 		Vector3 textColor_;
 
 		void syncData();
