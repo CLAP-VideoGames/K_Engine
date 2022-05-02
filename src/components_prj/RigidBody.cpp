@@ -167,13 +167,24 @@ namespace K_Engine {
 
 			//set new position
 			transformRf_->setPosition(pos.x() - offsetCenter_->x, pos.y() - offsetCenter_->y, pos.z() - offsetCenter_->z);
-			transformRf_->setRotation(x, y, z);
+			transformRf_->updateRotationFromPhysics(y, x, z);
 
 			if (forceToAdd != Vector3(0, 0, 0)) {
 				addForce(forceToAdd);
 				forceToAdd = Vector3(0, 0, 0);
 			}
 
+			/*float force = mass_*10;
+
+			if (InputManager::GetInstance()->isKeyDown(K_Engine::K_Engine_Scancode::SCANCODE_A)) {
+				transformRf_->setRotation(0, 270, 0);
+				addForceImpulse({ -force, 0.0f, 0 });
+			}
+
+			if (InputManager::GetInstance()->isKeyDown(K_Engine::K_Engine_Scancode::SCANCODE_D)) {
+				transformRf_->setRotation(0, 90, 0);
+				addForceImpulse({ force, 0.0f, 0});
+			}*/
 		}
 	}
 
@@ -190,7 +201,7 @@ namespace K_Engine {
 		world_->getBtWorld()->updateSingleAabb(rb);
 	}
 
-	void RigidBody::syncRotation(){
+	void RigidBody::syncRotation() {
 		if (!transformRf_)
 			transformRf_ = entity->getComponent<Transform>();
 
@@ -233,13 +244,17 @@ namespace K_Engine {
 		return Vector3((double)speed.x(), (double)speed.y(), (double)speed.z());
 	}
 
-	Vector3 RigidBody::getRotationBody(){
+	Vector3 RigidBody::getRotationBody() {
 		btScalar y;
 		btScalar z;
 		btScalar x;
 		rb->getWorldTransform().getRotation().getEulerZYX(x, z, y);
-		
+
 		return { Math::toEuler((float)x),Math::toEuler((float)y), Math::toEuler((float)z) };
+	}
+
+	float RigidBody::getMass() const{
+		return mass_;
 	}
 
 	void RigidBody::setOffset(Vector3 const& distance) {

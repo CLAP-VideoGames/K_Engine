@@ -143,17 +143,19 @@ namespace K_Engine {
 
 		Vector3 getRotationBody();
 
+		float getMass() const;
+
 	private:
 		//Required
 		static std::string name;
-		
+
 		//Reference to transform Component
 		Transform* transformRf_ = nullptr;
 		//Mesh Type of the body
 		ColliderType type_;
 		//Body Physics Type
 		BodyType bType_;
-		
+
 		//Reference to the world
 		K_Engine::DynamicsWorld* world_ = nullptr;
 		//Reference to bullet rigidbody
@@ -164,9 +166,6 @@ namespace K_Engine {
 		btTransform* btTransform_ = nullptr;
 		//Info
 		K_Engine::CollisionInfo* collisionInfo = nullptr;
-		
-		//Vector to forces when start is not called yet
-		Vector3 forceToAdd;
 
 		//Boolean to control if the associated trigger is a trigger or not (default is false)
 		bool isTrigger = false;
@@ -176,7 +175,7 @@ namespace K_Engine {
 		float restitution_;
 		//Friction factor
 		float friction_;
-		
+
 		//Array of constrains for rotation in x y z
 		bool rotationConstraints[3]{ true, true, true };
 		//Array of constrains for traslation in x y z
@@ -200,6 +199,8 @@ namespace K_Engine {
 		Vector3* dimensions_;
 		//Offset from the transform point. 
 		Vector3* offsetCenter_;
+
+		Vector3 forceToAdd;
 	};
 }
 #endif RIGIDBODY_H

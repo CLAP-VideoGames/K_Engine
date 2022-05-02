@@ -124,11 +124,18 @@ namespace K_Engine {
 		if(currentState_->animation != nullptr)
 			currentState_->animation->setEnabled(false);
 
-		currentState_->name = anim;
-		currentState_->animation = animStatesMap_->getAnimationState(anim);
-		currentState_->animation->setEnabled(true);
-		currentState_->animation->setLoop(loop);
-		currentState_->animation->setTimePosition(0);
+		try
+		{
+			currentState_->name = anim;
+			currentState_->animation = animStatesMap_->getAnimationState(anim);
+			currentState_->animation->setEnabled(true);
+			currentState_->animation->setLoop(loop);
+			currentState_->animation->setTimePosition(0);
+		}
+		catch (const std::exception&){
+			//logMan->printLog(LogType::FATAL, "Error on game data initialization");
+		}
+		
 	}
 
 	void Animator::stopAnim()

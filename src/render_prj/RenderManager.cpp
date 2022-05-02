@@ -159,7 +159,7 @@ namespace K_Engine {
 
 		// this could be used to check display resolution
 		SDL_DisplayMode info; SDL_GetDesktopDisplayMode(0, &info);
-		window_width = info.w; window_height = info.h;
+		window_width = info.w/1.5; window_height = info.h/ 1.5;
 
 		fullScreen = false;
 		//window_width = 1920, window_height = 1080;
