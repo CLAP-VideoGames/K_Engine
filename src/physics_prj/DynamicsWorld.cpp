@@ -235,5 +235,7 @@ namespace K_Engine {
 
 	void DynamicsWorld::deleteRigidBody(btRigidBody* rb) {
 		btWorld_->removeRigidBody(rb);
+		if (rb && rb->getMotionState())
+			delete rb->getMotionState();
 	}
 }

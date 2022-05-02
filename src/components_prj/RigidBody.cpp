@@ -59,10 +59,11 @@ namespace K_Engine {
 		delete dimensions_; delete offsetCenter_;
 		delete collisionInfo; delete btTransform_;
 		delete rbState;
+		delete rb;
 
 		dimensions_ = nullptr; offsetCenter_ = nullptr;
 		collisionInfo = nullptr; btTransform_ = nullptr;
-		rbState = nullptr;
+		rbState = nullptr; rb = nullptr;
 	};
 
 	std::string RigidBody::GetId() {
