@@ -95,8 +95,14 @@ namespace K_Engine {
 	void PhysicsManager::setGravity(Vector3 const& gravity) {
 		btVector3 grav_ = { (btScalar)gravity.x, (btScalar)gravity.y, (btScalar)gravity.z };
 
-		if (this->gravity != nullptr) *this->gravity = grav_;
-		else this->gravity = new btVector3(grav_);
+		if (this->gravity != nullptr) {
+			btWorld->setGravity(grav_);
+			*this->gravity = grav_;
+		}
+		else {
+			btWorld->setGravity(grav_);
+			this->gravity = new btVector3(grav_);
+		}
 	}
 
 	DynamicsWorld* PhysicsManager::getWorld() const {

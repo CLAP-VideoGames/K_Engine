@@ -95,6 +95,8 @@ namespace K_Engine {
 		/// <param name="dimensions">dimensions, also known as scale</param>
 		/// <returns>reference to a sphere type</returns>
 		btSphereShape* createSphereCollider(btVector3 const& radius, btVector3 const& dimensions);
+
+		void deleteRigidBody(btRigidBody* rb);
 	};
 }
 #endif _DYNAMICSWORLD_H_

@@ -55,6 +55,7 @@ namespace K_Engine {
 
 	RigidBody::~RigidBody() {
 		rb->setUserPointer(nullptr);
+		world_->deleteRigidBody(rb);
 		delete dimensions_; delete offsetCenter_;
 		delete collisionInfo; delete btTransform_;
 		delete rbState;

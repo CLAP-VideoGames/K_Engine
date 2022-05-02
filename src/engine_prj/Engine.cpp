@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-#define DEVELOPMENT
+////#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -166,8 +166,8 @@ namespace K_Engine {
 		bool success = K_Engine::ComponentManager::Shutdown() &&
 			K_Engine::InputManager::Shutdown() &&
 			K_Engine::ScriptManager::Shutdown() &&
-			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::SceneManager::Shutdown() && // after PhysicsManager because if not it'd mean runtime error on callbacks
+			K_Engine::PhysicsManager::Shutdown() &&
 			K_Engine::AudioManager::Shutdown() &&
 			K_Engine::UIManager::Shutdown() &&
 			K_Engine::RenderManager::Shutdown();

@@ -232,4 +232,8 @@ namespace K_Engine {
 		shape->setLocalScaling(scale);
 		return shape;
 	}
+
+	void DynamicsWorld::deleteRigidBody(btRigidBody* rb) {
+		btWorld_->removeRigidBody(rb);
+	}
 }
