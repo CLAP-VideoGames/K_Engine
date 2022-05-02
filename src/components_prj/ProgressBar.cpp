@@ -25,7 +25,7 @@ namespace K_Engine {
 	K_Engine::ProgressBar::ProgressBar(Entity* e) : Component(e) {}
 
 	ProgressBar::ProgressBar(Entity* e, std::string overlayName, std::string imageName, 
-		int orgWidth, int orgHeight, float progress, float maxProgress) : Component(e) {
+		float orgWidth, float orgHeight, float progress, float maxProgress) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 
@@ -112,5 +112,10 @@ namespace K_Engine {
 	bool ProgressBar::getIsFocus()
 	{
 		return progressBar_->getIsFocusNow();
+	}
+	void ProgressBar::setDimensions(float width, float height)
+	{
+		orgWidth_ = width;
+		orgHeight_ = height;
 	}
 }

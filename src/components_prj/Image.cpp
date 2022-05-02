@@ -24,9 +24,11 @@ namespace K_Engine {
 
 	Image::Image(Entity* e) : Component(e) {}
 
-	Image::Image(Entity* e, std::string overlayName, std::string imageName) : Component(e) {
+	Image::Image(Entity* e, std::string overlayName, std::string imageName, float width, float height) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
+		width_ = width;
+		height_ = height;
 
 		interactive_ = false;
 	}
@@ -37,6 +39,8 @@ namespace K_Engine {
 	{
 		overlayName_ = information->value("overlayName");
 		imageName_ = information->value("imageName");
+		width_ = information->valueToNumber("width");
+		height_ = information->valueToNumber("height");
 
 		interactive_ = false;
 	}
@@ -57,7 +61,7 @@ namespace K_Engine {
 		transformRf_ = entity->getComponent<Transform>();
 
 		image_ = UIManager::GetInstance()->addWidget<UIImage>(overlayName_, imageName_);
-		image_->setDimensions(width_, height_);
+		image_->setSize(width_, height_);
 		image_->setInteractive(interactive_);
 		syncData();
 	}
@@ -75,10 +79,13 @@ namespace K_Engine {
 		return image_->getIsFocusNow();
 	}
 
-	void Image::setDimensions(int width, int height)
+	void Image::setDimensions(float width, float height)
 	{
-		if (image_ != nullptr)
-			image_->setDimensions(width, height);
+		if (image_ != nullptr) {
+			image_->setSize(width, height);
+			width_ = width;
+			height_ = height;
+		}
 		else {
 			width_ = width;
 			height_ = height;

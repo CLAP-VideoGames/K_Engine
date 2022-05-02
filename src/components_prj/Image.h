@@ -29,7 +29,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
-		Image(Entity* e, std::string overlayName, std::string name);
+		Image(Entity* e, std::string overlayName, std::string name, float width, float height);
 
 		virtual ~Image();
 
@@ -52,7 +52,7 @@ namespace K_Engine {
 
 		bool getIsFocus();
 
-		void setDimensions(int width, int height);
+		void setDimensions(float width, float height);
 
 	private:
 		//Required
@@ -67,8 +67,8 @@ namespace K_Engine {
 
 		bool interactive_;
 
-		int width_;
-		int height_;
+		float width_;
+		float height_;
 
 		void syncData();
 	};

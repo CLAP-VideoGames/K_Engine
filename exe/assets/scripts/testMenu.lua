@@ -11,6 +11,8 @@ testMenu = {
             imageName = "DefaultButton",
             hoverImageName = "TestButtonAmongus",
             pressedImageName = "ButtonApretado",
+            width = "0.2",
+            height = "0.2",
             onClick = "changeScene"
         }
     },
@@ -26,6 +28,8 @@ testMenu = {
             imageName = "DefaultButton",
             hoverImageName = "TestButtonAmongus",
             pressedImageName = "ButtonApretado",
+            width = "0.2",
+            height = "0.2",
             onClick = "goToOptions"
         }
     },
@@ -41,6 +45,8 @@ testMenu = {
             imageName = "DefaultButton",
             hoverImageName = "TestButtonAmongus",
             pressedImageName = "ButtonApretado",
+            width = "0.2",
+            height = "0.2",
             onClick = "exitGame"
         }
     },
@@ -56,6 +62,8 @@ testMenu = {
             imageName = "DefaultButton",
             hoverImageName = "TestButtonAmongus",
             pressedImageName = "ButtonApretado",
+            width = "0.2",
+            height = "0.2",
             onClick = "fullScreen"
         }
     },

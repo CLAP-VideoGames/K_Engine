@@ -16,6 +16,8 @@
 #include <input_prj/InputManager.h>
 #include <utils_prj/K_Map.h>
 
+#include <render_prj/RenderManager.h>
+
 #include <sound_prj/AudioManager.h>
 
 namespace K_Engine {
@@ -30,12 +32,11 @@ namespace K_Engine {
 
 	K_Engine::Slider::Slider(Entity* e) : Component(e) {}
 
-	Slider::Slider(Entity* e, std::string overlayName, std::string imageName, int y, int leftLimit, int rightLimit) : Component(e) {
+	Slider::Slider(Entity* e, std::string overlayName, std::string imageName, float width, float height) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
-
-		y_ = y; leftLimit_ = leftLimit;
-		rightLimit_ = rightLimit;
+		width_ = width;
+		height_ = height;
 
 		inputArea = new Rectangle();
 
@@ -53,7 +54,8 @@ namespace K_Engine {
 	{
 		overlayName_ = information->value("overlayName");
 		imageName_ = information->value("imageName");
-		width = information->valueToNumber("width");
+		width_ = information->valueToNumber("width");
+		height_ = information->valueToNumber("height");
 
 		keyCallback_ = information->value("onSliderClick");
 		onSliderClick = information->valueToFunction(keyCallback_, 1.0f);
@@ -80,28 +82,30 @@ namespace K_Engine {
 	void K_Engine::Slider::start()
 	{
 		transformRf_ = entity->getComponent<Transform>();
-		leftLimit_ = transformRf_->getPosition().x;
-		rightLimit_ = leftLimit_ + width;
+		x_ = transformRf_->getPosition().x;
+		rightLimit_ = x_ + width_;
 		y_ = transformRf_->getPosition().y;
 
 		initialPosition = AudioManager::GetInstance()->getMasterVolume();
 
-		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, y_, leftLimit_, rightLimit_, initialPosition);
+		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, x_, y_, width_, height_, initialPosition);
 
-		progressBar_ = entity->addComponent<ProgressBar>(overlayName_ + " progress", "DefaultProgressBar", rightLimit_-leftLimit_, 20);
+		progressBar_ = entity->addComponent<ProgressBar>(overlayName_ + " progress", "DefaultProgressBar", width_, height_);
 		progressBar_->setCustomRenderOrder(5);
 		progressBar_->setProgress(slider_->getRelativePos());
 
-		background_ = entity->addComponent<Image>(overlayName_ + " background", "GreenDefaultProgressBar");
-		background_->setDimensions(rightLimit_ - leftLimit_, 20);
+		background_ = entity->addComponent<Image>(overlayName_ + " background", "GreenDefaultProgressBar", width_, height_);
+		background_->setDimensions(width_, height_);
 		background_->setInteractive(true);
 	}
 
 	void Slider::update(int frameTime)
 	{
 		//Setup the input area rectangle
-		inputArea->x = slider_->getPosition().first; inputArea->y = slider_->getPosition().second;
-		inputArea->w = slider_->getSize().first; inputArea->h = slider_->getSize().second;
+		inputArea->x = slider_->getPosition().first * RenderManager::GetInstance()->windowWidth();
+		inputArea->y = slider_->getPosition().second * RenderManager::GetInstance()->windowHeight();
+		inputArea->w = slider_->getSize().first * RenderManager::GetInstance()->windowWidth();
+		inputArea->h = slider_->getSize().second * RenderManager::GetInstance()->windowHeight();
 
 		Point pointer;
 		auto pointPos = inputMan->getMousePos();
@@ -119,8 +123,8 @@ namespace K_Engine {
 
 		if (pressed_) {
 			auto x = slider_->getPosition().first;
-			if (x >= leftLimit_ && x <= rightLimit_) {
-				if (pointer.x >= leftLimit_ && pointer.x <= rightLimit_ - slider_->getSize().first) {
+			if (x >= x_ && x <= rightLimit_) {
+				if (pointer.x >= x_ && pointer.x <= rightLimit_ - slider_->getSize().first) {
 					slider_->setLeft(pointer.x);
 					progressBar_->setProgress(slider_->getRelativePos());
 					if (onSliderClick != nullptr)
@@ -157,15 +161,15 @@ namespace K_Engine {
 					}
 					else if (inputMan->controllerAxisValue(CONTROLLER_AXIS_LEFTX) < -0.5 ||
 						inputMan->controllerButtonPressed(CONTROLLER_BUTTON_DPAD_LEFT)) {
-						if (slider_->getPosition().first - 5 >= leftLimit_) {
+						if (slider_->getPosition().first - 5 >= x_) {
 							slider_->setLeft(slider_->getPosition().first - 5);
 							progressBar_->setProgress(slider_->getRelativePos());
 							if (onSliderClick != nullptr)
 								onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
 						}
 						else {
-							if (slider_->getPosition().first != leftLimit_) {
-								slider_->setLeft(leftLimit_);
+							if (slider_->getPosition().first != x_) {
+								slider_->setLeft(x_);
 								progressBar_->setProgress(slider_->getRelativePos());
 								if (onSliderClick != nullptr)
 									onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
@@ -184,11 +188,11 @@ namespace K_Engine {
 		}
 
 		//Position syncing
-		slider_->setLeft(transformRf_->getPosition().x + (slider_->getPosition().first - leftLimit_));
+		slider_->setLeft(transformRf_->getPosition().x + (slider_->getPosition().first - x_));
 		slider_->setTop(transformRf_->getPosition().y);
-		rightLimit_ = transformRf_->getPosition().x + (rightLimit_ - leftLimit_);
-		leftLimit_ = transformRf_->getPosition().x;
-		slider_->setLeftLimit(leftLimit_);
+		rightLimit_ = transformRf_->getPosition().x + (rightLimit_ - x_);
+		x_ = transformRf_->getPosition().x;
+		slider_->setLeftLimit(x_);
 		slider_->setRightLimit(rightLimit_);
 
 		//ZOrder syncing
@@ -197,5 +201,16 @@ namespace K_Engine {
 	void Slider::setSliderClick(std::function<void(std::string, float)> function)
 	{
 		onSliderClick = function;
+	}
+	void Slider::setDimensions(float width, float height)
+	{
+		slider_->setPosition(x_ + (slider_->getRelativePos() / 100) * width, y_);
+		width_ = width;
+		height_ = height;
+		slider_->setSize(width, height);
+		rightLimit_ = x_ + width;
+
+		progressBar_->setDimensions(width, height);
+		background_->setDimensions(width, height);
 	}
 }

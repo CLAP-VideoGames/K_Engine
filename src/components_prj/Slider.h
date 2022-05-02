@@ -34,7 +34,7 @@ namespace K_Engine {
 		/// <param name="e">Entity to be attached</param>
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
-		Slider(Entity* e, std::string overlayName, std::string imageName, int y, int leftLimit, int rightLimit);
+		Slider(Entity* e, std::string overlayName, std::string imageName, float width, float height);
 		virtual ~Slider();
 
 		//Required method for the component name
@@ -63,7 +63,7 @@ namespace K_Engine {
 		/// <param name="Function">Function to be called, declaration example: void Function();</param>
 		void setSliderClick(std::function<void(std::string, float)> function);
 
-		
+		void setDimensions(float width, float height);
 
 	private:
 		//Required
@@ -78,11 +78,12 @@ namespace K_Engine {
 		//Basic attributes needed for the image
 		std::string overlayName_;
 		std::string imageName_;
-		int y_;
-		int leftLimit_;
-		int rightLimit_;
-		int width;
-		int initialPosition;
+		float y_;
+		float x_;
+		float rightLimit_;
+		float initialPosition;
+		float width_;
+		float height_;
 
 		InputManager* inputMan;
 

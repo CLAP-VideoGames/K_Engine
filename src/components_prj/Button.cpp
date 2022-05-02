@@ -31,11 +31,13 @@ namespace K_Engine {
 	K_Engine::Button::Button(Entity* e) : Component(e) {}
 
 	Button::Button(Entity* e, std::string overlayName, std::string imageName,
-		std::string hoverImageName, std::string pressedImageName) : Component(e) {
+		std::string hoverImageName, std::string pressedImageName, float width, float height) : Component(e) {
 		overlayName_ = overlayName;
 		imageName_ = imageName;
 		hoverImageName_ = hoverImageName;
 		pressedImageName_ = pressedImageName;
+		width_ = width;
+		height_ = height;
 
 		inputArea = new Rectangle();
 		inputMan = K_Engine::InputManager::GetInstance();
@@ -51,6 +53,8 @@ namespace K_Engine {
 		imageName_ = information->value("imageName");
 		hoverImageName_ = information->value("hoverImageName");
 		pressedImageName_ = information->value("pressedImageName");
+		width_ = information->valueToNumber("width");
+		height_ = information->valueToNumber("height");
 
 		keyCallback_ = information->value("onClick");
 		setButtonClick(information->valueToCallback(keyCallback_));
@@ -72,6 +76,7 @@ namespace K_Engine {
 	{
 		transformRf_ = entity->getComponent<Transform>();
 		button_ = UIManager::GetInstance()->addWidget<UIButton>(overlayName_, imageName_, hoverImageName_, pressedImageName_);
+		button_->setSize(width_, height_);
 		button_->setInteractive(true);
 
 		syncData();
@@ -108,6 +113,19 @@ namespace K_Engine {
 	
 	void Button::setButtonClick(std::function<void(std::string)> function) {
 		onButtonClick = function;
+	}
+
+	void Button::setDimensions(float width, float height)
+	{
+		if (button_ != nullptr) {
+			button_->setSize(width, height);
+			width_ = width;
+			height_ = height;
+		}
+		else {
+			width_ = width;
+			height_ = height;
+		}
 	}
 
 	void Button::syncData() {

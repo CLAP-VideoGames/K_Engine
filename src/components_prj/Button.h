@@ -36,7 +36,8 @@ namespace K_Engine {
 		/// <param name="imageName">Name of the default image material</param>
 		/// <param name="hoverImageName">Name of the image to be displayed when the button is hovered</param>
 		/// <param name="pressedImageName">Name of the image to be displayed when the button is pressed</param>
-		Button(Entity* e, std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName);
+		Button(Entity* e, std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName,
+			   float width, float height);
 		virtual ~Button();
 
 		//Required method for the component name
@@ -68,6 +69,8 @@ namespace K_Engine {
 		/// <param name="Function">Function to be called, declaration example: void Function();</param>
 		void setButtonClick(std::function<void(std::string)> function);
 
+		void setDimensions(float width, float height);
+
 	private:
 		//Required
 		static std::string name;
@@ -88,6 +91,9 @@ namespace K_Engine {
 		bool pressed_;
 		InputManager* inputMan;
 		Rectangle* inputArea;
+
+		float width_;
+		float height_;
 
 		void syncData();
 	};

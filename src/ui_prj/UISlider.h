@@ -10,7 +10,7 @@ namespace K_Engine {
 	class UISlider : public UIElement
 	{
 	public:
-		UISlider(std::string overlayName, std::string imageName, int y, int left, int right, int initialPosition);
+		UISlider(std::string overlayName, std::string imageName, float x, float y, float width, float height, float initialPosition);
 		virtual ~UISlider();
 
 		double getRelativePos();
@@ -18,10 +18,12 @@ namespace K_Engine {
 		void setLeftLimit(int newLeftLimit);
 		void setRightLimit(int newRightLimit);
 
+		virtual void setSize(double width, double height);
+
 	private:
-		int leftLimit, rightLimit;
-		int initialDistance;
-		int distance;
+		float leftLimit, rightLimit;
+		float width_, height_;
+		float initialDistance;
 
 		bool pressed = false;
 	};

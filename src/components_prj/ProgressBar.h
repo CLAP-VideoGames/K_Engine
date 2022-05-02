@@ -30,7 +30,7 @@ namespace K_Engine {
 		/// <param name="overlayName">Name of the element</param>
 		/// <param name="imageName">Name of the image material</param>
 		ProgressBar(Entity* e, std::string overlayName, std::string imageName,
-			int orgWidth, int orgHeight, float progress = 100, float maxProgress = 100);
+			float orgWidth, float orgHeight, float progress = 100, float maxProgress = 100);
 		
 		virtual ~ProgressBar();
 
@@ -71,6 +71,8 @@ namespace K_Engine {
 
 		bool getIsFocus();
 
+		void setDimensions(float width, float height);
+
 	private:
 		//Required
 		static std::string name;
@@ -81,7 +83,7 @@ namespace K_Engine {
 		std::string overlayName_;
 		std::string imageName_;
 
-		int orgWidth_, orgHeight_;
+		float orgWidth_, orgHeight_;
 
 		float progress_;
 		float maxProgress_;

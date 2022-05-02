@@ -28,10 +28,4 @@ namespace K_Engine {
     }
 
     UIImage::~UIImage() = default;
-
-    void UIImage::setDimensions(int width, int height)
-    {
-        overlayElement_->setDimensions(width, height);
-    }
 }
-
