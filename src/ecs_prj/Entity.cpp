@@ -57,7 +57,7 @@ namespace K_Engine {
 
 	void Entity::destroy()
 	{
-		getMan()->destroyEntity(this);
+		toDestroy = true;
 	}
 
 	void Entity::addChild(Entity* child) {

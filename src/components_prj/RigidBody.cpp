@@ -276,10 +276,6 @@ namespace K_Engine {
 	void RigidBody::launchStayCallbacks(void* ent)
 	{
 		Entity* otherEntity = (Entity*)ent;
-		//if (colisionando) {
-		//	/*std::cout << "Estoy\n";*/
-
-		//}
 
 		std::unordered_map<std::string, Component*>* components = entity->getComponentes();
 

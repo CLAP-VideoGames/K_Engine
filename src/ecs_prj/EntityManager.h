@@ -43,15 +43,11 @@ namespace K_Engine {
 		void hideElements();
 		void showElements();
 
-		//Destroy an entity
-		void destroyEntity(Entity* e);
-
 	private:
 		//Our entity vector
 		std::vector<Entity*> entities;
 
 		std::vector<Entity*> toStart;
-
 	};
 }
 #endif // ENTITYMANAGER_H
