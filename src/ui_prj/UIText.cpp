@@ -13,7 +13,7 @@ namespace K_Engine {
         textArea_ = static_cast<Ogre::TextAreaOverlayElement*>(
 			overlayMan_->createOverlayElement("TextArea", overlayName + std::to_string(numOverlayElems)));
 
-        textArea_->setMetricsMode(Ogre::GMM_PIXELS);
+        textArea_->setMetricsMode(Ogre::GMM_RELATIVE);
         textArea_->setPosition(x, y);
         textArea_->setDimensions(width, height);
         textArea_->setCaption(text);
