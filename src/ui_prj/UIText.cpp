@@ -20,7 +20,8 @@ namespace K_Engine {
         textArea_->setCharHeight(height);
 
         //Default font
-        textArea_->setFontName(fontName);
+		textArea_->setFontName(fontName);
+		textArea_->setAlignment(Ogre::TextAreaOverlayElement::Alignment::Center);
         textArea_->setColourBottom(Ogre::ColourValue(textColor.x, textColor.y, textColor.z));
         textArea_->setColourTop(Ogre::ColourValue(textColor.x, textColor.y, textColor.z));
 

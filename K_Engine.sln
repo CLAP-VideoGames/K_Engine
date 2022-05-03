@@ -8,6 +8,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ecs_prj", "projects\ecs_prj\ecs_prj.vcxproj", "{A9C79538-C953-45EB-9232-435D0FBBA7E2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "input_prj", "projects\input_prj\input_prj.vcxproj", "{EA8304F0-B9DC-4D9F-94D0-106A28F1665E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6722D8BC-01D9-41B8-A846-738D35A52E27} = {6722D8BC-01D9-41B8-A846-738D35A52E27}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "physics_prj", "projects\physics_prj\physics_prj.vcxproj", "{2E4034B9-AD29-44C6-8F44-9B90C6E64E6C}"
 EndProject
