@@ -1,3 +1,8 @@
+function getMasterVolume()
+    local audioMan2 = AudioManager.getAudioMan();
+    return tostring(audioMan2:getMasterVolume());
+end
+
 options = {
     sliderVolume = {
         Transform = {
@@ -11,7 +16,8 @@ options = {
             imageName = "DefaultButton",
             width = "0.4",
             height = "0.1",
-            onSliderClick = "setMasterVolume"
+            onSliderClick = "setMasterVolume",
+            initialPosition = getMasterVolume()
         }
     },
     popSceneButton = {

@@ -71,7 +71,7 @@ namespace K_Engine {
 		int getMouseButtonState(K_Engine_MouseButton b);
 
 		//Any mouse button held
-		bool getMouseButtonHeld();
+		bool getMouseButtonHeld(K_Engine_MouseButton b);
 		//Right button pressed
 		bool getRightMouseButtonPressed();
 		//Left button pressed

@@ -38,6 +38,8 @@ namespace K_Engine {
 		width_ = width;
 		height_ = height;
 
+		initialPosition = 1;
+
 		inputArea = new Rectangle();
 
 		inputMan = K_Engine::InputManager::GetInstance();
@@ -59,6 +61,8 @@ namespace K_Engine {
 
 		keyCallback_ = information->value("onSliderClick");
 		onSliderClick = information->valueToFunction(keyCallback_, 1.0f);
+
+		initialPosition = information->valueToNumber("initialPosition");
 
 		inputArea = new Rectangle();
 
@@ -85,8 +89,6 @@ namespace K_Engine {
 		x_ = transformRf_->getPosition().x;
 		rightLimit_ = x_ + width_;
 		y_ = transformRf_->getPosition().y;
-
-		initialPosition = AudioManager::GetInstance()->getMasterVolume();
 
 		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, x_, y_, width_, height_, initialPosition);
 
@@ -118,18 +120,28 @@ namespace K_Engine {
 				pressed_ = true;
 			}
 		}
-		else
+		else if (!inputMan->getMouseButtonHeld(K_Engine_MouseButton::LEFT))
 			pressed_ = false;
 
 		if (pressed_) {
 			auto x = slider_->getPosition().first;
 			if (x >= x_ && x <= rightLimit_) {
+				//We set the position of the slider to the position of the mouse
 				if (pointer.x >= x_ * RenderManager::GetInstance()->windowWidth() && pointer.x <= (rightLimit_ - slider_->getSize().first) * RenderManager::GetInstance()->windowWidth()) {
 					slider_->setLeft((float)pointer.x / (float)RenderManager::GetInstance()->windowWidth());
-					progressBar_->setProgress(slider_->getRelativePos());
-					if (onSliderClick != nullptr)
-						onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
+					
 				}
+				else {
+					//Left limit
+					if (pointer.x < x_ * RenderManager::GetInstance()->windowWidth())
+						slider_->setLeft(x_);
+					//Right limit
+					else
+						slider_->setLeft(rightLimit_ - slider_->getSize().first);
+				}
+				progressBar_->setProgress(slider_->getRelativePos());
+				if (onSliderClick != nullptr)
+					onSliderClick(keyCallback_, slider_->getRelativePos() / 100.0f);
 			}
 		}
 
@@ -188,8 +200,7 @@ namespace K_Engine {
 		}
 
 		//Position syncing
-		slider_->setLeft(transformRf_->getPosition().x + (slider_->getPosition().first - x_));
-		slider_->setTop(transformRf_->getPosition().y);
+		slider_->setPosition(transformRf_->getPosition().x + (slider_->getPosition().first - x_), transformRf_->getPosition().y);
 		rightLimit_ = transformRf_->getPosition().x + width_;
 		x_ = transformRf_->getPosition().x;
 		slider_->setLeftLimit(x_);

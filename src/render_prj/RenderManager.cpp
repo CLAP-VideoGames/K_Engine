@@ -126,16 +126,16 @@ namespace K_Engine {
 			RECT rect; HWND hd = GetDesktopWindow();
 			GetClientRect(hd, &rect);
 
-			double dpi = 1; int zoom = GetDpiForWindow(hd);
+			/*double dpi = 1; int zoom = GetDpiForWindow(hd);
 			switch (zoom) {
 			case 120: dpi = 1.25; break;
 			case 144: dpi = 1.5; break;
 			case 192: dpi = 2; break;
 			default: break;
-			}
+			}*/
 
-			actual_window_width = (rect.right - rect.left) * dpi;
-			actual_window_height = (rect.bottom - rect.top) * dpi;
+			actual_window_width = (rect.right - rect.left);
+			actual_window_height = (rect.bottom - rect.top);
 		}
 
 		Uint32 flags = fullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : SDL_WINDOW_RESIZABLE;

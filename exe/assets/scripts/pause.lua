@@ -1,3 +1,18 @@
+function getMasterVolume()
+    local audioMan2 = AudioManager.getAudioMan();
+    return tostring(audioMan2:getMasterVolume());
+end
+
+function getMusicVolume()
+    local audioMan2 = AudioManager.getAudioMan();
+    return tostring(audioMan2:getMusicVolume());
+end
+
+function getSFXVolume()
+    local audioMan2 = AudioManager.getAudioMan();
+    return tostring(audioMan2:getSFXVolume());
+end
+
 pause = {
     masterVolumeText = {
         Transform = {
@@ -29,7 +44,8 @@ pause = {
             imageName = "DefaultButton",
             width = "0.4",
             height = "0.1",
-            onSliderClick = "setMasterVolume"
+            onSliderClick = "setMasterVolume",
+            initialPosition = getMasterVolume()
         }
     },
     musicVolumeText = {
@@ -62,7 +78,8 @@ pause = {
             imageName = "DefaultButton",
             width = "0.4",
             height = "0.1",
-            onSliderClick = "setMusicVolume"
+            onSliderClick = "setMusicVolume",
+            initialPosition = getMusicVolume()
         }
     },
     effectsVolumeText = {
@@ -95,7 +112,8 @@ pause = {
             imageName = "DefaultButton",
             width = "0.4",
             height = "0.1",
-            onSliderClick = "setEffectsVolume"
+            onSliderClick = "setEffectsVolume",
+            initialPosition = getSFXVolume()
         }
     },
     mainMenuButton = {
@@ -141,12 +159,12 @@ end
 
 function setMusicVolume(volume)
     local audioMan = AudioManager.getAudioMan();
-    audioMan:setMasterVolume(volume);
+    audioMan:setMusicVolume(volume);
 end
 
 function setEffectsVolume(volume)
     local audioMan = AudioManager.getAudioMan();
-    audioMan:setMasterVolume(volume);
+    audioMan:setSFXVolume(volume);
 end
 
 pause_entities = {"masterVolumeText", "masterVolume", "musicVolumeText", "musicVolume", "effectsVolumeText", "effectsVolume", "mainMenuButton", "focusPause"}

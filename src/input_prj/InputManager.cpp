@@ -53,6 +53,9 @@ namespace K_Engine {
 	bool InputManager::update() {
 		SDL_Event event;
 
+		isRightMousePressedOnce_ = false;
+		isLeftMousePressedOnce_ = false;
+
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:
@@ -184,19 +187,30 @@ namespace K_Engine {
 		return mbState_[(int)b];
 	}
 
-	bool InputManager::getMouseButtonHeld() {
-		return isMouseButtonHeldDown_;
+	bool InputManager::getMouseButtonHeld(K_Engine_MouseButton b) {
+		if (isMouseButtonHeldDown_) {
+			switch (b)
+			{
+			case K_Engine_MouseButton::LEFT:
+				return isLeftMousePressed_;
+				break;
+			case K_Engine_MouseButton::RIGHT:
+				return isRightMousePressed_;
+				break;
+			default:
+				return false;
+				break;
+			}
+		}
 	}
 
 	bool InputManager::getRightMouseButtonPressed() {
 		bool isPressedOnce = isRightMousePressed_ && isRightMousePressedOnce_;
-		isRightMousePressedOnce_ = false;
 		return isPressedOnce;
 	}
 
 	bool InputManager::getLeftMouseButtonPressed() {
 		bool isPressedOnce = isLeftMousePressed_ && isLeftMousePressedOnce_;
-		isLeftMousePressedOnce_ = false;
 		return isPressedOnce;
 	}
 
