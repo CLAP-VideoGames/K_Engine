@@ -14,15 +14,13 @@ extern "C" {
 
 //Otros proyectos
 #include <render_prj/RenderManager.h>
-
 #include<sound_prj/AudioManager.h>
-
 #include <scene_prj/SceneManager.h>
-
 #include <log_prj/LogManager.h>
 
 #include <ecs_prj/EntityManager.h>
 #include <ecs_prj/Entity.h>
+
 #include <ecs_prj/ComponentManager.h>
 
 #include <physics_prj/PhysicsManager.h>
@@ -125,6 +123,9 @@ namespace K_Engine {
 			.addFunction("setMasterVolume", &AudioManager::setMasterVolume)
 			.addFunction("setSFXVolume", &AudioManager::setSFXVolume)
 			.addFunction("setMusicVolume", &AudioManager::setMusicVolume)
+			.addFunction("getMasterVolume", &AudioManager::getMasterVolume)
+			.addFunction("getSFXVolume", &AudioManager::getSFXVolume)
+			.addFunction("getMusicVolume", &AudioManager::getMusicVolume)
 			.endClass();
 		//RenderManager
 		getGlobalNamespace(luaState).beginClass<RenderManager>("RenderManager")
