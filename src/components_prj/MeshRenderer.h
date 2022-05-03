@@ -53,6 +53,8 @@ namespace K_Engine {
 
 		void syncPosition();
 
+		std::string getMeshName();
+
 	private:
 
 

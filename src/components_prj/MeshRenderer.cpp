@@ -144,4 +144,9 @@ namespace K_Engine {
 		Ogre::Quaternion q = EulerToQuaternion(rot);
 		mNode->setOrientation(q);
 	}
+
+	std::string MeshRenderer::getMeshName()
+	{
+		return meshFile;
+	}
 }
