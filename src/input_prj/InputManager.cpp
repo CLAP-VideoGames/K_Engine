@@ -55,6 +55,7 @@ namespace K_Engine {
 
 		isRightMousePressedOnce_ = false;
 		isLeftMousePressedOnce_ = false;
+		isMidMousePressedOnce_ = false;
 
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
@@ -194,6 +195,9 @@ namespace K_Engine {
 			case K_Engine_MouseButton::LEFT:
 				return isLeftMousePressed_;
 				break;
+			case K_Engine_MouseButton::MIDDLE:
+				return isMidMousePressed_;
+				break;
 			case K_Engine_MouseButton::RIGHT:
 				return isRightMousePressed_;
 				break;
@@ -211,6 +215,12 @@ namespace K_Engine {
 
 	bool InputManager::getLeftMouseButtonPressed() {
 		bool isPressedOnce = isLeftMousePressed_ && isLeftMousePressedOnce_;
+		return isPressedOnce;
+	}
+
+	bool InputManager::midMouseButtonPressed()
+	{
+		bool isPressedOnce = isMidMousePressed_ && isMidMousePressedOnce_;
 		return isPressedOnce;
 	}
 
@@ -280,6 +290,8 @@ namespace K_Engine {
 			break;
 		case SDL_BUTTON_MIDDLE:
 			mbState_[(int)K_Engine_MouseButton::MIDDLE] = isDown;
+			isMidMousePressed_ = isDown;
+			isMidMousePressedOnce_ = isDown;
 			break;
 		case SDL_BUTTON_RIGHT:
 			mbState_[(int)K_Engine_MouseButton::RIGHT] = isDown;

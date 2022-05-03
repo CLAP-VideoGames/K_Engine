@@ -76,6 +76,8 @@ namespace K_Engine {
 		bool getRightMouseButtonPressed();
 		//Left button pressed
 		bool getLeftMouseButtonPressed();
+		//Middle button pressed
+		bool midMouseButtonPressed();
 
 		bool isMouseButtonUp() const;
 
@@ -102,14 +104,19 @@ namespace K_Engine {
 		bool isMouseMotionEvent_ = false;
 		bool isMouseButtonEvent_ = false;
 
-		//Esto es para ver que se sigue pulsando
+		//Any button
 		bool isMouseButtonHeldDown_ = false;
-		bool isRightMousePressed_ = false;
-		bool isRightMousePressedOnce_ = false;
-		bool isLeftMousePressed_ = false;
-		bool isLeftMousePressedOnce_ = false;
 		bool isMouseButtonDown_ = false;
 		bool isMouseButtonUp_ = false;
+		//Right button
+		bool isRightMousePressed_ = false;
+		bool isRightMousePressedOnce_ = false;
+		//LeftButton
+		bool isLeftMousePressed_ = false;
+		bool isLeftMousePressedOnce_ = false;
+		//Mid button
+		bool isMidMousePressed_ = false;
+		bool isMidMousePressedOnce_ = false;
 
 		//Editable deathZone for our joySticks
 		float deathZoneLeftJoy = 3000;
