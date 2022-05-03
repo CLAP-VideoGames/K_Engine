@@ -71,7 +71,8 @@ namespace K_Engine {
 
 		Camera* mCamera;
 
-		int window_height, window_width;
+		int default_window_height, default_window_width;
+		int actual_window_height, actual_window_width;
 		bool fullScreen;
 
 		void initRoot();

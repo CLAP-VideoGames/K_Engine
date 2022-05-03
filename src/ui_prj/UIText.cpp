@@ -18,6 +18,7 @@ namespace K_Engine {
         textArea_->setDimensions(width, height);
         textArea_->setCaption(text);
         textArea_->setCharHeight(height);
+
         //Default font
         textArea_->setFontName(fontName);
         textArea_->setColourBottom(Ogre::ColourValue(textColor.x, textColor.y, textColor.z));

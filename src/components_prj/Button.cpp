@@ -84,7 +84,7 @@ namespace K_Engine {
 
 	void Button::update(int frameTime)
 	{
-		//syncData();
+		syncData();
 
 		//Gamepad control
 		if (button_->getIsFocusNow()) {
@@ -140,5 +140,7 @@ namespace K_Engine {
 		inputArea->y = button_->getPosition().second * RenderManager::GetInstance()->windowHeight();
 		inputArea->w = button_->getSize().first * RenderManager::GetInstance()->windowWidth(); 
 		inputArea->h = button_->getSize().second * RenderManager::GetInstance()->windowHeight();
+
+		std::cout << RenderManager::GetInstance()->windowWidth() << " " << RenderManager::GetInstance()->windowHeight() << std::endl;
 	}
 }

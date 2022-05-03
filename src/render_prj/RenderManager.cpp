@@ -121,7 +121,7 @@ namespace K_Engine {
 	void RenderManager::setFullScreen() {
 		fullScreen = !fullScreen;
 
-		float new_width = window_width, new_height = window_height;
+		actual_window_width = default_window_width, actual_window_height = default_window_height;
 		if (fullScreen) {
 			RECT rect; HWND hd = GetDesktopWindow();
 			GetClientRect(hd, &rect);
@@ -134,12 +134,12 @@ namespace K_Engine {
 			default: break;
 			}
 
-			new_width = (rect.right - rect.left) * dpi;
-			new_height = (rect.bottom - rect.top) * dpi;
+			actual_window_width = (rect.right - rect.left) * dpi;
+			actual_window_height = (rect.bottom - rect.top) * dpi;
 		}
 
 		Uint32 flags = fullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : SDL_WINDOW_RESIZABLE;
-		SDL_SetWindowSize(mSDLWin, new_width, new_height);
+		SDL_SetWindowSize(mSDLWin, actual_window_width, actual_window_height);
 		SDL_SetWindowFullscreen(mSDLWin, flags);
 		mRenderWin->windowMovedOrResized();
 	}
@@ -178,7 +178,7 @@ namespace K_Engine {
 		fullScreen = false;
 		resetWindowSize();
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
-		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, flags);
+		mSDLWin = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, default_window_width, default_window_height, flags);
 		if (!mSDLWin)
 			throw Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR, SDL_GetError(), "SDL Window not loaded correctly");
 
@@ -214,7 +214,7 @@ namespace K_Engine {
 		Ogre::NameValuePairList miscData;
 		miscData["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
 
-		mRenderWin = mRoot->createRenderWindow(name.c_str(), window_width, window_height, false, &miscData);
+		mRenderWin = mRoot->createRenderWindow(name.c_str(), default_window_width, default_window_height, false, &miscData);
 
 		mRenderWin->setActive(true);
 		mRenderWin->setVisible(true);
@@ -261,7 +261,8 @@ namespace K_Engine {
 
 	void RenderManager::resetWindowSize() {
 		SDL_DisplayMode info; SDL_GetDesktopDisplayMode(0, &info);
-		window_width = info.w / 1.5; window_height = info.h / 1.5;
+		actual_window_width = default_window_width = info.w / 1.5; 
+		actual_window_height = default_window_height = info.h / 1.5;
 	}
 
 	Ogre::Root* RenderManager::getRoot() {
@@ -281,10 +282,10 @@ namespace K_Engine {
 	}
 
 	int RenderManager::windowHeight() {
-		return window_height;
+		return actual_window_height;
 	}
 
 	int RenderManager::windowWidth() {
-		return window_width;
+		return actual_window_width;
 	}
 }
