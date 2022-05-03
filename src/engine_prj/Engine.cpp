@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-//////////////////#define DEVELOPMENT
+#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -103,17 +103,16 @@ namespace K_Engine {
 			uiMan->cleanElements();
 
 #ifndef DEVELOPMENT
-			// game layers setup
-			registerGameLayers();
-			// game component setup
-			registerGameComponents();
-			// start scene
-			sceneMan->pushScene(startUpScene());
-#endif
+			registerGameLayers();		// game layers setup
+			registerGameComponents();	// game component setup
 
+			// start scene
+			//sceneMan->startScene(startUpScene());
+			// DELETE
+			sceneMan->pushScene(startScene());
+#endif
 #ifdef DEVELOPMENT
-			// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
-			debug();
+			sceneMan->startScene("menu");
 #endif
 
 		}
@@ -203,10 +202,13 @@ namespace K_Engine {
 
 		// game functions load
 		gameName = (GameString)GetProcAddress(game, "gameName");
+		startUpScene = (GameString)GetProcAddress(game, "startUpScene");
 		registerGameComponents = (Game)GetProcAddress(game, "registerComponents");
 		registerGameLayers = (Game)GetProcAddress(game, "registerLayers");
-		startUpScene = (GameScene)GetProcAddress(game, "startUpScene");
 		gameExitConditions = (GameBool)GetProcAddress(game, "gameExitConditions");
+
+		// DELETE
+		startScene = (GameScene)GetProcAddress(game, "startScene");
 
 		if (gameName == nullptr || registerGameComponents == nullptr || registerGameLayers == nullptr ||
 			startUpScene == nullptr || gameExitConditions == nullptr)
@@ -216,8 +218,8 @@ namespace K_Engine {
 
 	bool Engine::exit() {
 #ifdef DEVELOPMENT
-		return !inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) &&
-			!inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE);
+		return inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) ||
+			inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE);
 #endif
 #ifndef DEVELOPMENT
 		return gameExitConditions();
@@ -233,13 +235,5 @@ namespace K_Engine {
 		}
 
 		return true;
-	}
-
-	void Engine::debug() {
-		//Carga de escena
-		Scene* exampleScene2 = new Scene("testMenu");
-		exampleScene2->init("testMenu");
-		sceneMan->pushScene(exampleScene2);
-
 	}
 }

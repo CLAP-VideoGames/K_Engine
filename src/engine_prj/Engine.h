@@ -48,19 +48,18 @@ namespace K_Engine {
 
 		HMODULE game;
 		GameString gameName;
+		GameString startUpScene;
 		Game registerGameComponents;
 		Game registerGameLayers;
-		GameScene startUpScene;
 		GameBool gameExitConditions;
+
+		// DELETE
+		GameScene startScene;
 
 		bool exit();
 
 		bool loadGame();
 		bool closeGame();
-
-		// Debug section
-		// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
-		void debug();
 	};
 }
 #endif // ENGINE_H

@@ -28,11 +28,13 @@ namespace K_Engine {
 		// Pops the actual scene and pushes the new scene
 		void changeScene(Scene* newS);
 
+		void startScene(std::string scene);
+
 		// Allows the user to pop the scenes stack
 		void popSceneStr(std::string scene);
 
 		// Pops the actual scene and pushes the new scene by string name
-		void pushScenebyStr(std::string scene);
+		void pushSceneStr(std::string scene);
 
 		// Pops the actual scene and pushes the new scene by string name
 		void changeSceneStr(std::string scene);
