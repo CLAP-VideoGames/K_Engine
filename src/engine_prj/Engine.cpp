@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-//////#define DEVELOPMENT
+//#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -241,8 +241,8 @@ namespace K_Engine {
 
 	void Engine::debug() {
 		//Carga de escena
-		Scene* exampleScene2 = new Scene("pause");
-		exampleScene2->init();
+		Scene* exampleScene2 = new Scene("testMenu");
+		exampleScene2->init("testMenu");
 		sceneMan->pushScene(exampleScene2);
 
 	}

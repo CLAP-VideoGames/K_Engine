@@ -66,9 +66,9 @@ namespace K_Engine {
 			t->setPosition(0, 39, 0);
 
 
-			t->setRotation(0, 90, 0);
+			t->setRotation(0, 0, 0);
 			K_Engine::MeshRenderer* m = monkey->addComponent<K_Engine::MeshRenderer>();
-			m->setMesh("PedroPablo.mesh");
+				m->setMesh("Generic.mesh");
 			m->debug();
 
 			K_Engine::RigidBody* r = monkey->addComponent<K_Engine::RigidBody>(ColliderType::CT_BOX, BodyType::BT_DYNAMIC, 50, 1, 1);
@@ -79,6 +79,7 @@ namespace K_Engine {
 			r->setPosConstraints({1, 1, 0});
 			r->setRotConstraints({0, 0, 0});
 		}
+		K_Engine::Animator* anim_ = monkey->addComponent<K_Engine::Animator>();
 
 		//LIGHT
 		{
@@ -275,7 +276,7 @@ namespace K_Engine {
 		//Start of the entites
 		entMan->start();
 
-		//anim_->playAnim("Death");
+		anim_->playAnim("Jump_Generic");
 		//anim->playAnim("Death");
 	}
 
