@@ -98,13 +98,11 @@ namespace K_Engine {
 		}
 	}
 
-	Ogre::SceneNode* MeshRenderer::getOgreNode()
-	{
+	Ogre::SceneNode* MeshRenderer::getOgreNode() {
 		return mNode;
 	}
 
-	Ogre::Entity* MeshRenderer::getOgreEntity()
-	{
+	Ogre::Entity* MeshRenderer::getOgreEntity() {
 		return mEntity;
 	}
 

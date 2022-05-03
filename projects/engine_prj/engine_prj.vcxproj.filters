@@ -26,13 +26,18 @@
     <ClInclude Include="..\..\src\engine_prj\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\engine_prj\resource.h">
+    <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\src\engine_prj\engine_prj.rc">
+    <ResourceCompile Include="engine_prj.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\exe\assets\misc\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

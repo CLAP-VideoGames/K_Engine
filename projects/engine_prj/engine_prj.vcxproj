@@ -135,10 +135,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\engine_prj\Engine.h" />
-    <ClInclude Include="..\..\src\engine_prj\resource.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\src\engine_prj\engine_prj.rc" />
+    <ResourceCompile Include="engine_prj.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\exe\assets\misc\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

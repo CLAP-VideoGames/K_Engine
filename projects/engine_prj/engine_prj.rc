@@ -52,7 +52,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON               ICON                    "..\\..\\exe\\assets\\misc\\icon.ico"
+IDI_ICON1               ICON                    "D:\\Game_Dev\\Projects\\VS-VSC\\C++\\P3\\Repositories\\UCM\\engine\\exe\\assets\\misc\\icon.ico"
 
 #endif    // English (United Kingdom) resources
 /////////////////////////////////////////////////////////////////////////////
