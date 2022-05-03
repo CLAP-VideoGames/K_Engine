@@ -9,10 +9,19 @@ namespace K_Engine {
 
 	EntityManager::~EntityManager()
 	{
-		while (!entities.empty()) {
-			delete entities[0];
-			entities.erase(entities.begin());
+		for (Entity* ent : entities) {
+			ent->destroy();
 		}
+		for (Entity* ent : toStart) {
+			ent->destroy();
+		}
+		toStart.clear();
+		//while (!entities.empty()) {
+		//	entities[i]
+		//	/*delete entities[0];
+		//	entities.erase(entities.begin());*/
+		//}
+		/*entities.clear();*/
 	}
 
 	Entity* EntityManager::addEntity(bool inExecution)
@@ -45,7 +54,8 @@ namespace K_Engine {
 			entities.push_back(a);
 		}
 
-		toStart.clear();
+		if (toStart.size() > 0)
+			toStart.clear();
 	}
 
 	void EntityManager::fixedUpdate(int deltaTime)

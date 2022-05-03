@@ -49,7 +49,7 @@ namespace K_Engine {
 		if (scenes.size() < 2)
 			return;
 
-		scenes.top()->hideElements();
+		delete scenes.top();
 		scenes.pop();
 	}
 

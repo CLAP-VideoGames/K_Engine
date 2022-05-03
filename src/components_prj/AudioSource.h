@@ -18,7 +18,7 @@ namespace K_Engine {
 	public:
 		AudioSource();
 		AudioSource(Entity* e);
-		AudioSource(Entity* e, AudioType type, std::string path, float vol, bool loop, bool start);
+		AudioSource(Entity* e, AudioType type, std::string path, float vol, int channel, bool loop, bool start);
 
 		virtual ~AudioSource();
 

@@ -21,13 +21,15 @@ namespace K_Engine {
 
 	AudioSource::AudioSource(Entity* e) : Component(e) {}
 
-	AudioSource::AudioSource(Entity* e, AudioType type, std::string path, float vol, bool loop, bool start) {
+	AudioSource::AudioSource(Entity* e, AudioType type, std::string path, float vol, int channel, bool loop, bool start) {
 		audio = new Audio;
 
 		audio->audio_path = path;
 		audio->type = type;
 
 		audio->volume = vol;
+		if (audio->type == AudioType::SOUND_EFFECT)
+			audio->channel = channel;
 
 		loopable = loop;
 		playStart = start;
@@ -47,6 +49,8 @@ namespace K_Engine {
 		audio->type = (AudioType)information->valueToNumber("type");
 
 		audio->volume = information->valueToNumber("volume");
+		if (audio->type == AudioType::SOUND_EFFECT)
+			audio->channel = information->valueToNumber("channel");
 
 		loopable = information->valueToBool("loopable");
 		playStart = information->valueToBool("playOnStart");

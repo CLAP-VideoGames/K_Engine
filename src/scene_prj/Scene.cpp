@@ -38,6 +38,7 @@ namespace K_Engine {
 	}
 
 	Scene::~Scene() {
+		entMan->hideElements();
 		delete entMan;
 	}
 

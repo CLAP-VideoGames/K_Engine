@@ -78,7 +78,7 @@ namespace K_Engine {
 		if (aud->type == AudioType::SOUND_EFFECT) {
 			Mix_VolumeChunk(aud->sfx, masterVolume * sfxVolume * aud->volume * MIX_MAX_VOLUME);
 
-			if ((aud->channel = Mix_PlayChannel(-1, aud->sfx, loop)) == -1)
+			if (Mix_PlayChannel(aud->channel, aud->sfx, loop) == -1)
 				// Gets the first empty channel and assign the audio file to that channel, and starts playing
 				K_Engine::LogManager::GetInstance()->addLog(K_Engine::LogType::WARNING, "SFX sound could not be played");
 		}
