@@ -96,7 +96,7 @@ namespace K_Engine {
 		progressBar_->setCustomRenderOrder(5);
 		progressBar_->setProgress(slider_->getRelativePos());
 
-		background_ = entity->addComponent<Image>(overlayName_ + " background", "GreenDefaultProgressBar", width_, height_);
+		background_ = entity->addComponent<Image>(overlayName_ + " background", "UCM/SliderBackground", width_, height_);
 		background_->setDimensions(width_, height_);
 		background_->setInteractive(true);
 	}

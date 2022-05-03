@@ -109,3 +109,16 @@ material SelectorFoco {
 		}
 	}
 }
+
+material UCM/SliderBackground {
+	technique {
+		pass {
+			depth_check off
+			scene_blend alpha_blend
+			texture_unit {
+				texture barra.png
+				colour_op modulate
+			}
+		}
+	}
+}
