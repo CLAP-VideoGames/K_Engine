@@ -138,8 +138,7 @@ namespace K_Engine {
 			logMan->clearLogBuffer();
 
 			// exit condition (we hould hange the keys to the game and use the exitCondition method here
-			run = inputMan->update() && exit();
-
+			run = inputMan->update() && !exit();
 			if (!run) continue;
 
 			while (accFrameTime >= DELTA_TIME) {
@@ -154,11 +153,8 @@ namespace K_Engine {
 			uiMan->update();
 			renderMan->render();
 
-			// clear input buffer
-			inputMan->flush();
-
-			// print log buffer
-			logMan->printLogBuffer();
+			inputMan->flush();			// clear input buffer
+			logMan->printLogBuffer();	// print log buffer
 		}
 	}
 
