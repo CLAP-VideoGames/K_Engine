@@ -361,3 +361,5 @@ dependencies/cegui/src/dependencies/
 *.dll
 *.lib
 *.exp
+
+exe/assets/
