@@ -189,11 +189,15 @@ namespace K_Engine {
 	}
 
 	bool InputManager::getRightMouseButtonPressed() {
-		return isRightMousePressed_;
+		bool isPressedOnce = isRightMousePressed_ && isRightMousePressedOnce_;
+		isRightMousePressedOnce_ = false;
+		return isPressedOnce;
 	}
 
 	bool InputManager::getLeftMouseButtonPressed() {
-		return isLeftMousePressed_;
+		bool isPressedOnce = isLeftMousePressed_ && isLeftMousePressedOnce_;
+		isLeftMousePressedOnce_ = false;
+		return isPressedOnce;
 	}
 
 	bool InputManager::isMouseButtonUp() const{
@@ -258,6 +262,7 @@ namespace K_Engine {
 		case SDL_BUTTON_LEFT:
 			mbState_[(int)K_Engine_MouseButton::LEFT] = isDown;
 			isLeftMousePressed_ = isDown;
+			isLeftMousePressedOnce_ = isDown;
 			break;
 		case SDL_BUTTON_MIDDLE:
 			mbState_[(int)K_Engine_MouseButton::MIDDLE] = isDown;
@@ -265,6 +270,7 @@ namespace K_Engine {
 		case SDL_BUTTON_RIGHT:
 			mbState_[(int)K_Engine_MouseButton::RIGHT] = isDown;
 			isRightMousePressed_ = isDown;
+			isRightMousePressedOnce_ = isDown;
 			break;
 		default:
 			break;

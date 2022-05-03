@@ -105,7 +105,9 @@ namespace K_Engine {
 		//Esto es para ver que se sigue pulsando
 		bool isMouseButtonHeldDown_ = false;
 		bool isRightMousePressed_ = false;
+		bool isRightMousePressedOnce_ = false;
 		bool isLeftMousePressed_ = false;
+		bool isLeftMousePressedOnce_ = false;
 		bool isMouseButtonDown_ = false;
 		bool isMouseButtonUp_ = false;
 
