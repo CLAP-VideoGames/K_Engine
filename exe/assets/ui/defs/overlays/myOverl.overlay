@@ -1,8 +1,0 @@
-overlay_element Image Panel{
-    left 0
-    top 0
-    width 0.5
-    height 0.5
-
-    material K_Engine/PrototypeWhite
-}

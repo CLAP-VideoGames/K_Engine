@@ -1,0 +1,1 @@
+**Aquí debería haber assets, con respecto al archivo "resources.cfg"**
