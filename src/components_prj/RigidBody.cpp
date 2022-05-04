@@ -269,7 +269,7 @@ namespace K_Engine {
 		Entity* otherEntity = (Entity*)ent;
 		colisionando = true;
 
-		std::unordered_map<std::string, Component*>* components = entity->getComponentes();
+		std::unordered_map<std::string, Component*>* components = entity->getComponents();
 
 		for (auto c : *components) {
 			c.second->onCollisionEnter(otherEntity);
@@ -280,7 +280,7 @@ namespace K_Engine {
 	{
 		Entity* otherEntity = (Entity*)ent;
 
-		std::unordered_map<std::string, Component*>* components = entity->getComponentes();
+		std::unordered_map<std::string, Component*>* components = entity->getComponents();
 
 		for (auto c : *components) {
 			c.second->onCollisionStay(otherEntity);
@@ -293,7 +293,7 @@ namespace K_Engine {
 		colisionando = false;
 		/*std::cout << "Salgo\n";*/
 
-		std::unordered_map<std::string, Component*>* components = entity->getComponentes();
+		std::unordered_map<std::string, Component*>* components = entity->getComponents();
 
 		for (auto c : *components) {
 			c.second->onCollisionExit(otherEntity);

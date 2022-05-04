@@ -9,19 +9,13 @@ namespace K_Engine {
 
 	EntityManager::~EntityManager()
 	{
-		for (Entity* ent : entities) {
-			ent->destroy();
-		}
-		for (Entity* ent : toStart) {
-			ent->destroy();
-		}
+		for (int index = 0; index < entities.size(); ++index)
+			delete entities[index];
+		entities.clear();
+
+		for (int index = 0; index < toStart.size(); ++index)
+			delete toStart[index];
 		toStart.clear();
-		//while (!entities.empty()) {
-		//	entities[i]
-		//	/*delete entities[0];
-		//	entities.erase(entities.begin());*/
-		//}
-		/*entities.clear();*/
 	}
 
 	Entity* EntityManager::addEntity(bool inExecution)

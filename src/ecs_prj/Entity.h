@@ -25,9 +25,9 @@ namespace K_Engine {
 		T* getComponent() {
 			std::string compName = getComponentName<T>();
 
-			auto iterator = components->find(compName);
+			auto iterator = components.find(compName);
 
-			if (iterator != components->end()) return static_cast<T*>(iterator->second);
+			if (iterator != components.end()) return static_cast<T*>(iterator->second);
 
 			return nullptr;
 		};
@@ -56,9 +56,9 @@ namespace K_Engine {
 		bool hasComponent() {
 			std::string compName = getComponentName<T>();
 
-			auto iterator = components->find(compName);
+			auto iterator = components.find(compName);
 
-			return (iterator != components->end());
+			return (iterator != components.end());
 		}
 
 		//Template to add any Component to our Entity
@@ -70,7 +70,7 @@ namespace K_Engine {
 
 			T* c = comM->create<T>(this, args...);
 
-			components->emplace(compName, c);
+			components.emplace(compName, c);
 
 			return static_cast<T*>(c);
 		}
@@ -121,9 +121,9 @@ namespace K_Engine {
 
 		void setMan(EntityManager* e) { entMan = e; }
 
-		std::unordered_map<std::string, Component*>* getComponentes() { return components; };
-	private:
+		std::unordered_map<std::string, Component*>* getComponents() { return &components; };
 
+	private:
 		/*
 		*We use this method to check that it is a Component what the user is introucing in our methods,
 		*if it is not we throw an exception, if it is we return the componentName
@@ -145,7 +145,7 @@ namespace K_Engine {
 		bool toDestroy; // knows when do we have to erase an entity
 
 		//Map to find our components and erase them using the id of the component
-		std::unordered_map<std::string, Component*>* components;
+		std::unordered_map<std::string, Component*> components;
 
 		//strings to give the entity a tag or a name
 		std::string tag;
