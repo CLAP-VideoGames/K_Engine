@@ -34,7 +34,7 @@ namespace K_Engine {
 	void Entity::fixedUpdate(int deltaTime)
 	{
 		for (auto c : components)
-			if (c.second->enable) c.second->physicsUpdate(deltaTime);
+			c.second->physicsUpdate(deltaTime);
 
 		//Update for the entity children
 		for (auto c : children) 
