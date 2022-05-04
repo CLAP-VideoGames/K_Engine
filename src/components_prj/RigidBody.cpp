@@ -70,35 +70,43 @@ namespace K_Engine {
 		return name;
 	}
 
-	void RigidBody::setTrigger(bool value) {
-		isTrigger = value;
-	}
+	void RigidBody::init(K_Map* information)
+	{
+		std::string typ = information->value("Type");
 
-	//In both of this methods 0=x 1=y 2=z
-	void RigidBody::setRotConstraints(Vector3 newValue) {
+		if (typ == "Static") bType_ = BodyType::BT_STATIC;
+		else bType_ = BodyType::BT_DYNAMIC;
 
-		rotationConstraints[0] = newValue.y;
-		rotationConstraints[1] = newValue.z;
-		rotationConstraints[2] = newValue.x;
+		std::string col = information->value("Collider");
 
-		if (rb != nullptr)
-			rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
-	}
+		if (col == "Box") type_ = ColliderType::CT_BOX;
+		else if (col == "Sphere") type_ = ColliderType::CT_SPHERE;
+		else if (col == "Trimesh") type_ = ColliderType::CT_TRIMESH;
+		else type_ = ColliderType::CT_HULL;
 
-	void RigidBody::setPosConstraints(Vector3 newValue) {
-		positionConstraints[0] = newValue.x;
-		positionConstraints[1] = newValue.y;
-		positionConstraints[2] = newValue.z;
-		if (rb != nullptr)
-			rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
-	}
+		if (dimensions_ != nullptr)
+			delete dimensions_;
+		dimensions_ = information->valueToVector3("Dimensions");
 
-	void RigidBody::setRestitution(float value) {
-		restitution_ = value;
-	}
+		mass_ = information->valueToNumber("Mass");
 
-	void RigidBody::setFriction(float value) {
-		friction_ = value;
+		isTrigger_ = information->valueToBool("isTrigger");
+
+		/*friction_ = information->valueToNumber("friction");
+
+		restitution_ = information->valueToNumber("restitution");*/
+
+		/*std::string groupName = information->value("group");
+		if (PhysicsManager::GetInstance()->getLayerID(groupName)) {
+			PhysicsManager::GetInstance()->addLayer(groupName);
+		}*/
+		group_ = PhysicsManager::GetInstance()->getLayerID("Suelo");
+
+		mask_ = PhysicsManager::GetInstance()->getLayerID("Jugador");
+
+		/*if (offsetCenter_ != nullptr)
+			delete offsetCenter_;
+		offsetCenter_ = information->valueToVector3("offsetCenter");*/
 	}
 
 	void RigidBody::start() {
@@ -137,35 +145,11 @@ namespace K_Engine {
 		syncRotation();
 	}
 
-	void RigidBody::init(K_Map* information)
-	{
-		std::string typ = information->value("Type");
-
-		if (typ == "Static") bType_ = BodyType::BT_STATIC;
-		else bType_ = BodyType::BT_DYNAMIC;
-
-		std::string col = information->value("Collider");
-
-		if (col == "Box") type_ = ColliderType::CT_BOX;
-		else if (col == "Sphere") type_ = ColliderType::CT_SPHERE;
-		else if (col == "Trimesh") type_ = ColliderType::CT_TRIMESH;
-		else type_ = ColliderType::CT_HULL;
-
-		if (dimensions_ != nullptr)
-			delete dimensions_;
-		dimensions_ = information->valueToVector3("Dimensions");
-
-		mass_ = information->valueToNumber("Mass");
-
-		isTrigger = information->valueToBool("isTrigger");
-	}
 
 	void RigidBody::update(int frameTime) {
 		if (rb != nullptr && bType_ != BodyType::BT_STATIC) {
 			btVector3 pos = rb->getWorldTransform().getOrigin();
-			btScalar y;
-			btScalar z;
-			btScalar x;
+			btScalar x, y, z;
 			rb->getWorldTransform().getRotation().getEulerZYX(z, y, x);
 
 			//set new position
@@ -176,23 +160,38 @@ namespace K_Engine {
 				addForce(forceToAdd);
 				forceToAdd = Vector3(0, 0, 0);
 			}
-
-			/*float force = mass_*10;
-
-			if (InputManager::GetInstance()->isKeyDown(K_Engine::K_Engine_Scancode::SCANCODE_A)) {
-				transformRf_->setRotation(0, 270, 0);
-				addForceImpulse({ -force, 0.0f, 0 });
-			}
-
-			if (InputManager::GetInstance()->isKeyDown(K_Engine::K_Engine_Scancode::SCANCODE_D)) {
-				transformRf_->setRotation(0, 90, 0);
-				addForceImpulse({ force, 0.0f, 0});
-			}*/
 		}
 	}
 
-	void RigidBody::debug() {
+	void RigidBody::setTrigger(bool value) {
+		isTrigger_ = value;
+	}
 
+	//In both of this methods 0=x 1=y 2=z
+	void RigidBody::setRotConstraints(Vector3 newValue) {
+
+		rotationConstraints[0] = newValue.y;
+		rotationConstraints[1] = newValue.z;
+		rotationConstraints[2] = newValue.x;
+
+		if (rb != nullptr)
+			rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
+	}
+
+	void RigidBody::setPosConstraints(Vector3 newValue) {
+		positionConstraints[0] = newValue.x;
+		positionConstraints[1] = newValue.y;
+		positionConstraints[2] = newValue.z;
+		if (rb != nullptr)
+			rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
+	}
+
+	void RigidBody::setRestitution(float value) {
+		restitution_ = value;
+	}
+
+	void RigidBody::setFriction(float value) {
+		friction_ = value;
 	}
 
 	void RigidBody::syncScale() {

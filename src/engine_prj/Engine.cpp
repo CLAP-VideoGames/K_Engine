@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-#define DEVELOPMENT
+////////////////#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -140,12 +140,12 @@ namespace K_Engine {
 			run = inputMan->update() && !exit();
 			if (!run) continue;
 
-			//while (accFrameTime >= DELTA_TIME) {
-			//	// physics update
-			//	sceneMan->fixedUpdateScene(DELTA_TIME);
-			//	physicsMan->update();
-			//	accFrameTime -= DELTA_TIME;
-			//}
+			while (accFrameTime >= DELTA_TIME) {
+				// physics update
+				sceneMan->fixedUpdateScene(DELTA_TIME);
+				physicsMan->update();
+				accFrameTime -= DELTA_TIME;
+			}
 
 			// regular update for the entities
 			sceneMan->updateScene(frameTime);

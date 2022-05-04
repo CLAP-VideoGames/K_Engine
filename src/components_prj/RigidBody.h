@@ -51,6 +51,20 @@ namespace K_Engine {
 		//Required method for the component name
 		static std::string GetId();
 
+		virtual void init(K_Map* information);
+
+
+		/// <summary>
+		/// It's called at the beginning of the execution.
+		/// </summary>
+		virtual void start();
+
+
+		/// <summary>
+		/// It's called every frame of the game.
+		/// </summary> 
+		virtual void update(int frameTime);
+
 		/// <summary>
 		/// Determines whether is a trigger or not
 		/// </summary>
@@ -78,23 +92,6 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="value"></param>
 		void setFriction(float value);
-
-		/// <summary>
-		/// It's called at the beginning of the execution.
-		/// </summary>
-		virtual void start();
-
-		virtual void init(K_Map* information);
-
-		/// <summary>
-		/// It's called every frame of the game.
-		/// </summary> 
-		virtual void update(int frameTime);
-
-		/// <summary>
-		/// Custom method for debugging.
-		/// </summary>
-		virtual void debug();
 
 		/// <summary>
 		/// Updates the physic scale which the transform scale
@@ -167,8 +164,7 @@ namespace K_Engine {
 		//Info
 		K_Engine::CollisionInfo* collisionInfo = nullptr;
 
-		//Boolean to control if the associated trigger is a trigger or not (default is false)
-		bool isTrigger = false;
+
 		//Mass of the body
 		float mass_;
 		//Bounciness factor

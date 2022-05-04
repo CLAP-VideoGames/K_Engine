@@ -1,6 +1,5 @@
 #include "K_Map.h"
 #include <utils_prj/Vector3.h>
-#include <sstream>
 #include <vector>
 #include <script_prj/ScriptManager.h>
 

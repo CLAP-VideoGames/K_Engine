@@ -7,6 +7,7 @@
 #include <string>
 #include <functional>
 #include <vector>
+#include <sstream>
 
 #include <script_prj/ScriptManager.h>
 #include <utils_prj/Vector3.h>
@@ -45,7 +46,7 @@ namespace K_Engine {
 			while (getline(f, s, ','))
 				values.push_back(T(s));
 
-			return vector;
+			return values;
 		}
 
 		//template<typename ...Ts>
