@@ -52,6 +52,8 @@ namespace K_Engine {
 		static std::unique_ptr<SceneManager> instance;
 
 		std::stack<Scene*> scenes;
+
+		std::stack<Scene*> scenesToDelete;
 	};
 }
 #endif

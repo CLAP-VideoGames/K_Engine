@@ -49,7 +49,7 @@ namespace K_Engine {
 		if (scenes.size() < 2)
 			return;
 
-		delete scenes.top();
+		scenesToDelete.push(scenes.top());
 		scenes.pop();
 	}
 
@@ -94,6 +94,11 @@ namespace K_Engine {
 	}
 
 	void SceneManager::updateScene(int frameTime) {
+		while (!scenesToDelete.empty()) {
+			delete scenesToDelete.top();
+			scenesToDelete.pop();
+		}
+
 		scenes.top()->update(frameTime);
 	}
 
