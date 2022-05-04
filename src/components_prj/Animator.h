@@ -50,12 +50,12 @@ namespace K_Engine {
 		/// <summary>
 		/// It's called at the beginning of the execution.
 		/// </summary>
-		virtual void start();
-
+		virtual void awake();
 		/// <summary>
 		/// It's called every frame of the game.
 		/// </summary> 
 		virtual void update(int frameTime);
+
 
 		/// <summary>
 		/// Custom method for debugging.

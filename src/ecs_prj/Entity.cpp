@@ -21,9 +21,10 @@ namespace K_Engine {
 
 	void Entity::update(int frameTime)
 	{
-		for (auto c : components)
+		for (auto c : components) {
 			//Update is called before physics update so the physics uses the information from the last update
-			c.second->update(frameTime);
+			if(c.second->enable) c.second->update(frameTime);
+		}
 
 		//Update for the entity children
 		for (auto c : children)

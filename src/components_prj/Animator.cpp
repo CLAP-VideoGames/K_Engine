@@ -41,7 +41,7 @@ namespace K_Engine {
 		startsEnabled = false;
 	}
 
-	void Animator::start()
+	void Animator::awake()
 	{
 		// Obtenemos los componentes y entidades necesarios
 		tr_ = entity->getComponent<Transform>();

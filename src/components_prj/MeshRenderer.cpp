@@ -145,6 +145,8 @@ namespace K_Engine {
 
 	std::string MeshRenderer::getMeshName()
 	{
-		return meshFile;
+		std::string name = meshFile;
+		name.resize(meshFile.size() - 5);
+		return name;
 	}
 }
