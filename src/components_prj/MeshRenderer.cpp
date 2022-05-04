@@ -113,13 +113,6 @@ namespace K_Engine {
 		return result;
 	}
 
-	void MeshRenderer::setSinbad() {
-		if (mNode) {
-			mEntity = K_Engine::RenderManager::GetInstance()->getSceneManager()->createEntity("ogrehead.mesh");
-			mNode->attachObject(mEntity);
-		}
-	}
-
 	void MeshRenderer::syncScale() {
 		transformRf = entity->getComponent<Transform>();
 		Vector3 scaleT = transformRf->getScale();

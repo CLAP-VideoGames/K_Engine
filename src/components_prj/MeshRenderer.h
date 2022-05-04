@@ -56,8 +56,6 @@ namespace K_Engine {
 		std::string getMeshName();
 
 	private:
-
-
 		// required
 		static std::string name;
 
@@ -71,9 +69,6 @@ namespace K_Engine {
 		bool visible;		  // visibility of the object
 		std::string material; // name of the object's material
 		std::string meshFile; //name of mesh file 
-
-		// debuggin method to know that our component works as intended
-		void setSinbad();
 	};
 }
 #endif // MESHRENDERER_H
