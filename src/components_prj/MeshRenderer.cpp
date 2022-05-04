@@ -51,7 +51,7 @@ namespace K_Engine {
 
 	void MeshRenderer::start() {
 		transformRf = entity->getComponent<Transform>();
-		mNode->showBoundingBox(true);
+		mNode->showBoundingBox(false);
 		syncScale();
 		syncRotation();
 	}
