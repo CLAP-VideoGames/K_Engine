@@ -21,24 +21,37 @@ namespace K_Engine {
 
 	void Entity::update(int frameTime)
 	{
-		for (auto c : components) {
+		auto it = components.begin();
+		while ( it != components.end()) {
+			//if it has to be destoyed, we destroy it
+			if (it->second->destroyed()) {
+				delete it->second;
+				it = components.erase(it);
+			}//If it is active, we update it
 			//Update is called before physics update so the physics uses the information from the last update
-			if(c.second->enable) c.second->update(frameTime);
+			else { 
+				if (it->second->enable) it->second->update(frameTime); 
+				++it;
+			}
 		}
 
-		//Update for the entity children
-		for (auto c : children)
-			c->update(frameTime);
 	}
 
 	void Entity::fixedUpdate(int deltaTime)
 	{
-		for (auto c : components)
-			c.second->physicsUpdate(deltaTime);
-
-		//Update for the entity children
-		for (auto c : children) 
-			c->fixedUpdate(deltaTime);
+		auto it = components.begin();
+		while (it != components.end()) {
+			//if it has to be destoyed, we destroy it
+			if (it->second->destroyed()) {
+				delete it->second;
+				it = components.erase(it);
+			}//If it is active, we update it
+			//Update is called before physics update so the physics uses the information from the last update
+			else {
+				if (it->second->enable) it->second->physicsUpdate(deltaTime);
+				++it;
+			}
+		}
 	}
 
 	void Entity::awake()

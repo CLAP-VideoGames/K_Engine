@@ -8,6 +8,7 @@ namespace K_Engine {
 
 	Component::Component() {
 		enable = true;
+		toDestroy = false;
 		entity = nullptr;
 	}
 
@@ -38,5 +39,9 @@ namespace K_Engine {
 
 		if (enable)onEnable();
 		else onDisable();
+	}
+	void Component::destroy()
+	{
+		toDestroy = true;
 	}
 }

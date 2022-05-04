@@ -91,9 +91,18 @@ namespace K_Engine {
 		//Default string to force the user to give it a diferent id 
 		bool enable;
 
+
+		//To know when to destroy our entity
+		bool destroyed() { return toDestroy; }
+
+		//Destroy this object and all its components
+		void destroy();
+
 	protected:
 
 		Entity* entity;
+
+		bool toDestroy; // knows when do we have to erase an entity
 	};
 }
 #endif	// COMPONENT_H

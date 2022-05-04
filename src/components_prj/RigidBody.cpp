@@ -146,7 +146,7 @@ namespace K_Engine {
 		rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
 		rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
 		rb->applyGravity();
-		if (bType_ == BodyType::BT_DYNAMIC) disableDeactivation();
+		if (bType_ == BodyType::BT_DYNAMIC)disableDeactivation();
 		syncScale();
 		syncRotation();
 	}

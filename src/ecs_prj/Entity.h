@@ -42,12 +42,7 @@ namespace K_Engine {
 			//If the entity has the component we remove it
 			if (hasComponent<T>()) {
 				auto it = components.find(compName);
-
-				components.erase(it);
-
-				delete components[compName];
-
-				components[compName] = nullptr;
+				it->second->destroy();
 			}
 		}
 
