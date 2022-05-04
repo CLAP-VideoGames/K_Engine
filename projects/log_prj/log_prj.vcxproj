@@ -91,6 +91,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\log_prj\LogManager.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\utils_prj\utils_prj.vcxproj">
+      <Project>{6722d8bc-01d9-41b8-a846-738d35a52e27}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

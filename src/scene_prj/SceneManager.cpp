@@ -94,12 +94,12 @@ namespace K_Engine {
 	}
 
 	void SceneManager::updateScene(int frameTime) {
+		scenes.top()->update(frameTime);
+
 		while (!scenesToDelete.empty()) {
 			delete scenesToDelete.top();
 			scenesToDelete.pop();
 		}
-
-		scenes.top()->update(frameTime);
 	}
 
 	void SceneManager::fixedUpdateScene(int deltaTime) {

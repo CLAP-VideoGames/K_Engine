@@ -16,6 +16,11 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\sound_prj\AudioManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\utils_prj\utils_prj.vcxproj">
+      <Project>{6722d8bc-01d9-41b8-a846-738d35a52e27}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

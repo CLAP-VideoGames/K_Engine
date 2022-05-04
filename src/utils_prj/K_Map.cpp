@@ -60,12 +60,8 @@ namespace K_Engine {
 	Vector3* K_Map::valueToVector3(std::string key)
 	{
 		auto iterator = information.find(key);
-
 		double x = 0, y = 0, z = 0;
-
 		std::string numbers = iterator->second;
-
-		std::string number;
 
 		std::istringstream f(numbers);
 		std::string s;
@@ -80,5 +76,3 @@ namespace K_Engine {
 		return vector;
 	}
 }
-
-
