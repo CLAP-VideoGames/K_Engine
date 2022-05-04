@@ -37,8 +37,8 @@ namespace K_Engine {
 	}
 
 	void Animator::init(K_Map* information) {
-		defaultAnim = information->value("defaultAnim");
-		startsEnabled = information->valueToBool("startsEnabled");
+		defaultAnim = "None";
+		startsEnabled = false;
 	}
 
 	void Animator::start()

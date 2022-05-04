@@ -43,7 +43,7 @@ namespace K_Engine {
 			std::string s;
 			std::vector<T> values;
 
-			while (getline(f, s, ','))
+			while (getline(f>>std::ws, s, ','))
 				values.push_back(T(s));
 
 			return values;

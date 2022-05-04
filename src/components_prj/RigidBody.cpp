@@ -92,21 +92,27 @@ namespace K_Engine {
 
 		isTrigger_ = information->valueToBool("isTrigger");
 
-		/*friction_ = information->valueToNumber("friction");
+		friction_ = information->valueToNumber("friction");
 
-		restitution_ = information->valueToNumber("restitution");*/
+		restitution_ = information->valueToNumber("restitution");
 
-		/*std::string groupName = information->value("group");
+		std::string groupName = information->value("group");
+		groupName[0] = tolower(groupName[0]);
 		if (PhysicsManager::GetInstance()->getLayerID(groupName)) {
 			PhysicsManager::GetInstance()->addLayer(groupName);
-		}*/
-		group_ = PhysicsManager::GetInstance()->getLayerID("Suelo");
+		}
+		group_ = PhysicsManager::GetInstance()->getLayerID(groupName);
 
-		mask_ = PhysicsManager::GetInstance()->getLayerID("Jugador");
+		std::vector<std::string> masks = information->valueToVector<std::string>("mask");
+		mask_ = 0;
+		for (std::string currentMask : masks) {
+			mask_ |= PhysicsManager::GetInstance()->getLayerID(currentMask);
+		}
 
-		/*if (offsetCenter_ != nullptr)
+		if (offsetCenter_ != nullptr)
 			delete offsetCenter_;
-		offsetCenter_ = information->valueToVector3("offsetCenter");*/
+		if (information->hasValue("offsetCenter"))
+			offsetCenter_ = information->valueToVector3("offsetCenter");
 	}
 
 	void RigidBody::start() {
@@ -140,7 +146,7 @@ namespace K_Engine {
 		rb->setLinearFactor(btVector3(positionConstraints[0], positionConstraints[1], positionConstraints[2]));
 		rb->setAngularFactor(btVector3(rotationConstraints[0], rotationConstraints[1], rotationConstraints[2]));
 		rb->applyGravity();
-		disableDeactivation();
+		if (bType_ == BodyType::BT_DYNAMIC) disableDeactivation();
 		syncScale();
 		syncRotation();
 	}
