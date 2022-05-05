@@ -132,6 +132,8 @@ namespace K_Engine {
 
 		void addForceImpulse(Vector3 const& value);
 
+		void setVelocity(Vector3 const& value);
+
 		/// <summary>
 		/// Returns the linear velocity of the rigidbody
 		/// </summary>

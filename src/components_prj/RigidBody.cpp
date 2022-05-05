@@ -258,6 +258,11 @@ namespace K_Engine {
 		rb->applyCentralImpulse(force);
 	}
 
+	void RigidBody::setVelocity(Vector3 const& value)
+	{
+		rb->setLinearVelocity(btVector3((btScalar)value.x, (btScalar)value.y, (btScalar)value.z));
+	}
+
 	Vector3 RigidBody::getVelocity()
 	{
 		btVector3 speed = rb->getLinearVelocity();
