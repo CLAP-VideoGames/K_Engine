@@ -285,8 +285,8 @@ namespace K_Engine {
 		loadScene(name);
 
 		entMan->awake();
-		entMan->onEnable();
 		entMan->start();
+		entMan->onEnable();
 	}
 
 	void Scene::update(int frameTime) {

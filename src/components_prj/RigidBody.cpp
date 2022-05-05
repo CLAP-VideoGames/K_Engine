@@ -263,6 +263,16 @@ namespace K_Engine {
 		rb->setLinearVelocity(btVector3((btScalar)value.x, (btScalar)value.y, (btScalar)value.z));
 	}
 
+	void RigidBody::translate(Vector3 const& value)
+	{
+		rb->translate({(btScalar)value.x,(btScalar)value.y,(btScalar)value.z });
+	}
+
+	void RigidBody::setRotation(Vector3 const& value)
+	{
+		rb->getWorldTransform().setRotation(btQuaternion(value.z, value.y, value.x));
+	}
+
 	Vector3 RigidBody::getVelocity()
 	{
 		btVector3 speed = rb->getLinearVelocity();
