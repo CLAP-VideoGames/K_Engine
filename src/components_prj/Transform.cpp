@@ -109,9 +109,9 @@ namespace K_Engine {
 			Vector3 toSetChild = toSet;
 
 			//Get the diference between new pos and oldPos
-			toSetChild.x -= oldParentPos.x;
-			toSetChild.y -= oldParentPos.y;
-			toSetChild.z -= oldParentPos.z;
+			toSetChild.x = oldParentPos.x;
+			toSetChild.y = oldParentPos.y;
+			toSetChild.z = oldParentPos.z;
 
 			//Set its new position with the parent as (0,0,0)
 			childT->setPosition((childPos.x + toSetChild.x), (childPos.y + toSetChild.y), (childPos.z + toSetChild.z));

@@ -136,7 +136,7 @@ namespace K_Engine {
 
 		Vector3 scale = transformRf_->getScale();
 		btVector3 scale_ = { (btScalar)scale.x, (btScalar)scale.y, (btScalar)scale.z };
-		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->z, (btScalar)dimensions_->y };
+		btVector3 dimensions = { (btScalar)dimensions_->x, (btScalar)dimensions_->y, (btScalar)dimensions_->z };
 		collisionInfo = new K_Engine::CollisionInfo(this->entity,
 			//Collision Enter Callback
 			[=](void* other) {
