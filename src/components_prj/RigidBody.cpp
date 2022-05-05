@@ -93,11 +93,6 @@ namespace K_Engine {
 		mass_ = information->valueToNumber("Mass");
 
 		isTrigger_ = information->valueToBool("isTrigger");
-		
-		mask_ = 1;
-		group_ = 1;
-		if (information->hasValue("restitution")) {
-			friction_ = information->valueToNumber("friction");
 
 		mask_ = 1;
 		group_ = 1;
