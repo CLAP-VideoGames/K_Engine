@@ -91,28 +91,33 @@ namespace K_Engine {
 		mass_ = information->valueToNumber("Mass");
 
 		isTrigger_ = information->valueToBool("isTrigger");
+		
+		mask_ = 1;
+		group_ = 1;
+		if (information->hasValue("restitution")) {
+			friction_ = information->valueToNumber("friction");
 
-		friction_ = information->valueToNumber("friction");
 
-		restitution_ = information->valueToNumber("restitution");
+			restitution_ = information->valueToNumber("restitution");
 
-		std::string groupName = information->value("group");
-		groupName[0] = tolower(groupName[0]);
-		if (PhysicsManager::GetInstance()->getLayerID(groupName)) {
-			PhysicsManager::GetInstance()->addLayer(groupName);
-		}
-		group_ = PhysicsManager::GetInstance()->getLayerID(groupName);
+			std::string groupName = information->value("group");
+			groupName[0] = tolower(groupName[0]);
+			if (PhysicsManager::GetInstance()->getLayerID(groupName)) {
+				PhysicsManager::GetInstance()->addLayer(groupName);
+			}
+			group_ = PhysicsManager::GetInstance()->getLayerID(groupName);
 
-		std::vector<std::string> masks = information->valueToVector<std::string>("mask");
-		mask_ = 0;
-		for (std::string currentMask : masks) {
-			mask_ |= PhysicsManager::GetInstance()->getLayerID(currentMask);
-		}
+			std::vector<std::string> masks = information->valueToVector<std::string>("mask");
+			mask_ = 0;
+			for (std::string currentMask : masks) {
+				mask_ |= PhysicsManager::GetInstance()->getLayerID(currentMask);
+			}
 
-		if (offsetCenter_ != nullptr)
-			delete offsetCenter_;
-		if (information->hasValue("offsetCenter"))
-			offsetCenter_ = information->valueToVector3("offsetCenter");
+			if (offsetCenter_ != nullptr)
+				delete offsetCenter_;
+			if (information->hasValue("offsetCenter"))
+				offsetCenter_ = information->valueToVector3("offsetCenter");
+		}	
 	}
 
 	void RigidBody::start() {

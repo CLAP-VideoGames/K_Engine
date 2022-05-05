@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-////////////////////////////////////////////#define DEVELOPMENT
+////////////////////////////////////////////////#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -19,8 +19,11 @@
 // DELETE
 #include <scene_prj/Scene.h>
 
+#include <components_prj/DebugDrawer.h>
+
 #include <ecs_prj/ComponentManager.h>
 #include <components_prj/ComponentRegistry.h>
+#include <components_prj/DebugDrawer.h>
 
 #include <utils_prj/Math.h>
 #include <utils_prj/Timer.h>
@@ -102,6 +105,11 @@ namespace K_Engine {
 			// clean loading screen
 			uiMan->cleanElements();
 
+			dB = new OgreDebugDrawer(RenderManager::GetInstance()->getSceneManager());
+			dB->setUpModes();
+
+			physicsMan->registerDebugDrawer(dB);
+
 #ifndef DEVELOPMENT
 			registerGameLayers();		// game layers setup
 			registerGameComponents();	// game component setup
@@ -139,6 +147,8 @@ namespace K_Engine {
 			// exit condition (we hould hange the keys to the game and use the exitCondition method here
 			run = inputMan->update() && !exit();
 			if (!run) continue;
+
+
 
 			while (accFrameTime >= DELTA_TIME) {
 				// physics update

@@ -49,6 +49,9 @@ namespace K_Engine {
 
 	void PhysicsManager::update() {
 		btWorld->stepSimulation(1.f / 60.f, 10);
+
+		dynamicsWorld_->getBtWorld()->getDebugDrawer()->setDebugMode(3);
+		dynamicsWorld_->getBtWorld()->debugDrawWorld();
 	}
 
 	void PhysicsManager::registerDefaultLayers() {
@@ -111,5 +114,9 @@ namespace K_Engine {
 
 	int PhysicsManager::getLayerID(std::string name) const {
 		return colLayers_->getLayer(name);
+	}
+
+	void PhysicsManager::registerDebugDrawer(btIDebugDraw* dB) {
+		dynamicsWorld_->getBtWorld()->setDebugDrawer(dB);
 	}
 }
