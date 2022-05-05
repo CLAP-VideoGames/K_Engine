@@ -128,7 +128,6 @@ namespace K_Engine {
 			currentState_->animation->setTimePosition(0);
 		}
 		catch (const std::exception&){
-			//logMan->printLog(LogType::FATAL, "Error on game data initialization");
 		}
 		
 	}
