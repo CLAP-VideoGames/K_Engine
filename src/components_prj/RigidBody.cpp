@@ -172,7 +172,7 @@ namespace K_Engine {
 
 			//set new position
 			transformRf_->setPosition(pos.x() - offsetCenter_->x, pos.y() - offsetCenter_->y, pos.z() - offsetCenter_->z);
-			transformRf_->updateRotationFromPhysics(y, x, z);
+			transformRf_->updateRotationFromPhysics(x, y, z);
 
 			if (forceToAdd != Vector3(0, 0, 0)) {
 				addForce(forceToAdd);
@@ -227,7 +227,7 @@ namespace K_Engine {
 
 		Vector3 rotation = transformRf_->getRotation();
 		btVector3 rot = { (btScalar)btRadians(rotation.x), (btScalar)btRadians(rotation.y), (btScalar)btRadians(rotation.z) };
-		rb->getWorldTransform().setRotation(btQuaternion(rot.x(), rot.y(), rot.z()));
+		rb->getWorldTransform().setRotation(btQuaternion(rot.y(), rot.x(), rot.z()));
 	}
 
 	void RigidBody::setDimensions(Vector3 const& toAdd) {
