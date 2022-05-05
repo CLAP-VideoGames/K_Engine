@@ -263,6 +263,11 @@ namespace K_Engine {
 		rb->setLinearVelocity(btVector3((btScalar)value.x, (btScalar)value.y, (btScalar)value.z));
 	}
 
+	void RigidBody::translate(Vector3 const& value)
+	{
+		rb->translate({(btScalar)value.x,(btScalar)value.y,(btScalar)value.z });
+	}
+
 	Vector3 RigidBody::getVelocity()
 	{
 		btVector3 speed = rb->getLinearVelocity();

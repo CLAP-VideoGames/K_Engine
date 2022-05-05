@@ -134,6 +134,8 @@ namespace K_Engine {
 
 		void setVelocity(Vector3 const& value);
 
+		void translate(Vector3 const& value);
+
 		/// <summary>
 		/// Returns the linear velocity of the rigidbody
 		/// </summary>

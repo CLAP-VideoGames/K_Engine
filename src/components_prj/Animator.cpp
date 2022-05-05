@@ -67,16 +67,11 @@ namespace K_Engine {
 		// Actualizamos la animacion actual
 		if(currentState_->animation != nullptr && !stopAllAnims)
 			currentState_->animation->addTime(Ogre::Real(frameTime/1000.0f));
-
-		// Miramos si hay que cambiar de estado de animacion
-		//manageAnimTransitions();
 	}
 
 	void Animator::setAnimTransition(std::string src, std::string dest, bool cond)
 	{
 		AnimTransition next ({ dest, cond });
-
-		//animTransitionsMap_.emplace(src, next);
 	}
 
 	void Animator::setAnimBool(std::string anim, std::string condName, bool value)
