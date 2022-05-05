@@ -38,7 +38,7 @@ namespace K_Engine {
 
 	}
 
-	RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int mask, int group, bool isTrigger) : Component(e) {
+	RigidBody::RigidBody(Entity* e, ColliderType type, BodyType bType, float mass, int group, int mask, bool isTrigger) : Component(e) {
 		type_ = type;
 		bType_ = bType;
 		mass_ = mass;
@@ -48,6 +48,8 @@ namespace K_Engine {
 		isTrigger_ = isTrigger;
 		group_ = group;
 		mask_ = mask;
+
+		//std::cout << group << " " << mask << "\n";
 
 		dimensions_ = new Vector3(1, 1, 1); //By default
 		offsetCenter_ = new Vector3(0, 0, 0); //By default no offset
@@ -92,27 +94,37 @@ namespace K_Engine {
 
 		isTrigger_ = information->valueToBool("isTrigger");
 
-		friction_ = information->valueToNumber("friction");
+		mask_ = 1;
+		group_ = 1;
+		if (information->hasValue("friction"))
+			friction_ = information->valueToNumber("friction");
 
-		restitution_ = information->valueToNumber("restitution");
+		if (information->hasValue("restitution"))
+			restitution_ = information->valueToNumber("restitution");
 
-		std::string groupName = information->value("group");
-		groupName[0] = tolower(groupName[0]);
-		if (PhysicsManager::GetInstance()->getLayerID(groupName)) {
-			PhysicsManager::GetInstance()->addLayer(groupName);
+		if (information->hasValue("group")) {
+			std::string groupName = information->value("group");
+			groupName[0] = tolower(groupName[0]);
+			if (PhysicsManager::GetInstance()->getLayerID(groupName)) {
+				PhysicsManager::GetInstance()->addLayer(groupName);
+			}
+			group_ = PhysicsManager::GetInstance()->getLayerID(groupName);
 		}
-		group_ = PhysicsManager::GetInstance()->getLayerID(groupName);
 
-		std::vector<std::string> masks = information->valueToVector<std::string>("mask");
-		mask_ = 0;
-		for (std::string currentMask : masks) {
-			mask_ |= PhysicsManager::GetInstance()->getLayerID(currentMask);
+		if (information->hasValue("mask")) {
+			std::vector<std::string> masks = information->valueToVector<std::string>("mask");
+			mask_ = 0;
+			for (std::string currentMask : masks) {
+				mask_ |= PhysicsManager::GetInstance()->getLayerID(currentMask);
+			}
 		}
 
-		if (offsetCenter_ != nullptr)
-			delete offsetCenter_;
-		if (information->hasValue("offsetCenter"))
-			offsetCenter_ = information->valueToVector3("offsetCenter");
+		if (information->hasValue("offsetCenter")) {
+			if (offsetCenter_ != nullptr)
+				delete offsetCenter_;
+			if (information->hasValue("offsetCenter"))
+				offsetCenter_ = information->valueToVector3("offsetCenter");
+		}
 	}
 
 	void RigidBody::start() {
@@ -261,7 +273,7 @@ namespace K_Engine {
 		return { Math::toEuler((float)x),Math::toEuler((float)y), Math::toEuler((float)z) };
 	}
 
-	float RigidBody::getMass() const{
+	float RigidBody::getMass() const {
 		return mass_;
 	}
 
