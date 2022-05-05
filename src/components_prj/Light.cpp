@@ -34,6 +34,7 @@ namespace K_Engine {
 	}
 
 	Light::~Light() {
+		RenderManager::GetInstance()->getSceneManager()->destroyLight(mLight);
 		delete diffuse; delete lookAt;
 	}
 
