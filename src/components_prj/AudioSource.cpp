@@ -62,7 +62,7 @@ namespace K_Engine {
 	{
 		audioMan = AudioManager::GetInstance();
 
-		if (audio->type == AudioType::SOUND_EFFECT) 
+		if (audio->type == AudioType::SOUND_EFFECT)
 			audio->sfx = audioMan->loadSFX(audio->audio_path.c_str());
 		else
 			audio->mus = audioMan->loadMUS(audio->audio_path.c_str());
@@ -72,8 +72,14 @@ namespace K_Engine {
 	}
 
 	void AudioSource::update(int frameTime) {
-		playing = audioMan->hasEnded(audio);
+		play();
+
+		playing = !audioMan->hasEnded(audio);
 		paused = playing ? paused : playing;
+	}
+
+	void AudioSource::onEnable() {
+		toPlay = true;
 	}
 
 	void AudioSource::onDisable() {
@@ -86,7 +92,7 @@ namespace K_Engine {
 	void AudioSource::play() {
 		if (!playing) {
 			audioMan->play(audio, loopable ? -1 : 0);
-			playing = true;
+			playing = true; toPlay = false;
 		}
 	}
 

@@ -92,11 +92,11 @@ namespace K_Engine {
 
 		slider_ = UIManager::GetInstance()->addWidget<UISlider>(overlayName_, imageName_, x_, y_, width_, height_, initialPosition);
 
-		progressBar_ = entity->addComponent<ProgressBar>(overlayName_ + " progress", "DefaultProgressBar", width_, height_);
+		progressBar_ = entity->addComponent<ProgressBar>(overlayName_ + "_progress", "UCM/SliderProgressBar", width_, height_);
 		progressBar_->setCustomRenderOrder(5);
 		progressBar_->setProgress(slider_->getRelativePos());
 
-		background_ = entity->addComponent<Image>(overlayName_ + " background", "UCM/SliderBackground", width_, height_);
+		background_ = entity->addComponent<Image>(overlayName_ + "_background", "UCM/SliderBackground", width_, height_);
 		background_->setDimensions(width_, height_);
 		background_->setInteractive(true);
 	}

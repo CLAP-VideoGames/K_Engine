@@ -33,6 +33,7 @@ namespace K_Engine {
 		/// </summary> 
 		virtual void update(int frameTime);
 
+		virtual void onEnable();
 		virtual void onDisable();
 
 		// Play Audio
@@ -55,6 +56,8 @@ namespace K_Engine {
 
 		bool loopable, playStart;
 		bool playing, paused;
+
+		bool toPlay = false;
 	};
 }
 #endif // AUDIOSOURCE_H
