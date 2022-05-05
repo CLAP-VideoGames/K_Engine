@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-////////////////////////////////////////////#define DEVELOPMENT
+////////////////////////////////////////////////////#define DEVELOPMENT
 
 #include <stdio.h>
 #include <iostream>
@@ -107,9 +107,9 @@ namespace K_Engine {
 			registerGameComponents();	// game component setup
 
 			// start scene
-			//sceneMan->startScene(startUpScene());
+			sceneMan->startScene(startUpScene());
 			// DELETE
-			sceneMan->pushScene(startScene());
+			/*sceneMan->pushScene(startScene());*/
 #endif
 #ifdef DEVELOPMENT
 			sceneMan->startScene("menu");
