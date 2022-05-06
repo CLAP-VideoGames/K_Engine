@@ -1,7 +1,5 @@
 #include "Engine.h"
 
-//////////////////////////////////////////////////////#define DEVELOPMENT
-
 #include <stdio.h>
 #include <iostream>
 
@@ -43,14 +41,12 @@ namespace K_Engine {
 			return false;
 		logMan = K_Engine::LogManager::GetInstance();
 
-#ifndef DEVELOPMENT
 		// load game dll
 		success = loadGame();
 		// if something goes wrong, we exit initialization
 		if (!success)
 			return logMan->printLog(LogType::FATAL, "Error on game data initialization");
 		name = gameName();
-#endif
 
 		// initialisation of all sub-engines
 		success = K_Engine::RenderManager::Init(name) &&
@@ -87,11 +83,6 @@ namespace K_Engine {
 
 			// physics setup
 			physicsMan->registerDefaultLayers();
-#ifdef DEVELOPMENT
-			// THIS SHOULD BE DELETED EVENTUALLY UPON ENGINE RELEASE
-			physicsMan->addLayer("Player");
-			physicsMan->addLayer("Platform");
-#endif // !DEVELOPMENT
 
 			// input setup
 			inputMan->setupInput();
@@ -102,19 +93,11 @@ namespace K_Engine {
 			// clean loading screen
 			uiMan->cleanElements();
 
-#ifndef DEVELOPMENT
 			registerGameLayers();		// game layers setup
 			registerGameComponents();	// game component setup
 
 			// start scene
 			sceneMan->startScene(startUpScene());
-			// DELETE
-			/*sceneMan->pushScene(startScene());*/
-#endif
-#ifdef DEVELOPMENT
-			sceneMan->startScene("menu");
-#endif
-
 		}
 		catch (const std::exception e) {
 			return logMan->printLog(LogType::FATAL, "Engine setup failure\n");
@@ -175,9 +158,7 @@ namespace K_Engine {
 		audioMan = nullptr; scriptMan = nullptr;
 		inputMan = nullptr; compMan = nullptr;
 
-#ifndef DEVELOPMENT
 		success = closeGame();
-#endif
 		if (!success)
 			return logMan->printLog(LogType::WARNING, "Error on game data shutdown");
 		logMan->printLog(LogType::INFO, "Engine shutdown success");
@@ -217,13 +198,7 @@ namespace K_Engine {
 	}
 
 	bool Engine::exit() {
-#ifdef DEVELOPMENT
-		return inputMan->controllerButtonPressed(K_Engine::CONTROLLER_BUTTON_B) ||
-			inputMan->isKeyDown(K_Engine::SCANCODE_ESCAPE);
-#endif
-#ifndef DEVELOPMENT
 		return gameExitConditions();
-#endif
 	}
 
 	bool Engine::closeGame() {

@@ -2,9 +2,6 @@
 
 title Engine_Build
 
-:: Release compiling boolean
-set RELEASE_ENGINE=false
-
 :: Directory variables
 set CURRENT_WORKING_DIR=%cd%
 set SOL_DIR=.\K_Engine.sln
@@ -41,7 +38,6 @@ echo OGRE .dlls succesfully copied to engine
 echo Copying SDL2 .dlls...
 
 copy .\dependencies\ogre\build\SDL-build\Release\SDL2.dll %EXE_DIR% 1>nul
-
 if %RELEASE_ENGINE% == false copy .\dependencies\ogre\build\SDL-build\Debug\SDL2d.dll %EXE_DIR% 1>nul
 
 echo SDL2 .dlls succesfully copied to engine
@@ -61,9 +57,3 @@ copy .\dependencies\lua\sol\bin\Release\lua.dll %EXE_DIR% 1>nul
 if %RELEASE_ENGINE% == false copy .\dependencies\lua\sol\bin\Debug\lua_d.dll %EXE_DIR% 1>nul
 
 echo Lua .dlls succesfully copied to engine
-
-:: Change engine project properties
-
-:: Build engine dll & exe
-@REM msbuild %SOL_DIR% /t:engine_prj /p:platform=x64 /p:configuration=Release 
-@REM if %RELEASE_ENGINE% == false msbuild %SOL_DIR% /t:engine_prj /p:platform=x64 /p:configuration=Debug
