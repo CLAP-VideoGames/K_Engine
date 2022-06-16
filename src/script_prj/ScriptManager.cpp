@@ -160,7 +160,7 @@ namespace K_Engine {
 		return checkLua(luaState, luaL_dofile(luaState, file.c_str()));
 	}
 
-	void ScriptManager::loadLuaScene(std::string sceneFile, EntityManager* entMan){
+	void ScriptManager::loadLuaScene(std::string sceneFile, EntityManager* entMan) {
 		if (!reloadLuaScript(sceneFile))
 			throw std::string("the scene" + sceneFile + "is not valid\n.");
 
@@ -168,16 +168,29 @@ namespace K_Engine {
 		//So we can call awake once they all are initialized
 		std::vector<Component*> luaComponents;
 
-		luabridge::LuaRef ent = getTable(sceneFile + "_" + "entities"); /*getMetatable(table, "entities");*/
+		//lista de entidades
+		luabridge::LuaRef ent = getTable(sceneFile + "_" + "entities");
 		int numEntities = ent.length();
 		for (size_t i = 1; i <= numEntities; i++)
 			entities.push_back(ent[i].cast<string>());
 
-		luabridge::LuaRef scene = getTable(sceneFile);
+		luabridge::LuaRef prefabs = getTable(sceneFile + "_" + "prefabs"); //esto es donjde los prefabs de verga
 
 		for (size_t i = 0; i < numEntities; i++) {
 			Entity* e = entMan->addEntity();
-			luabridge::LuaRef entity = getMetatable(scene, entities[i]);
+			//
+			std::stringstream e_name_full(entities[i]);
+			std::string word;
+			e_name_full >> word;
+			std::string e_name = word;
+			e_name_full >> word;
+			float e_x = stof(word) / 100;
+			e_name_full >> word;
+			float e_y = stof(word) / 100;
+			e_name_full >> word;
+			float e_z = stof(word) / 100;
+			//
+			luabridge::LuaRef entity = getMetatable(prefabs, e_name);
 
 			lua_pushnil(entity);  /* first key */
 			int j = 0;
@@ -187,13 +200,13 @@ namespace K_Engine {
 				const char* value = lua_tostring(entity, -1);
 				std::string key_ = key;
 				std::string value_ = "";
-				if(value != NULL)value_ = value;
+				if (value != NULL)value_ = value;
 
-				if (key_ == "Enabled"){
-					if(value_ == "false")
+				if (key_ == "Enabled") {
+					if (value_ == "false")
 						e->setActive(false);
 				}
-				else{
+				else {
 
 					//Creates the component
 					Component* c = e->addComponentByName(key_);
@@ -230,6 +243,9 @@ namespace K_Engine {
 
 				lua_pop(entity, 1);
 			}
+
+			if (e->hasComponent<Transform>())e->getComponent<Transform>()->setPosition(e_x, e_y, e_z);
+
 			printf("\x1b[32m Entity %s loaded succesfully.\n \x1b[0m", entities[i].c_str());
 		}
 	}
