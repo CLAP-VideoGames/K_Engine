@@ -174,7 +174,14 @@ namespace K_Engine {
 		for (size_t i = 1; i <= numEntities; i++)
 			entities.push_back(ent[i].cast<string>());
 
+		bool isPrefab = true;
+
+		luabridge::LuaRef scene = getTable(sceneFile);
 		luabridge::LuaRef prefabs = getTable(sceneFile + "_" + "prefabs"); //esto es donjde los prefabs de verga
+
+		// If tables are NullRefs sets boolean
+		if (prefabs.isRefNil() && !scene.isRefNil())
+			isPrefab = false;
 
 		for (size_t i = 0; i < numEntities; i++) {
 			Entity* e = entMan->addEntity();
@@ -183,14 +190,12 @@ namespace K_Engine {
 			std::string word;
 			e_name_full >> word;
 			std::string e_name = word;
-			e_name_full >> word;
-			float e_x = stof(word) / 100;
-			e_name_full >> word;
-			float e_y = stof(word) / 100;
-			e_name_full >> word;
-			float e_z = stof(word) / 100;
-			//
-			luabridge::LuaRef entity = getMetatable(prefabs, e_name);
+
+			luabridge::LuaRef entity = nullptr;
+			if (isPrefab)
+				entity = getMetatable(prefabs, e_name);
+			else
+				entity = getMetatable(scene, entities[i]);
 
 			lua_pushnil(entity);  /* first key */
 			int j = 0;
@@ -244,7 +249,17 @@ namespace K_Engine {
 				lua_pop(entity, 1);
 			}
 
-			if (e->hasComponent<Transform>())e->getComponent<Transform>()->setPosition(e_x, e_y, e_z);
+			// If isPrefab, moves entity to pos
+			if (isPrefab) {
+				e_name_full >> word;
+				float e_x = stof(word) / 100;
+				e_name_full >> word;
+				float e_y = stof(word) / 100;
+				e_name_full >> word;
+				float e_z = stof(word) / 100;
+				if (e->hasComponent<Transform>())e->getComponent<Transform>()->setPosition(e_x, e_y, e_z);
+			}
+
 
 			printf("\x1b[32m Entity %s loaded succesfully.\n \x1b[0m", entities[i].c_str());
 		}
