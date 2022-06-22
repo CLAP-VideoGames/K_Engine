@@ -2,8 +2,13 @@
 
 title Engine_Build
 
+:: Checks if variables exist
+if NOT DEFINED RELEASE_ENGINE set RELEASE_ENGINE=false
+if NOT DEFINED RELEASE_GAME set RELEASE_GAME=false
+if NOT DEFINED DEVELOPMENT set DEVELOPMENT=false
+
 :: Directory variables
-set CURRENT_WORKING_DIR=%cd%
+set CURRENT_WORKING_DIR=%CD%
 set SOL_DIR=.\K_Engine.sln
 set EXE_DIR=.\exe\
 set DEPENDENCIES_DIR=.\dependencies\

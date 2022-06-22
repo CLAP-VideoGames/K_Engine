@@ -1,6 +1,6 @@
 @echo off
 
-set CURR_WORKING_DIR=%cd%
+set CURR_WORKING_DIR=%CD%
 
 set OGRE_BUILD_DIR=.\ogre\
 set BULLET_BUILD_DIR=.\bullet\

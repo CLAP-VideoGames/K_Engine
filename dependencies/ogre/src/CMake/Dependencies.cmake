@@ -111,7 +111,7 @@ if(OGRE_BUILD_DEPENDENCIES AND NOT EXISTS ${OGREDEPS_PATH})
     if(MSVC OR MINGW OR SKBUILD) # other platforms dont need this
         message(STATUS "Building SDL2")
         file(DOWNLOAD
-            https://github.com/libsdl-org/SDL/archive/refs/heads/main.zip
+            https://github.com/libsdl-org/SDL/releases/download/release-2.0.22/SDL2-2.0.22.zip
             ${PROJECT_BINARY_DIR}/SDL-main.zip)
         execute_process(COMMAND ${CMAKE_COMMAND} 
             -E tar xf SDL-main.zip WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
