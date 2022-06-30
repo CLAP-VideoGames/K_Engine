@@ -42,16 +42,16 @@ echo OGRE .dlls succesfully copied to engine
 :: Move SDL2 .dlls
 echo Copying SDL2 .dlls...
 
-copy .\dependencies\ogre\build\SDL-build\Release\SDL2.dll %EXE_DIR% 1>nul
-if %RELEASE_ENGINE% == false copy .\dependencies\ogre\build\SDL-build\Debug\SDL2d.dll %EXE_DIR% 1>nul
+copy .\dependencies\ogre\build\SDL2-2.0.22\lib\x64\SDL2.dll %EXE_DIR% 1>nul
+if %RELEASE_ENGINE% == false copy .\dependencies\ogre\build\SDL2-2.0.22\lib\x64\SDL2.dll %EXE_DIR% 1>nul
 
 echo SDL2 .dlls succesfully copied to engine
 
 :: Move SDL_Mixer .dlls
 echo Copying SDL_Mixer .dlls...
 
-copy .\dependencies\sdl_mixer\build\Release\SDL2_mixer.dll %EXE_DIR% 1>nul
-if %RELEASE_ENGINE% == false copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer_d.dll %EXE_DIR% 1>nul
+copy .\dependencies\ogre\build\SDL2_mixer-2.0.4\lib\x64\SDL2_mixer.dll %EXE_DIR% 1>nul
+if %RELEASE_ENGINE% == false copy .\dependencies\ogre\build\SDL2_mixer-2.0.4\lib\x64\SDL2_mixer.dll %EXE_DIR% 1>nul
 
 echo SDL_Mixer .dlls succesfully copied to engine
 
