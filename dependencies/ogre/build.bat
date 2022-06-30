@@ -54,4 +54,3 @@ goto end
 echo OGRE and SDL2 already built and compiled
 
 :end
-pause
