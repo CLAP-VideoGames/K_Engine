@@ -72,7 +72,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>MP3_MUSIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL-main\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.22\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,7 +82,7 @@
     </Link>
     <Lib>
       <AdditionalDependencies>SDL2d.lib;SDL2_mixer_d.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\sdl_mixer\build\$(Configuration);$(SolutionDir)dependencies\ogre\build\SDL-build\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\sdl_mixer\build\$(Configuration);$(SolutionDir)dependencies\ogre\build\SDL2_mixer-2.0.4\lib\$(PlatformShortName);$(SolutionDir)dependencies\ogre\build\SDL2-2.0.22\lib\$(PlatformShortName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>MP3_MUSIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL-main\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.22\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,7 +103,7 @@
     </Link>
     <Lib>
       <AdditionalDependencies>SDL2.lib;SDL2_mixer.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\sdl_mixer\build\$(Configuration);$(SolutionDir)dependencies\ogre\build\SDL-build\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\sdl_mixer\build\$(Configuration);$(SolutionDir)dependencies\ogre\build\SDL2_mixer-2.0.4\lib\$(PlatformShortName);$(SolutionDir)dependencies\ogre\build\SDL2-2.0.22\lib\$(PlatformShortName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

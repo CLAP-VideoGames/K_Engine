@@ -61,7 +61,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL-main\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.22\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
@@ -83,7 +83,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL-main\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)dependencies\ogre\src\OgreMain\include;$(SolutionDir)dependencies\ogre\build\include;$(SolutionDir)dependencies\bullet\src\src;$(SolutionDir)dependencies\sdl_mixer\src\include;$(SolutionDir)dependencies\ogre\build\SDL2-2.0.22\include;$(SolutionDir)dependencies\ogre\build\SDL-build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
