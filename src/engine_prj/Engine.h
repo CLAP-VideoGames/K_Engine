@@ -22,6 +22,7 @@ namespace K_Engine {
 	class LogManager;
 	class UIManager;
 	class ScriptManager;
+	class OgreDebugDrawer;
 
 	class __declspec(dllexport) Engine {
 	public:
@@ -56,6 +57,7 @@ namespace K_Engine {
 		// DELETE
 		GameScene startScene;
 
+		OgreDebugDrawer* dB;
 		bool exit();
 
 		bool loadGame();

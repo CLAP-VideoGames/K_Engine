@@ -22,6 +22,7 @@ enum class BodyType {
 	BT_DYNAMIC,
 };
 
+class btIDebugDraw;
 
 namespace K_Engine {
 
@@ -100,6 +101,8 @@ namespace K_Engine {
 		/// </summary>
 		/// <param name="name">Key name</param>
 		int getLayerID(std::string name) const;
+
+		void registerDebugDrawer(btIDebugDraw* dB);
 
 	private:
 		static std::unique_ptr<PhysicsManager> instance;
