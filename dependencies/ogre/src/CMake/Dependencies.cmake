@@ -111,44 +111,34 @@ if(OGRE_BUILD_DEPENDENCIES AND NOT EXISTS ${OGREDEPS_PATH})
     if(MSVC OR MINGW OR SKBUILD) # other platforms dont need this
         message(STATUS "Building SDL2")
         file(DOWNLOAD
-            https://github.com/libsdl-org/SDL/releases/download/release-2.0.22/SDL2-2.0.22.zip
-            ${PROJECT_BINARY_DIR}/SDL-main.zip)
-        file(DOWNLOAD
-            https://github.com/libsdl-org/SDL/releases/download/release-2.0.22/SDL2-devel-2.0.22-VC.zip
-            ${PROJECT_BINARY_DIR}/SDL-devel.zip)
-        file(DOWNLOAD
-            https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.4-VC.zip
-            ${PROJECT_BINARY_DIR}/SDL-mixer.zip)
+            https://libsdl.org/release/SDL2-2.0.20.tar.gz
+            ${PROJECT_BINARY_DIR}/SDL2-2.0.20.tar.gz)
         execute_process(COMMAND ${CMAKE_COMMAND} 
-            -E tar xf SDL-main.zip WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
-        execute_process(COMMAND ${CMAKE_COMMAND} 
-            -E tar xf SDL-mixer.zip WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
-        execute_process(COMMAND ${CMAKE_COMMAND} 
-            -E tar xf SDL-devel.zip WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+            -E tar xf SDL2-2.0.20.tar.gz WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
         execute_process(COMMAND ${CMAKE_COMMAND}
-            -E make_directory ${PROJECT_BINARY_DIR}/SDL-build)
+            -E make_directory ${PROJECT_BINARY_DIR}/SDL2-build)
         execute_process(COMMAND ${BUILD_COMMAND_COMMON}
             -DSDL_STATIC=FALSE
-            ${PROJECT_BINARY_DIR}/SDL-main
-            WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/SDL-build)
+            ${PROJECT_BINARY_DIR}/SDL2-2.0.20
+            WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/SDL2-build)
         execute_process(COMMAND ${CMAKE_COMMAND}
-            --build ${PROJECT_BINARY_DIR}/SDL-build ${BUILD_COMMAND_OPTS})
+            --build ${PROJECT_BINARY_DIR}/SDL2-build ${BUILD_COMMAND_OPTS})
     endif()
 
     if(MSVC OR MINGW OR SKBUILD) # other platforms dont need this
       message(STATUS "Building zlib") # only needed for Assimp
       file(DOWNLOAD
-          https://www.zlib.net/zlib-1.2.12.tar.gz
-          ${PROJECT_BINARY_DIR}/zlib-1.2.12.tar.gz
-          EXPECTED_MD5 5fc414a9726be31427b440b434d05f78)
+          http://zlib.net/zlib-1.3.1.tar.gz
+          ${PROJECT_BINARY_DIR}/zlib-1.3.1.tar.gz
+          EXPECTED_HASH SHA256=9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23)
       execute_process(COMMAND ${CMAKE_COMMAND}
-          -E tar xf zlib-1.2.12.tar.gz WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+          -E tar xf zlib-1.3.1.tar.gz WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
       execute_process(COMMAND ${BUILD_COMMAND_COMMON}
           -DBUILD_SHARED_LIBS=${OGREDEPS_SHARED}
-          ${PROJECT_BINARY_DIR}/zlib-1.2.12
-          WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/zlib-1.2.12)
+          ${PROJECT_BINARY_DIR}/zlib-1.3.1
+          WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/zlib-1.3.1)
       execute_process(COMMAND ${CMAKE_COMMAND}
-          --build ${PROJECT_BINARY_DIR}/zlib-1.2.12 ${BUILD_COMMAND_OPTS})
+          --build ${PROJECT_BINARY_DIR}/zlib-1.3.1 ${BUILD_COMMAND_OPTS})
 
       message(STATUS "Building Assimp")
       file(DOWNLOAD

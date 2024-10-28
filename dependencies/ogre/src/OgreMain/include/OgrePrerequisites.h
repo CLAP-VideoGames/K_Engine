@@ -30,7 +30,6 @@ THE SOFTWARE
 #include "OgrePlatform.h"
 
 #include <string>
-#include <sstream>
 #include <memory>
 
 namespace Ogre {
