@@ -41,8 +41,8 @@ echo OGRE .dlls succesfully copied to engine
 :: Move SDL2 .dlls
 echo Copying SDL2 .dlls...
 
-copy .\dependencies\ogre\build\SDL2-2.0.22\lib\x64\SDL2.dll %EXE_DIR% 1>nul
-if %RELEASE_ENGINE% == false copy .\dependencies\ogre\build\SDL2-2.0.22\lib\x64\SDL2.dll %EXE_DIR% 1>nul
+copy .\dependencies\sdl\build\Release\SDL2.dll %EXE_DIR% 1>nul
+if %RELEASE_ENGINE% == false copy .\dependencies\sdl\build\Debug\SDL2.dll %EXE_DIR% 1>nul
 
 echo SDL2 .dlls succesfully copied to engine
 
@@ -57,7 +57,7 @@ echo SDL_Mixer .dlls succesfully copied to engine
 :: Move Lua .dlls
 echo Copying Lua .dlls...
 
-copy .\dependencies\lua\sol\bin\Release\lua.dll %EXE_DIR% 1>nul
-if %RELEASE_ENGINE% == false copy .\dependencies\lua\sol\bin\Debug\lua_d.dll %EXE_DIR% 1>nul
+copy .\dependencies\lua\build\Release\liblua.dll %EXE_DIR% 1>nul
+if %RELEASE_ENGINE% == false copy .\dependencies\lua\build\Debug\libluad.dll %EXE_DIR% 1>nul
 
 echo Lua .dlls succesfully copied to engine
