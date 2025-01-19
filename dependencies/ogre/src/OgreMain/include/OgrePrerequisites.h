@@ -31,7 +31,6 @@ THE SOFTWARE
 
 #include <string>
 #include <memory>
-#include <functional>
 
 namespace Ogre {
     #define OGRE_TOKEN_PASTE_INNER(x, y) x ## y

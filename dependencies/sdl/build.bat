@@ -20,7 +20,6 @@ echo Generating SDL2 build...
              -D SDL_OPENGL:BOOL=1 ^
              -D SDL_OPENGLES:BOOL=0 ^
              -D SDL_RENDER_D3D:BOOL=0 ^
-             -D SDL_DIRECTX:BOOL=0 ^
              -D SDL_STATIC:BOOL=0 ^
              -D SDL_SHARED:BOOL=1 ^
              -D SDL_VULKAN:BOOL=0 ^

@@ -26,7 +26,6 @@ copy .\dependencies\ogre\build\bin\release\OgreOverlay.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\Plugin_ParticleFX.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\RenderSystem_GL.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\Codec_STBI.dll %EXE_DIR% 1>nul
-copy .\dependencies\ogre\build\bin\release\Codec_Assimp.dll %EXE_DIR% 1>nul
 copy .\dependencies\ogre\build\bin\release\zlib.dll %EXE_DIR% 1>nul
 
 if %RELEASE_ENGINE% == false (
