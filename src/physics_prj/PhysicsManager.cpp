@@ -50,8 +50,8 @@ namespace K_Engine {
 	void PhysicsManager::update() {
 		btWorld->stepSimulation(1.f / 60.f, 10);
 
-		dynamicsWorld_->getBtWorld()->getDebugDrawer()->setDebugMode(3);
-		dynamicsWorld_->getBtWorld()->debugDrawWorld();
+		//dynamicsWorld_->getBtWorld()->getDebugDrawer()->setDebugMode(3);
+		//dynamicsWorld_->getBtWorld()->debugDrawWorld();
 	}
 
 	void PhysicsManager::registerDefaultLayers() {

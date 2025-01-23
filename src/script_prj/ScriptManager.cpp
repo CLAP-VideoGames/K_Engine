@@ -10,7 +10,7 @@ extern "C" {
 #include <lualib.h>
 #include <lauxlib.h>
 }
-#include <LuaBridge.h>
+#include <LuaBridge/LuaBridge.h>
 
 //Otros proyectos
 #include <render_prj/RenderManager.h>
