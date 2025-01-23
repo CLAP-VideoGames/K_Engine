@@ -16,7 +16,7 @@ if exist %LUA_BUILD_SOL% goto done
 echo Generating Lua build...
 
 %CMAKE_EXEC% -D CMAKE_CONFIGURATION_TYPES:STRING=Debug;Release ^
-             -D LUA_BUILD_AS_CXX:BOOL="1" ^
+             -D LUA_BUILD_AS_CXX:BOOL="0" ^
              -D LUA_BUILD_BINARY:BOOL="0" ^
              -D LUA_BUILD_COMPILER:BOOL="0" ^
              -D LUA_ENABLE_SHARED:BOOL="1" ^

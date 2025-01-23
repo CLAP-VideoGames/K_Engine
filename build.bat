@@ -12,6 +12,7 @@ set CURRENT_WORKING_DIR=%CD%
 set SOL_DIR=.\K_Engine.sln
 set EXE_DIR=.\exe\
 set DEPENDENCIES_DIR=.\dependencies\
+set RELEASE_ENGINE=false
 
 :: Build all dependencies
 cd %DEPENDENCIES_DIR%
@@ -42,15 +43,15 @@ echo OGRE .dlls succesfully copied to engine
 echo Copying SDL2 .dlls...
 
 copy .\dependencies\sdl\build\Release\SDL2.dll %EXE_DIR% 1>nul
-if %RELEASE_ENGINE% == false copy .\dependencies\sdl\build\Debug\SDL2.dll %EXE_DIR% 1>nul
+if %RELEASE_ENGINE% == false copy .\dependencies\sdl\build\Debug\SDL2d.dll %EXE_DIR% 1>nul
 
 echo SDL2 .dlls succesfully copied to engine
 
 :: Move SDL_Mixer .dlls
 echo Copying SDL_Mixer .dlls...
 
-copy .\dependencies\ogre\build\SDL2_mixer-2.0.4\lib\x64\SDL2_mixer.dll %EXE_DIR% 1>nul
-if %RELEASE_ENGINE% == false copy .\dependencies\ogre\build\SDL2_mixer-2.0.4\lib\x64\SDL2_mixer.dll %EXE_DIR% 1>nul
+copy .\dependencies\sdl_mixer\build\Release\SDL2_mixer.dll %EXE_DIR% 1>nul
+if %RELEASE_ENGINE% == false copy .\dependencies\sdl_mixer\build\Debug\SDL2_mixer_d.dll %EXE_DIR% 1>nul
 
 echo SDL_Mixer .dlls succesfully copied to engine
 
